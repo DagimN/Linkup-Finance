@@ -1,29 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WinFormAnimation;
+using Linkup_Finance.Forms;
 
 namespace Linkup_Finance
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private bool isViewing = false;
+
+        private Form activeForm;
+        private DashboardForm dashboardForm;
+        public ProjectForm projectForm;
+        private UsersForm userForm;
 
         private Point startPoint = new Point(0, 0);
         private bool drag = false;
 
         private FormWindowState state = FormWindowState.Normal;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+
+            dashboardForm = new DashboardForm();
+            projectForm = new ProjectForm();
+            userForm = new UsersForm();
+
+            openChildForm(dashboardForm);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -47,36 +52,22 @@ namespace Linkup_Finance
             }
         }
 
-        private void TransitionPanel(Size oldSize, Size newsize, Point oldPoint)
+        //Load Pages to the work panel
+        private void openChildForm(Form childForm)
         {
-            Size oldP = oldSize;
-            Size newP = newsize;
-            Point oldB = oldPoint;
+            if (activeForm != null) activeForm.Visible = false;
 
-            if(oldP.Height < newP.Height)
-            {
-                for (int i = oldP.Height; oldP.Height < newP.Height; i+=5)
-                {
-                    titleBarPanel.Size = oldP = new Size(oldP.Width, oldP.Height + 5);
-                    //guna2Button1.Location = oldB = new Point(oldB.X, oldB.Y + i);
-
-                    Thread.Sleep(TimeSpan.FromMilliseconds(0.01));
-                }
-            }
-            else
-            {
-                for (int i = newP.Height; oldP.Height > newP.Height; i-=5)
-                {
-                    titleBarPanel.Size = oldP = new Size(oldP.Width, oldP.Height - 5);
-                    //guna2Button1.Location = oldB = new Point(oldB.X, oldB.Y - i);
-
-                    Thread.Sleep(TimeSpan.FromMilliseconds(0.01));
-                }
-            }
+            workPanel.Controls.Remove(activeForm);
+            activeForm = childForm;
+            activeForm.TopLevel = false;
+            workPanel.SuspendLayout();
+            workPanel.Controls.Add(activeForm);
+            activeForm.Visible = true;
         }
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            projectForm.projectManager.con.Close();
             Application.Exit();
         }
 
@@ -114,7 +105,9 @@ namespace Linkup_Finance
                         Application.OpenForms[i].WindowState = FormWindowState.Maximized;
                         maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximized_Icon;
                     }
-                      
+
+                ResizeControls();
+
                 state = FormWindowState.Maximized;
             }
                 
@@ -127,7 +120,9 @@ namespace Linkup_Finance
                         Application.OpenForms[i].Size = new Size(1200, 586);
                         maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximize_Icon;
                     }
-                        
+
+                ResizeControls();
+
                 state = FormWindowState.Normal;
             }
         }
@@ -139,9 +134,61 @@ namespace Linkup_Finance
                     if (Application.OpenForms[i].TopLevel) Application.OpenForms[i].WindowState = FormWindowState.Minimized;
         }
 
-        private void titleBarPanel_Paint(object sender, PaintEventArgs e)
+        private void dashboardButton_Click(object sender, EventArgs e)
         {
+            openChildForm(dashboardForm);
+        }
 
+        private void projectButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(projectForm);
+        }
+
+        //Custom Functions
+
+        public static void TransitionPanel(Size oldSize, Size newsize, Point oldPoint)
+        {
+            Size oldP = oldSize;
+            Size newP = newsize;
+            Point oldB = oldPoint;
+
+            if (oldP.Height < newP.Height)
+            {
+                for (int i = oldP.Height; oldP.Height < newP.Height; i += 5)
+                {
+                    Thread.Sleep(TimeSpan.FromMilliseconds(0.01));
+                }
+            }
+            else
+            {
+                for (int i = newP.Height; oldP.Height > newP.Height; i -= 5)
+                {
+                    Thread.Sleep(TimeSpan.FromMilliseconds(0.01));
+                }
+            }
+        }
+
+        private void ResizeControls()
+        {
+            Size resizeValue = new Size(this.Width, this.Height - titleBarPanel.Height);
+            workPanel.Size = resizeValue;
+            projectForm.Size = resizeValue;
+            dashboardForm.Size = resizeValue;
+            userForm.Size = resizeValue;
+
+            if(state == FormWindowState.Maximized)
+            {
+                projectForm.newProjectPanel.Location = new Point(this.Width - projectForm.newProjectPanel.Width, 12);
+            }
+            else
+            {
+                projectForm.newProjectPanel.Location = new Point(this.Width - projectForm.newProjectPanel.Width, 12);
+            }
+        }
+
+        private void userButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(userForm);
         }
     }
 }
