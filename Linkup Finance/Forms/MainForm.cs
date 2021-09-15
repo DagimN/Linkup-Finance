@@ -67,7 +67,6 @@ namespace Linkup_Finance
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            projectForm.projectManager.con.Close();
             Application.Exit();
         }
 

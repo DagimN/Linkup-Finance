@@ -11,7 +11,7 @@ namespace Linkup_Finance.Managers
 {
     public class ProjectManager
     {
-        private List<Project> projects = new List<Project>();
+        public List<Project> projects = new List<Project>();
         public SqlConnection con;
 
         public ProjectManager()
@@ -19,21 +19,28 @@ namespace Linkup_Finance.Managers
             projects = new List<Project>();
 
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString);
-            con.Open();
         }
 
         public void AddProject(string name)
         {
-            Random rand = new Random();
-            int id = rand.Next(999999);
-            string insertQuery = "INSERT INTO Projects(Id, Name)" +
-                                "VALUES ('" + id + "', '" + name + "')";
-            SqlCommand command = new SqlCommand(insertQuery, con);
-
-            if (!Exists(name))
+            try
             {
-                projects.Add(new Project(name));
-                command.ExecuteNonQuery();
+                con.Open();
+                Random rand = new Random();
+                int id = rand.Next(999999);
+                string insertQuery = "INSERT INTO Projects(Id, Name)" +
+                                    "VALUES (\'" + id + "\', \'" + name + "\')";
+                SqlCommand command = new SqlCommand(insertQuery, con);
+
+                if (!Exists(name))
+                {
+                    projects.Add(new Project(name));
+                    command.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                con.Close();
             }
         }
 
@@ -44,6 +51,16 @@ namespace Linkup_Finance.Managers
                     return true;
 
             return false;
+        }
+
+        public void RetrieveProjects(Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter adapter)
+        {
+            int bound = adapter.GetData().Rows.Count;
+            
+            for (int i = 0; i < bound; i++)
+            {
+                projects.Add(new Project(adapter.GetData().Rows[i].ItemArray[1].ToString()));
+            }
         }
     }
 

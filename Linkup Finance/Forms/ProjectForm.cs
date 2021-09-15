@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,9 @@ namespace Linkup_Finance.Forms
 
                 projectManager.AddProject(projectName);
 
+                this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
+                projectManager.RetrieveProjects(projectsTableAdapter);
+
                 newProjectPanel.Visible = false;
             }
         }
@@ -48,9 +52,12 @@ namespace Linkup_Finance.Forms
         {
             // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Projects' table. You can move, or remove it, as needed.
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Projects' table. You can move, or remove it, as needed.
-            this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
-            guna2DataGridView1.DataSource = this.projectsTableAdapter.GetData();
+
+            projectManager.RetrieveProjects(projectsTableAdapter);
+            foreach(Project project in projectManager.projects)
+            {
+                projectOption.Items.Add(project.GetProjectName());
+            }
         }
     }
 }
