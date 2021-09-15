@@ -31,14 +31,14 @@ namespace Linkup_Finance
         {
             this.titleBarPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.userButton = new Guna.UI2.WinForms.Guna2Button();
-            this.projectButton = new Guna.UI2.WinForms.Guna2Button();
-            this.dashboardButton = new Guna.UI2.WinForms.Guna2Button();
-            this.workPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.maximizeButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
+            this.userButton = new Guna.UI2.WinForms.Guna2Button();
+            this.projectButton = new Guna.UI2.WinForms.Guna2Button();
+            this.dashboardButton = new Guna.UI2.WinForms.Guna2Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.workPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.titleBarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -77,87 +77,6 @@ namespace Linkup_Finance
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "FINANCE";
-            // 
-            // userButton
-            // 
-            this.userButton.AutoRoundedCorners = true;
-            this.userButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.userButton.BorderRadius = 15;
-            this.userButton.CheckedState.Parent = this.userButton;
-            this.userButton.CustomImages.Parent = this.userButton;
-            this.userButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.userButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.userButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.userButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.userButton.DisabledState.Parent = this.userButton;
-            this.userButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
-            this.userButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.userButton.ForeColor = System.Drawing.Color.White;
-            this.userButton.HoverState.Parent = this.userButton;
-            this.userButton.Location = new System.Drawing.Point(468, 33);
-            this.userButton.Name = "userButton";
-            this.userButton.ShadowDecoration.Parent = this.userButton;
-            this.userButton.Size = new System.Drawing.Size(143, 32);
-            this.userButton.TabIndex = 8;
-            this.userButton.Text = "Users";
-            this.userButton.Click += new System.EventHandler(this.userButton_Click);
-            // 
-            // projectButton
-            // 
-            this.projectButton.AutoRoundedCorners = true;
-            this.projectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.projectButton.BorderRadius = 15;
-            this.projectButton.CheckedState.Parent = this.projectButton;
-            this.projectButton.CustomImages.Parent = this.projectButton;
-            this.projectButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.projectButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.projectButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.projectButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.projectButton.DisabledState.Parent = this.projectButton;
-            this.projectButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
-            this.projectButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.projectButton.ForeColor = System.Drawing.Color.White;
-            this.projectButton.HoverState.Parent = this.projectButton;
-            this.projectButton.Location = new System.Drawing.Point(319, 33);
-            this.projectButton.Name = "projectButton";
-            this.projectButton.ShadowDecoration.Parent = this.projectButton;
-            this.projectButton.Size = new System.Drawing.Size(143, 32);
-            this.projectButton.TabIndex = 7;
-            this.projectButton.Text = "Projects";
-            this.projectButton.Click += new System.EventHandler(this.projectButton_Click);
-            // 
-            // dashboardButton
-            // 
-            this.dashboardButton.AutoRoundedCorners = true;
-            this.dashboardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.dashboardButton.BorderRadius = 15;
-            this.dashboardButton.CheckedState.Parent = this.dashboardButton;
-            this.dashboardButton.CustomImages.Parent = this.dashboardButton;
-            this.dashboardButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.dashboardButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.dashboardButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.dashboardButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.dashboardButton.DisabledState.Parent = this.dashboardButton;
-            this.dashboardButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
-            this.dashboardButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dashboardButton.ForeColor = System.Drawing.Color.White;
-            this.dashboardButton.HoverState.Parent = this.dashboardButton;
-            this.dashboardButton.Location = new System.Drawing.Point(170, 33);
-            this.dashboardButton.Name = "dashboardButton";
-            this.dashboardButton.ShadowDecoration.Parent = this.dashboardButton;
-            this.dashboardButton.Size = new System.Drawing.Size(143, 32);
-            this.dashboardButton.TabIndex = 6;
-            this.dashboardButton.Text = "Dashboard";
-            this.dashboardButton.Click += new System.EventHandler(this.dashboardButton_Click);
-            // 
-            // workPanel
-            // 
-            this.workPanel.BackColor = System.Drawing.Color.Silver;
-            this.workPanel.Location = new System.Drawing.Point(0, 71);
-            this.workPanel.Name = "workPanel";
-            this.workPanel.ShadowDecoration.Parent = this.workPanel;
-            this.workPanel.Size = new System.Drawing.Size(1200, 516);
-            this.workPanel.TabIndex = 1;
             // 
             // maximizeButton
             // 
@@ -204,6 +123,78 @@ namespace Linkup_Finance
             this.minimizeButton.UseVisualStyleBackColor = false;
             this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
+            // userButton
+            // 
+            this.userButton.AutoRoundedCorners = true;
+            this.userButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.userButton.BorderRadius = 15;
+            this.userButton.CheckedState.Parent = this.userButton;
+            this.userButton.CustomImages.Parent = this.userButton;
+            this.userButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.userButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.userButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.userButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.userButton.DisabledState.Parent = this.userButton;
+            this.userButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.userButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.userButton.ForeColor = System.Drawing.Color.White;
+            this.userButton.HoverState.Parent = this.userButton;
+            this.userButton.Location = new System.Drawing.Point(468, 21);
+            this.userButton.Name = "userButton";
+            this.userButton.ShadowDecoration.Parent = this.userButton;
+            this.userButton.Size = new System.Drawing.Size(143, 32);
+            this.userButton.TabIndex = 8;
+            this.userButton.Text = "Users";
+            this.userButton.Click += new System.EventHandler(this.userButton_Click);
+            // 
+            // projectButton
+            // 
+            this.projectButton.AutoRoundedCorners = true;
+            this.projectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.projectButton.BorderRadius = 15;
+            this.projectButton.CheckedState.Parent = this.projectButton;
+            this.projectButton.CustomImages.Parent = this.projectButton;
+            this.projectButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.projectButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.projectButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.projectButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.projectButton.DisabledState.Parent = this.projectButton;
+            this.projectButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.projectButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.projectButton.ForeColor = System.Drawing.Color.White;
+            this.projectButton.HoverState.Parent = this.projectButton;
+            this.projectButton.Location = new System.Drawing.Point(319, 21);
+            this.projectButton.Name = "projectButton";
+            this.projectButton.ShadowDecoration.Parent = this.projectButton;
+            this.projectButton.Size = new System.Drawing.Size(143, 32);
+            this.projectButton.TabIndex = 7;
+            this.projectButton.Text = "Projects";
+            this.projectButton.Click += new System.EventHandler(this.projectButton_Click);
+            // 
+            // dashboardButton
+            // 
+            this.dashboardButton.AutoRoundedCorners = true;
+            this.dashboardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.dashboardButton.BorderRadius = 15;
+            this.dashboardButton.CheckedState.Parent = this.dashboardButton;
+            this.dashboardButton.CustomImages.Parent = this.dashboardButton;
+            this.dashboardButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.dashboardButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.dashboardButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.dashboardButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.dashboardButton.DisabledState.Parent = this.dashboardButton;
+            this.dashboardButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.dashboardButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dashboardButton.ForeColor = System.Drawing.Color.White;
+            this.dashboardButton.HoverState.Parent = this.dashboardButton;
+            this.dashboardButton.Location = new System.Drawing.Point(170, 21);
+            this.dashboardButton.Name = "dashboardButton";
+            this.dashboardButton.ShadowDecoration.Parent = this.dashboardButton;
+            this.dashboardButton.Size = new System.Drawing.Size(143, 32);
+            this.dashboardButton.TabIndex = 6;
+            this.dashboardButton.Text = "Dashboard";
+            this.dashboardButton.Click += new System.EventHandler(this.dashboardButton_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Linkup_Finance.Properties.Resources.Linkup_Logo;
@@ -214,6 +205,15 @@ namespace Linkup_Finance
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // workPanel
+            // 
+            this.workPanel.BackColor = System.Drawing.Color.Silver;
+            this.workPanel.Location = new System.Drawing.Point(0, 71);
+            this.workPanel.Name = "workPanel";
+            this.workPanel.ShadowDecoration.Parent = this.workPanel;
+            this.workPanel.Size = new System.Drawing.Size(1200, 516);
+            this.workPanel.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,11 +221,11 @@ namespace Linkup_Finance
             this.ClientSize = new System.Drawing.Size(1200, 586);
             this.Controls.Add(this.workPanel);
             this.Controls.Add(this.titleBarPanel);
+            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.Info;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.titleBarPanel.ResumeLayout(false);
             this.titleBarPanel.PerformLayout();

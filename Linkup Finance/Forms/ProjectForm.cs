@@ -23,7 +23,11 @@ namespace Linkup_Finance.Forms
 
         private void newProjectButton_Click(object sender, EventArgs e)
         {
-            newProjectPanel.Visible = true;
+            newProjectLabel.Visible = true;
+            submitButton.Visible = true;
+            projectNameTextBox.Visible = true;
+            exitSubmissionButton.Visible = true;
+            projectNameTextBox.Text = "Project/Company Name";
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -39,13 +43,11 @@ namespace Linkup_Finance.Forms
                 this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
                 projectManager.RetrieveProjects(projectsTableAdapter);
 
-                newProjectPanel.Visible = false;
+                newProjectLabel.Visible = false;
+                submitButton.Visible = false;
+                projectNameTextBox.Visible = false;
+                exitSubmissionButton.Visible = false;
             }
-        }
-
-        private void closeProjectPanelButton_Click(object sender, EventArgs e)
-        {
-            newProjectPanel.Visible = false;
         }
 
         private void ProjectForm_Load(object sender, EventArgs e)
@@ -58,6 +60,24 @@ namespace Linkup_Finance.Forms
             {
                 projectOption.Items.Add(project.GetProjectName());
             }
+        }
+
+        private void cartesianChart1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+        {
+
+        }
+
+        private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            projectNameTextBox.Text = "";
+        }
+
+        private void exitSubmissionButton_Click(object sender, EventArgs e)
+        {
+            newProjectLabel.Visible = false;
+            submitButton.Visible = false;
+            projectNameTextBox.Visible = false;
+            exitSubmissionButton.Visible = false;
         }
     }
 }

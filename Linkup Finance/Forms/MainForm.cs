@@ -177,11 +177,11 @@ namespace Linkup_Finance
 
             if(state == FormWindowState.Maximized)
             {
-                projectForm.newProjectPanel.Location = new Point(this.Width - projectForm.newProjectPanel.Width, 12);
+                projectForm.ledgerTabControl.Size = new Size(1200, 530);
             }
             else
             {
-                projectForm.newProjectPanel.Location = new Point(this.Width - projectForm.newProjectPanel.Width, 12);
+                projectForm.ledgerTabControl.Size = new Size(1200, 590);
             }
         }
 
