@@ -194,6 +194,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>LinkupDatabase.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\Delete Icon.png" />
+    <None Include="Resources\User Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

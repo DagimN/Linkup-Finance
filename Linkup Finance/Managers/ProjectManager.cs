@@ -11,8 +11,8 @@ namespace Linkup_Finance.Managers
 {
     public class ProjectManager
     {
-        public List<Project> projects = new List<Project>();
-        public SqlConnection con;
+        private List<Project> projects = new List<Project>();
+        private SqlConnection con;
 
         public ProjectManager()
         {
@@ -54,23 +54,28 @@ namespace Linkup_Finance.Managers
             return false;
         }
 
-        public void RetrieveProjects(Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter adapter)
+        public List<Project> RetrieveProjects(Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter adapter)
         {
             int bound = adapter.GetData().Rows.Count;
             
             for (int i = 0; i < bound; i++)
             {
-                projects.Add(new Project(adapter.GetData().Rows[i].ItemArray[1].ToString()));
+                string name = adapter.GetData().Rows[i].ItemArray[1].ToString();
+
+                if(!Exists(name))
+                    projects.Add(new Project(name));
             }
+
+            return projects;
         }
 
         public void RemoveProject(string name)
         {
-            Project project = null;
+            Project project = new Project("");
 
             foreach(Project pro in projects)
             {
-                if(pro.GetProjectName() == name)
+                if(pro.GetProjectName().ToLower() == name.ToLower())
                 {
                     project = pro;
                     break;

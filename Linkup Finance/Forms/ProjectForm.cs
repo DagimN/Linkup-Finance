@@ -27,6 +27,7 @@ namespace Linkup_Finance.Forms
             submitButton.Visible = true;
             projectNameTextBox.Visible = true;
             exitSubmissionButton.Visible = true;
+            projectNameTextBox.Text = "";
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -37,11 +38,7 @@ namespace Linkup_Finance.Forms
                 projectOption.Items.Add(projectName);
                 projectOption.Text = projectName;
                 projectManager.AddProject(projectName);
-
-                //Fill the data from a dataset to a table adapter object
-                this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
-                projectManager.RetrieveProjects(projectsTableAdapter);
-
+                
                 //Hide the new project submission interface after entry
                 newProjectLabel.Visible = false;
                 submitButton.Visible = false;
@@ -61,11 +58,8 @@ namespace Linkup_Finance.Forms
         {
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
 
-            projectManager.RetrieveProjects(projectsTableAdapter);
-            foreach(Project project in projectManager.projects)
-            {
+            foreach(Project project in projectManager.RetrieveProjects(projectsTableAdapter))
                 projectOption.Items.Add(project.GetProjectName());
-            }
         }
 
         private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -89,9 +83,7 @@ namespace Linkup_Finance.Forms
         private void projectNameTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
-            {
                 submitButton.PerformClick();
-            }
         }
 
         private void removeProjectButton_Click(object sender, EventArgs e)
@@ -100,12 +92,22 @@ namespace Linkup_Finance.Forms
             
             if (projectName != "")
             {
-                MessageBox.Show("Are you sure you want to delete this entry?", "Entry Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this entry?", "Entry Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                projectNameTextBox.Text = projectName;
-                projectManager.RemoveProject(projectName);
-                projectOption.Items.Remove(projectOption.Text);
+                if(result == DialogResult.Yes)
+                {
+                    projectManager.RemoveProject(projectName);
+                    projectOption.Items.Remove(projectOption.Text);
+                    if (projectOption.Text == "")
+                        removeProjectButton.Visible = false;
+                }
             }
+        }
+
+        private void projectOption_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (projectOption.Text != "")
+                removeProjectButton.Visible = true;
         }
     }
 }
