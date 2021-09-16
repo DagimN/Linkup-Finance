@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Linkup_Finance.Forms
 {
-    public partial class UsersForm : Form
+    public partial class SettingsForm : Form
     {
-        public UsersForm()
+        public SettingsForm()
         {
             InitializeComponent();
         }

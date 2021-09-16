@@ -27,7 +27,6 @@ namespace Linkup_Finance.Forms
             submitButton.Visible = true;
             projectNameTextBox.Visible = true;
             exitSubmissionButton.Visible = true;
-            projectNameTextBox.Text = "Project/Company Name";
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -37,22 +36,29 @@ namespace Linkup_Finance.Forms
             {
                 projectOption.Items.Add(projectName);
                 projectOption.Text = projectName;
-
                 projectManager.AddProject(projectName);
 
+                //Fill the data from a dataset to a table adapter object
                 this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
                 projectManager.RetrieveProjects(projectsTableAdapter);
 
+                //Hide the new project submission interface after entry
                 newProjectLabel.Visible = false;
                 submitButton.Visible = false;
                 projectNameTextBox.Visible = false;
                 exitSubmissionButton.Visible = false;
+
+                projectOption.Refresh();
+            }
+            else
+            {
+                projectNameTextBox.Text = "This name already exists";
+                projectNameTextBox.FillColor = Color.FromArgb(240, 160, 140);
             }
         }
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Projects' table. You can move, or remove it, as needed.
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
 
             projectManager.RetrieveProjects(projectsTableAdapter);
@@ -60,11 +66,6 @@ namespace Linkup_Finance.Forms
             {
                 projectOption.Items.Add(project.GetProjectName());
             }
-        }
-
-        private void cartesianChart1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
         }
 
         private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -78,6 +79,33 @@ namespace Linkup_Finance.Forms
             submitButton.Visible = false;
             projectNameTextBox.Visible = false;
             exitSubmissionButton.Visible = false;
+        }
+
+        private void projectNameTextBox_Enter(object sender, EventArgs e)
+        {
+            projectNameTextBox.FillColor = Color.White;
+        }
+
+        private void projectNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                submitButton.PerformClick();
+            }
+        }
+
+        private void removeProjectButton_Click(object sender, EventArgs e)
+        {
+            string projectName = projectOption.Text;
+            
+            if (projectName != "")
+            {
+                MessageBox.Show("Are you sure you want to delete this entry?", "Entry Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                projectNameTextBox.Text = projectName;
+                projectManager.RemoveProject(projectName);
+                projectOption.Items.Remove(projectOption.Text);
+            }
         }
     }
 }

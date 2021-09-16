@@ -1,7 +1,7 @@
 ﻿
 namespace Linkup_Finance.Forms
 {
-    partial class UsersForm
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.

@@ -34,7 +34,8 @@ namespace Linkup_Finance.Managers
 
                 if (!Exists(name))
                 {
-                    projects.Add(new Project(name));
+                    Project project = new Project(name);
+                    projects.Add(project);
                     command.ExecuteNonQuery();
                 }
             }
@@ -60,6 +61,38 @@ namespace Linkup_Finance.Managers
             for (int i = 0; i < bound; i++)
             {
                 projects.Add(new Project(adapter.GetData().Rows[i].ItemArray[1].ToString()));
+            }
+        }
+
+        public void RemoveProject(string name)
+        {
+            Project project = null;
+
+            foreach(Project pro in projects)
+            {
+                if(pro.GetProjectName() == name)
+                {
+                    project = pro;
+                    break;
+                }
+            }
+
+            if (project != null)
+            {
+                projects.Remove(project);
+
+                try
+                {
+                    con.Open();
+                    string deleteQuery = "DELETE FROM Projects" +
+                                        " WHERE Name=\'" + name +"\'";
+                    SqlCommand command = new SqlCommand(deleteQuery, con);
+                    command.ExecuteNonQuery();
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
         }
     }

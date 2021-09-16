@@ -13,7 +13,7 @@ namespace Linkup_Finance
         private Form activeForm;
         private DashboardForm dashboardForm;
         public ProjectForm projectForm;
-        private UsersForm userForm;
+        private SettingsForm settingsForm;
 
         private Point startPoint = new Point(0, 0);
         private bool drag = false;
@@ -26,7 +26,7 @@ namespace Linkup_Finance
 
             dashboardForm = new DashboardForm();
             projectForm = new ProjectForm();
-            userForm = new UsersForm();
+            settingsForm = new SettingsForm();
 
             openChildForm(dashboardForm);
         }
@@ -173,7 +173,7 @@ namespace Linkup_Finance
             workPanel.Size = resizeValue;
             projectForm.Size = resizeValue;
             dashboardForm.Size = resizeValue;
-            userForm.Size = resizeValue;
+            settingsForm.Size = resizeValue;
 
             if(state == FormWindowState.Maximized)
             {
@@ -185,9 +185,9 @@ namespace Linkup_Finance
             }
         }
 
-        private void userButton_Click(object sender, EventArgs e)
+        private void settingsButton_Click(object sender, EventArgs e)
         {
-            openChildForm(userForm);
+            openChildForm(settingsForm);
         }
     }
 }

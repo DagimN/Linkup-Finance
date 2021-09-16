@@ -34,7 +34,7 @@ namespace Linkup_Finance
             this.maximizeButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
-            this.userButton = new Guna.UI2.WinForms.Guna2Button();
+            this.settingsButton = new Guna.UI2.WinForms.Guna2Button();
             this.projectButton = new Guna.UI2.WinForms.Guna2Button();
             this.dashboardButton = new Guna.UI2.WinForms.Guna2Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -47,13 +47,13 @@ namespace Linkup_Finance
             // 
             this.titleBarPanel.BackColor = System.Drawing.SystemColors.Control;
             this.titleBarPanel.BorderRadius = 10;
-            this.titleBarPanel.Controls.Add(this.label1);
             this.titleBarPanel.Controls.Add(this.maximizeButton);
             this.titleBarPanel.Controls.Add(this.closeButton);
             this.titleBarPanel.Controls.Add(this.minimizeButton);
-            this.titleBarPanel.Controls.Add(this.userButton);
+            this.titleBarPanel.Controls.Add(this.settingsButton);
             this.titleBarPanel.Controls.Add(this.projectButton);
             this.titleBarPanel.Controls.Add(this.dashboardButton);
+            this.titleBarPanel.Controls.Add(this.label1);
             this.titleBarPanel.Controls.Add(this.pictureBox1);
             this.titleBarPanel.CustomizableEdges.TopLeft = false;
             this.titleBarPanel.CustomizableEdges.TopRight = false;
@@ -62,7 +62,7 @@ namespace Linkup_Finance
             this.titleBarPanel.Location = new System.Drawing.Point(0, 0);
             this.titleBarPanel.Name = "titleBarPanel";
             this.titleBarPanel.ShadowDecoration.Parent = this.titleBarPanel;
-            this.titleBarPanel.Size = new System.Drawing.Size(1200, 80);
+            this.titleBarPanel.Size = new System.Drawing.Size(1200, 70);
             this.titleBarPanel.TabIndex = 0;
             this.titleBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
             this.titleBarPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
@@ -123,29 +123,29 @@ namespace Linkup_Finance
             this.minimizeButton.UseVisualStyleBackColor = false;
             this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
-            // userButton
+            // settingsButton
             // 
-            this.userButton.AutoRoundedCorners = true;
-            this.userButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.userButton.BorderRadius = 15;
-            this.userButton.CheckedState.Parent = this.userButton;
-            this.userButton.CustomImages.Parent = this.userButton;
-            this.userButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.userButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.userButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.userButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.userButton.DisabledState.Parent = this.userButton;
-            this.userButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
-            this.userButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.userButton.ForeColor = System.Drawing.Color.White;
-            this.userButton.HoverState.Parent = this.userButton;
-            this.userButton.Location = new System.Drawing.Point(468, 21);
-            this.userButton.Name = "userButton";
-            this.userButton.ShadowDecoration.Parent = this.userButton;
-            this.userButton.Size = new System.Drawing.Size(143, 32);
-            this.userButton.TabIndex = 8;
-            this.userButton.Text = "Users";
-            this.userButton.Click += new System.EventHandler(this.userButton_Click);
+            this.settingsButton.AutoRoundedCorners = true;
+            this.settingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.settingsButton.BorderRadius = 15;
+            this.settingsButton.CheckedState.Parent = this.settingsButton;
+            this.settingsButton.CustomImages.Parent = this.settingsButton;
+            this.settingsButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.settingsButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.settingsButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.settingsButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.settingsButton.DisabledState.Parent = this.settingsButton;
+            this.settingsButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.settingsButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.settingsButton.ForeColor = System.Drawing.Color.White;
+            this.settingsButton.HoverState.Parent = this.settingsButton;
+            this.settingsButton.Location = new System.Drawing.Point(468, 21);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.ShadowDecoration.Parent = this.settingsButton;
+            this.settingsButton.Size = new System.Drawing.Size(143, 32);
+            this.settingsButton.TabIndex = 8;
+            this.settingsButton.Text = "Settings";
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // projectButton
             // 
@@ -238,7 +238,7 @@ namespace Linkup_Finance
 
         private Guna.UI2.WinForms.Guna2Panel titleBarPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Guna.UI2.WinForms.Guna2Button userButton;
+        private Guna.UI2.WinForms.Guna2Button settingsButton;
         private Guna.UI2.WinForms.Guna2Button projectButton;
         private Guna.UI2.WinForms.Guna2Button dashboardButton;
         private System.Windows.Forms.Button minimizeButton;
