@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Linkup_Finance.Managers
     public class ProjectManager
     {
         private List<Project> projects = new List<Project>();
-        private SqlConnection con;
+        private static SqlConnection con;
 
         public ProjectManager()
         {
@@ -21,7 +22,7 @@ namespace Linkup_Finance.Managers
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString);
         }
 
-        public void AddProject(string name)
+        public Project AddProject(string name)
         {
             try
             {
@@ -37,12 +38,15 @@ namespace Linkup_Finance.Managers
                     Project project = new Project(name);
                     projects.Add(project);
                     command.ExecuteNonQuery();
+                    return project;
                 }
             }
             finally
             {
                 con.Close();
             }
+
+            return null;
         }
 
         public bool Exists(string name)
@@ -52,6 +56,15 @@ namespace Linkup_Finance.Managers
                     return true;
 
             return false;
+        }
+
+        public Project Exists(string name, bool returnProject)
+        {
+            foreach (Project project in projects)
+                if (project.GetProjectName().ToLower() == name.ToLower())
+                    return project;
+
+            return null;
         }
 
         public List<Project> RetrieveProjects(Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter adapter)
@@ -100,6 +113,11 @@ namespace Linkup_Finance.Managers
                 }
             }
         }
+
+        public static SqlConnection GetConnection()
+        {
+            return con;
+        }
     }
 
     public class Project
@@ -113,6 +131,33 @@ namespace Linkup_Finance.Managers
         public string GetProjectName()
         {
             return projectName;
+        }
+
+        public bool AddIncome(ArrayList list)
+        {
+            SqlConnection con = ProjectManager.GetConnection();
+
+            try
+            {
+                Random rand = new Random();
+                int id = rand.Next(999999);
+                string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, Receipt)" +
+                                     $" VALUES(\'{id}\', \'{(int)list[0]}\',\'{(string)list[1]}\',\'{(string)list[2]}\',\'{(decimal)list[3]}\',\'{(int)list[4]}\')";
+                SqlCommand command = new SqlCommand(insertQuery, con);
+                con.Open();
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+                return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return true;
         }
     }
 }

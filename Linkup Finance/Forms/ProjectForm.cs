@@ -4,9 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Collections;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using Linkup_Finance.Managers;
 
@@ -37,7 +38,7 @@ namespace Linkup_Finance.Forms
             {
                 projectOption.Items.Add(projectName);
                 projectOption.Text = projectName;
-                projectManager.AddProject(projectName);
+                incomeDataGridView.Tag = projectManager.AddProject(projectName);
                 
                 //Hide the new project submission interface after entry
                 newProjectLabel.Visible = false;
@@ -46,6 +47,7 @@ namespace Linkup_Finance.Forms
                 exitSubmissionButton.Visible = false;
 
                 projectOption.Refresh();
+
             }
             else
             {
@@ -110,17 +112,40 @@ namespace Linkup_Finance.Forms
         {
             if (projectOption.Text != "")
                 removeProjectButton.Visible = true;
+            Thread.Sleep(1000);
+            Project project = projectManager.Exists(projectOption.Text, true);
+            incomeDataGridView.Tag = project;
         }
 
         private void filterComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (filterComboBox.Text == "All")
+            //Change the placeholder text of the search text box whenever a filter has been applied to the data set
+            filterLabel.Visible = false;
+
+            switch (filterComboBox.Text)
             {
-                filterComboBox.Text = null;
-                filterLabel.Visible = true;
-            }
-            else
-                filterLabel.Visible = false;
+                case "All":
+                    filterComboBox.Text = null;
+                    filterLabel.Visible = true;
+                    incomeSearchTextBox.PlaceholderText = "Payer's Name";
+                    break;
+                case "Gross":
+                    incomeSearchTextBox.PlaceholderText = "Gross Value";
+                    break;
+                case "Reason":
+                    incomeSearchTextBox.PlaceholderText = "Reason";
+                    break;
+                case "Receipt":
+                case "Non-Receipt":
+                    incomeSearchTextBox.PlaceholderText = "Payer's Name";
+                    break;
+                case "Bank":
+                    incomeSearchTextBox.PlaceholderText = "Bank's Name";
+                    break;
+                case "Net":
+                    incomeSearchTextBox.PlaceholderText = "Net Value";
+                    break;
+            }                
         }
 
         private void newIncomeButton_Click(object sender, EventArgs e)
@@ -131,6 +156,43 @@ namespace Linkup_Finance.Forms
         private void closeIncomePanelButton_Click(object sender, EventArgs e)
         {
             newIncomePanel.Visible = false;
+        }
+
+        private void nonreceiptRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (nonreceiptRadioButton.Checked)
+                addReceiptLinkLabel.Enabled = false;
+        }
+
+        private void receiptRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (receiptRadioButton.Checked)
+                addReceiptLinkLabel.Enabled = true;
+        }
+
+        private void submitIncomeButton_Click(object sender, EventArgs e)
+        {
+            ArrayList newIncomeList = new ArrayList();
+            Project project = (Project)incomeDataGridView.Tag;
+            decimal gross;
+            decimal.TryParse(grossTextBox.Text, out gross);
+
+            if(project != null)
+            {
+                newIncomeList.Add(nameTextBox.Text);
+                newIncomeList.Add(reasonTextBox.Text);
+                newIncomeList.Add(bankTextBox.Text);
+                newIncomeList.Add(gross);
+                if(receiptRadioButton.Checked)
+                    newIncomeList.Add(1);
+                else
+                    newIncomeList.Add(0);
+
+                if (project.AddIncome(newIncomeList))
+                {
+                    newIncomePanel.Visible = false;
+                }
+            }
         }
     }
 }
