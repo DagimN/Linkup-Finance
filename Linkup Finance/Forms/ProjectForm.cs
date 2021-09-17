@@ -56,6 +56,8 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
+            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
 
             foreach(Project project in projectManager.RetrieveProjects(projectsTableAdapter))
@@ -108,6 +110,27 @@ namespace Linkup_Finance.Forms
         {
             if (projectOption.Text != "")
                 removeProjectButton.Visible = true;
+        }
+
+        private void filterComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (filterComboBox.Text == "All")
+            {
+                filterComboBox.Text = null;
+                filterLabel.Visible = true;
+            }
+            else
+                filterLabel.Visible = false;
+        }
+
+        private void newIncomeButton_Click(object sender, EventArgs e)
+        {
+            newIncomePanel.Visible = true;
+        }
+
+        private void closeIncomePanelButton_Click(object sender, EventArgs e)
+        {
+            newIncomePanel.Visible = false;
         }
     }
 }
