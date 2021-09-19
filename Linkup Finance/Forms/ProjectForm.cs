@@ -14,16 +14,71 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Linkup_Finance.Managers;
+using LiveCharts.Wpf;
+using LiveCharts.Configurations;
+using LiveCharts;
+using System.Diagnostics;
 
 namespace Linkup_Finance.Forms
 {
     public partial class ProjectForm : Form
     {
         public ProjectManager projectManager;
+        private int zoomValue = 99;
+        
+        private LineSeries grossSeries, netSeries;
+        private Axis xAxis, yAxis;
+        private class DateModel
+        {
+            public System.DateTime DateTime { get; set; }
+            public double Value { get; set; }
+            
+        }
+
         public ProjectForm()
         {
             InitializeComponent();
             projectManager = new ProjectManager();
+
+            var dayConfig = Mappers.Xy<DateModel>()
+                .X(dayModel => (double)dayModel.DateTime.Ticks / TimeSpan.FromDays(1).Ticks)
+                .Y(dayModel => dayModel.Value);
+
+            grossSeries = new LineSeries
+            {
+                Values = new ChartValues<DateModel>(),
+                Title = "Gross",
+                Stroke = System.Windows.Media.Brushes.ForestGreen,
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
+            };
+
+            netSeries = new LineSeries
+            {
+                Values = new ChartValues<DateModel>(),
+                Title = "Net",
+                Stroke = System.Windows.Media.Brushes.ForestGreen,
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
+            };
+
+            xAxis = new Axis
+            {
+                LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("dd MMM yyyy"),
+                MaxRange = DateTime.MaxValue.Subtract(TimeSpan.FromDays(146400)).Year,
+                MinValue = DateTime.Now.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay,
+                MaxValue = DateTime.Now.AddDays(3).Ticks / TimeSpan.TicksPerDay
+            };
+
+            yAxis = new Axis
+            {
+                MinValue = 0,
+                Foreground = netSeries.Fill,
+                LabelFormatter = value => value + " ETB"
+            };
+
+            incomeChart.Series = new SeriesCollection(dayConfig);
+            incomeChart.Pan = PanningOptions.X;
+            incomeChart.AxisX.Add(xAxis);
+            incomeChart.AxisY.Add(yAxis);
         }
 
         private void newProjectButton_Click(object sender, EventArgs e)
@@ -63,12 +118,23 @@ namespace Linkup_Finance.Forms
         {
             // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
-            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
 
             foreach(Project project in projectManager.RetrieveProjects(projectsTableAdapter))
                 projectOption.Items.Add(project.GetProjectName());
+
+            if(projectOption.Items.Count > 0)
+            {
+                projectOption.Text = projectOption.Items[0].ToString();
+
+                Project project = projectManager.Exists(projectOption.Text, true);
+                incomeDataGridView.Tag = project;
+            }
+             
+            incomeChart.Series.Add(grossSeries);
+            incomeChart.Series.Add(netSeries);
+
+            LoadIncomeChart(incomeTableAdapter.GetData());
         }
 
         private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -177,7 +243,6 @@ namespace Linkup_Finance.Forms
 
         private void submitIncomeButton_Click(object sender, EventArgs e)
         {
-            ArrayList newIncomeList = new ArrayList();
             Project project = (Project)incomeDataGridView.Tag;
             string name = nameTextBox.Text;
             string reason = reasonTextBox.Text;
@@ -188,12 +253,15 @@ namespace Linkup_Finance.Forms
             string[] attachements = (string[])submitIncomeButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
-            string attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName);
+            string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName) : null;
 
-            while (Exists(attachmentDirectory))
+            if(attachements != null)
             {
-                folderName = DateTime.Now.ToString("MMMddyyyy") + rand.Next(999999999) + name;
-                attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName);
+                while (Exists(attachmentDirectory))
+                {
+                    folderName = DateTime.Now.ToString("MMMddyyyy") + rand.Next(999999999) + name;
+                    attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName);
+                }
             }
             
             if(project != null)
@@ -208,11 +276,45 @@ namespace Linkup_Finance.Forms
                         foreach (string fileName in (string[])submitIncomeButton.Tag)
                             File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
                     }
-                        
+                    
                     newIncomePanel.Visible = false;
-                    this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+                    incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+                    LoadIncomeChart(incomeTableAdapter.GetData());
                 }
             }
+        }
+
+        private void zoomTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int value = zoomTrackBar.Value;
+            zoomNumericUpDown.Value = value;
+
+            if (value > zoomValue)
+            {
+                xAxis.MinValue += (value - zoomValue) * 1.5;
+                xAxis.MaxValue -= (value - zoomValue) * 1.5;
+                zoomValue = value;
+            }
+            else
+            {
+                xAxis.MinValue -= (zoomValue - value) * 1.5;
+                xAxis.MaxValue += (zoomValue - value) * 1.5;
+                zoomValue = value;
+            }
+        }
+
+        private void zoomNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            int value;
+            int.TryParse(zoomNumericUpDown.Value.ToString(), out value);
+            zoomTrackBar.Value = value;
+        }
+
+        private void chartDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dateSelection = chartDateTimePicker.Value;
+            xAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay;
+            xAxis.MaxValue = dateSelection.AddDays(5).Ticks / TimeSpan.TicksPerDay;
         }
 
         private void attachementsButton_Click(object sender, EventArgs e)
@@ -225,6 +327,27 @@ namespace Linkup_Finance.Forms
 
             if(result == DialogResult.OK)
                 submitIncomeButton.Tag = attachementDialog.FileNames;
+        }
+
+        private void LoadIncomeChart(LinkupDatabaseDataSet.IncomeDataTable incomeDataTable)
+        {
+            //TODO: Do not forget to remove the date simulation for the chart
+            grossSeries.Values.Clear();
+            netSeries.Values.Clear();
+            for (int i = 0; i < incomeDataTable.Count; i++)
+            {
+                DateTime time = (DateTime)incomeDataTable.Rows[i].ItemArray[9];
+                grossSeries.Values.Add(new DateModel
+                {
+                    DateTime = time.AddDays(i),
+                    Value = double.Parse(incomeDataTable.Rows[i].ItemArray[5].ToString())
+                });
+                netSeries.Values.Add(new DateModel
+                {
+                    DateTime = time.AddDays(i),
+                    Value = double.Parse(incomeDataTable.Rows[i].ItemArray[8].ToString())
+                });
+            }
         }
     }
 }
