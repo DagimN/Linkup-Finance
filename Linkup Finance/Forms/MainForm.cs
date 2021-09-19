@@ -3,13 +3,17 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Linkup_Finance.Forms;
+using System.IO;
+using static System.IO.Directory;
+using static System.IO.Path;
+using static System.Environment;
 
 namespace Linkup_Finance
 {
     public partial class MainForm : Form
     {
         private bool isViewing = false;
-
+        private string attachementDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements");
         private Form activeForm;
         private DashboardForm dashboardForm;
         public ProjectForm projectForm;
@@ -24,10 +28,15 @@ namespace Linkup_Finance
         {
             InitializeComponent();
 
+            if (!Exists(attachementDirectory))
+                CreateDirectory(attachementDirectory);
+
             dashboardForm = new DashboardForm();
             projectForm = new ProjectForm();
             settingsForm = new SettingsForm();
 
+            openChildForm(settingsForm);
+            openChildForm(projectForm);
             openChildForm(dashboardForm);
         }
 

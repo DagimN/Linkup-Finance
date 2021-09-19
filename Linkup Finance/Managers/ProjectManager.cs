@@ -133,7 +133,7 @@ namespace Linkup_Finance.Managers
             return projectName;
         }
 
-        public bool AddIncome(ArrayList list)
+        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string attachement = null)
         {
             SqlConnection con = ProjectManager.GetConnection();
 
@@ -141,15 +141,17 @@ namespace Linkup_Finance.Managers
             {
                 Random rand = new Random();
                 int id = rand.Next(999999);
-                string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, Receipt)" +
-                                     $" VALUES(\'{id}\', \'{(int)list[0]}\',\'{(string)list[1]}\',\'{(string)list[2]}\',\'{(decimal)list[3]}\',\'{(int)list[4]}\')";
+                decimal vat = gross * 0.15m;
+                decimal withholding = gross * 0.02m;
+                decimal net = gross + vat - withholding;
+                string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement)" +
+                                     $" VALUES(\'{id}\', \'{name}\',\'{reason}\',\'{bank}\',\'{gross}\', \'{vat}\', \'{withholding}\',\'{net}\',\'{hasReceipt}\', \'{DateTime.Now}\', \'{attachement}\')";
                 SqlCommand command = new SqlCommand(insertQuery, con);
                 con.Open();
                 command.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw ex;
                 return false;
             }
             finally

@@ -5,6 +5,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Collections;
+using System.IO;
+using static System.IO.Directory;
+using static System.IO.Path;
+using static System.Environment;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -47,7 +51,6 @@ namespace Linkup_Finance.Forms
                 exitSubmissionButton.Visible = false;
 
                 projectOption.Refresh();
-
             }
             else
             {
@@ -58,6 +61,8 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
+            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
@@ -174,25 +179,52 @@ namespace Linkup_Finance.Forms
         {
             ArrayList newIncomeList = new ArrayList();
             Project project = (Project)incomeDataGridView.Tag;
+            string name = nameTextBox.Text;
+            string reason = reasonTextBox.Text;
+            string bank = bankTextBox.Text;
+            bool hasReceipt = receiptRadioButton.Checked;
             decimal gross;
             decimal.TryParse(grossTextBox.Text, out gross);
+            string[] attachements = (string[])submitIncomeButton.Tag;
+            Random rand = new Random();
+            string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
+            string attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName);
 
+            while (Exists(attachmentDirectory))
+            {
+                folderName = DateTime.Now.ToString("MMMddyyyy") + rand.Next(999999999) + name;
+                attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName);
+            }
+            
             if(project != null)
             {
-                newIncomeList.Add(nameTextBox.Text);
-                newIncomeList.Add(reasonTextBox.Text);
-                newIncomeList.Add(bankTextBox.Text);
-                newIncomeList.Add(gross);
-                if(receiptRadioButton.Checked)
-                    newIncomeList.Add(1);
-                else
-                    newIncomeList.Add(0);
-
-                if (project.AddIncome(newIncomeList))
+                if (project.AddIncome(name, reason, bank, hasReceipt, gross, attachmentDirectory))
                 {
+                    //Associate attachements with entry and store in local machine
+                    if(attachements != null)
+                    {
+                        CreateDirectory(attachmentDirectory);
+
+                        foreach (string fileName in (string[])submitIncomeButton.Tag)
+                            File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
+                    }
+                        
                     newIncomePanel.Visible = false;
+                    this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
                 }
             }
+        }
+
+        private void attachementsButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog attachementDialog = new OpenFileDialog();
+            attachementDialog.Filter = "All Files (*.*)|*.*";
+            attachementDialog.Multiselect = true;
+            
+            DialogResult result = attachementDialog.ShowDialog();
+
+            if(result == DialogResult.OK)
+                submitIncomeButton.Tag = attachementDialog.FileNames;
         }
     }
 }

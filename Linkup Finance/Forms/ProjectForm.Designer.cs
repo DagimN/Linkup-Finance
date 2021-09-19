@@ -50,6 +50,9 @@ namespace Linkup_Finance.Forms
             this.ledgerTabControl = new Guna.UI2.WinForms.Guna2TabControl();
             this.incomeTabPage = new System.Windows.Forms.TabPage();
             this.newIncomePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.attachementsButton = new Guna.UI2.WinForms.Guna2Button();
+            this.submitIncomeButton = new Guna.UI2.WinForms.Guna2Button();
+            this.closeIncomePanelButton = new Guna.UI2.WinForms.Guna2CircleButton();
             this.addReceiptLinkLabel = new System.Windows.Forms.LinkLabel();
             this.nonreceiptRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
             this.receiptRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
@@ -63,8 +66,6 @@ namespace Linkup_Finance.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.incomeDataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.incomeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
             this.filterLabel = new System.Windows.Forms.Label();
             this.filterComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.newIncomeButton = new Guna.UI2.WinForms.Guna2Button();
@@ -96,32 +97,33 @@ namespace Linkup_Finance.Forms
             this.guna2DataGridView4 = new Guna.UI2.WinForms.Guna2DataGridView();
             this.removeProjectButton = new Guna.UI2.WinForms.Guna2CircleButton();
             this.exitSubmissionButton = new Guna.UI2.WinForms.Guna2Button();
+            this.incomeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
             this.projectsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.projectsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter();
             this.incomeTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter();
-            this.closeIncomePanelButton = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.submitIncomeButton = new Guna.UI2.WinForms.Guna2Button();
             this.payerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.netColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vatColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.withholdingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.receiptDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grossDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vATDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.withholdingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.receiptDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reasonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.guna2Button14 = new Guna.UI2.WinForms.Guna2Button();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.attachementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerTabControl.SuspendLayout();
             this.incomeTabPage.SuspendLayout();
             this.newIncomePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.incomeDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
             this.expenseTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             this.balanceTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).BeginInit();
             this.payrollTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -295,7 +297,7 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.newIncomePanel.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.newIncomePanel.BorderRadius = 10;
-            this.newIncomePanel.Controls.Add(this.guna2Button14);
+            this.newIncomePanel.Controls.Add(this.attachementsButton);
             this.newIncomePanel.Controls.Add(this.submitIncomeButton);
             this.newIncomePanel.Controls.Add(this.closeIncomePanelButton);
             this.newIncomePanel.Controls.Add(this.addReceiptLinkLabel);
@@ -317,6 +319,67 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.Size = new System.Drawing.Size(846, 320);
             this.newIncomePanel.TabIndex = 12;
             this.newIncomePanel.Visible = false;
+            // 
+            // attachementsButton
+            // 
+            this.attachementsButton.CheckedState.Parent = this.attachementsButton;
+            this.attachementsButton.CustomImages.Parent = this.attachementsButton;
+            this.attachementsButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.attachementsButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.attachementsButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.attachementsButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.attachementsButton.DisabledState.Parent = this.attachementsButton;
+            this.attachementsButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.attachementsButton.ForeColor = System.Drawing.Color.White;
+            this.attachementsButton.HoverState.Parent = this.attachementsButton;
+            this.attachementsButton.Location = new System.Drawing.Point(422, 234);
+            this.attachementsButton.Name = "attachementsButton";
+            this.attachementsButton.ShadowDecoration.Parent = this.attachementsButton;
+            this.attachementsButton.Size = new System.Drawing.Size(180, 45);
+            this.attachementsButton.TabIndex = 18;
+            this.attachementsButton.Text = "Attachements";
+            this.attachementsButton.Click += new System.EventHandler(this.attachementsButton_Click);
+            // 
+            // submitIncomeButton
+            // 
+            this.submitIncomeButton.CheckedState.Parent = this.submitIncomeButton;
+            this.submitIncomeButton.CustomImages.Parent = this.submitIncomeButton;
+            this.submitIncomeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.submitIncomeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.submitIncomeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.submitIncomeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.submitIncomeButton.DisabledState.Parent = this.submitIncomeButton;
+            this.submitIncomeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.submitIncomeButton.ForeColor = System.Drawing.Color.White;
+            this.submitIncomeButton.HoverState.Parent = this.submitIncomeButton;
+            this.submitIncomeButton.Location = new System.Drawing.Point(226, 234);
+            this.submitIncomeButton.Name = "submitIncomeButton";
+            this.submitIncomeButton.ShadowDecoration.Parent = this.submitIncomeButton;
+            this.submitIncomeButton.Size = new System.Drawing.Size(180, 45);
+            this.submitIncomeButton.TabIndex = 17;
+            this.submitIncomeButton.Text = "Submit";
+            this.submitIncomeButton.Click += new System.EventHandler(this.submitIncomeButton_Click);
+            // 
+            // closeIncomePanelButton
+            // 
+            this.closeIncomePanelButton.CheckedState.Parent = this.closeIncomePanelButton;
+            this.closeIncomePanelButton.CustomImages.Parent = this.closeIncomePanelButton;
+            this.closeIncomePanelButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.closeIncomePanelButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.closeIncomePanelButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.closeIncomePanelButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.closeIncomePanelButton.DisabledState.Parent = this.closeIncomePanelButton;
+            this.closeIncomePanelButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.closeIncomePanelButton.ForeColor = System.Drawing.Color.White;
+            this.closeIncomePanelButton.HoverState.Parent = this.closeIncomePanelButton;
+            this.closeIncomePanelButton.Location = new System.Drawing.Point(782, 14);
+            this.closeIncomePanelButton.Name = "closeIncomePanelButton";
+            this.closeIncomePanelButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.closeIncomePanelButton.ShadowDecoration.Parent = this.closeIncomePanelButton;
+            this.closeIncomePanelButton.Size = new System.Drawing.Size(37, 35);
+            this.closeIncomePanelButton.TabIndex = 16;
+            this.closeIncomePanelButton.Text = "guna2CircleButton1";
+            this.closeIncomePanelButton.Click += new System.EventHandler(this.closeIncomePanelButton_Click);
             // 
             // addReceiptLinkLabel
             // 
@@ -543,12 +606,14 @@ namespace Linkup_Finance.Forms
             this.incomeDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.payerDataGridViewTextBoxColumn,
             this.bankDataGridViewTextBoxColumn,
-            this.netColumn,
-            this.vatColumn,
-            this.withholdingColumn,
-            this.receiptDataGridViewTextBoxColumn,
             this.grossDataGridViewTextBoxColumn,
-            this.reasonDataGridViewTextBoxColumn});
+            this.vATDataGridViewTextBoxColumn,
+            this.withholdingDataGridViewTextBoxColumn,
+            this.netDataGridViewTextBoxColumn,
+            this.receiptDataGridViewTextBoxColumn,
+            this.reasonDataGridViewTextBoxColumn,
+            this.dateDataGridViewTextBoxColumn,
+            this.attachementDataGridViewTextBoxColumn});
             this.incomeDataGridView.DataSource = this.incomeBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
@@ -587,16 +652,6 @@ namespace Linkup_Finance.Forms
             this.incomeDataGridView.ThemeStyle.RowsStyle.Height = 22;
             this.incomeDataGridView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.incomeDataGridView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            // 
-            // incomeBindingSource
-            // 
-            this.incomeBindingSource.DataMember = "Income";
-            this.incomeBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
-            // linkupDatabaseDataSet
-            // 
-            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
-            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // filterLabel
             // 
@@ -1253,6 +1308,16 @@ namespace Linkup_Finance.Forms
             this.exitSubmissionButton.Visible = false;
             this.exitSubmissionButton.Click += new System.EventHandler(this.exitSubmissionButton_Click);
             // 
+            // incomeBindingSource
+            // 
+            this.incomeBindingSource.DataMember = "Income";
+            this.incomeBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // linkupDatabaseDataSet
+            // 
+            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
+            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // projectsBindingSource
             // 
             this.projectsBindingSource.DataMember = "Projects";
@@ -1266,47 +1331,6 @@ namespace Linkup_Finance.Forms
             // 
             this.incomeTableAdapter.ClearBeforeFill = true;
             // 
-            // closeIncomePanelButton
-            // 
-            this.closeIncomePanelButton.CheckedState.Parent = this.closeIncomePanelButton;
-            this.closeIncomePanelButton.CustomImages.Parent = this.closeIncomePanelButton;
-            this.closeIncomePanelButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeIncomePanelButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.closeIncomePanelButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.closeIncomePanelButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.closeIncomePanelButton.DisabledState.Parent = this.closeIncomePanelButton;
-            this.closeIncomePanelButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.closeIncomePanelButton.ForeColor = System.Drawing.Color.White;
-            this.closeIncomePanelButton.HoverState.Parent = this.closeIncomePanelButton;
-            this.closeIncomePanelButton.Location = new System.Drawing.Point(782, 14);
-            this.closeIncomePanelButton.Name = "closeIncomePanelButton";
-            this.closeIncomePanelButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.closeIncomePanelButton.ShadowDecoration.Parent = this.closeIncomePanelButton;
-            this.closeIncomePanelButton.Size = new System.Drawing.Size(37, 35);
-            this.closeIncomePanelButton.TabIndex = 16;
-            this.closeIncomePanelButton.Text = "guna2CircleButton1";
-            this.closeIncomePanelButton.Click += new System.EventHandler(this.closeIncomePanelButton_Click);
-            // 
-            // submitIncomeButton
-            // 
-            this.submitIncomeButton.CheckedState.Parent = this.submitIncomeButton;
-            this.submitIncomeButton.CustomImages.Parent = this.submitIncomeButton;
-            this.submitIncomeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.submitIncomeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.submitIncomeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.submitIncomeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.submitIncomeButton.DisabledState.Parent = this.submitIncomeButton;
-            this.submitIncomeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.submitIncomeButton.ForeColor = System.Drawing.Color.White;
-            this.submitIncomeButton.HoverState.Parent = this.submitIncomeButton;
-            this.submitIncomeButton.Location = new System.Drawing.Point(226, 234);
-            this.submitIncomeButton.Name = "submitIncomeButton";
-            this.submitIncomeButton.ShadowDecoration.Parent = this.submitIncomeButton;
-            this.submitIncomeButton.Size = new System.Drawing.Size(180, 45);
-            this.submitIncomeButton.TabIndex = 17;
-            this.submitIncomeButton.Text = "Submit";
-            this.submitIncomeButton.Click += new System.EventHandler(this.submitIncomeButton_Click);
-            // 
             // payerDataGridViewTextBoxColumn
             // 
             this.payerDataGridViewTextBoxColumn.DataPropertyName = "Payer ";
@@ -1319,20 +1343,29 @@ namespace Linkup_Finance.Forms
             this.bankDataGridViewTextBoxColumn.HeaderText = "Bank";
             this.bankDataGridViewTextBoxColumn.Name = "bankDataGridViewTextBoxColumn";
             // 
-            // netColumn
+            // grossDataGridViewTextBoxColumn
             // 
-            this.netColumn.HeaderText = "Net";
-            this.netColumn.Name = "netColumn";
+            this.grossDataGridViewTextBoxColumn.DataPropertyName = "Gross";
+            this.grossDataGridViewTextBoxColumn.HeaderText = "Gross";
+            this.grossDataGridViewTextBoxColumn.Name = "grossDataGridViewTextBoxColumn";
             // 
-            // vatColumn
+            // vATDataGridViewTextBoxColumn
             // 
-            this.vatColumn.HeaderText = "VAT";
-            this.vatColumn.Name = "vatColumn";
+            this.vATDataGridViewTextBoxColumn.DataPropertyName = "VAT";
+            this.vATDataGridViewTextBoxColumn.HeaderText = "VAT";
+            this.vATDataGridViewTextBoxColumn.Name = "vATDataGridViewTextBoxColumn";
             // 
-            // withholdingColumn
+            // withholdingDataGridViewTextBoxColumn
             // 
-            this.withholdingColumn.HeaderText = "Withholding";
-            this.withholdingColumn.Name = "withholdingColumn";
+            this.withholdingDataGridViewTextBoxColumn.DataPropertyName = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn.HeaderText = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn.Name = "withholdingDataGridViewTextBoxColumn";
+            // 
+            // netDataGridViewTextBoxColumn
+            // 
+            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
+            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
+            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
             // 
             // receiptDataGridViewTextBoxColumn
             // 
@@ -1340,36 +1373,23 @@ namespace Linkup_Finance.Forms
             this.receiptDataGridViewTextBoxColumn.HeaderText = "Receipt";
             this.receiptDataGridViewTextBoxColumn.Name = "receiptDataGridViewTextBoxColumn";
             // 
-            // grossDataGridViewTextBoxColumn
-            // 
-            this.grossDataGridViewTextBoxColumn.DataPropertyName = "Gross";
-            this.grossDataGridViewTextBoxColumn.HeaderText = "Gross";
-            this.grossDataGridViewTextBoxColumn.Name = "grossDataGridViewTextBoxColumn";
-            // 
             // reasonDataGridViewTextBoxColumn
             // 
             this.reasonDataGridViewTextBoxColumn.DataPropertyName = "Reason";
             this.reasonDataGridViewTextBoxColumn.HeaderText = "Reason";
             this.reasonDataGridViewTextBoxColumn.Name = "reasonDataGridViewTextBoxColumn";
             // 
-            // guna2Button14
+            // dateDataGridViewTextBoxColumn
             // 
-            this.guna2Button14.CheckedState.Parent = this.guna2Button14;
-            this.guna2Button14.CustomImages.Parent = this.guna2Button14;
-            this.guna2Button14.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button14.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button14.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button14.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button14.DisabledState.Parent = this.guna2Button14;
-            this.guna2Button14.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button14.ForeColor = System.Drawing.Color.White;
-            this.guna2Button14.HoverState.Parent = this.guna2Button14;
-            this.guna2Button14.Location = new System.Drawing.Point(422, 234);
-            this.guna2Button14.Name = "guna2Button14";
-            this.guna2Button14.ShadowDecoration.Parent = this.guna2Button14;
-            this.guna2Button14.Size = new System.Drawing.Size(180, 45);
-            this.guna2Button14.TabIndex = 18;
-            this.guna2Button14.Text = "Attachements";
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            // 
+            // attachementDataGridViewTextBoxColumn
+            // 
+            this.attachementDataGridViewTextBoxColumn.DataPropertyName = "Attachement";
+            this.attachementDataGridViewTextBoxColumn.HeaderText = "Attachement";
+            this.attachementDataGridViewTextBoxColumn.Name = "attachementDataGridViewTextBoxColumn";
             // 
             // ProjectForm
             // 
@@ -1396,8 +1416,6 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.ResumeLayout(false);
             this.newIncomePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.incomeDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
             this.expenseTabPage.ResumeLayout(false);
             this.expenseTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).EndInit();
@@ -1405,6 +1423,8 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).EndInit();
             this.payrollTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1455,8 +1475,6 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView4;
         public Guna.UI2.WinForms.Guna2TextBox projectNameTextBox;
         private Guna.UI2.WinForms.Guna2DataGridView incomeDataGridView;
-        private System.Windows.Forms.BindingSource incomeBindingSource;
-        private LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter incomeTableAdapter;
         private Guna.UI2.WinForms.Guna2Panel newIncomePanel;
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2TextBox nameTextBox;
@@ -1472,14 +1490,18 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2RadioButton receiptRadioButton;
         private Guna.UI2.WinForms.Guna2Button submitIncomeButton;
         private Guna.UI2.WinForms.Guna2CircleButton closeIncomePanelButton;
+        private Guna.UI2.WinForms.Guna2Button attachementsButton;
+        private System.Windows.Forms.BindingSource incomeBindingSource;
+        private LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter incomeTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn payerDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn bankDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn netColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vatColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn withholdingColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn receiptDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn grossDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vATDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn withholdingDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn netDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn receiptDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn reasonDataGridViewTextBoxColumn;
-        private Guna.UI2.WinForms.Guna2Button guna2Button14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn attachementDataGridViewTextBoxColumn;
     }
 }
