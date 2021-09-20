@@ -135,6 +135,8 @@ namespace Linkup_Finance.Forms
             incomeChart.Series.Add(netSeries);
 
             LoadIncomeChart(incomeTableAdapter.GetData());
+
+            filterComboBox.Text = "All";
         }
 
         private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -191,13 +193,9 @@ namespace Linkup_Finance.Forms
         private void filterComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             //Change the placeholder text of the search text box whenever a filter has been applied to the data set
-            filterLabel.Visible = false;
-
             switch (filterComboBox.Text)
             {
                 case "All":
-                    filterComboBox.Text = null;
-                    filterLabel.Visible = true;
                     incomeSearchTextBox.PlaceholderText = "Payer's Name";
                     break;
                 case "Gross":
@@ -226,19 +224,15 @@ namespace Linkup_Finance.Forms
 
         private void closeIncomePanelButton_Click(object sender, EventArgs e)
         {
+            nameTextBox.ResetText();
+            bankTextBox.ResetText();
+            reasonTextBox.ResetText();
+            grossTextBox.ResetText();
+            submitIncomeButton.Tag = null;
+            incomeDateSelection.Value = DateTime.Now;
             newIncomePanel.Visible = false;
-        }
-
-        private void nonreceiptRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (nonreceiptRadioButton.Checked)
-                addReceiptLinkLabel.Enabled = false;
-        }
-
-        private void receiptRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (receiptRadioButton.Checked)
-                addReceiptLinkLabel.Enabled = true;
+            errorChip.Visible = false;
+            newIncomePanel.Visible = false;
         }
 
         private void submitIncomeButton_Click(object sender, EventArgs e)
@@ -249,11 +243,23 @@ namespace Linkup_Finance.Forms
             string bank = bankTextBox.Text;
             bool hasReceipt = receiptRadioButton.Checked;
             decimal gross;
-            decimal.TryParse(grossTextBox.Text, out gross);
+            DateTime date = incomeDateSelection.Value;
+            bool isValid = decimal.TryParse(grossTextBox.Text, out gross);
             string[] attachements = (string[])submitIncomeButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
             string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName) : null;
+
+            newIncomePanel.Controls.Remove(errorChip);
+            errorChip = new Guna.UI2.WinForms.Guna2Chip
+            {
+                Size = new Size(379, 45),
+                Location = new Point(377, 9),
+                Text = "",
+                Visible = false,
+            };
+            newIncomePanel.Controls.Add(errorChip);
+            errorChip.BringToFront();
 
             if(attachements != null)
             {
@@ -263,24 +269,66 @@ namespace Linkup_Finance.Forms
                     attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName);
                 }
             }
-            
-            if(project != null)
-            {
-                if (project.AddIncome(name, reason, bank, hasReceipt, gross, attachmentDirectory))
-                {
-                    //Associate attachements with entry and store in local machine
-                    if(attachements != null)
-                    {
-                        CreateDirectory(attachmentDirectory);
 
-                        foreach (string fileName in (string[])submitIncomeButton.Tag)
-                            File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
+            if (isValid)
+            {
+                if (project != null)
+                {
+                    if (name != "" && reason != "" && bank != "" && gross != 0.00m)
+                    {
+                        if(!(hasReceipt ^ attachements != null))
+                        {
+                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, date, attachmentDirectory))
+                            {
+                                //Associate attachements with entry and store in local machine
+                                if (attachements != null)
+                                {
+                                    CreateDirectory(attachmentDirectory);
+
+                                    foreach (string fileName in (string[])submitIncomeButton.Tag)
+                                        File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
+                                }
+
+                                nameTextBox.ResetText();
+                                bankTextBox.ResetText();
+                                reasonTextBox.ResetText();
+                                grossTextBox.ResetText();
+                                submitIncomeButton.Tag = null;
+                                incomeDateSelection.Value = DateTime.Now;
+                                newIncomePanel.Visible = false;
+                                errorChip.Visible = false;
+                                incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+                                LoadIncomeChart(incomeTableAdapter.GetData());
+                            }
+                            else
+                            {
+                                errorChip.Visible = true;
+                                errorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
+                            }
+                                
+                        }
+                        else
+                        {
+                            errorChip.Visible = true;
+                            errorChip.Text = "Receipt is missing. Locate the receipt file and try again";
+                        }
                     }
-                    
-                    newIncomePanel.Visible = false;
-                    incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
-                    LoadIncomeChart(incomeTableAdapter.GetData());
+                    else
+                    {
+                        errorChip.Visible = true;
+                        errorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                    }
                 }
+                else
+                {
+                    errorChip.Visible = true;
+                    errorChip.Text = "There is no selected project. Select a project and try again.";
+                }
+            }
+            else
+            {
+                errorChip.Visible = true;
+                errorChip.Text = "The gross value is in an incorrect format. Try again.";
             }
         }
 
@@ -291,14 +339,14 @@ namespace Linkup_Finance.Forms
 
             if (value > zoomValue)
             {
-                xAxis.MinValue += (value - zoomValue) * 1.5;
-                xAxis.MaxValue -= (value - zoomValue) * 1.5;
+                xAxis.MinValue += (value - zoomValue) * 2.5;
+                xAxis.MaxValue -= (value - zoomValue) * 2.5;
                 zoomValue = value;
             }
             else
             {
-                xAxis.MinValue -= (zoomValue - value) * 1.5;
-                xAxis.MaxValue += (zoomValue - value) * 1.5;
+                xAxis.MinValue -= (zoomValue - value) * 2.5;
+                xAxis.MaxValue += (zoomValue - value) * 2.5;
                 zoomValue = value;
             }
         }
@@ -315,6 +363,48 @@ namespace Linkup_Finance.Forms
             DateTime dateSelection = chartDateTimePicker.Value;
             xAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay;
             xAxis.MaxValue = dateSelection.AddDays(5).Ticks / TimeSpan.TicksPerDay;
+            zoomValue = 99;
+            zoomTrackBar.Value = zoomValue;
+        }
+
+        private void searchIncomeButton_Click(object sender, EventArgs e)
+        {
+            string filter = filterComboBox.Text;
+            string entry = incomeSearchTextBox.Text;
+
+            switch (filter)
+            {
+                case "All":
+                    SearchDataGridView(incomeDataGridView, entry, 0);
+                    break;
+                case "Gross":
+                    SearchDataGridView(incomeDataGridView, entry, 2);
+                    break;
+                case "Receipt":
+                    SearchDataGridView(incomeDataGridView, entry, 6);
+                    break;
+                case "Non-Receipt":
+                    SearchDataGridView(incomeDataGridView, entry, 6);
+                    break;
+                case "Reason":
+                    SearchDataGridView(incomeDataGridView, entry, 7);
+                    break;
+                case "Bank":
+                    SearchDataGridView(incomeDataGridView, entry, 1);
+                    break;
+                case "Net":
+                    SearchDataGridView(incomeDataGridView, entry, 5);
+                    break;
+                case "Date":
+                    SearchDataGridView(incomeDataGridView, entry, 8);
+                    break;
+            }
+        }
+
+        private void incomeSearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if(incomeSearchTextBox.Text == "")
+                incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
         }
 
         private void attachementsButton_Click(object sender, EventArgs e)
@@ -331,7 +421,6 @@ namespace Linkup_Finance.Forms
 
         private void LoadIncomeChart(LinkupDatabaseDataSet.IncomeDataTable incomeDataTable)
         {
-            //TODO: Do not forget to remove the date simulation for the chart
             grossSeries.Values.Clear();
             netSeries.Values.Clear();
             for (int i = 0; i < incomeDataTable.Count; i++)
@@ -339,14 +428,25 @@ namespace Linkup_Finance.Forms
                 DateTime time = (DateTime)incomeDataTable.Rows[i].ItemArray[9];
                 grossSeries.Values.Add(new DateModel
                 {
-                    DateTime = time.AddDays(i),
+                    DateTime = time,
                     Value = double.Parse(incomeDataTable.Rows[i].ItemArray[5].ToString())
                 });
                 netSeries.Values.Add(new DateModel
                 {
-                    DateTime = time.AddDays(i),
+                    DateTime = time,
                     Value = double.Parse(incomeDataTable.Rows[i].ItemArray[8].ToString())
                 });
+            }
+        }
+
+        private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex)
+        {
+            dataGridView.EndEdit();
+
+            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+            {
+                if(searchEntry != (string)dataGridView.Rows[i].Cells[cellIndex].Value)
+                    dataGridView.Rows.RemoveAt(i);
             }
         }
     }

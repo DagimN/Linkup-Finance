@@ -133,7 +133,7 @@ namespace Linkup_Finance.Managers
             return projectName;
         }
 
-        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string attachement = null)
+        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, DateTime date, string attachement = null)
         {
             SqlConnection con = ProjectManager.GetConnection();
 
@@ -145,7 +145,7 @@ namespace Linkup_Finance.Managers
                 decimal withholding = gross * 0.02m;
                 decimal net = gross + vat - withholding;
                 string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement)" +
-                                     $" VALUES(\'{id}\', \'{name}\',\'{reason}\',\'{bank}\',\'{gross}\', \'{vat}\', \'{withholding}\',\'{net}\',\'{hasReceipt}\', \'{DateTime.Now}\', \'{attachement}\')";
+                                     $" VALUES(\'{id}\', \'{name}\',\'{reason}\',\'{bank}\',\'{gross}\', \'{vat}\', \'{withholding}\',\'{net}\',\'{hasReceipt}\', \'{date}\', \'{attachement}\')";
                 SqlCommand command = new SqlCommand(insertQuery, con);
                 con.Open();
                 command.ExecuteNonQuery();
