@@ -193,9 +193,19 @@ namespace Linkup_Finance.Forms
         private void filterComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             //Change the placeholder text of the search text box whenever a filter has been applied to the data set
+            incomeSearchTextBox.Visible = true;
+            fromDateLabel.Visible = false;
+            fromDateTimePicker.Visible = false;
+            toDateLabel.Visible = false;
+            toDateTimePicker.Visible = false;
+            searchIncomeButton.Location = new Point(553, 6);
+            incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+
             switch (filterComboBox.Text)
             {
                 case "All":
+                case "Receipt":
+                case "Non-Receipt":
                     incomeSearchTextBox.PlaceholderText = "Payer's Name";
                     break;
                 case "Gross":
@@ -204,15 +214,20 @@ namespace Linkup_Finance.Forms
                 case "Reason":
                     incomeSearchTextBox.PlaceholderText = "Reason";
                     break;
-                case "Receipt":
-                case "Non-Receipt":
-                    incomeSearchTextBox.PlaceholderText = "Payer's Name";
-                    break;
                 case "Bank":
                     incomeSearchTextBox.PlaceholderText = "Bank's Name";
                     break;
                 case "Net":
                     incomeSearchTextBox.PlaceholderText = "Net Value";
+                    break;
+                case "Date":
+                    fromDateLabel.Visible = true;
+                    fromDateTimePicker.Visible = true;
+                    toDateLabel.Visible = true;
+                    toDateTimePicker.Visible = true;
+                    incomeSearchTextBox.Visible = false;
+                    searchIncomeButton.Location = new Point(777, 6);
+
                     break;
             }                
         }
@@ -381,10 +396,10 @@ namespace Linkup_Finance.Forms
                     SearchDataGridView(incomeDataGridView, entry, 2);
                     break;
                 case "Receipt":
-                    SearchDataGridView(incomeDataGridView, entry, 6);
+                    SearchDataGridView(incomeDataGridView, entry, 6, true);
                     break;
                 case "Non-Receipt":
-                    SearchDataGridView(incomeDataGridView, entry, 6);
+                    SearchDataGridView(incomeDataGridView, entry, 6, false);
                     break;
                 case "Reason":
                     SearchDataGridView(incomeDataGridView, entry, 7);
@@ -396,7 +411,9 @@ namespace Linkup_Finance.Forms
                     SearchDataGridView(incomeDataGridView, entry, 5);
                     break;
                 case "Date":
-                    SearchDataGridView(incomeDataGridView, entry, 8);
+                    DateTime from = fromDateTimePicker.Value;
+                    DateTime to = toDateTimePicker.Value;
+                    SearchDataGridView(incomeDataGridView, from, to);
                     break;
             }
         }
@@ -423,6 +440,7 @@ namespace Linkup_Finance.Forms
         {
             grossSeries.Values.Clear();
             netSeries.Values.Clear();
+            SortData(incomeDataTable);
             for (int i = 0; i < incomeDataTable.Count; i++)
             {
                 DateTime time = (DateTime)incomeDataTable.Rows[i].ItemArray[9];
@@ -439,15 +457,93 @@ namespace Linkup_Finance.Forms
             }
         }
 
-        private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex)
+        private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex, bool hasReceipt = false)
         {
-            dataGridView.EndEdit();
-
+            //TODO: Fix the search capabilities with different filters
+            //TODO: Change the receipt values from int to string
             for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
             {
-                if(searchEntry != (string)dataGridView.Rows[i].Cells[cellIndex].Value)
-                    dataGridView.Rows.RemoveAt(i);
+                if(cellIndex == 0 || cellIndex == 1 || cellIndex == 6 || cellIndex == 7)
+                {
+                    if(cellIndex == 6)
+                    {
+                        if (hasReceipt)
+                            if (searchEntry != (string)dataGridView.Rows[i].Cells[0].Value && int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 1)
+                                dataGridView.Rows.RemoveAt(i);
+                        else
+                            if (searchEntry != (string)dataGridView.Rows[i].Cells[0].Value && int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 0)
+                                dataGridView.Rows.RemoveAt(i);
+                    }
+                    else
+                        if (searchEntry != (string)dataGridView.Rows[i].Cells[cellIndex].Value)
+                            dataGridView.Rows.RemoveAt(i);
+                }
+                    
+                if(cellIndex == 2 || cellIndex == 5)
+                {
+                    decimal value;
+                    decimal.TryParse(searchEntry, out value);
+
+                    if (value != (decimal)dataGridView.Rows[i].Cells[cellIndex].Value)
+                        dataGridView.Rows.RemoveAt(i);
+                }
             }
+        }
+
+        private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, DateTime fromDate, DateTime toDate)
+        {
+            int cellIndex = 8;
+            
+            for(int i = 0; i < dataGridView.Rows.Count - 1; i++)
+                if (!(DateTime.Compare((DateTime)dataGridView.Rows[i].Cells[cellIndex].Value, fromDate) > 0 &&
+                    DateTime.Compare((DateTime)dataGridView.Rows[i].Cells[cellIndex].Value, toDate) < 0))
+                    dataGridView.Rows.RemoveAt(i);
+        }
+
+        private void SortData(LinkupDatabaseDataSet.IncomeDataTable incomeDataTable)
+        {
+            DataRow[] sortArray = new DataRow[incomeDataTable.Rows.Count];
+            int num = 0;
+            for(int i = 0; i < incomeDataTable.Rows.Count; i++)
+            {
+                sortArray[i] = incomeDataTable.Rows[i];
+                num++;
+            }
+
+            foreach (DataRow row in sortArray)
+                Debug.WriteLine(row.ItemArray[9]);
+            int inner, numElements = sortArray.Length;
+            DataRow temp;
+            
+            int h = 1;
+            while (h <= numElements / 3)
+                h = h * 3 + 1;
+            while (h > 0)
+            {
+                for (int outer = h; outer <= numElements - 1; outer++)
+                {
+                    temp = sortArray[outer];
+                    inner = outer;
+
+                    while ((inner > h - 1) &&
+                        DateTime.Compare((DateTime)sortArray[inner - h].ItemArray[9],
+                                        (DateTime)temp.ItemArray[9]) == 1)
+                    {
+                        sortArray[inner] = sortArray[inner - h];
+                        inner -= h;
+                    }
+
+                    sortArray[inner] = temp;
+                }
+                h = (h - 1) / 3;
+            }
+
+            //for(int i = 0; i < incomeDataGridView.Rows.Count - 1; i++)
+            //    incomeDataTable.Rows.RemoveAt(i);
+
+            foreach (DataRow row in sortArray)
+                //incomeDataTable.Rows.Add(row);
+                Debug.WriteLine(row.ItemArray[9]);
         }
     }
 }
