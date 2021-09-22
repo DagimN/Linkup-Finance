@@ -158,6 +158,11 @@ namespace Linkup_Finance
             openChildForm(projectForm);
         }
 
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            openChildForm(settingsForm);
+        }
+
         //Custom Functions
 
         public static void TransitionPanel(Size oldSize, Size newsize, Point oldPoint)
@@ -198,11 +203,6 @@ namespace Linkup_Finance
             {
                 projectForm.ledgerTabControl.Size = new Size(1200, 590);
             }
-        }
-
-        private void settingsButton_Click(object sender, EventArgs e)
-        {
-            openChildForm(settingsForm);
         }
     }
 }

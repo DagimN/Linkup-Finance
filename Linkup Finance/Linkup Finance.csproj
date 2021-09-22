@@ -109,6 +109,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LinkupDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Managers\BankManager.cs" />
     <Compile Include="Managers\ProjectManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

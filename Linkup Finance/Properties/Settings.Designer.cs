@@ -33,5 +33,16 @@ namespace Linkup_Finance.Properties {
                 return ((string)(this["LinkupDBConfig"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection PettyVaultDictionary {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["PettyVaultDictionary"]));
+            }
+            set {
+                this["PettyVaultDictionary"] = value;
+            }
+        }
     }
 }

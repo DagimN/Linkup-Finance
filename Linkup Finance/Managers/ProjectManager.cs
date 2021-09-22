@@ -189,7 +189,7 @@ namespace Linkup_Finance.Managers
                     decimal vat = amount * 0.15m;
                     decimal withholding = amount * 0.02m;
                     decimal total = amount + vat - withholding;
-                    string type = "Normal";
+                    string type = "Petty";
 
                     if (amount >= 10000.00m)
                         type = "Goods";
