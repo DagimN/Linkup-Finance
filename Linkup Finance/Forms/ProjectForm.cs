@@ -23,11 +23,13 @@ namespace Linkup_Finance.Forms
 {
     public partial class ProjectForm : Form
     {
+        //TODO: Handle Resizing of controls when maximized
+        //TODO: Associate the project with the data being viewed
         public ProjectManager projectManager;
-        private int zoomValue = 99;
+        private int zoomIncomeValue = 99, zoomExpenseValue = 99;
         
-        private LineSeries grossSeries, netSeries;
-        private Axis xAxis, yAxis;
+        private LineSeries grossSeries, netSeries, amountSeries, totalSeries, balanceSeries;
+        private Axis xIncomeAxis, yIncomeAxis, xExpenseAxis, yExpenseAxis, xBankAxis, yBankAxis;
         private class DateModel
         {
             public System.DateTime DateTime { get; set; }
@@ -60,7 +62,31 @@ namespace Linkup_Finance.Forms
                 Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
             };
 
-            xAxis = new Axis
+            amountSeries = new LineSeries
+            {
+                Values = new ChartValues<DateModel>(),
+                Title = "Amount",
+                Stroke = System.Windows.Media.Brushes.ForestGreen,
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
+            };
+
+            totalSeries = new LineSeries
+            {
+                Values = new ChartValues<DateModel>(),
+                Title = "Total",
+                Stroke = System.Windows.Media.Brushes.ForestGreen,
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
+            };
+
+            balanceSeries = new LineSeries
+            {
+                Values = new ChartValues<DateModel>(),
+                Title = "Balance",
+                Stroke = System.Windows.Media.Brushes.ForestGreen,
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
+            };
+
+            xIncomeAxis = new Axis
             {
                 LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("dd MMM yyyy"),
                 MaxRange = DateTime.MaxValue.Subtract(TimeSpan.FromDays(146400)).Year,
@@ -68,7 +94,37 @@ namespace Linkup_Finance.Forms
                 MaxValue = DateTime.Now.AddDays(3).Ticks / TimeSpan.TicksPerDay
             };
 
-            yAxis = new Axis
+            yIncomeAxis = new Axis
+            {
+                MinValue = 0,
+                Foreground = netSeries.Fill,
+                LabelFormatter = value => value + " ETB"
+            };
+
+            xExpenseAxis = new Axis
+            {
+                LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("dd MMM yyyy"),
+                MaxRange = DateTime.MaxValue.Subtract(TimeSpan.FromDays(146400)).Year,
+                MinValue = DateTime.Now.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay,
+                MaxValue = DateTime.Now.AddDays(3).Ticks / TimeSpan.TicksPerDay
+            };
+
+            yExpenseAxis = new Axis
+            {
+                MinValue = 0,
+                Foreground = netSeries.Fill,
+                LabelFormatter = value => value + " ETB"
+            };
+
+            xBankAxis = new Axis
+            {
+                LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("dd MMM yyyy"),
+                MaxRange = DateTime.MaxValue.Subtract(TimeSpan.FromDays(146400)).Year,
+                MinValue = DateTime.Now.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay,
+                MaxValue = DateTime.Now.AddDays(3).Ticks / TimeSpan.TicksPerDay
+            };
+
+            yBankAxis = new Axis
             {
                 MinValue = 0,
                 Foreground = netSeries.Fill,
@@ -76,9 +132,27 @@ namespace Linkup_Finance.Forms
             };
 
             incomeChart.Series = new SeriesCollection(dayConfig);
+            expenseChart.Series = new SeriesCollection(dayConfig);
+            bankChart.Series = new SeriesCollection(dayConfig);
             incomeChart.Pan = PanningOptions.X;
-            incomeChart.AxisX.Add(xAxis);
-            incomeChart.AxisY.Add(yAxis);
+            expenseChart.Pan = PanningOptions.X;
+
+            incomeChart.AxisX.Add(xIncomeAxis);
+            incomeChart.AxisY.Add(yIncomeAxis);
+            expenseChart.AxisX.Add(xExpenseAxis);
+            expenseChart.AxisY.Add(yExpenseAxis);
+            bankChart.AxisX.Add(xBankAxis);
+            bankChart.AxisY.Add(yBankAxis);
+
+            //Assigning each date selector the current datetime
+            incomeDateSelection.Value = DateTime.Now;
+            expenseDateSelection.Value = DateTime.Now;
+            incomeChartDateTimePicker.Value = DateTime.Now;
+            expenseChartDateTimePicker.Value = DateTime.Now;
+            fromIncomeDateTimePicker.Value = DateTime.Now.Subtract(TimeSpan.FromDays(5));
+            toIncomeDateTimePicker.Value = DateTime.Now.AddDays(5);
+            fromExpenseDateTimePicker.Value = DateTime.Now.Subtract(TimeSpan.FromDays(5));
+            toExpenseDateTimePicker.Value = DateTime.Now.AddDays(5);
         }
 
         private void newProjectButton_Click(object sender, EventArgs e)
@@ -97,7 +171,7 @@ namespace Linkup_Finance.Forms
             {
                 projectOption.Items.Add(projectName);
                 projectOption.Text = projectName;
-                incomeDataGridView.Tag = projectManager.AddProject(projectName);
+                projectOption.Tag = projectManager.AddProject(projectName);
                 
                 //Hide the new project submission interface after entry
                 newProjectLabel.Visible = false;
@@ -116,6 +190,8 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Expense' table. You can move, or remove it, as needed.
+            this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
             // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
@@ -128,15 +204,21 @@ namespace Linkup_Finance.Forms
                 projectOption.Text = projectOption.Items[0].ToString();
 
                 Project project = projectManager.Exists(projectOption.Text, true);
-                incomeDataGridView.Tag = project;
+                projectOption.Tag = project;
             }
-             
+            
+            //TODO: Add data series with the rest of the charts i.e expense, bank 
             incomeChart.Series.Add(grossSeries);
             incomeChart.Series.Add(netSeries);
+            expenseChart.Series.Add(amountSeries);
+            expenseChart.Series.Add(totalSeries);
+            bankChart.Series.Add(balanceSeries);
 
             LoadIncomeChart(incomeTableAdapter.GetData());
+            LoadIncomeChart(expenseTableAdapter.GetData());
 
-            filterComboBox.Text = "All";
+            filterIncomeComboBox.Text = "All";
+            filterExpenseComboBox.Text = "All";
         }
 
         private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -187,50 +269,266 @@ namespace Linkup_Finance.Forms
                 removeProjectButton.Visible = true;
             Thread.Sleep(1000);
             Project project = projectManager.Exists(projectOption.Text, true);
-            incomeDataGridView.Tag = project;
+            projectOption.Tag = project;
         }
 
-        private void filterComboBox_SelectedValueChanged(object sender, EventArgs e)
+        #region ExpenseTab
+        private void newExpenseButton_Click(object sender, EventArgs e)
+        {
+            newExpensePanel.Visible = true;
+        }
+
+        private void closeExpensePanelButton_Click(object sender, EventArgs e)
+        {
+            newExpensePanel.Visible = false;
+        }
+
+        private void submitExpenseButton_Click(object sender, EventArgs e)
+        {
+            Project project = (Project)projectOption.Tag;
+            string name = nameExpenseTextBox.Text;
+            string reason = reasonExpenseTextBox.Text;
+            string bank = bankExpenseTextBox.Text;
+            string product = productExpenseTextBox.Text;
+            bool hasReceipt = receiptExpenseRadioButton.Checked;
+            decimal amount;
+            DateTime date = expenseDateSelection.Value;
+            bool isValid = decimal.TryParse(amountExpenseTextBox.Text, out amount);
+            string[] attachements = (string[])submitExpenseButton.Tag;
+            Random rand = new Random();
+            string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
+            string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Expense", folderName) : null;
+
+            newExpensePanel.Controls.Remove(expenseErrorChip);
+            expenseErrorChip = new Guna.UI2.WinForms.Guna2Chip
+            {
+                Size = new Size(379, 45),
+                Location = new Point(377, 9),
+                Text = "",
+                Visible = false,
+            };
+            newExpensePanel.Controls.Add(expenseErrorChip);
+            expenseErrorChip.BringToFront();
+
+            if (attachements != null)
+            {
+                while (Exists(attachmentDirectory))
+                {
+                    folderName = DateTime.Now.ToString("MMMddyyyy") + rand.Next(999999999) + name;
+                    attachmentDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Expense", folderName);
+                }
+            }
+
+            if (isValid)
+            {
+                if (project != null)
+                {
+                    if (name != "" && reason != "" && bank != "" && amount != 0.00m)
+                    {
+                        if (!(hasReceipt ^ attachements != null))
+                        {
+                            //TODO: Implement insertion of data to the expense table in the database
+                           
+                            if (project.AddExpense(name, reason, product, bank, hasReceipt, amount, project.GetProjectName(), date, attachmentDirectory))
+                            {
+                                //Associate attachements with entry and store in local machine
+                                if (attachements != null)
+                                {
+                                    CreateDirectory(attachmentDirectory);
+
+                                    foreach (string fileName in (string[])submitExpenseButton.Tag)
+                                        File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
+                                }
+
+                                nameExpenseTextBox.ResetText();
+                                bankExpenseTextBox.ResetText();
+                                reasonExpenseTextBox.ResetText();
+                                amountExpenseTextBox.ResetText();
+                                submitExpenseButton.Tag = null;
+                                productExpenseTextBox.ResetText();
+                                expenseDateSelection.Value = DateTime.Now;
+                                newExpensePanel.Visible = false;
+                                expenseErrorChip.Visible = false;
+                                expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
+                                LoadIncomeChart(expenseTableAdapter.GetData());
+                            }
+                            else
+                            {
+                                expenseErrorChip.Visible = true;
+                                expenseErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
+                            }
+
+                        }
+                        else
+                        {
+                            expenseErrorChip.Visible = true;
+                            expenseErrorChip.Text = "Receipt is missing. Locate the receipt file and try again";
+                        }
+                    }
+                    else
+                    {
+                        expenseErrorChip.Visible = true;
+                        expenseErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                    }
+                }
+                else
+                {
+                    expenseErrorChip.Visible = true;
+                    expenseErrorChip.Text = "There is no selected project. Select a project and try again.";
+                }
+            }
+            else
+            {
+                expenseErrorChip.Visible = true;
+                expenseErrorChip.Text = "The gross value is in an incorrect format. Try again.";
+            }
+        }
+
+        private void expenseChartDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dateSelection = expenseChartDateTimePicker.Value;
+            xExpenseAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay;
+            xExpenseAxis.MaxValue = dateSelection.AddDays(5).Ticks / TimeSpan.TicksPerDay;
+            zoomExpenseValue = 99;
+            zoomExpenseTrackBar.Value = zoomExpenseValue;
+        }
+
+        private void zoomExpenseTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int value = zoomExpenseTrackBar.Value;
+            zoomExpenseNumericUpDown.Value = value;
+
+            if (value > zoomExpenseValue)
+            {
+                xExpenseAxis.MinValue += (value - zoomExpenseValue) * 2.5;
+                xExpenseAxis.MaxValue -= (value - zoomExpenseValue) * 2.5;
+                zoomExpenseValue = value;
+            }
+            else
+            {
+                xExpenseAxis.MinValue -= (zoomExpenseValue - value) * 2.5;
+                xExpenseAxis.MaxValue += (zoomExpenseValue - value) * 2.5;
+                zoomExpenseValue = value;
+            }
+        }
+
+        private void zoomExpenseNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            int value;
+            int.TryParse(zoomExpenseNumericUpDown.Value.ToString(), out value);
+            zoomExpenseTrackBar.Value = value;
+        }
+
+        private void attachementsExpenseButton(object sender, EventArgs e)
+        {
+            OpenFileDialog attachementDialog = new OpenFileDialog();
+            attachementDialog.Filter = "All Files (*.*)|*.*";
+            attachementDialog.Multiselect = true;
+
+            DialogResult result = attachementDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+                submitExpenseButton.Tag = attachementDialog.FileNames;
+        }
+
+        private void filterExpenseComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             //Change the placeholder text of the search text box whenever a filter has been applied to the data set
-            incomeSearchTextBox.Visible = true;
-            fromDateLabel.Visible = false;
-            fromDateTimePicker.Visible = false;
-            toDateLabel.Visible = false;
-            toDateTimePicker.Visible = false;
-            searchIncomeButton.Location = new Point(553, 6);
-            incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            expenseSearchTextBox.Visible = true;
+            fromExpenseDateLabel.Visible = false;
+            fromExpenseDateTimePicker.Visible = false;
+            toExpenseDateLabel.Visible = false;
+            toExpenseDateTimePicker.Visible = false;
+            searchExpenseButton.Location = new Point(573, 6);
+            expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
 
-            switch (filterComboBox.Text)
+            switch (filterExpenseComboBox.Text)
             {
                 case "All":
                 case "Receipt":
                 case "Non-Receipt":
-                    incomeSearchTextBox.PlaceholderText = "Payer's Name";
+                    expenseSearchTextBox.PlaceholderText = "Expense Name";
                     break;
-                case "Gross":
-                    incomeSearchTextBox.PlaceholderText = "Gross Value";
+                case "Amount":
+                    expenseSearchTextBox.PlaceholderText = "Amount Value";
                     break;
                 case "Reason":
-                    incomeSearchTextBox.PlaceholderText = "Reason";
+                    expenseSearchTextBox.PlaceholderText = "Reason";
                     break;
                 case "Bank":
-                    incomeSearchTextBox.PlaceholderText = "Bank's Name";
+                    expenseSearchTextBox.PlaceholderText = "Bank's Name";
                     break;
-                case "Net":
-                    incomeSearchTextBox.PlaceholderText = "Net Value";
+                case "Total":
+                    expenseSearchTextBox.PlaceholderText = "Total Value";
+                    break;
+                case "Type":
+                    expenseSearchTextBox.PlaceholderText = "Expense Type";
+                    break;
+                case "Product":
+                    expenseSearchTextBox.PlaceholderText = "Product Name";
                     break;
                 case "Date":
-                    fromDateLabel.Visible = true;
-                    fromDateTimePicker.Visible = true;
-                    toDateLabel.Visible = true;
-                    toDateTimePicker.Visible = true;
-                    incomeSearchTextBox.Visible = false;
-                    searchIncomeButton.Location = new Point(777, 6);
+                    fromExpenseDateLabel.Visible = true;
+                    fromExpenseDateTimePicker.Visible = true;
+                    toExpenseDateLabel.Visible = true;
+                    toExpenseDateTimePicker.Visible = true;
+                    expenseSearchTextBox.Visible = false;
+                    searchExpenseButton.Location = new Point(797, 6);
 
                     break;
-            }                
+            }
         }
+
+        private void searchExpenseButton_Click(object sender, EventArgs e)
+        {
+            string filter = filterExpenseComboBox.Text;
+            string entry = expenseSearchTextBox.Text;
+
+            switch (filter)
+            {
+                case "All":
+                    SearchDataGridView(expenseDataGridView, entry, 0);
+                    break;
+                case "Amount":
+                    SearchDataGridView(expenseDataGridView, entry, 4);
+                    break;
+                case "Receipt":
+                    SearchDataGridView(expenseDataGridView, entry, 8, true);
+                    break;
+                case "Non-Receipt":
+                    SearchDataGridView(expenseDataGridView, entry, 8, false);
+                    break;
+                case "Reason":
+                    SearchDataGridView(expenseDataGridView, entry, 9);
+                    break;
+                case "Bank":
+                    SearchDataGridView(expenseDataGridView, entry, 3);
+                    break;
+                case "Date":
+                    DateTime from = fromExpenseDateTimePicker.Value;
+                    DateTime to = toExpenseDateTimePicker.Value;
+                    SearchDataGridView(expenseDataGridView, from, to);
+                    break;
+                case "Product":
+                    SearchDataGridView(expenseDataGridView, entry, 1);
+                    break;
+                case "Type":
+                    SearchDataGridView(expenseDataGridView, entry, 2);
+                    break;
+                case "Total":
+                    SearchDataGridView(expenseDataGridView, entry, 7);
+                    break;
+            }
+        }
+
+        private void expenseSearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+        }
+
+        #endregion
+
+        #region IncomeTab
 
         private void newIncomeButton_Click(object sender, EventArgs e)
         {
@@ -239,42 +537,42 @@ namespace Linkup_Finance.Forms
 
         private void closeIncomePanelButton_Click(object sender, EventArgs e)
         {
-            nameTextBox.ResetText();
-            bankTextBox.ResetText();
-            reasonTextBox.ResetText();
-            grossTextBox.ResetText();
+            nameIncomeTextBox.ResetText();
+            bankIncomeTextBox.ResetText();
+            reasonIncomeTextBox.ResetText();
+            grossIncomeTextBox.ResetText();
             submitIncomeButton.Tag = null;
             incomeDateSelection.Value = DateTime.Now;
             newIncomePanel.Visible = false;
-            errorChip.Visible = false;
+            incomeErrorChip.Visible = false;
             newIncomePanel.Visible = false;
         }
 
         private void submitIncomeButton_Click(object sender, EventArgs e)
         {
-            Project project = (Project)incomeDataGridView.Tag;
-            string name = nameTextBox.Text;
-            string reason = reasonTextBox.Text;
-            string bank = bankTextBox.Text;
-            bool hasReceipt = receiptRadioButton.Checked;
+            Project project = (Project)projectOption.Tag;
+            string name = nameIncomeTextBox.Text;
+            string reason = reasonIncomeTextBox.Text;
+            string bank = bankIncomeTextBox.Text;
+            bool hasReceipt = receiptIncomeRadioButton.Checked;
             decimal gross;
             DateTime date = incomeDateSelection.Value;
-            bool isValid = decimal.TryParse(grossTextBox.Text, out gross);
+            bool isValid = decimal.TryParse(grossIncomeTextBox.Text, out gross);
             string[] attachements = (string[])submitIncomeButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
-            string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", folderName) : null;
+            string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Income",folderName) : null;
 
-            newIncomePanel.Controls.Remove(errorChip);
-            errorChip = new Guna.UI2.WinForms.Guna2Chip
+            newIncomePanel.Controls.Remove(incomeErrorChip);
+            incomeErrorChip = new Guna.UI2.WinForms.Guna2Chip
             {
                 Size = new Size(379, 45),
                 Location = new Point(377, 9),
                 Text = "",
                 Visible = false,
             };
-            newIncomePanel.Controls.Add(errorChip);
-            errorChip.BringToFront();
+            newIncomePanel.Controls.Add(incomeErrorChip);
+            incomeErrorChip.BringToFront();
 
             if(attachements != null)
             {
@@ -293,7 +591,7 @@ namespace Linkup_Finance.Forms
                     {
                         if(!(hasReceipt ^ attachements != null))
                         {
-                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, date, attachmentDirectory))
+                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, project.GetProjectName(), date, attachmentDirectory))
                             {
                                 //Associate attachements with entry and store in local machine
                                 if (attachements != null)
@@ -304,87 +602,87 @@ namespace Linkup_Finance.Forms
                                         File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
                                 }
 
-                                nameTextBox.ResetText();
-                                bankTextBox.ResetText();
-                                reasonTextBox.ResetText();
-                                grossTextBox.ResetText();
+                                nameIncomeTextBox.ResetText();
+                                bankIncomeTextBox.ResetText();
+                                reasonIncomeTextBox.ResetText();
+                                grossIncomeTextBox.ResetText();
                                 submitIncomeButton.Tag = null;
                                 incomeDateSelection.Value = DateTime.Now;
                                 newIncomePanel.Visible = false;
-                                errorChip.Visible = false;
+                                incomeErrorChip.Visible = false;
                                 incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
                                 LoadIncomeChart(incomeTableAdapter.GetData());
                             }
                             else
                             {
-                                errorChip.Visible = true;
-                                errorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
+                                incomeErrorChip.Visible = true;
+                                incomeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
                             }
                                 
                         }
                         else
                         {
-                            errorChip.Visible = true;
-                            errorChip.Text = "Receipt is missing. Locate the receipt file and try again";
+                            incomeErrorChip.Visible = true;
+                            incomeErrorChip.Text = "Receipt is missing. Locate the receipt file and try again";
                         }
                     }
                     else
                     {
-                        errorChip.Visible = true;
-                        errorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                        incomeErrorChip.Visible = true;
+                        incomeErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
                     }
                 }
                 else
                 {
-                    errorChip.Visible = true;
-                    errorChip.Text = "There is no selected project. Select a project and try again.";
+                    incomeErrorChip.Visible = true;
+                    incomeErrorChip.Text = "There is no selected project. Select a project and try again.";
                 }
             }
             else
             {
-                errorChip.Visible = true;
-                errorChip.Text = "The gross value is in an incorrect format. Try again.";
+                incomeErrorChip.Visible = true;
+                incomeErrorChip.Text = "The gross value is in an incorrect format. Try again.";
             }
         }
 
-        private void zoomTrackBar_ValueChanged(object sender, EventArgs e)
+        private void zoomIncomeTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            int value = zoomTrackBar.Value;
-            zoomNumericUpDown.Value = value;
+            int value = zoomIncomeTrackBar.Value;
+            zoomIncomeNumericUpDown.Value = value;
 
-            if (value > zoomValue)
+            if (value > zoomIncomeValue)
             {
-                xAxis.MinValue += (value - zoomValue) * 2.5;
-                xAxis.MaxValue -= (value - zoomValue) * 2.5;
-                zoomValue = value;
+                xIncomeAxis.MinValue += (value - zoomIncomeValue) * 2.5;
+                xIncomeAxis.MaxValue -= (value - zoomIncomeValue) * 2.5;
+                zoomIncomeValue = value;
             }
             else
             {
-                xAxis.MinValue -= (zoomValue - value) * 2.5;
-                xAxis.MaxValue += (zoomValue - value) * 2.5;
-                zoomValue = value;
+                xIncomeAxis.MinValue -= (zoomIncomeValue - value) * 2.5;
+                xIncomeAxis.MaxValue += (zoomIncomeValue - value) * 2.5;
+                zoomIncomeValue = value;
             }
         }
 
-        private void zoomNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private void zoomIncomeNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             int value;
-            int.TryParse(zoomNumericUpDown.Value.ToString(), out value);
-            zoomTrackBar.Value = value;
+            int.TryParse(zoomIncomeNumericUpDown.Value.ToString(), out value);
+            zoomIncomeTrackBar.Value = value;
         }
 
-        private void chartDateTimePicker_ValueChanged(object sender, EventArgs e)
+        private void incomeChartDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            DateTime dateSelection = chartDateTimePicker.Value;
-            xAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay;
-            xAxis.MaxValue = dateSelection.AddDays(5).Ticks / TimeSpan.TicksPerDay;
-            zoomValue = 99;
-            zoomTrackBar.Value = zoomValue;
+            DateTime dateSelection = incomeChartDateTimePicker.Value;
+            xIncomeAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay;
+            xIncomeAxis.MaxValue = dateSelection.AddDays(5).Ticks / TimeSpan.TicksPerDay;
+            zoomIncomeValue = 99;
+            zoomIncomeTrackBar.Value = zoomIncomeValue;
         }
 
         private void searchIncomeButton_Click(object sender, EventArgs e)
         {
-            string filter = filterComboBox.Text;
+            string filter = filterIncomeComboBox.Text;
             string entry = incomeSearchTextBox.Text;
 
             switch (filter)
@@ -411,8 +709,8 @@ namespace Linkup_Finance.Forms
                     SearchDataGridView(incomeDataGridView, entry, 5);
                     break;
                 case "Date":
-                    DateTime from = fromDateTimePicker.Value;
-                    DateTime to = toDateTimePicker.Value;
+                    DateTime from = fromIncomeDateTimePicker.Value;
+                    DateTime to = toIncomeDateTimePicker.Value;
                     SearchDataGridView(incomeDataGridView, from, to);
                     break;
             }
@@ -420,11 +718,10 @@ namespace Linkup_Finance.Forms
 
         private void incomeSearchTextBox_TextChanged(object sender, EventArgs e)
         {
-            if(incomeSearchTextBox.Text == "")
-                incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
         }
 
-        private void attachementsButton_Click(object sender, EventArgs e)
+        private void attachementsIncomeButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog attachementDialog = new OpenFileDialog();
             attachementDialog.Filter = "All Files (*.*)|*.*";
@@ -436,86 +733,242 @@ namespace Linkup_Finance.Forms
                 submitIncomeButton.Tag = attachementDialog.FileNames;
         }
 
-        private void LoadIncomeChart(LinkupDatabaseDataSet.IncomeDataTable incomeDataTable)
+        private void filterIncomeComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            grossSeries.Values.Clear();
-            netSeries.Values.Clear();
-            SortData(incomeDataTable);
-            for (int i = 0; i < incomeDataTable.Count; i++)
+            //Change the placeholder text of the search text box whenever a filter has been applied to the data set
+            incomeSearchTextBox.Visible = true;
+            fromIncomeDateLabel.Visible = false;
+            fromIncomeDateTimePicker.Visible = false;
+            toIncomeDateLabel.Visible = false;
+            toIncomeDateTimePicker.Visible = false;
+            searchIncomeButton.Location = new Point(568, 6);
+            incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+
+            switch (filterIncomeComboBox.Text)
             {
-                DateTime time = (DateTime)incomeDataTable.Rows[i].ItemArray[9];
-                grossSeries.Values.Add(new DateModel
+                case "All":
+                case "Receipt":
+                case "Non-Receipt":
+                    incomeSearchTextBox.PlaceholderText = "Payer's Name";
+                    break;
+                case "Gross":
+                    incomeSearchTextBox.PlaceholderText = "Gross Value";
+                    break;
+                case "Reason":
+                    incomeSearchTextBox.PlaceholderText = "Reason";
+                    break;
+                case "Bank":
+                    incomeSearchTextBox.PlaceholderText = "Bank's Name";
+                    break;
+                case "Net":
+                    incomeSearchTextBox.PlaceholderText = "Net Value";
+                    break;
+                case "Date":
+                    fromIncomeDateLabel.Visible = true;
+                    fromIncomeDateTimePicker.Visible = true;
+                    toIncomeDateLabel.Visible = true;
+                    toIncomeDateTimePicker.Visible = true;
+                    incomeSearchTextBox.Visible = false;
+                    searchIncomeButton.Location = new Point(792, 6);
+
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region CustomFunctions
+
+        private void LoadIncomeChart(DataTable dataTable)
+        {
+            DataRow[] sortedData = SortData(dataTable);
+
+            if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+            {
+                grossSeries.Values.Clear();
+                netSeries.Values.Clear();
+            }
+            else
+            {
+                amountSeries.Values.Clear();
+                totalSeries.Values.Clear();
+            }
+
+            for (int i = 0; i < sortedData.Length; i++)
+            {
+                DateTime time;
+                if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
                 {
-                    DateTime = time,
-                    Value = double.Parse(incomeDataTable.Rows[i].ItemArray[5].ToString())
-                });
-                netSeries.Values.Add(new DateModel
+                    time = (DateTime)sortedData[i].ItemArray[9];
+
+                    grossSeries.Values.Add(new DateModel
+                    {
+                        DateTime = time,
+                        Value = double.Parse(sortedData[i].ItemArray[5].ToString())
+                    });
+                    netSeries.Values.Add(new DateModel
+                    {
+                        DateTime = time,
+                        Value = double.Parse(sortedData[i].ItemArray[8].ToString())
+                    });
+                }
+
+                else
                 {
-                    DateTime = time,
-                    Value = double.Parse(incomeDataTable.Rows[i].ItemArray[8].ToString())
-                });
+                    time = (DateTime)sortedData[i].ItemArray[8];
+
+                    amountSeries.Values.Add(new DateModel
+                    {
+                        DateTime = time,
+                        Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                    });
+                    totalSeries.Values.Add(new DateModel
+                    {
+                        DateTime = time,
+                        Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                    });
+                }
             }
         }
 
         private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex, bool hasReceipt = false)
         {
-            //TODO: Fix the search capabilities with different filters
             //TODO: Change the receipt values from int to string
-            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+            List<int> tobeRemovedList = new List<int>();
+            int removed = 0;
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
-                if(cellIndex == 0 || cellIndex == 1 || cellIndex == 6 || cellIndex == 7)
+                if (dataGridView.Rows[i].Cells[cellIndex].Value != null)
                 {
-                    if(cellIndex == 6)
+                    if (dataGridView.Equals(incomeDataGridView))
                     {
-                        if (hasReceipt)
-                            if (searchEntry != (string)dataGridView.Rows[i].Cells[0].Value && int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 1)
-                                dataGridView.Rows.RemoveAt(i);
-                        else
-                            if (searchEntry != (string)dataGridView.Rows[i].Cells[0].Value && int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 0)
-                                dataGridView.Rows.RemoveAt(i);
+                        if (cellIndex == 0 || cellIndex == 1 || cellIndex == 6 || cellIndex == 7)
+                        {
+                            if (cellIndex == 6)
+                            {
+                                if (hasReceipt)
+                                {
+                                    if (int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 1)
+                                        tobeRemovedList.Add(i);
+                                    else
+                                        if (searchEntry != dataGridView.Rows[i].Cells[0].Value.ToString())
+                                        tobeRemovedList.Add(i);
+                                }
+                                else
+                                {
+                                    if (int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 0)
+                                        tobeRemovedList.Add(i);
+                                    else
+                                        if (searchEntry != (string)dataGridView.Rows[i].Cells[0].Value.ToString())
+                                        tobeRemovedList.Add(i);
+                                }
+                            }
+                            else
+                                if (searchEntry != dataGridView.Rows[i].Cells[cellIndex].Value.ToString())
+                                tobeRemovedList.Add(i);
+                        }
+
+
+                        if (cellIndex == 2 || cellIndex == 5)
+                        {
+                            decimal value;
+                            decimal.TryParse(searchEntry, out value);
+
+                            if (value != (decimal)dataGridView.Rows[i].Cells[cellIndex].Value)
+                                tobeRemovedList.Add(i);
+                        }
                     }
                     else
-                        if (searchEntry != (string)dataGridView.Rows[i].Cells[cellIndex].Value)
-                            dataGridView.Rows.RemoveAt(i);
-                }
-                    
-                if(cellIndex == 2 || cellIndex == 5)
-                {
-                    decimal value;
-                    decimal.TryParse(searchEntry, out value);
+                    {
+                        if (cellIndex == 0 || cellIndex == 1 || cellIndex == 2 || cellIndex == 3 || cellIndex == 8 || cellIndex == 9)
+                        {
+                            if (cellIndex == 8)
+                            { 
+                                if (hasReceipt)
+                                {
+                                    if (int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 1)
+                                        tobeRemovedList.Add(i);
+                                    else
+                                        if (searchEntry != dataGridView.Rows[i].Cells[0].Value.ToString())
+                                        tobeRemovedList.Add(i);
+                                }
+                                else
+                                {
+                                    if (int.Parse(dataGridView.Rows[i].Cells[cellIndex].Value.ToString()) != 0)
+                                        tobeRemovedList.Add(i);
+                                    else
+                                        if (searchEntry != (string)dataGridView.Rows[i].Cells[0].Value.ToString())
+                                        tobeRemovedList.Add(i);
+                                }
+                            }
+                            else
+                                if (searchEntry != dataGridView.Rows[i].Cells[cellIndex].Value.ToString())
+                                tobeRemovedList.Add(i);
+                        }
 
-                    if (value != (decimal)dataGridView.Rows[i].Cells[cellIndex].Value)
-                        dataGridView.Rows.RemoveAt(i);
+
+                        if (cellIndex == 4 || cellIndex == 7)
+                        {
+                            decimal value;
+                            decimal.TryParse(searchEntry, out value);
+
+                            if (value != (decimal)dataGridView.Rows[i].Cells[cellIndex].Value)
+                                tobeRemovedList.Add(i);
+                        }
+                    }
                 }
+            }
+
+            foreach (int rowIndex in tobeRemovedList)
+            {
+                dataGridView.Rows.RemoveAt(rowIndex - removed);
+                removed++;
             }
         }
 
         private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, DateTime fromDate, DateTime toDate)
         {
-            int cellIndex = 8;
-            
-            for(int i = 0; i < dataGridView.Rows.Count - 1; i++)
-                if (!(DateTime.Compare((DateTime)dataGridView.Rows[i].Cells[cellIndex].Value, fromDate) > 0 &&
-                    DateTime.Compare((DateTime)dataGridView.Rows[i].Cells[cellIndex].Value, toDate) < 0))
-                    dataGridView.Rows.RemoveAt(i);
+            List<int> tobeRemovedList = new List<int>();
+            int removed = 0;
+            int cellIndex;
+
+            if (dataGridView.Equals(expenseDataGridView))
+                cellIndex = 10;
+            else
+                cellIndex = 8;
+
+            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+                if (!(DateTime.Compare((DateTime)dataGridView.Rows[i].Cells[cellIndex].Value, fromDate) >= 0 &&
+                    DateTime.Compare((DateTime)dataGridView.Rows[i].Cells[cellIndex].Value, toDate) <= 0))
+                    tobeRemovedList.Add(i);
+
+            foreach (int rowIndex in tobeRemovedList)
+            {
+                dataGridView.Rows.RemoveAt(rowIndex - removed);
+                removed++;
+            }
         }
 
-        private void SortData(LinkupDatabaseDataSet.IncomeDataTable incomeDataTable)
+        private DataRow[] SortData(DataTable dataTable)
         {
-            DataRow[] sortArray = new DataRow[incomeDataTable.Rows.Count];
+            DataRow[] sortArray = new DataRow[dataTable.Rows.Count];
             int num = 0;
-            for(int i = 0; i < incomeDataTable.Rows.Count; i++)
+            for(int i = 0; i < dataTable.Rows.Count; i++)
             {
-                sortArray[i] = incomeDataTable.Rows[i];
+                sortArray[i] = dataTable.Rows[i];
                 num++;
             }
 
-            foreach (DataRow row in sortArray)
-                Debug.WriteLine(row.ItemArray[9]);
-            int inner, numElements = sortArray.Length;
+            int inner, numElements = sortArray.Length, itemIndex;
             DataRow temp;
-            
             int h = 1;
+
+            if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+                itemIndex = 9;
+            else
+                itemIndex = 8;
+
             while (h <= numElements / 3)
                 h = h * 3 + 1;
             while (h > 0)
@@ -526,8 +979,8 @@ namespace Linkup_Finance.Forms
                     inner = outer;
 
                     while ((inner > h - 1) &&
-                        DateTime.Compare((DateTime)sortArray[inner - h].ItemArray[9],
-                                        (DateTime)temp.ItemArray[9]) == 1)
+                        DateTime.Compare((DateTime)sortArray[inner - h].ItemArray[itemIndex],
+                                        (DateTime)temp.ItemArray[itemIndex]) == 1)
                     {
                         sortArray[inner] = sortArray[inner - h];
                         inner -= h;
@@ -538,12 +991,9 @@ namespace Linkup_Finance.Forms
                 h = (h - 1) / 3;
             }
 
-            //for(int i = 0; i < incomeDataGridView.Rows.Count - 1; i++)
-            //    incomeDataTable.Rows.RemoveAt(i);
-
-            foreach (DataRow row in sortArray)
-                //incomeDataTable.Rows.Add(row);
-                Debug.WriteLine(row.ItemArray[9]);
+            return sortArray; 
         }
+
+        #endregion
     }
 }

@@ -7,45 +7,50 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Linkup_Finance.Managers
 {
     public class ProjectManager
     {
         private List<Project> projects = new List<Project>();
-        private static SqlConnection con;
 
         public ProjectManager()
         {
             projects = new List<Project>();
-
-            con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString);
         }
 
         public Project AddProject(string name)
         {
-            try
+            using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
-                con.Open();
-                Random rand = new Random();
-                int id = rand.Next(999999);
-                string insertQuery = "INSERT INTO Projects(Id, Name)" +
-                                    "VALUES (\'" + id + "\', \'" + name + "\')";
-                SqlCommand command = new SqlCommand(insertQuery, con);
-
-                if (!Exists(name))
+                try
                 {
-                    Project project = new Project(name);
-                    projects.Add(project);
-                    command.ExecuteNonQuery();
-                    return project;
+                    con.Open();
+                    Random rand = new Random();
+                    int id = rand.Next(999999);
+                    string insertQuery = "INSERT INTO Projects(Id, Name)" +
+                                        "VALUES (\'" + id + "\', \'" + name + "\')";
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+
+                    if (!Exists(name))
+                    {
+                        Project project = new Project(name);
+                        projects.Add(project);
+                        command.ExecuteNonQuery();
+                        return project;
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+                finally
+                {
+                    con.Close();
                 }
             }
-            finally
-            {
-                con.Close();
-            }
-
+            
             return null;
         }
 
@@ -97,26 +102,24 @@ namespace Linkup_Finance.Managers
 
             if (project != null)
             {
-                projects.Remove(project);
+                using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+                {
+                    projects.Remove(project);
 
-                try
-                {
-                    con.Open();
-                    string deleteQuery = "DELETE FROM Projects" +
-                                        " WHERE Name=\'" + name +"\'";
-                    SqlCommand command = new SqlCommand(deleteQuery, con);
-                    command.ExecuteNonQuery();
-                }
-                finally
-                {
-                    con.Close();
+                    try
+                    {
+                        con.Open();
+                        string deleteQuery = "DELETE FROM Projects" +
+                                            " WHERE Name=\'" + name + "\'";
+                        SqlCommand command = new SqlCommand(deleteQuery, con);
+                        command.ExecuteNonQuery();
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
             }
-        }
-
-        public static SqlConnection GetConnection()
-        {
-            return con;
         }
     }
 
@@ -133,30 +136,92 @@ namespace Linkup_Finance.Managers
             return projectName;
         }
 
-        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, DateTime date, string attachement = null)
+        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string project, DateTime date, string attachement = null)
         {
-            SqlConnection con = ProjectManager.GetConnection();
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    Random rand = new Random();
+                    int id = rand.Next(999999);
+                    decimal vat = gross * 0.15m;
+                    decimal withholding = gross * 0.02m;
+                    decimal net = gross + vat - withholding;
+                    string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project)" +
+                                         $" VALUES(@Id, @Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project)";
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@Payer", name);
+                    command.Parameters.AddWithValue("@Reason", reason);
+                    command.Parameters.AddWithValue("@Bank", bank);
+                    command.Parameters.AddWithValue("@Gross", gross);
+                    command.Parameters.AddWithValue("@VAT", vat);
+                    command.Parameters.AddWithValue("@Withholding", withholding);
+                    command.Parameters.AddWithValue("@Net", net);
+                    command.Parameters.AddWithValue("@Receipt", hasReceipt);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@Project", project);
+                    con.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
 
-            try
+            return true;
+        }
+
+        public bool AddExpense(string name, string reason, string product, string bank, bool hasReceipt, decimal amount, string project, DateTime date, string attachement = null)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
-                Random rand = new Random();
-                int id = rand.Next(999999);
-                decimal vat = gross * 0.15m;
-                decimal withholding = gross * 0.02m;
-                decimal net = gross + vat - withholding;
-                string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement)" +
-                                     $" VALUES(\'{id}\', \'{name}\',\'{reason}\',\'{bank}\',\'{gross}\', \'{vat}\', \'{withholding}\',\'{net}\',\'{hasReceipt}\', \'{date}\', \'{attachement}\')";
-                SqlCommand command = new SqlCommand(insertQuery, con);
-                con.Open();
-                command.ExecuteNonQuery();
-            }
-            catch(Exception)
-            {
-                return false;
-            }
-            finally
-            {
-                con.Close();
+                try
+                {
+                    con.Open();
+                    Random rand = new Random();
+                    int id = rand.Next(999999);
+                    decimal vat = amount * 0.15m;
+                    decimal withholding = amount * 0.02m;
+                    decimal total = amount + vat - withholding;
+                    string type = "Normal";
+
+                    if (amount >= 10000.00m)
+                        type = "Goods";
+                    else if (amount >= 3000.00m)
+                        type = "Service";
+
+                    string insertQuery = "INSERT INTO Expense(Id, ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt)" +
+                                         $" VALUES(@Id, @ExpName,@Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{attachement}\',@Total,@Project,@Receipt)";
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@ExpName", name);
+                    command.Parameters.AddWithValue("@Product", product);
+                    command.Parameters.AddWithValue("@Amount", amount);
+                    command.Parameters.AddWithValue("@Type", type);
+                    command.Parameters.AddWithValue("@VAT", vat);
+                    command.Parameters.AddWithValue("@Withholding", withholding);
+                    command.Parameters.AddWithValue("@Bank", bank);
+                    command.Parameters.AddWithValue("@Reason", reason);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@Total", total);
+                    command.Parameters.AddWithValue("@Project", project);
+                    command.Parameters.AddWithValue("@Receipt", hasReceipt);
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
 
             return true;

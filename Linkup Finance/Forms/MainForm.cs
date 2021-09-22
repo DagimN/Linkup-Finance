@@ -13,7 +13,9 @@ namespace Linkup_Finance
     public partial class MainForm : Form
     {
         private bool isViewing = false;
-        private string attachementDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements");
+        private static string attachementDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements");
+        private static string expenseDirectory = Combine(attachementDirectory, "Expense");
+        private static string incomeDirectory = Combine(attachementDirectory, "Income");
         private Form activeForm;
         private DashboardForm dashboardForm;
         public ProjectForm projectForm;
@@ -30,6 +32,10 @@ namespace Linkup_Finance
 
             if (!Exists(attachementDirectory))
                 CreateDirectory(attachementDirectory);
+            if (!Exists(incomeDirectory))
+                CreateDirectory(incomeDirectory);
+            if (!Exists(expenseDirectory))
+                CreateDirectory(expenseDirectory);
 
             dashboardForm = new DashboardForm();
             projectForm = new ProjectForm();
