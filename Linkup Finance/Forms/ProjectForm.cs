@@ -45,6 +45,7 @@ namespace Linkup_Finance.Forms
             projectManager = new ProjectManager();
             bankManager = new BankManager();
 
+            //Initializing Chart Components
             var dayConfig = Mappers.Xy<DateModel>()
                 .X(dayModel => (double)dayModel.DateTime.Ticks / TimeSpan.FromDays(1).Ticks)
                 .Y(dayModel => dayModel.Value);
@@ -147,6 +148,10 @@ namespace Linkup_Finance.Forms
             bankChart.AxisX.Add(xBankAxis);
             bankChart.AxisY.Add(yBankAxis);
 
+            pettyVaultChart.InnerRadius = 15;
+            pettyVaultChart.DisableAnimations = false;
+            pettyVaultChart.AnimationsSpeed = TimeSpan.FromSeconds(0.4);
+
             //Assigning each date selector the current datetime
             incomeDateSelection.Value = DateTime.Now;
             expenseDateSelection.Value = DateTime.Now;
@@ -157,26 +162,41 @@ namespace Linkup_Finance.Forms
             fromExpenseDateTimePicker.Value = DateTime.Now.Subtract(TimeSpan.FromDays(5));
             toExpenseDateTimePicker.Value = DateTime.Now.AddDays(5);
 
-            if (pettyVaultComboBox.Items.Count > 0)
-                pettyVaultTextBox.Text = pettyVaultComboBox.Items[0].ToString();
-            else
-                pettyVaultTextBox.PlaceholderText = "Create Petty Vault";
-
             if (Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary == null)
                 Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary = new System.Collections.Specialized.StringCollection();
             else
             {
-                for (int i = 0; i < Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Count; i += 2)
+                if(Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Count > 0)
                 {
-                    string name = Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[i];
-                    decimal value = decimal.Parse(Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[i + 1]);
+                    for (int i = 0; i < Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Count; i += 3)
+                    {
+                        string name = Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[i];
+                        decimal value = decimal.Parse(Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[i + 1]);
+                        decimal amount = decimal.Parse(Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[i + 2]);
 
-                    pettyVaultComboBox.Items.Add(name);
-                    bankManager.AddPettyVault(name, value);
+                        pettyVaultComboBox.Items.Add(name);
+                        bankManager.AddPettyVault(name, value, amount);
+
+                        pettyVaultChart.Series.Add(new PieSeries
+                        {
+                            Values = new ChartValues<decimal> { amount },
+                            Title = name
+                        });
+                    }
+
+                    foreach (PieSeries series in pettyVaultChart.Series)
+                    {
+                        series.PushOut = 0;
+                        if (series.Title == bankManager.GetFirstIndex().GetName())
+                            series.PushOut = 10;
+                    }
+                    pettyVaultTextBox.Tag = bankManager.GetFirstIndex();
+                    pettyVaultTextBox.Text = bankManager.GetFirstIndex().GetName();
+                    pettyVaultComboBox.Text = bankManager.GetFirstIndex().GetName();
+                    pettyValueTextBox.Text = bankManager.GetFirstIndex().GetValue().ToString();
                 }
-
-                pettyVaultComboBox.Text = bankManager.GetFirstIndex().GetName();
-                pettyValueTextBox.Text = bankManager.GetFirstIndex().GetValue().ToString();
+                else
+                    pettyVaultTextBox.PlaceholderText = "Create Petty Vault";
             }
         }
 
@@ -301,8 +321,25 @@ namespace Linkup_Finance.Forms
 
         private void pettyVaultComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            pettyVaultTextBox.Text = pettyVaultComboBox.Text;
+            //TODO: Enlargen respective pie chart
+            string vaultName = pettyVaultComboBox.Text;
+            PettyVault vault = bankManager.GetPettyVault(vaultName);
+
+            pettyVaultTextBox.Tag = vault;
+            pettyVaultTextBox.Text = vaultName;
             pettyVaultTextBox.Enabled = false;
+            vaultAmountLabel.Text = $"Amount(ETB): {vault.GetAmount()}";
+
+            foreach (PieSeries series in pettyVaultChart.Series)
+            {
+                series.PushOut = 0;
+                if (series.Title == vault.GetName())
+                    series.PushOut = 10;
+
+                pettyVaultChart.Refresh();
+            }
+            
+            pettyValueTextBox.Text = vault.GetValue().ToString();
         }
 
         private void newPettyVaultButton_Click(object sender, EventArgs e)
@@ -329,12 +366,20 @@ namespace Linkup_Finance.Forms
                     {
                         Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add(pettyVaultName);
                         Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add(pettyValueTextBox.Text);
+                        Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add(pettyValueTextBox.Text);
                         Linkup_Finance.Properties.Settings.Default.Save();
 
                         bankManager.AddPettyVault(pettyVaultName, pettyVaultValue);
 
+                        pettyVaultChart.Series.Add(new PieSeries
+                        {
+                            Values = new ChartValues<decimal> { pettyVaultValue },
+                            Title = pettyVaultName
+                        });
+
                         pettyVaultComboBox.Items.Add(pettyVaultName);
                         pettyVaultComboBox.Text = pettyVaultName;
+                        vaultAmountLabel.Text = $"Amount(ETB): {pettyVaultValue}";
                         pettyVaultTextBox.Enabled = false;
                     }
                     else
@@ -350,6 +395,68 @@ namespace Linkup_Finance.Forms
                 pettyVaultTextBox.Text = "";
                 pettyValueTextBox.Text = "";
                 pettyValueTextBox.PlaceholderText = "Insert Value";
+                vaultAmountLabel.Text = $"Amount(ETB):";
+            }
+        }
+
+        private void editValueButton_Click(object sender, EventArgs e)
+        {
+            decimal value;
+            bool isValid = decimal.TryParse(pettyValueTextBox.Text, out value);
+            PettyVault vault = (PettyVault)pettyVaultTextBox.Tag;
+
+            if (isValid)
+                vault.SetValue(value);
+        }
+
+        private void replenishButton_Click(object sender, EventArgs e)
+        {
+            PettyVault vault = (PettyVault)pettyVaultTextBox.Tag;
+
+            vault.Replenish();
+            vaultAmountLabel.Text = $"Amount(ETB):{vault.GetAmount()}";
+            foreach(PieSeries series in pettyVaultChart.Series)
+            {
+                if(series.Title == vault.GetName())
+                {
+                    series.Values = new ChartValues<decimal> { vault.GetAmount() };
+                    break;
+                }
+            }
+        }
+
+        private void removeVaultButton_Click(object sender, EventArgs e)
+        {
+            PettyVault vault = (PettyVault)pettyVaultTextBox.Tag;
+            PieSeries removeSeries = null;
+
+            if(vault != null)
+            {
+                bankManager.RemovePettyVault(vault);
+                pettyVaultComboBox.Items.Remove(vault.GetName());
+
+                foreach (PieSeries series in pettyVaultChart.Series)
+                {
+                    if (series.Title == vault.GetName())
+                    {
+                        removeSeries = series;
+                        break;
+                    }
+                }
+
+                if (removeSeries != null)
+                    pettyVaultChart.Series.Remove(removeSeries);
+
+                if (pettyVaultComboBox.Items.Count > 0)
+                    pettyVaultComboBox.Text = pettyVaultComboBox.Items[0].ToString();
+                else
+                {
+                    pettyVaultTextBox.PlaceholderText = "Create Petty Vault";
+                    pettyVaultTextBox.Text = "";
+                    pettyValueTextBox.Text = "Insert Value";
+                    pettyVaultTextBox.Tag = null;
+                    vaultAmountLabel.Text = "Amount(ETB):";
+                }
             }
         }
 
