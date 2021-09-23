@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Linkup_Finance.Managers
 {
@@ -135,6 +136,75 @@ namespace Linkup_Finance.Managers
         public string GetBankName()
         {
             return this.Name;
+        }
+
+        public decimal GetBalance()
+        {
+            return this.Balance;
+        }
+
+        public void Deposit(decimal value)
+        {
+            decimal prevBalance = this.Balance;
+            this.Balance += value;
+
+            using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    con.Open();
+                    string updateQuery = "UPDATE Banks " +
+                                         "SET Balance=@Balance " +
+                                         "WHERE Name=@Name";
+                    SqlCommand command = new SqlCommand(updateQuery, con);
+                    command.Parameters.AddWithValue("@Balance", this.Balance);
+                    command.Parameters.AddWithValue("@Name", this.Name);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+
+            SubmitLog(prevBalance, "Income", "Deposit", DateTime.Now, "Deposit");
+        }
+
+        public bool SubmitLog(decimal prevBalance, string type, string reason, DateTime date, string tpName, string project = null)
+        {
+            using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    con.Open();
+                    string insertQuery = "INSERT INTO BankLogs(Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName)" +
+                                         $" VALUES(@Bank, @Balance, @PrevBalance, @Type, @Reason, @Date, \'{project}\', @tpName)";
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+                    command.Parameters.AddWithValue("@Bank", this.Name);
+                    command.Parameters.AddWithValue("@Balance", this.Balance);
+                    command.Parameters.AddWithValue("@PrevBalance", prevBalance);
+                    command.Parameters.AddWithValue("@Type", type);
+                    command.Parameters.AddWithValue("@Reason", reason);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@tpName", tpName);
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
     }
 

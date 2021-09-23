@@ -76,18 +76,6 @@ namespace Linkup_Finance.Forms
             this.zoomIncomeNumericUpDown = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.zoomIncomeTrackBar = new Guna.UI2.WinForms.Guna2TrackBar();
             this.incomeDataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.payerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grossDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vATDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.withholdingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.receiptDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reasonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.attachementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.incomeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
             this.filterLabel = new System.Windows.Forms.Label();
             this.filterIncomeComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.newIncomeButton = new Guna.UI2.WinForms.Guna2Button();
@@ -130,19 +118,6 @@ namespace Linkup_Finance.Forms
             this.newExpenseButton = new Guna.UI2.WinForms.Guna2Button();
             this.expenseChart = new LiveCharts.WinForms.CartesianChart();
             this.expenseDataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.expNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bankDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vATDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.withholdingDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.receiptDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reasonDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.attachementDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.balanceTabPage = new System.Windows.Forms.TabPage();
             this.pettyVaultPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.vaultAmountLabel = new System.Windows.Forms.Label();
@@ -165,19 +140,9 @@ namespace Linkup_Finance.Forms
             this.guna2DataGridView4 = new Guna.UI2.WinForms.Guna2DataGridView();
             this.removeProjectButton = new Guna.UI2.WinForms.Guna2CircleButton();
             this.exitSubmissionButton = new Guna.UI2.WinForms.Guna2Button();
-            this.projectsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.projectsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter();
-            this.incomeTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter();
-            this.expenseTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ExpenseTableAdapter();
-            this.projectColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.expincColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reasonColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.balanceAmountLabel = new System.Windows.Forms.Label();
+            this.depositTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.depositButton = new Guna.UI2.WinForms.Guna2Button();
             this.newBankPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.bankErrorChip = new Guna.UI2.WinForms.Guna2Chip();
             this.closeBankPanel = new Guna.UI2.WinForms.Guna2Button();
@@ -189,26 +154,65 @@ namespace Linkup_Finance.Forms
             this.bankNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.bankNameLabel = new System.Windows.Forms.Label();
             this.newBankLabel = new System.Windows.Forms.Label();
+            this.payerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.grossDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vATDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.withholdingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.receiptDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reasonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.attachementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.incomeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
+            this.expNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vATDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.withholdingDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.receiptDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reasonDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.attachementDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.bankLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.projectsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.projectsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter();
+            this.incomeTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter();
+            this.expenseTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ExpenseTableAdapter();
             this.banksTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.BanksTableAdapter();
+            this.bankLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.BankLogsTableAdapter();
+            this.tpNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reasonDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.balanceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerTabControl.SuspendLayout();
             this.incomeTabPage.SuspendLayout();
             this.newIncomePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoomIncomeNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
             this.expenseTabPage.SuspendLayout();
             this.newExpensePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoomExpenseNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.expenseDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.expenseBindingSource)).BeginInit();
             this.balanceTabPage.SuspendLayout();
             this.pettyVaultPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).BeginInit();
             this.payrollTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
             this.newBankPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.expenseBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bankLogsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // newProjectButton
@@ -893,76 +897,6 @@ namespace Linkup_Finance.Forms
             this.incomeDataGridView.ThemeStyle.RowsStyle.Height = 22;
             this.incomeDataGridView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.incomeDataGridView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            // 
-            // payerDataGridViewTextBoxColumn
-            // 
-            this.payerDataGridViewTextBoxColumn.DataPropertyName = "Payer ";
-            this.payerDataGridViewTextBoxColumn.HeaderText = "Payer ";
-            this.payerDataGridViewTextBoxColumn.Name = "payerDataGridViewTextBoxColumn";
-            // 
-            // bankDataGridViewTextBoxColumn
-            // 
-            this.bankDataGridViewTextBoxColumn.DataPropertyName = "Bank";
-            this.bankDataGridViewTextBoxColumn.HeaderText = "Bank";
-            this.bankDataGridViewTextBoxColumn.Name = "bankDataGridViewTextBoxColumn";
-            // 
-            // grossDataGridViewTextBoxColumn
-            // 
-            this.grossDataGridViewTextBoxColumn.DataPropertyName = "Gross";
-            this.grossDataGridViewTextBoxColumn.HeaderText = "Gross";
-            this.grossDataGridViewTextBoxColumn.Name = "grossDataGridViewTextBoxColumn";
-            // 
-            // vATDataGridViewTextBoxColumn
-            // 
-            this.vATDataGridViewTextBoxColumn.DataPropertyName = "VAT";
-            this.vATDataGridViewTextBoxColumn.HeaderText = "VAT";
-            this.vATDataGridViewTextBoxColumn.Name = "vATDataGridViewTextBoxColumn";
-            // 
-            // withholdingDataGridViewTextBoxColumn
-            // 
-            this.withholdingDataGridViewTextBoxColumn.DataPropertyName = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn.HeaderText = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn.Name = "withholdingDataGridViewTextBoxColumn";
-            // 
-            // netDataGridViewTextBoxColumn
-            // 
-            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
-            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
-            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
-            // 
-            // receiptDataGridViewTextBoxColumn
-            // 
-            this.receiptDataGridViewTextBoxColumn.DataPropertyName = "Receipt";
-            this.receiptDataGridViewTextBoxColumn.HeaderText = "Receipt";
-            this.receiptDataGridViewTextBoxColumn.Name = "receiptDataGridViewTextBoxColumn";
-            // 
-            // reasonDataGridViewTextBoxColumn
-            // 
-            this.reasonDataGridViewTextBoxColumn.DataPropertyName = "Reason";
-            this.reasonDataGridViewTextBoxColumn.HeaderText = "Reason";
-            this.reasonDataGridViewTextBoxColumn.Name = "reasonDataGridViewTextBoxColumn";
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            // 
-            // attachementDataGridViewTextBoxColumn
-            // 
-            this.attachementDataGridViewTextBoxColumn.DataPropertyName = "Attachement";
-            this.attachementDataGridViewTextBoxColumn.HeaderText = "Attachement";
-            this.attachementDataGridViewTextBoxColumn.Name = "attachementDataGridViewTextBoxColumn";
-            // 
-            // incomeBindingSource
-            // 
-            this.incomeBindingSource.DataMember = "Income";
-            this.incomeBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
-            // linkupDatabaseDataSet
-            // 
-            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
-            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // filterLabel
             // 
@@ -1780,89 +1714,12 @@ namespace Linkup_Finance.Forms
             this.expenseDataGridView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.expenseDataGridView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // expNameDataGridViewTextBoxColumn
-            // 
-            this.expNameDataGridViewTextBoxColumn.DataPropertyName = "ExpName";
-            this.expNameDataGridViewTextBoxColumn.HeaderText = "ExpName";
-            this.expNameDataGridViewTextBoxColumn.Name = "expNameDataGridViewTextBoxColumn";
-            // 
-            // productDataGridViewTextBoxColumn
-            // 
-            this.productDataGridViewTextBoxColumn.DataPropertyName = "Product";
-            this.productDataGridViewTextBoxColumn.HeaderText = "Product";
-            this.productDataGridViewTextBoxColumn.Name = "productDataGridViewTextBoxColumn";
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            // 
-            // bankDataGridViewTextBoxColumn1
-            // 
-            this.bankDataGridViewTextBoxColumn1.DataPropertyName = "Bank";
-            this.bankDataGridViewTextBoxColumn1.HeaderText = "Bank";
-            this.bankDataGridViewTextBoxColumn1.Name = "bankDataGridViewTextBoxColumn1";
-            // 
-            // amountDataGridViewTextBoxColumn
-            // 
-            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
-            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
-            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
-            // 
-            // vATDataGridViewTextBoxColumn1
-            // 
-            this.vATDataGridViewTextBoxColumn1.DataPropertyName = "VAT";
-            this.vATDataGridViewTextBoxColumn1.HeaderText = "VAT";
-            this.vATDataGridViewTextBoxColumn1.Name = "vATDataGridViewTextBoxColumn1";
-            // 
-            // withholdingDataGridViewTextBoxColumn1
-            // 
-            this.withholdingDataGridViewTextBoxColumn1.DataPropertyName = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn1.HeaderText = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn1.Name = "withholdingDataGridViewTextBoxColumn1";
-            // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            // 
-            // receiptDataGridViewTextBoxColumn1
-            // 
-            this.receiptDataGridViewTextBoxColumn1.DataPropertyName = "Receipt";
-            this.receiptDataGridViewTextBoxColumn1.HeaderText = "Receipt";
-            this.receiptDataGridViewTextBoxColumn1.Name = "receiptDataGridViewTextBoxColumn1";
-            // 
-            // reasonDataGridViewTextBoxColumn1
-            // 
-            this.reasonDataGridViewTextBoxColumn1.DataPropertyName = "Reason";
-            this.reasonDataGridViewTextBoxColumn1.HeaderText = "Reason";
-            this.reasonDataGridViewTextBoxColumn1.Name = "reasonDataGridViewTextBoxColumn1";
-            // 
-            // dateDataGridViewTextBoxColumn1
-            // 
-            this.dateDataGridViewTextBoxColumn1.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn1.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn1.Name = "dateDataGridViewTextBoxColumn1";
-            // 
-            // attachementDataGridViewTextBoxColumn1
-            // 
-            this.attachementDataGridViewTextBoxColumn1.DataPropertyName = "Attachement";
-            this.attachementDataGridViewTextBoxColumn1.HeaderText = "Attachement";
-            this.attachementDataGridViewTextBoxColumn1.Name = "attachementDataGridViewTextBoxColumn1";
-            // 
-            // expenseBindingSource
-            // 
-            this.expenseBindingSource.DataMember = "Expense";
-            this.expenseBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
             // balanceTabPage
             // 
             this.balanceTabPage.Controls.Add(this.newBankPanel);
-            this.balanceTabPage.Controls.Add(this.guna2Button1);
-            this.balanceTabPage.Controls.Add(this.guna2TextBox1);
-            this.balanceTabPage.Controls.Add(this.label2);
+            this.balanceTabPage.Controls.Add(this.depositButton);
+            this.balanceTabPage.Controls.Add(this.depositTextBox);
+            this.balanceTabPage.Controls.Add(this.balanceAmountLabel);
             this.balanceTabPage.Controls.Add(this.pettyVaultPanel);
             this.balanceTabPage.Controls.Add(this.bankOptionBox);
             this.balanceTabPage.Controls.Add(this.bankPieChart);
@@ -1900,11 +1757,11 @@ namespace Linkup_Finance.Forms
             // vaultAmountLabel
             // 
             this.vaultAmountLabel.AutoSize = true;
-            this.vaultAmountLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vaultAmountLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vaultAmountLabel.ForeColor = System.Drawing.Color.White;
             this.vaultAmountLabel.Location = new System.Drawing.Point(146, 11);
             this.vaultAmountLabel.Name = "vaultAmountLabel";
-            this.vaultAmountLabel.Size = new System.Drawing.Size(82, 15);
+            this.vaultAmountLabel.Size = new System.Drawing.Size(80, 14);
             this.vaultAmountLabel.TabIndex = 13;
             this.vaultAmountLabel.Text = "Amount(ETB):";
             // 
@@ -1985,11 +1842,11 @@ namespace Linkup_Finance.Forms
             // vaultValueLabel
             // 
             this.vaultValueLabel.AutoSize = true;
-            this.vaultValueLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vaultValueLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vaultValueLabel.ForeColor = System.Drawing.Color.White;
             this.vaultValueLabel.Location = new System.Drawing.Point(11, 80);
             this.vaultValueLabel.Name = "vaultValueLabel";
-            this.vaultValueLabel.Size = new System.Drawing.Size(77, 18);
+            this.vaultValueLabel.Size = new System.Drawing.Size(67, 14);
             this.vaultValueLabel.TabIndex = 10;
             this.vaultValueLabel.Text = "Value(ETB):";
             // 
@@ -2091,11 +1948,11 @@ namespace Linkup_Finance.Forms
             // pettyVaultPanelLabel
             // 
             this.pettyVaultPanelLabel.AutoSize = true;
-            this.pettyVaultPanelLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pettyVaultPanelLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pettyVaultPanelLabel.ForeColor = System.Drawing.Color.White;
             this.pettyVaultPanelLabel.Location = new System.Drawing.Point(17, 10);
             this.pettyVaultPanelLabel.Name = "pettyVaultPanelLabel";
-            this.pettyVaultPanelLabel.Size = new System.Drawing.Size(81, 18);
+            this.pettyVaultPanelLabel.Size = new System.Drawing.Size(70, 14);
             this.pettyVaultPanelLabel.TabIndex = 4;
             this.pettyVaultPanelLabel.Text = "Petty Vaults";
             // 
@@ -2117,6 +1974,7 @@ namespace Linkup_Finance.Forms
             this.bankOptionBox.ShadowDecoration.Parent = this.bankOptionBox;
             this.bankOptionBox.Size = new System.Drawing.Size(443, 36);
             this.bankOptionBox.TabIndex = 5;
+            this.bankOptionBox.SelectedValueChanged += new System.EventHandler(this.bankOptionBox_SelectedValueChanged);
             // 
             // bankPieChart
             // 
@@ -2138,6 +1996,7 @@ namespace Linkup_Finance.Forms
             // 
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.guna2DataGridView3.AutoGenerateColumns = false;
             this.guna2DataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.guna2DataGridView3.BackgroundColor = System.Drawing.Color.White;
             this.guna2DataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -2153,12 +2012,14 @@ namespace Linkup_Finance.Forms
             this.guna2DataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.guna2DataGridView3.ColumnHeadersHeight = 40;
             this.guna2DataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.projectColumn,
-            this.expincColumn,
-            this.typeColumn,
-            this.amountColumn,
-            this.reasonColumn,
-            this.dateColumn});
+            this.tpNameDataGridViewTextBoxColumn,
+            this.projectNameDataGridViewTextBoxColumn,
+            this.bankDataGridViewTextBoxColumn2,
+            this.Type,
+            this.reasonDataGridViewTextBoxColumn2,
+            this.dateDataGridViewTextBoxColumn2,
+            this.balanceDataGridViewTextBoxColumn});
+            this.guna2DataGridView3.DataSource = this.bankLogsBindingSource;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 10.5F);
@@ -2331,121 +2192,63 @@ namespace Linkup_Finance.Forms
             this.exitSubmissionButton.Visible = false;
             this.exitSubmissionButton.Click += new System.EventHandler(this.exitSubmissionButton_Click);
             // 
-            // projectsBindingSource
+            // balanceAmountLabel
             // 
-            this.projectsBindingSource.DataMember = "Projects";
-            this.projectsBindingSource.DataSource = this.linkupDatabaseDataSet;
+            this.balanceAmountLabel.AutoSize = true;
+            this.balanceAmountLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.balanceAmountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.balanceAmountLabel.Location = new System.Drawing.Point(335, 61);
+            this.balanceAmountLabel.Name = "balanceAmountLabel";
+            this.balanceAmountLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.balanceAmountLabel.Size = new System.Drawing.Size(104, 18);
+            this.balanceAmountLabel.TabIndex = 14;
+            this.balanceAmountLabel.Text = ":Balance(ETB)";
             // 
-            // projectsTableAdapter
+            // depositTextBox
             // 
-            this.projectsTableAdapter.ClearBeforeFill = true;
+            this.depositTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.depositTextBox.CustomizableEdges.BottomLeft = false;
+            this.depositTextBox.CustomizableEdges.BottomRight = false;
+            this.depositTextBox.DefaultText = "";
+            this.depositTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.depositTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.depositTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.depositTextBox.DisabledState.Parent = this.depositTextBox;
+            this.depositTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.depositTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.depositTextBox.FocusedState.Parent = this.depositTextBox;
+            this.depositTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.depositTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.depositTextBox.HoverState.Parent = this.depositTextBox;
+            this.depositTextBox.Location = new System.Drawing.Point(99, 55);
+            this.depositTextBox.Name = "depositTextBox";
+            this.depositTextBox.PasswordChar = '\0';
+            this.depositTextBox.PlaceholderText = "Insert Value";
+            this.depositTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.depositTextBox.SelectedText = "";
+            this.depositTextBox.ShadowDecoration.Parent = this.depositTextBox;
+            this.depositTextBox.Size = new System.Drawing.Size(122, 36);
+            this.depositTextBox.TabIndex = 14;
             // 
-            // incomeTableAdapter
+            // depositButton
             // 
-            this.incomeTableAdapter.ClearBeforeFill = true;
-            // 
-            // expenseTableAdapter
-            // 
-            this.expenseTableAdapter.ClearBeforeFill = true;
-            // 
-            // projectColumn
-            // 
-            this.projectColumn.FillWeight = 95.63451F;
-            this.projectColumn.HeaderText = "Project Name";
-            this.projectColumn.Name = "projectColumn";
-            this.projectColumn.ReadOnly = true;
-            // 
-            // expincColumn
-            // 
-            this.expincColumn.FillWeight = 121.8274F;
-            this.expincColumn.HeaderText = "Payer/Expense";
-            this.expincColumn.Name = "expincColumn";
-            this.expincColumn.ReadOnly = true;
-            // 
-            // typeColumn
-            // 
-            this.typeColumn.FillWeight = 95.63451F;
-            this.typeColumn.HeaderText = "Type";
-            this.typeColumn.Name = "typeColumn";
-            this.typeColumn.ReadOnly = true;
-            // 
-            // amountColumn
-            // 
-            this.amountColumn.FillWeight = 95.63451F;
-            this.amountColumn.HeaderText = "Amount";
-            this.amountColumn.Name = "amountColumn";
-            this.amountColumn.ReadOnly = true;
-            // 
-            // reasonColumn
-            // 
-            this.reasonColumn.FillWeight = 95.63451F;
-            this.reasonColumn.HeaderText = "Reason";
-            this.reasonColumn.Name = "reasonColumn";
-            this.reasonColumn.ReadOnly = true;
-            // 
-            // dateColumn
-            // 
-            this.dateColumn.FillWeight = 95.63451F;
-            this.dateColumn.HeaderText = "Date";
-            this.dateColumn.Name = "dateColumn";
-            this.dateColumn.ReadOnly = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.label2.Location = new System.Drawing.Point(438, 62);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(104, 18);
-            this.label2.TabIndex = 14;
-            this.label2.Text = ":Balance(ETB)";
-            // 
-            // guna2TextBox1
-            // 
-            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox1.CustomizableEdges.BottomLeft = false;
-            this.guna2TextBox1.CustomizableEdges.BottomRight = false;
-            this.guna2TextBox1.DefaultText = "";
-            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.DisabledState.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.FocusedState.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.HoverState.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.Location = new System.Drawing.Point(99, 55);
-            this.guna2TextBox1.Name = "guna2TextBox1";
-            this.guna2TextBox1.PasswordChar = '\0';
-            this.guna2TextBox1.PlaceholderText = "Insert Value";
-            this.guna2TextBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.ShadowDecoration.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.Size = new System.Drawing.Size(122, 36);
-            this.guna2TextBox1.TabIndex = 14;
-            // 
-            // guna2Button1
-            // 
-            this.guna2Button1.CheckedState.Parent = this.guna2Button1;
-            this.guna2Button1.CustomImages.Parent = this.guna2Button1;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.DisabledState.Parent = this.guna2Button1;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.HoverState.Parent = this.guna2Button1;
-            this.guna2Button1.Location = new System.Drawing.Point(8, 55);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
-            this.guna2Button1.Size = new System.Drawing.Size(85, 36);
-            this.guna2Button1.TabIndex = 15;
-            this.guna2Button1.Text = "Deposit";
+            this.depositButton.CheckedState.Parent = this.depositButton;
+            this.depositButton.CustomImages.Parent = this.depositButton;
+            this.depositButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.depositButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.depositButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.depositButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.depositButton.DisabledState.Parent = this.depositButton;
+            this.depositButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.depositButton.ForeColor = System.Drawing.Color.White;
+            this.depositButton.HoverState.Parent = this.depositButton;
+            this.depositButton.Location = new System.Drawing.Point(8, 55);
+            this.depositButton.Name = "depositButton";
+            this.depositButton.ShadowDecoration.Parent = this.depositButton;
+            this.depositButton.Size = new System.Drawing.Size(85, 36);
+            this.depositButton.TabIndex = 15;
+            this.depositButton.Text = "Deposit";
+            this.depositButton.Click += new System.EventHandler(this.depositButton_Click);
             // 
             // newBankPanel
             // 
@@ -2645,9 +2448,230 @@ namespace Linkup_Finance.Forms
             this.newBankLabel.TabIndex = 1;
             this.newBankLabel.Text = "New Bank";
             // 
+            // payerDataGridViewTextBoxColumn
+            // 
+            this.payerDataGridViewTextBoxColumn.DataPropertyName = "Payer ";
+            this.payerDataGridViewTextBoxColumn.HeaderText = "Payer ";
+            this.payerDataGridViewTextBoxColumn.Name = "payerDataGridViewTextBoxColumn";
+            // 
+            // bankDataGridViewTextBoxColumn
+            // 
+            this.bankDataGridViewTextBoxColumn.DataPropertyName = "Bank";
+            this.bankDataGridViewTextBoxColumn.HeaderText = "Bank";
+            this.bankDataGridViewTextBoxColumn.Name = "bankDataGridViewTextBoxColumn";
+            // 
+            // grossDataGridViewTextBoxColumn
+            // 
+            this.grossDataGridViewTextBoxColumn.DataPropertyName = "Gross";
+            this.grossDataGridViewTextBoxColumn.HeaderText = "Gross";
+            this.grossDataGridViewTextBoxColumn.Name = "grossDataGridViewTextBoxColumn";
+            // 
+            // vATDataGridViewTextBoxColumn
+            // 
+            this.vATDataGridViewTextBoxColumn.DataPropertyName = "VAT";
+            this.vATDataGridViewTextBoxColumn.HeaderText = "VAT";
+            this.vATDataGridViewTextBoxColumn.Name = "vATDataGridViewTextBoxColumn";
+            // 
+            // withholdingDataGridViewTextBoxColumn
+            // 
+            this.withholdingDataGridViewTextBoxColumn.DataPropertyName = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn.HeaderText = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn.Name = "withholdingDataGridViewTextBoxColumn";
+            // 
+            // netDataGridViewTextBoxColumn
+            // 
+            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
+            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
+            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
+            // 
+            // receiptDataGridViewTextBoxColumn
+            // 
+            this.receiptDataGridViewTextBoxColumn.DataPropertyName = "Receipt";
+            this.receiptDataGridViewTextBoxColumn.HeaderText = "Receipt";
+            this.receiptDataGridViewTextBoxColumn.Name = "receiptDataGridViewTextBoxColumn";
+            // 
+            // reasonDataGridViewTextBoxColumn
+            // 
+            this.reasonDataGridViewTextBoxColumn.DataPropertyName = "Reason";
+            this.reasonDataGridViewTextBoxColumn.HeaderText = "Reason";
+            this.reasonDataGridViewTextBoxColumn.Name = "reasonDataGridViewTextBoxColumn";
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            // 
+            // attachementDataGridViewTextBoxColumn
+            // 
+            this.attachementDataGridViewTextBoxColumn.DataPropertyName = "Attachement";
+            this.attachementDataGridViewTextBoxColumn.HeaderText = "Attachement";
+            this.attachementDataGridViewTextBoxColumn.Name = "attachementDataGridViewTextBoxColumn";
+            // 
+            // incomeBindingSource
+            // 
+            this.incomeBindingSource.DataMember = "Income";
+            this.incomeBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // linkupDatabaseDataSet
+            // 
+            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
+            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // expNameDataGridViewTextBoxColumn
+            // 
+            this.expNameDataGridViewTextBoxColumn.DataPropertyName = "ExpName";
+            this.expNameDataGridViewTextBoxColumn.HeaderText = "ExpName";
+            this.expNameDataGridViewTextBoxColumn.Name = "expNameDataGridViewTextBoxColumn";
+            // 
+            // productDataGridViewTextBoxColumn
+            // 
+            this.productDataGridViewTextBoxColumn.DataPropertyName = "Product";
+            this.productDataGridViewTextBoxColumn.HeaderText = "Product";
+            this.productDataGridViewTextBoxColumn.Name = "productDataGridViewTextBoxColumn";
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            // 
+            // bankDataGridViewTextBoxColumn1
+            // 
+            this.bankDataGridViewTextBoxColumn1.DataPropertyName = "Bank";
+            this.bankDataGridViewTextBoxColumn1.HeaderText = "Bank";
+            this.bankDataGridViewTextBoxColumn1.Name = "bankDataGridViewTextBoxColumn1";
+            // 
+            // amountDataGridViewTextBoxColumn
+            // 
+            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
+            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
+            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
+            // 
+            // vATDataGridViewTextBoxColumn1
+            // 
+            this.vATDataGridViewTextBoxColumn1.DataPropertyName = "VAT";
+            this.vATDataGridViewTextBoxColumn1.HeaderText = "VAT";
+            this.vATDataGridViewTextBoxColumn1.Name = "vATDataGridViewTextBoxColumn1";
+            // 
+            // withholdingDataGridViewTextBoxColumn1
+            // 
+            this.withholdingDataGridViewTextBoxColumn1.DataPropertyName = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn1.HeaderText = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn1.Name = "withholdingDataGridViewTextBoxColumn1";
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            // 
+            // receiptDataGridViewTextBoxColumn1
+            // 
+            this.receiptDataGridViewTextBoxColumn1.DataPropertyName = "Receipt";
+            this.receiptDataGridViewTextBoxColumn1.HeaderText = "Receipt";
+            this.receiptDataGridViewTextBoxColumn1.Name = "receiptDataGridViewTextBoxColumn1";
+            // 
+            // reasonDataGridViewTextBoxColumn1
+            // 
+            this.reasonDataGridViewTextBoxColumn1.DataPropertyName = "Reason";
+            this.reasonDataGridViewTextBoxColumn1.HeaderText = "Reason";
+            this.reasonDataGridViewTextBoxColumn1.Name = "reasonDataGridViewTextBoxColumn1";
+            // 
+            // dateDataGridViewTextBoxColumn1
+            // 
+            this.dateDataGridViewTextBoxColumn1.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn1.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn1.Name = "dateDataGridViewTextBoxColumn1";
+            // 
+            // attachementDataGridViewTextBoxColumn1
+            // 
+            this.attachementDataGridViewTextBoxColumn1.DataPropertyName = "Attachement";
+            this.attachementDataGridViewTextBoxColumn1.HeaderText = "Attachement";
+            this.attachementDataGridViewTextBoxColumn1.Name = "attachementDataGridViewTextBoxColumn1";
+            // 
+            // expenseBindingSource
+            // 
+            this.expenseBindingSource.DataMember = "Expense";
+            this.expenseBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // bankLogsBindingSource
+            // 
+            this.bankLogsBindingSource.DataMember = "BankLogs";
+            this.bankLogsBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // projectsBindingSource
+            // 
+            this.projectsBindingSource.DataMember = "Projects";
+            this.projectsBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // projectsTableAdapter
+            // 
+            this.projectsTableAdapter.ClearBeforeFill = true;
+            // 
+            // incomeTableAdapter
+            // 
+            this.incomeTableAdapter.ClearBeforeFill = true;
+            // 
+            // expenseTableAdapter
+            // 
+            this.expenseTableAdapter.ClearBeforeFill = true;
+            // 
             // banksTableAdapter
             // 
             this.banksTableAdapter.ClearBeforeFill = true;
+            // 
+            // bankLogsTableAdapter
+            // 
+            this.bankLogsTableAdapter.ClearBeforeFill = true;
+            // 
+            // tpNameDataGridViewTextBoxColumn
+            // 
+            this.tpNameDataGridViewTextBoxColumn.DataPropertyName = "tpName";
+            this.tpNameDataGridViewTextBoxColumn.FillWeight = 177.665F;
+            this.tpNameDataGridViewTextBoxColumn.HeaderText = "Payer/Expense";
+            this.tpNameDataGridViewTextBoxColumn.Name = "tpNameDataGridViewTextBoxColumn";
+            // 
+            // projectNameDataGridViewTextBoxColumn
+            // 
+            this.projectNameDataGridViewTextBoxColumn.DataPropertyName = "ProjectName";
+            this.projectNameDataGridViewTextBoxColumn.FillWeight = 151.4015F;
+            this.projectNameDataGridViewTextBoxColumn.HeaderText = "Project Name";
+            this.projectNameDataGridViewTextBoxColumn.Name = "projectNameDataGridViewTextBoxColumn";
+            // 
+            // bankDataGridViewTextBoxColumn2
+            // 
+            this.bankDataGridViewTextBoxColumn2.DataPropertyName = "Bank";
+            this.bankDataGridViewTextBoxColumn2.FillWeight = 74.18671F;
+            this.bankDataGridViewTextBoxColumn2.HeaderText = "Bank";
+            this.bankDataGridViewTextBoxColumn2.Name = "bankDataGridViewTextBoxColumn2";
+            // 
+            // Type
+            // 
+            this.Type.DataPropertyName = "Type";
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            // 
+            // reasonDataGridViewTextBoxColumn2
+            // 
+            this.reasonDataGridViewTextBoxColumn2.DataPropertyName = "Reason";
+            this.reasonDataGridViewTextBoxColumn2.FillWeight = 74.18671F;
+            this.reasonDataGridViewTextBoxColumn2.HeaderText = "Reason";
+            this.reasonDataGridViewTextBoxColumn2.Name = "reasonDataGridViewTextBoxColumn2";
+            // 
+            // dateDataGridViewTextBoxColumn2
+            // 
+            this.dateDataGridViewTextBoxColumn2.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn2.FillWeight = 74.18671F;
+            this.dateDataGridViewTextBoxColumn2.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn2.Name = "dateDataGridViewTextBoxColumn2";
+            // 
+            // balanceDataGridViewTextBoxColumn
+            // 
+            this.balanceDataGridViewTextBoxColumn.DataPropertyName = "Balance";
+            this.balanceDataGridViewTextBoxColumn.FillWeight = 74.18671F;
+            this.balanceDataGridViewTextBoxColumn.HeaderText = "Balance";
+            this.balanceDataGridViewTextBoxColumn.Name = "balanceDataGridViewTextBoxColumn";
             // 
             // ProjectForm
             // 
@@ -2675,15 +2699,12 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoomIncomeNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
             this.expenseTabPage.ResumeLayout(false);
             this.expenseTabPage.PerformLayout();
             this.newExpensePanel.ResumeLayout(false);
             this.newExpensePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoomExpenseNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.expenseDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.expenseBindingSource)).EndInit();
             this.balanceTabPage.ResumeLayout(false);
             this.balanceTabPage.PerformLayout();
             this.pettyVaultPanel.ResumeLayout(false);
@@ -2691,9 +2712,13 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).EndInit();
             this.payrollTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
             this.newBankPanel.ResumeLayout(false);
             this.newBankPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.expenseBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bankLogsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2839,15 +2864,18 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2TextBox bankNameTextBox;
         private System.Windows.Forms.Label bankNameLabel;
         private System.Windows.Forms.Label newBankLabel;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn projectColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn expincColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn amountColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reasonColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateColumn;
+        private Guna.UI2.WinForms.Guna2Button depositButton;
+        private Guna.UI2.WinForms.Guna2TextBox depositTextBox;
+        private System.Windows.Forms.Label balanceAmountLabel;
         private LinkupDatabaseDataSetTableAdapters.BanksTableAdapter banksTableAdapter;
+        private System.Windows.Forms.BindingSource bankLogsBindingSource;
+        private LinkupDatabaseDataSetTableAdapters.BankLogsTableAdapter bankLogsTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tpNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn projectNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bankDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reasonDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn balanceDataGridViewTextBoxColumn;
     }
 }

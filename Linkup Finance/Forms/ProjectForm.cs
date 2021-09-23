@@ -162,6 +162,7 @@ namespace Linkup_Finance.Forms
             fromExpenseDateTimePicker.Value = DateTime.Now.Subtract(TimeSpan.FromDays(5));
             toExpenseDateTimePicker.Value = DateTime.Now.AddDays(5);
 
+            //Loading Petty Vault Data
             if (Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary == null)
                 Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary = new System.Collections.Specialized.StringCollection();
             else
@@ -235,9 +236,9 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Expense' table. You can move, or remove it, as needed.
+            this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+            this.banksTableAdapter.Fill(this.linkupDatabaseDataSet.Banks);
             this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
 
@@ -253,6 +254,9 @@ namespace Linkup_Finance.Forms
 
                 Project project = projectManager.Exists(projectOption.Text, true);
                 projectOption.Tag = project;
+
+                LoadChart(incomeTableAdapter.GetData());
+                LoadChart(expenseTableAdapter.GetData());
             }
 
             if(bankOptionBox.Items.Count > 0)
@@ -261,18 +265,16 @@ namespace Linkup_Finance.Forms
 
                 Bank bank = bankManager.GetBank(bankOptionBox.Text);
                 bankOptionBox.Tag = bank;
+                balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+                LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
             }
-            
+
             //TODO: Add data series with the rest of the charts i.e expense, bank 
             incomeChart.Series.Add(grossSeries);
             incomeChart.Series.Add(netSeries);
             expenseChart.Series.Add(amountSeries);
             expenseChart.Series.Add(totalSeries);
             bankChart.Series.Add(balanceSeries);
-
-            LoadChart(incomeTableAdapter.GetData());
-            LoadChart(expenseTableAdapter.GetData());
-            LoadChart(bankOptionBox.Text, incomeTableAdapter.GetData(), expenseTableAdapter.GetData());
 
             filterIncomeComboBox.Text = "All";
             filterExpenseComboBox.Text = "All";
@@ -500,52 +502,79 @@ namespace Linkup_Finance.Forms
             newIncomePanel.Controls.Add(bankErrorChip);
             bankErrorChip.BringToFront();
 
-
             if (isValid)
             {
-                    if (name != "" && accountID != ""  && balance != 0.00m)
+                if (name != "" && accountID != "" && balance != 0.00m)
+                {
+                    if (!bankManager.BankExists(name))
                     {
-                        if (!bankManager.BankExists(name))
+                        if (bankManager.AddBank(name, accountID, balance))
                         {
-                            if (bankManager.AddBank(name, accountID, balance))
-                            {
-                                bankNameTextBox.ResetText();
-                                accountIDTextBox.ResetText();
-                                bankBalanceTextBox.ResetText();
-                                newBankPanel.Visible = false;
-                                bankErrorChip.Visible = false;
-                                bankOptionBox.Tag = bankManager.GetBank(name);
-                                bankOptionBox.Items.Add(name);
-                                bankOptionBox.Text = name;
+                            Bank bank = bankManager.GetBank(name);
+                            bankNameTextBox.ResetText();
+                            accountIDTextBox.ResetText();
+                            bankBalanceTextBox.ResetText();
+                            newBankPanel.Visible = false;
+                            bankErrorChip.Visible = false;
+                            bankOptionBox.Tag = bank;
+                            bankOptionBox.Items.Add(name);
+                            bankOptionBox.Text = name;
+                            balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
 
-                                //TODO: Add new Bank in chart
+                            //TODO: Add new Bank in chart
 
-                                //TODO: Load data to chart
-                                LoadChart(name, incomeTableAdapter.GetData(), expenseTableAdapter.GetData());
-                            }
-                            else
-                            {
-                                incomeErrorChip.Visible = true;
-                                incomeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
-                            }
+                            //TODO: Load data to chart
+                            this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+                            LoadChart(name, bankLogsTableAdapter.GetData());
                         }
                         else
                         {
                             incomeErrorChip.Visible = true;
-                            incomeErrorChip.Text = "A bank with the same name already exists. Try a different alternative.";
+                            incomeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
                         }
                     }
                     else
                     {
                         incomeErrorChip.Visible = true;
-                        incomeErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                        incomeErrorChip.Text = "A bank with the same name already exists. Try a different alternative.";
                     }
+                }
+                else
+                {
+                    incomeErrorChip.Visible = true;
+                    incomeErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                }
             }
             else
             {
                 incomeErrorChip.Visible = true;
                 incomeErrorChip.Text = "The balance value is in an incorrect format. Try again.";
             }
+        }
+
+        private void depositButton_Click(object sender, EventArgs e)
+        {
+            Bank bank = (Bank)bankOptionBox.Tag;
+            decimal value;
+            bool isValid = decimal.TryParse(depositTextBox.Text, out value);
+            if (isValid)
+            {
+                bank.Deposit(value);
+                balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+                this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+                LoadChart(bank.GetBankName(), bankLogsTableAdapter.GetData());
+            }
+                
+            else
+                depositTextBox.Text = "Invalid Value";
+        }
+
+        private void bankOptionBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Bank bank = bankManager.GetBank(bankOptionBox.Text);
+            bankOptionBox.Tag = bank;
+            balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+            LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
         }
 
         #endregion
@@ -563,7 +592,9 @@ namespace Linkup_Finance.Forms
 
         private void submitExpenseButton_Click(object sender, EventArgs e)
         {
+            //TODO: Use bank object to classify which it is and implement submit log
             Project project = (Project)projectOption.Tag;
+           
             string name = nameExpenseTextBox.Text;
             string reason = reasonExpenseTextBox.Text;
             string bank = bankExpenseTextBox.Text;
@@ -828,6 +859,7 @@ namespace Linkup_Finance.Forms
 
         private void submitIncomeButton_Click(object sender, EventArgs e)
         {
+            //TODO: Use bank object to classify which it is and implement submit log
             Project project = (Project)projectOption.Tag;
             string name = nameIncomeTextBox.Text;
             string reason = reasonIncomeTextBox.Text;
@@ -1110,9 +1142,30 @@ namespace Linkup_Finance.Forms
         }
 
         //TODO: Bank Chart Load implementation
-        private void LoadChart(string bankName, DataTable incomeDataTable, DataTable expenseDataTable)
+        private void LoadChart(string bankName, DataTable dataTable)
         {
+            DataRow[] sortedData = SortData(dataTable);
+            DataTable banksDataTable = banksTableAdapter.GetData();
+            balanceSeries.Values.Clear();
+            bankPieChart.Series.Clear();
 
+            for (int i = 0; i < sortedData.Length; i++)
+            {
+                balanceSeries.Values.Add(new DateModel
+                {
+                    DateTime = (DateTime)sortedData[i].ItemArray[6],
+                    Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                });
+            }
+
+            for (int i = 0; i < banksDataTable.Rows.Count; i++)
+            {
+                bankPieChart.Series.Add(new PieSeries
+                {
+                    Values = new ChartValues<decimal> { (decimal)banksDataTable.Rows[i].ItemArray[3] },
+                    Title = banksDataTable.Rows[i].ItemArray[1].ToString()
+                });
+            }
         }
 
         private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex, bool hasReceipt = false)
@@ -1250,6 +1303,8 @@ namespace Linkup_Finance.Forms
 
             if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
                 itemIndex = 9;
+            else if (dataTable is LinkupDatabaseDataSet.BankLogsDataTable)
+                itemIndex = 6;
             else
                 itemIndex = 8;
 
