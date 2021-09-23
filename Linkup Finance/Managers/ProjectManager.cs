@@ -29,9 +29,10 @@ namespace Linkup_Finance.Managers
                     con.Open();
                     Random rand = new Random();
                     int id = rand.Next(999999);
-                    string insertQuery = "INSERT INTO Projects(Id, Name)" +
-                                        "VALUES (\'" + id + "\', \'" + name + "\')";
+                    string insertQuery = "INSERT INTO Projects(Name)" +
+                                        "VALUES (@Name)";
                     SqlCommand command = new SqlCommand(insertQuery, con);
+                    command.Parameters.AddWithValue("@Name", name);
 
                     if (!Exists(name))
                     {
@@ -110,8 +111,10 @@ namespace Linkup_Finance.Managers
                     {
                         con.Open();
                         string deleteQuery = "DELETE FROM Projects" +
-                                            " WHERE Name=\'" + name + "\'";
+                                            " WHERE Name=@Name";
                         SqlCommand command = new SqlCommand(deleteQuery, con);
+
+                        command.Parameters.AddWithValue("@Name", name);
                         command.ExecuteNonQuery();
                     }
                     finally
@@ -142,15 +145,12 @@ namespace Linkup_Finance.Managers
             {
                 try
                 {
-                    Random rand = new Random();
-                    int id = rand.Next(999999);
                     decimal vat = gross * 0.15m;
                     decimal withholding = gross * 0.02m;
                     decimal net = gross + vat - withholding;
-                    string insertQuery = "INSERT INTO Income(Id, Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project)" +
-                                         $" VALUES(@Id, @Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project)";
+                    string insertQuery = "INSERT INTO Income(Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project)" +
+                                         $" VALUES(@Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project)";
                     SqlCommand command = new SqlCommand(insertQuery, con);
-                    command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@Payer", name);
                     command.Parameters.AddWithValue("@Reason", reason);
                     command.Parameters.AddWithValue("@Bank", bank);
@@ -184,8 +184,6 @@ namespace Linkup_Finance.Managers
                 try
                 {
                     con.Open();
-                    Random rand = new Random();
-                    int id = rand.Next(999999);
                     decimal vat = amount * 0.15m;
                     decimal withholding = amount * 0.02m;
                     decimal total = amount + vat - withholding;
@@ -196,10 +194,9 @@ namespace Linkup_Finance.Managers
                     else if (amount >= 3000.00m)
                         type = "Service";
 
-                    string insertQuery = "INSERT INTO Expense(Id, ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt)" +
-                                         $" VALUES(@Id, @ExpName,@Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{attachement}\',@Total,@Project,@Receipt)";
+                    string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt)" +
+                                         $" VALUES(@ExpName,@Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{attachement}\',@Total,@Project,@Receipt)";
                     SqlCommand command = new SqlCommand(insertQuery, con);
-                    command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@ExpName", name);
                     command.Parameters.AddWithValue("@Product", product);
                     command.Parameters.AddWithValue("@Amount", amount);

@@ -244,12 +244,23 @@ namespace Linkup_Finance.Forms
             foreach(Project project in projectManager.RetrieveProjects(projectsTableAdapter))
                 projectOption.Items.Add(project.GetProjectName());
 
+            foreach (Bank bank in bankManager.RetrieveBanks(banksTableAdapter))
+                bankOptionBox.Items.Add(bank.GetBankName());
+
             if(projectOption.Items.Count > 0)
             {
                 projectOption.Text = projectOption.Items[0].ToString();
 
                 Project project = projectManager.Exists(projectOption.Text, true);
                 projectOption.Tag = project;
+            }
+
+            if(bankOptionBox.Items.Count > 0)
+            {
+                bankOptionBox.Text = bankOptionBox.Items[0].ToString();
+
+                Bank bank = bankManager.GetBank(bankOptionBox.Text);
+                bankOptionBox.Tag = bank;
             }
             
             //TODO: Add data series with the rest of the charts i.e expense, bank 
@@ -259,8 +270,9 @@ namespace Linkup_Finance.Forms
             expenseChart.Series.Add(totalSeries);
             bankChart.Series.Add(balanceSeries);
 
-            LoadIncomeChart(incomeTableAdapter.GetData());
-            LoadIncomeChart(expenseTableAdapter.GetData());
+            LoadChart(incomeTableAdapter.GetData());
+            LoadChart(expenseTableAdapter.GetData());
+            LoadChart(bankOptionBox.Text, incomeTableAdapter.GetData(), expenseTableAdapter.GetData());
 
             filterIncomeComboBox.Text = "All";
             filterExpenseComboBox.Text = "All";
@@ -460,6 +472,82 @@ namespace Linkup_Finance.Forms
             }
         }
 
+        private void newBankButton_Click(object sender, EventArgs e)
+        {
+            newBankPanel.Visible = true;
+        }
+
+        private void closeBankPanel_Click(object sender, EventArgs e)
+        {
+            newBankPanel.Visible = false;
+        }
+
+        private void submitBankButton_Click(object sender, EventArgs e)
+        { 
+            string name = bankNameTextBox.Text;
+            string accountID =accountIDTextBox.Text;
+            decimal balance;
+            bool isValid = decimal.TryParse(bankBalanceTextBox.Text, out balance);
+            
+            newIncomePanel.Controls.Remove(bankErrorChip);
+            bankErrorChip = new Guna.UI2.WinForms.Guna2Chip
+            {
+                Size = new Size(379, 45),
+                Location = new Point(377, 9),
+                Text = "",
+                Visible = false,
+            };
+            newIncomePanel.Controls.Add(bankErrorChip);
+            bankErrorChip.BringToFront();
+
+
+            if (isValid)
+            {
+                    if (name != "" && accountID != ""  && balance != 0.00m)
+                    {
+                        if (!bankManager.BankExists(name))
+                        {
+                            if (bankManager.AddBank(name, accountID, balance))
+                            {
+                                bankNameTextBox.ResetText();
+                                accountIDTextBox.ResetText();
+                                bankBalanceTextBox.ResetText();
+                                newBankPanel.Visible = false;
+                                bankErrorChip.Visible = false;
+                                bankOptionBox.Tag = bankManager.GetBank(name);
+                                bankOptionBox.Items.Add(name);
+                                bankOptionBox.Text = name;
+
+                                //TODO: Add new Bank in chart
+
+                                //TODO: Load data to chart
+                                LoadChart(name, incomeTableAdapter.GetData(), expenseTableAdapter.GetData());
+                            }
+                            else
+                            {
+                                incomeErrorChip.Visible = true;
+                                incomeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
+                            }
+                        }
+                        else
+                        {
+                            incomeErrorChip.Visible = true;
+                            incomeErrorChip.Text = "A bank with the same name already exists. Try a different alternative.";
+                        }
+                    }
+                    else
+                    {
+                        incomeErrorChip.Visible = true;
+                        incomeErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                    }
+            }
+            else
+            {
+                incomeErrorChip.Visible = true;
+                incomeErrorChip.Text = "The balance value is in an incorrect format. Try again.";
+            }
+        }
+
         #endregion
 
         #region ExpenseTab
@@ -540,7 +628,7 @@ namespace Linkup_Finance.Forms
                                 newExpensePanel.Visible = false;
                                 expenseErrorChip.Visible = false;
                                 expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-                                LoadIncomeChart(expenseTableAdapter.GetData());
+                                LoadChart(expenseTableAdapter.GetData());
                             }
                             else
                             {
@@ -570,7 +658,7 @@ namespace Linkup_Finance.Forms
             else
             {
                 expenseErrorChip.Visible = true;
-                expenseErrorChip.Text = "The gross value is in an incorrect format. Try again.";
+                expenseErrorChip.Text = "The amount value is in an incorrect format. Try again.";
             }
         }
 
@@ -801,7 +889,7 @@ namespace Linkup_Finance.Forms
                                 newIncomePanel.Visible = false;
                                 incomeErrorChip.Visible = false;
                                 incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
-                                LoadIncomeChart(incomeTableAdapter.GetData());
+                                LoadChart(incomeTableAdapter.GetData());
                             }
                             else
                             {
@@ -969,7 +1057,7 @@ namespace Linkup_Finance.Forms
 
         #region CustomFunctions
 
-        private void LoadIncomeChart(DataTable dataTable)
+        private void LoadChart(DataTable dataTable)
         {
             DataRow[] sortedData = SortData(dataTable);
 
@@ -1019,6 +1107,12 @@ namespace Linkup_Finance.Forms
                     });
                 }
             }
+        }
+
+        //TODO: Bank Chart Load implementation
+        private void LoadChart(string bankName, DataTable incomeDataTable, DataTable expenseDataTable)
+        {
+
         }
 
         private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex, bool hasReceipt = false)
