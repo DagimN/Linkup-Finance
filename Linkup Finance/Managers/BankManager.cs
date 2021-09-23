@@ -175,24 +175,41 @@ namespace Linkup_Finance.Managers
             SubmitLog(prevBalance, "Income", "Deposit", DateTime.Now, "Deposit");
         }
 
-        public bool SubmitLog(decimal prevBalance, string type, string reason, DateTime date, string tpName, string project = null)
+        public bool SubmitLog(decimal amount, string type, string reason, DateTime date, string tpName, bool isSummed = true, string project = null)
         {
-            using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            if (!isSummed)
+            {
+                if (type == "Income")
+                    this.Balance += amount;
+                else
+                    this.Balance -= amount;
+            }
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
                 try
                 {
                     con.Open();
                     string insertQuery = "INSERT INTO BankLogs(Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName)" +
                                          $" VALUES(@Bank, @Balance, @PrevBalance, @Type, @Reason, @Date, \'{project}\', @tpName)";
-                    SqlCommand command = new SqlCommand(insertQuery, con);
-                    command.Parameters.AddWithValue("@Bank", this.Name);
-                    command.Parameters.AddWithValue("@Balance", this.Balance);
-                    command.Parameters.AddWithValue("@PrevBalance", prevBalance);
-                    command.Parameters.AddWithValue("@Type", type);
-                    command.Parameters.AddWithValue("@Reason", reason);
-                    command.Parameters.AddWithValue("@Date", date);
-                    command.Parameters.AddWithValue("@tpName", tpName);
-                    command.ExecuteNonQuery();
+                    string updateQuery = "UPDATE Banks " +
+                                         "SET Balance=@Balance " +
+                                         "WHERE Name=@Name";
+                    SqlCommand updateCommand = new SqlCommand(updateQuery, con);
+                    SqlCommand insertCommand = new SqlCommand(insertQuery, con);
+                    
+                    insertCommand.Parameters.AddWithValue("@Bank", this.Name);
+                    insertCommand.Parameters.AddWithValue("@Balance", this.Balance);
+                    insertCommand.Parameters.AddWithValue("@PrevBalance", (type == "Income") ? this.Balance - amount : this.Balance + amount);
+                    insertCommand.Parameters.AddWithValue("@Type", type);
+                    insertCommand.Parameters.AddWithValue("@Reason", reason);
+                    insertCommand.Parameters.AddWithValue("@Date", date);
+                    insertCommand.Parameters.AddWithValue("@tpName", tpName);
+                    insertCommand.ExecuteNonQuery();
+
+                    updateCommand.Parameters.AddWithValue("@Balance", this.Balance);
+                    updateCommand.Parameters.AddWithValue("@Name", this.Name);
+                    updateCommand.ExecuteNonQuery();
 
                     return true;
                 }

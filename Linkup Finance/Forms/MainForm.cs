@@ -37,8 +37,8 @@ namespace Linkup_Finance
             if (!Exists(expenseDirectory))
                 CreateDirectory(expenseDirectory);
 
-            dashboardForm = new DashboardForm();
             projectForm = new ProjectForm();
+            dashboardForm = new DashboardForm(projectForm);
             settingsForm = new SettingsForm();
 
             openChildForm(settingsForm);

@@ -267,6 +267,14 @@ namespace Linkup_Finance.Forms
                 bankOptionBox.Tag = bank;
                 balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
                 LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
+                foreach (PieSeries series in bankPieChart.Series)
+                {
+                    series.PushOut = 0;
+                    if (series.Title == bank.GetBankName())
+                        series.PushOut = 10;
+
+                    pettyVaultChart.Refresh();
+                }
             }
 
             //TODO: Add data series with the rest of the charts i.e expense, bank 
@@ -526,6 +534,14 @@ namespace Linkup_Finance.Forms
                             //TODO: Load data to chart
                             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                             LoadChart(name, bankLogsTableAdapter.GetData());
+                            foreach (PieSeries series in bankPieChart.Series)
+                            {
+                                series.PushOut = 0;
+                                if (series.Title == name)
+                                    series.PushOut = 10;
+
+                                pettyVaultChart.Refresh();
+                            }
                         }
                         else
                         {
@@ -555,13 +571,27 @@ namespace Linkup_Finance.Forms
         private void depositButton_Click(object sender, EventArgs e)
         {
             Bank bank = (Bank)bankOptionBox.Tag;
+            List<int> tobeRemovedList = new List<int>();
+            int removed = 0;
             decimal value;
             bool isValid = decimal.TryParse(depositTextBox.Text, out value);
+
             if (isValid)
             {
                 bank.Deposit(value);
                 balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
                 this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+                
+                for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
+                    if (bankLogDataGridView.Rows[i].Cells[2].Value != null)
+                        if (bankLogDataGridView.Rows[i].Cells[2].Value.ToString() != bank.GetBankName())
+                            tobeRemovedList.Add(i);
+                foreach (int rowIndex in tobeRemovedList)
+                {
+                    bankLogDataGridView.Rows.RemoveAt(rowIndex - removed);
+                    removed++;
+                }
+
                 LoadChart(bank.GetBankName(), bankLogsTableAdapter.GetData());
             }
                 
@@ -572,9 +602,34 @@ namespace Linkup_Finance.Forms
         private void bankOptionBox_SelectedValueChanged(object sender, EventArgs e)
         {
             Bank bank = bankManager.GetBank(bankOptionBox.Text);
+            List<int> tobeRemovedList = new List<int>();
+            int removed = 0;
+
             bankOptionBox.Tag = bank;
             balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+            bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+
+            //TODO: Finish the bank specification implementation
+            for(int i = 0; i < bankLogDataGridView.Rows.Count; i++)
+                if (bankLogDataGridView.Rows[i].Cells[2].Value != null)
+                    if (bankLogDataGridView.Rows[i].Cells[2].Value.ToString() != bank.GetBankName())
+                        tobeRemovedList.Add(i);
+                    
+            foreach (int rowIndex in tobeRemovedList)
+            {
+                bankLogDataGridView.Rows.RemoveAt(rowIndex - removed);
+                removed++;
+            }
             LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
+
+            foreach (PieSeries series in bankPieChart.Series)
+            {
+                series.PushOut = 0;
+                if (series.Title == bank.GetBankName())
+                    series.PushOut = 10;
+
+                pettyVaultChart.Refresh();
+            }
         }
 
         #endregion
@@ -583,6 +638,12 @@ namespace Linkup_Finance.Forms
         private void newExpenseButton_Click(object sender, EventArgs e)
         {
             newExpensePanel.Visible = true;
+
+            foreach(string bank in bankOptionBox.Items)
+                expenseBankComboBox.Items.Add(bank);
+
+            if(expenseBankComboBox.Items.Count > 0)
+                expenseBankComboBox.Text = expenseBankComboBox.Items[0].ToString();
         }
 
         private void closeExpensePanelButton_Click(object sender, EventArgs e)
@@ -597,7 +658,7 @@ namespace Linkup_Finance.Forms
            
             string name = nameExpenseTextBox.Text;
             string reason = reasonExpenseTextBox.Text;
-            string bank = bankExpenseTextBox.Text;
+            string bank = expenseBankComboBox.Text;
             string product = productExpenseTextBox.Text;
             bool hasReceipt = receiptExpenseRadioButton.Checked;
             decimal amount;
@@ -649,8 +710,40 @@ namespace Linkup_Finance.Forms
                                         File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
                                 }
 
+                                Bank bankLog = bankManager.GetBank(bank);
+                                decimal net = amount + (amount * 0.15m) - (amount * 0.02m);
+                                bankLog.SubmitLog(net, "Expense", reason, date, name, false, project.GetProjectName());
+                                this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+                                if(bankOptionBox.Text == bank)
+                                {
+                                    balanceAmountLabel.Text = $"{bankLog.GetBalance()}:Balance(ETB)";
+                                    List<int> tobeRemovedList = new List<int>();
+                                    int removed = 0;
+
+                                    for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
+                                        if (bankLogDataGridView.Rows[i].Cells[2].Value != null)
+                                            if (bankLogDataGridView.Rows[i].Cells[2].Value.ToString() != bank)
+                                                tobeRemovedList.Add(i);
+
+                                    foreach (int rowIndex in tobeRemovedList)
+                                    {
+                                        bankLogDataGridView.Rows.RemoveAt(rowIndex - removed);
+                                        removed++;
+                                    }
+                                }
+                                    
+                                LoadChart(bank, bankLogsTableAdapter.GetData());
+                                foreach (PieSeries series in bankPieChart.Series)
+                                {
+                                    series.PushOut = 0;
+                                    if (series.Title == bankOptionBox.Text)
+                                        series.PushOut = 10;
+
+                                    pettyVaultChart.Refresh();
+                                }
+
                                 nameExpenseTextBox.ResetText();
-                                bankExpenseTextBox.ResetText();
+                                expenseBankComboBox.ResetText();
                                 reasonExpenseTextBox.ResetText();
                                 amountExpenseTextBox.ResetText();
                                 submitExpenseButton.Tag = null;
@@ -842,12 +935,18 @@ namespace Linkup_Finance.Forms
         private void newIncomeButton_Click(object sender, EventArgs e)
         {
             newIncomePanel.Visible = true;
+
+            foreach (string bank in bankOptionBox.Items)
+                incomeBankComboBox.Items.Add(bank);
+
+            if(incomeBankComboBox.Items.Count > 0)
+                incomeBankComboBox.Text = incomeBankComboBox.Items[0].ToString();
         }
 
         private void closeIncomePanelButton_Click(object sender, EventArgs e)
         {
             nameIncomeTextBox.ResetText();
-            bankIncomeTextBox.ResetText();
+            incomeBankComboBox.ResetText();
             reasonIncomeTextBox.ResetText();
             grossIncomeTextBox.ResetText();
             submitIncomeButton.Tag = null;
@@ -863,7 +962,7 @@ namespace Linkup_Finance.Forms
             Project project = (Project)projectOption.Tag;
             string name = nameIncomeTextBox.Text;
             string reason = reasonIncomeTextBox.Text;
-            string bank = bankIncomeTextBox.Text;
+            string bank = incomeBankComboBox.Text;
             bool hasReceipt = receiptIncomeRadioButton.Checked;
             decimal gross;
             DateTime date = incomeDateSelection.Value;
@@ -912,8 +1011,40 @@ namespace Linkup_Finance.Forms
                                         File.Copy(fileName, Combine(attachmentDirectory, GetFileName(fileName)));
                                 }
 
+                                Bank bankLog = bankManager.GetBank(bank);
+                                decimal net = gross + (gross * 0.15m) - (gross * 0.02m);
+                                bankLog.SubmitLog(net, "Income", reason, date, name, false, project.GetProjectName());
+                                this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+                                if (bankOptionBox.Text == bank)
+                                {
+                                    balanceAmountLabel.Text = $"{bankLog.GetBalance()}:Balance(ETB)";
+                                    List<int> tobeRemovedList = new List<int>();
+                                    int removed = 0;
+
+                                    for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
+                                        if (bankLogDataGridView.Rows[i].Cells[2].Value != null)
+                                            if (bankLogDataGridView.Rows[i].Cells[2].Value.ToString() != bank)
+                                                tobeRemovedList.Add(i);
+
+                                    foreach (int rowIndex in tobeRemovedList)
+                                    {
+                                        bankLogDataGridView.Rows.RemoveAt(rowIndex - removed);
+                                        removed++;
+                                    }
+                                }
+                                    
+                                LoadChart(bank, bankLogsTableAdapter.GetData());
+                                foreach (PieSeries series in bankPieChart.Series)
+                                {
+                                    series.PushOut = 0;
+                                    if (series.Title == bankOptionBox.Text)
+                                        series.PushOut = 10;
+
+                                    pettyVaultChart.Refresh();
+                                }
+
                                 nameIncomeTextBox.ResetText();
-                                bankIncomeTextBox.ResetText();
+                                incomeBankComboBox.ResetText();
                                 reasonIncomeTextBox.ResetText();
                                 grossIncomeTextBox.ResetText();
                                 submitIncomeButton.Tag = null;
@@ -928,7 +1059,6 @@ namespace Linkup_Finance.Forms
                                 incomeErrorChip.Visible = true;
                                 incomeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
                             }
-                                
                         }
                         else
                         {
@@ -1151,11 +1281,14 @@ namespace Linkup_Finance.Forms
 
             for (int i = 0; i < sortedData.Length; i++)
             {
-                balanceSeries.Values.Add(new DateModel
+                if(bankName == sortedData[i].ItemArray[1].ToString())
                 {
-                    DateTime = (DateTime)sortedData[i].ItemArray[6],
-                    Value = double.Parse(sortedData[i].ItemArray[2].ToString())
-                });
+                    balanceSeries.Values.Add(new DateModel
+                    {
+                        DateTime = (DateTime)sortedData[i].ItemArray[6],
+                        Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                    });
+                }
             }
 
             for (int i = 0; i < banksDataTable.Rows.Count; i++)
@@ -1287,7 +1420,7 @@ namespace Linkup_Finance.Forms
             }
         }
 
-        private DataRow[] SortData(DataTable dataTable)
+        public DataRow[] SortData(DataTable dataTable)
         {
             DataRow[] sortArray = new DataRow[dataTable.Rows.Count];
             int num = 0;

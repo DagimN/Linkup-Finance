@@ -33,11 +33,14 @@ namespace Linkup_Finance.Forms
             this.guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2ShadowPanel3 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2ShadowPanel4 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.transactionChart = new LiveCharts.WinForms.CartesianChart();
+            this.guna2ShadowPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2ShadowPanel1
             // 
             this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel1.Controls.Add(this.transactionChart);
             this.guna2ShadowPanel1.FillColor = System.Drawing.Color.White;
             this.guna2ShadowPanel1.Location = new System.Drawing.Point(12, 12);
             this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
@@ -75,6 +78,14 @@ namespace Linkup_Finance.Forms
             this.guna2ShadowPanel4.Size = new System.Drawing.Size(618, 241);
             this.guna2ShadowPanel4.TabIndex = 2;
             // 
+            // transactionChart
+            // 
+            this.transactionChart.Location = new System.Drawing.Point(3, 3);
+            this.transactionChart.Name = "transactionChart";
+            this.transactionChart.Size = new System.Drawing.Size(546, 235);
+            this.transactionChart.TabIndex = 0;
+            this.transactionChart.Text = "cartesianChart1";
+            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -87,6 +98,8 @@ namespace Linkup_Finance.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "DashboardForm";
             this.Text = "DashboardForm";
+            this.Load += new System.EventHandler(this.DashboardForm_Load);
+            this.guna2ShadowPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -97,5 +110,6 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel2;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel3;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel4;
+        private LiveCharts.WinForms.CartesianChart transactionChart;
     }
 }
