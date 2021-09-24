@@ -268,7 +268,7 @@ namespace Linkup_Finance.Forms
 
                 Bank bank = bankManager.GetBank(bankOptionBox.Text);
                 bankOptionBox.Tag = bank;
-                balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
                 LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
                 foreach (PieSeries series in bankPieChart.Series)
                 {
@@ -537,7 +537,7 @@ namespace Linkup_Finance.Forms
                             bankOptionBox.Tag = bank;
                             bankOptionBox.Items.Add(name);
                             bankOptionBox.Text = name;
-                            balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+                            balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
 
                             //TODO: Add new Bank in chart
 
@@ -590,7 +590,7 @@ namespace Linkup_Finance.Forms
             if (isValid)
             {
                 bank.Deposit(value);
-                balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
                 this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                 
                 for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
@@ -618,7 +618,7 @@ namespace Linkup_Finance.Forms
             int removed = 0;
 
             bankOptionBox.Tag = bank;
-            balanceAmountLabel.Text = $"{bank.GetBalance()}:Balance(ETB)";
+            balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
             bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
 
             //TODO: Finish the bank specification implementation
@@ -728,7 +728,7 @@ namespace Linkup_Finance.Forms
                                 this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                                 if(bankOptionBox.Text == bank)
                                 {
-                                    balanceAmountLabel.Text = $"{bankLog.GetBalance()}:Balance(ETB)";
+                                    balanceAmountLabel.Text = $"Balance(ETB):{bankLog.GetBalance()}";
 
                                     RemoveItems(bankLogDataGridView, bank);
                                 }
@@ -932,6 +932,16 @@ namespace Linkup_Finance.Forms
             RemoveItems(expenseDataGridView, projectOption.Text);
         }
 
+        private void expenseDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 11)
+            {
+                string url = expenseDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+                Process.Start(url);
+            }
+        }
+
         #endregion
 
         #region IncomeTab
@@ -1021,7 +1031,7 @@ namespace Linkup_Finance.Forms
                                 this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                                 if (bankOptionBox.Text == bank)
                                 {
-                                    balanceAmountLabel.Text = $"{bankLog.GetBalance()}:Balance(ETB)";
+                                    balanceAmountLabel.Text = $"Balance(ETB):{bankLog.GetBalance()}";
                                     List<int> tobeRemovedList = new List<int>();
                                     int removed = 0;
 
@@ -1219,6 +1229,16 @@ namespace Linkup_Finance.Forms
                     searchIncomeButton.Location = new Point(792, 6);
 
                     break;
+            }
+        }
+
+        private void incomeDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 9)
+            {
+                string url = incomeDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+                Process.Start(url);
             }
         }
 
