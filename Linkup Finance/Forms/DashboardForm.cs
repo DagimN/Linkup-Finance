@@ -18,6 +18,7 @@ namespace Linkup_Finance.Forms
         private LineSeries incomeSeries, expenseSeries;
         private Axis xAxis, yAxis;
         private ProjectForm projectForm;
+        private int zoomValue = 99;
 
         private class DateModel
         {
@@ -67,38 +68,67 @@ namespace Linkup_Finance.Forms
             };
 
             transactionChart.Series = new SeriesCollection(dayConfig);
+            bankPieChart.LegendLocation = LegendLocation.Right;
             transactionChart.Pan = PanningOptions.X;
             transactionChart.AxisX.Add(xAxis);
             transactionChart.AxisY.Add(yAxis);
+        }
+
+        private void transactionDateSelection_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dateSelection = transactionDateSelection.Value;
+            xAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(5)).Ticks / TimeSpan.TicksPerDay;
+            xAxis.MaxValue = dateSelection.AddDays(5).Ticks / TimeSpan.TicksPerDay;
+            zoomValue = 99;
+            zoomTrackBar.Value = zoomValue;
+        }
+
+        private void zoomTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int value = zoomTrackBar.Value;
+
+            if (value > zoomValue)
+            {
+                xAxis.MinValue += (value - zoomValue) * 2.5;
+                xAxis.MaxValue -= (value - zoomValue) * 2.5;
+                zoomValue = value;
+            }
+            else
+            {
+                xAxis.MinValue -= (zoomValue - value) * 2.5;
+                xAxis.MaxValue += (zoomValue - value) * 2.5;
+                zoomValue = value;
+            }
         }
 
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             projectForm.incomeTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Income);
             projectForm.expenseTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Expense);
+            projectForm.banksTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Banks);
 
             transactionChart.Series.Add(incomeSeries);
             transactionChart.Series.Add(expenseSeries);
 
             LoadChart(projectForm.incomeTableAdapter.GetData());
             LoadChart(projectForm.expenseTableAdapter.GetData());
+            LoadChart(projectForm.banksTableAdapter.GetData());
         }
 
         #region Custom Functions
-        private void LoadChart(DataTable dataTable)
+        public void LoadChart(DataTable dataTable)
         {
-             DataRow[] sortedData = projectForm.SortData(dataTable);
+            DataRow[] sortedData;
 
             if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
-                incomeSeries.Values.Clear();
-            else
-                expenseSeries.Values.Clear();
-
-            for (int i = 0; i < sortedData.Length; i++)
             {
-                DateTime time;
-                if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+                incomeSeries.Values.Clear();
+                sortedData = projectForm.SortData(dataTable);
+
+                for (int i = 0; i < sortedData.Length; i++)
                 {
+                    DateTime time;
+                    
                     time = (DateTime)sortedData[i].ItemArray[9];
 
                     incomeSeries.Values.Add(new DateModel
@@ -107,15 +137,37 @@ namespace Linkup_Finance.Forms
                         Value = double.Parse(sortedData[i].ItemArray[8].ToString())
                     });
                 }
+            }
 
-                else
+            if(dataTable is LinkupDatabaseDataSet.ExpenseDataTable)
+            {
+                expenseSeries.Values.Clear();
+                sortedData = projectForm.SortData(dataTable);
+
+                for (int i = 0; i < sortedData.Length; i++)
                 {
+                    DateTime time;
+                    
                     time = (DateTime)sortedData[i].ItemArray[8];
 
                     expenseSeries.Values.Add(new DateModel
                     {
                         DateTime = time,
                         Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                    });
+                }
+            }
+
+            if(dataTable is LinkupDatabaseDataSet.BanksDataTable)
+            {
+                bankPieChart.Series.Clear();
+
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    bankPieChart.Series.Add(new PieSeries
+                    {
+                        Values = new ChartValues<decimal> { (decimal)dataTable.Rows[i].ItemArray[3] },
+                        Title = dataTable.Rows[i].ItemArray[1].ToString()
                     });
                 }
             }

@@ -30,13 +30,13 @@ namespace Linkup_Finance
         private void InitializeComponent()
         {
             this.titleBarPanel = new Guna.UI2.WinForms.Guna2Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.maximizeButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.settingsButton = new Guna.UI2.WinForms.Guna2Button();
             this.projectButton = new Guna.UI2.WinForms.Guna2Button();
             this.dashboardButton = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.workPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.titleBarPanel.SuspendLayout();
@@ -64,19 +64,10 @@ namespace Linkup_Finance
             this.titleBarPanel.ShadowDecoration.Parent = this.titleBarPanel;
             this.titleBarPanel.Size = new System.Drawing.Size(1200, 70);
             this.titleBarPanel.TabIndex = 0;
+            this.titleBarPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDoubleClick);
             this.titleBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
             this.titleBarPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
             this.titleBarPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.label1.Location = new System.Drawing.Point(93, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "FINANCE";
             // 
             // maximizeButton
             // 
@@ -194,6 +185,16 @@ namespace Linkup_Finance
             this.dashboardButton.TabIndex = 6;
             this.dashboardButton.Text = "Dashboard";
             this.dashboardButton.Click += new System.EventHandler(this.dashboardButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.label1.Location = new System.Drawing.Point(93, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "FINANCE";
             // 
             // pictureBox1
             // 

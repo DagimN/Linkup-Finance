@@ -27,6 +27,7 @@ namespace Linkup_Finance.Forms
         //TODO: Handle Resizing of controls when maximized
         //TODO: Associate the project with the data being viewed
         public ProjectManager projectManager;
+        private DashboardForm dashboardForm;
         public BankManager bankManager;
         private int zoomIncomeValue = 99, zoomExpenseValue = 99;
         
@@ -255,8 +256,10 @@ namespace Linkup_Finance.Forms
                 Project project = projectManager.Exists(projectOption.Text, true);
                 projectOption.Tag = project;
 
-                LoadChart(incomeTableAdapter.GetData());
-                LoadChart(expenseTableAdapter.GetData());
+                LoadChart(projectOption.Text, incomeTableAdapter.GetData());
+                LoadChart(projectOption.Text, expenseTableAdapter.GetData());
+                RemoveItems(incomeDataGridView, projectOption.Text);
+                RemoveItems(expenseDataGridView, projectOption.Text);
             }
 
             if(bankOptionBox.Items.Count > 0)
@@ -334,9 +337,16 @@ namespace Linkup_Finance.Forms
         {
             if (projectOption.Text != "")
                 removeProjectButton.Visible = true;
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             Project project = projectManager.Exists(projectOption.Text, true);
             projectOption.Tag = project;
+
+            incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+            expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
+            LoadChart(projectOption.Text, incomeTableAdapter.GetData());
+            LoadChart(projectOption.Text, expenseTableAdapter.GetData());
+            RemoveItems(incomeDataGridView, projectOption.Text);
+            RemoveItems(expenseDataGridView, projectOption.Text);
         }
 
         #region BankTab
@@ -534,6 +544,7 @@ namespace Linkup_Finance.Forms
                             //TODO: Load data to chart
                             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                             LoadChart(name, bankLogsTableAdapter.GetData());
+                            dashboardForm.LoadChart(banksTableAdapter.GetData());
                             foreach (PieSeries series in bankPieChart.Series)
                             {
                                 series.PushOut = 0;
@@ -593,6 +604,7 @@ namespace Linkup_Finance.Forms
                 }
 
                 LoadChart(bank.GetBankName(), bankLogsTableAdapter.GetData());
+                dashboardForm.LoadChart(banksTableAdapter.GetData());
             }
                 
             else
@@ -717,19 +729,8 @@ namespace Linkup_Finance.Forms
                                 if(bankOptionBox.Text == bank)
                                 {
                                     balanceAmountLabel.Text = $"{bankLog.GetBalance()}:Balance(ETB)";
-                                    List<int> tobeRemovedList = new List<int>();
-                                    int removed = 0;
 
-                                    for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
-                                        if (bankLogDataGridView.Rows[i].Cells[2].Value != null)
-                                            if (bankLogDataGridView.Rows[i].Cells[2].Value.ToString() != bank)
-                                                tobeRemovedList.Add(i);
-
-                                    foreach (int rowIndex in tobeRemovedList)
-                                    {
-                                        bankLogDataGridView.Rows.RemoveAt(rowIndex - removed);
-                                        removed++;
-                                    }
+                                    RemoveItems(bankLogDataGridView, bank);
                                 }
                                     
                                 LoadChart(bank, bankLogsTableAdapter.GetData());
@@ -752,7 +753,8 @@ namespace Linkup_Finance.Forms
                                 newExpensePanel.Visible = false;
                                 expenseErrorChip.Visible = false;
                                 expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-                                LoadChart(expenseTableAdapter.GetData());
+                                LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
+                                RemoveItems(expenseDataGridView, projectOption.Text);
                             }
                             else
                             {
@@ -843,6 +845,7 @@ namespace Linkup_Finance.Forms
             toExpenseDateTimePicker.Visible = false;
             searchExpenseButton.Location = new Point(573, 6);
             expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+            RemoveItems(expenseDataGridView, projectOption.Text);
 
             switch (filterExpenseComboBox.Text)
             {
@@ -926,6 +929,7 @@ namespace Linkup_Finance.Forms
         private void expenseSearchTextBox_TextChanged(object sender, EventArgs e)
         {
             expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+            RemoveItems(expenseDataGridView, projectOption.Text);
         }
 
         #endregion
@@ -1052,7 +1056,8 @@ namespace Linkup_Finance.Forms
                                 newIncomePanel.Visible = false;
                                 incomeErrorChip.Visible = false;
                                 incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
-                                LoadChart(incomeTableAdapter.GetData());
+                                RemoveItems(incomeDataGridView, projectOption.Text);
+                                LoadChart(project.GetProjectName() ,incomeTableAdapter.GetData());
                             }
                             else
                             {
@@ -1159,6 +1164,7 @@ namespace Linkup_Finance.Forms
         private void incomeSearchTextBox_TextChanged(object sender, EventArgs e)
         {
             incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            RemoveItems(incomeDataGridView, projectOption.Text);
         }
 
         private void attachementsIncomeButton_Click(object sender, EventArgs e)
@@ -1183,6 +1189,7 @@ namespace Linkup_Finance.Forms
             toIncomeDateTimePicker.Visible = false;
             searchIncomeButton.Location = new Point(568, 6);
             incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            RemoveItems(incomeDataGridView, projectOption.Text);
 
             switch (filterIncomeComboBox.Text)
             {
@@ -1218,86 +1225,85 @@ namespace Linkup_Finance.Forms
         #endregion
 
         #region CustomFunctions
-
-        private void LoadChart(DataTable dataTable)
+        private void LoadChart(string name, DataTable dataTable)
         {
             DataRow[] sortedData = SortData(dataTable);
+            
+            if(dataTable is LinkupDatabaseDataSet.BankLogsDataTable)
+            {
+                DataTable banksDataTable = banksTableAdapter.GetData();
 
-            if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+                balanceSeries.Values.Clear();
+                bankPieChart.Series.Clear();
+
+                for (int i = 0; i < sortedData.Length; i++)
+                {
+                    if (name == sortedData[i].ItemArray[1].ToString())
+                    {
+                        balanceSeries.Values.Add(new DateModel
+                        {
+                            DateTime = (DateTime)sortedData[i].ItemArray[6],
+                            Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                        });
+                    }
+                }
+
+                for (int i = 0; i < banksDataTable.Rows.Count; i++)
+                {
+                    bankPieChart.Series.Add(new PieSeries
+                    {
+                        Values = new ChartValues<decimal> { (decimal)banksDataTable.Rows[i].ItemArray[3] },
+                        Title = banksDataTable.Rows[i].ItemArray[1].ToString()
+                    });
+                }
+            }
+            if(dataTable is LinkupDatabaseDataSet.IncomeDataTable)
             {
                 grossSeries.Values.Clear();
                 netSeries.Values.Clear();
+
+                for (int i = 0; i < sortedData.Length; i++)
+                {
+                    DateTime time = (DateTime)sortedData[i].ItemArray[9];
+
+                    if(name == sortedData[i].ItemArray[11].ToString())
+                    {
+                        grossSeries.Values.Add(new DateModel
+                        {
+                            DateTime = time,
+                            Value = double.Parse(sortedData[i].ItemArray[5].ToString())
+                        });
+                        netSeries.Values.Add(new DateModel
+                        {
+                            DateTime = time,
+                            Value = double.Parse(sortedData[i].ItemArray[8].ToString())
+                        });
+                    }
+                }    
             }
-            else
+            if(dataTable is LinkupDatabaseDataSet.ExpenseDataTable)
             {
                 amountSeries.Values.Clear();
                 totalSeries.Values.Clear();
-            }
 
-            for (int i = 0; i < sortedData.Length; i++)
-            {
-                DateTime time;
-                if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+                for (int i = 0; i < sortedData.Length; i++)
                 {
-                    time = (DateTime)sortedData[i].ItemArray[9];
+                    DateTime time = (DateTime)sortedData[i].ItemArray[8];
 
-                    grossSeries.Values.Add(new DateModel
+                    if(name == sortedData[i].ItemArray[11].ToString())
                     {
-                        DateTime = time,
-                        Value = double.Parse(sortedData[i].ItemArray[5].ToString())
-                    });
-                    netSeries.Values.Add(new DateModel
-                    {
-                        DateTime = time,
-                        Value = double.Parse(sortedData[i].ItemArray[8].ToString())
-                    });
+                        amountSeries.Values.Add(new DateModel
+                        {
+                            DateTime = time,
+                            Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                        });
+                        totalSeries.Values.Add(new DateModel
+                        {
+                            DateTime = time,
+                            Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                        });
+                    }
                 }
-
-                else
-                {
-                    time = (DateTime)sortedData[i].ItemArray[8];
-
-                    amountSeries.Values.Add(new DateModel
-                    {
-                        DateTime = time,
-                        Value = double.Parse(sortedData[i].ItemArray[2].ToString())
-                    });
-                    totalSeries.Values.Add(new DateModel
-                    {
-                        DateTime = time,
-                        Value = double.Parse(sortedData[i].ItemArray[10].ToString())
-                    });
-                }
-            }
-        }
-
-        //TODO: Bank Chart Load implementation
-        private void LoadChart(string bankName, DataTable dataTable)
-        {
-            DataRow[] sortedData = SortData(dataTable);
-            DataTable banksDataTable = banksTableAdapter.GetData();
-            balanceSeries.Values.Clear();
-            bankPieChart.Series.Clear();
-
-            for (int i = 0; i < sortedData.Length; i++)
-            {
-                if(bankName == sortedData[i].ItemArray[1].ToString())
-                {
-                    balanceSeries.Values.Add(new DateModel
-                    {
-                        DateTime = (DateTime)sortedData[i].ItemArray[6],
-                        Value = double.Parse(sortedData[i].ItemArray[2].ToString())
-                    });
-                }
-            }
-
-            for (int i = 0; i < banksDataTable.Rows.Count; i++)
-            {
-                bankPieChart.Series.Add(new PieSeries
-                {
-                    Values = new ChartValues<decimal> { (decimal)banksDataTable.Rows[i].ItemArray[3] },
-                    Title = banksDataTable.Rows[i].ItemArray[1].ToString()
-                });
             }
         }
 
@@ -1336,7 +1342,7 @@ namespace Linkup_Finance.Forms
                             }
                             else
                                 if (searchEntry != dataGridView.Rows[i].Cells[cellIndex].Value.ToString())
-                                tobeRemovedList.Add(i);
+                                    tobeRemovedList.Add(i);
                         }
 
 
@@ -1374,7 +1380,7 @@ namespace Linkup_Finance.Forms
                             }
                             else
                                 if (searchEntry != dataGridView.Rows[i].Cells[cellIndex].Value.ToString())
-                                tobeRemovedList.Add(i);
+                                    tobeRemovedList.Add(i);
                         }
 
 
@@ -1464,6 +1470,65 @@ namespace Linkup_Finance.Forms
             }
 
             return sortArray; 
+        }
+
+        private void RemoveItems(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string filter)
+        {
+            List<int> tobeRemovedList = new List<int>();
+            int removed;
+
+            if (dataGridView.Equals(bankLogDataGridView))
+            {
+                removed = 0;
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    if (dataGridView.Rows[i].Cells[2].Value != null)
+                        if (dataGridView.Rows[i].Cells[2].Value.ToString() != filter)
+                            tobeRemovedList.Add(i);
+
+                foreach (int rowIndex in tobeRemovedList)
+                {
+                    dataGridView.Rows.RemoveAt(rowIndex - removed);
+                    removed++;
+                }
+            }
+
+            if (dataGridView.Equals(incomeDataGridView))
+            {
+                removed = 0;
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    if (dataGridView.Rows[i].Cells[10].Value != null)
+                        if (dataGridView.Rows[i].Cells[10].Value.ToString() != filter)
+                            tobeRemovedList.Add(i);
+
+                foreach (int rowIndex in tobeRemovedList)
+                {
+                    dataGridView.Rows.RemoveAt(rowIndex - removed);
+                    removed++;
+                }
+            }
+
+            if (dataGridView.Equals(expenseDataGridView))
+            {
+                removed = 0;
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    if (dataGridView.Rows[i].Cells[12].Value != null)
+                        if (dataGridView.Rows[i].Cells[12].Value.ToString() != filter)
+                            tobeRemovedList.Add(i);
+
+                foreach (int rowIndex in tobeRemovedList)
+                {
+                    dataGridView.Rows.RemoveAt(rowIndex - removed);
+                    removed++;
+                }
+            }   
+        }
+
+        public void Link(DashboardForm dashboardForm)
+        {
+            this.dashboardForm = dashboardForm;
         }
 
         #endregion

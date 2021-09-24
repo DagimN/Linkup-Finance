@@ -39,6 +39,7 @@ namespace Linkup_Finance
 
             projectForm = new ProjectForm();
             dashboardForm = new DashboardForm(projectForm);
+            projectForm.Link(dashboardForm);
             settingsForm = new SettingsForm();
 
             openChildForm(settingsForm);
@@ -202,6 +203,38 @@ namespace Linkup_Finance
             else
             {
                 projectForm.ledgerTabControl.Size = new Size(1200, 590);
+            }
+        }
+
+        private void titleBarPanel_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (state == FormWindowState.Normal)
+            {
+                for (int i = 0; i < Application.OpenForms.Count; i++)
+                    if (Application.OpenForms[i].TopLevel)
+                    {
+                        Application.OpenForms[i].WindowState = FormWindowState.Maximized;
+                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximized_Icon;
+                    }
+
+                ResizeControls();
+
+                state = FormWindowState.Maximized;
+            }
+
+            else
+            {
+                for (int i = 0; i < Application.OpenForms.Count; i++)
+                    if (Application.OpenForms[i].TopLevel)
+                    {
+                        Application.OpenForms[i].WindowState = FormWindowState.Normal;
+                        Application.OpenForms[i].Size = new Size(1200, 586);
+                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximize_Icon;
+                    }
+
+                ResizeControls();
+
+                state = FormWindowState.Normal;
             }
         }
     }
