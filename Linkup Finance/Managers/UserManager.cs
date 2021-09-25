@@ -27,6 +27,12 @@ namespace Linkup_Finance.Managers
             return false;
         }
 
+        public void RetrieveUsers(string name, AccountType type, string password, string job)
+        {
+            User user = new User(name, type, password, job);
+            usersList.Add(user);
+        }
+
         public bool AddUser(string name, AccountType type, string password, string job)
         {
             User user = new User(name, type, password, job);
@@ -47,7 +53,7 @@ namespace Linkup_Finance.Managers
                     else if(type == AccountType.Accountant)
                         accType = "Accountant";
                     else
-                        accType = job;
+                        accType = "Other";
 
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Type", accType);
