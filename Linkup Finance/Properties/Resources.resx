@@ -124,11 +124,14 @@
   <data name="Salary Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Salary Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Profile Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Profile Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Maximize Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Maximize Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Maximized_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Maximized Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Minimize Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Minimize Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,10 +142,7 @@
   <data name="Linkup Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Linkup Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Maximized_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Maximized Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Profile Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Profile Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="User Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

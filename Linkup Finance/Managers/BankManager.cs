@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -136,6 +137,16 @@ namespace Linkup_Finance.Managers
 
             foreach (Bank bank in banksList)
                 total += bank.GetBalance();
+
+            return total;
+        }
+
+        public decimal GetTotalBankAmount(DataTable dataTable)
+        {
+            decimal total = 0.00m;
+
+            for(int i = 0; i < dataTable.Rows.Count; i++)
+                total += (decimal)dataTable.Rows[i].ItemArray[3];
 
             return total;
         }

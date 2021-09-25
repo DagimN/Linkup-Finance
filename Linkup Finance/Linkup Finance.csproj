@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Managers\BankManager.cs" />
     <Compile Include="Managers\ProjectManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\DashboardForm.resx">
@@ -195,10 +196,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>LinkupDatabase.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\User Icon.png" />
     <None Include="Resources\Profile Icon.png" />
     <None Include="Resources\Salary Icon.png" />
     <None Include="Resources\Delete Icon.png" />
-    <None Include="Resources\User Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

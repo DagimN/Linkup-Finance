@@ -32,7 +32,6 @@ namespace Linkup_Finance.Forms
             this.components = new System.ComponentModel.Container();
             this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.bankSolidGauge = new LiveCharts.WinForms.SolidGauge();
             this.pettyCashSolidGauge = new LiveCharts.WinForms.SolidGauge();
             this.bankTotalLabel = new System.Windows.Forms.Label();
             this.pettyCashLabel = new System.Windows.Forms.Label();
@@ -82,7 +81,6 @@ namespace Linkup_Finance.Forms
             // 
             this.guna2GradientPanel1.BorderRadius = 10;
             this.guna2GradientPanel1.Controls.Add(this.pettyCashSolidGauge);
-            this.guna2GradientPanel1.Controls.Add(this.bankSolidGauge);
             this.guna2GradientPanel1.Controls.Add(this.bankTotalLabel);
             this.guna2GradientPanel1.Controls.Add(this.pettyCashLabel);
             this.guna2GradientPanel1.Controls.Add(this.numBanksLabel);
@@ -98,21 +96,12 @@ namespace Linkup_Finance.Forms
             this.guna2GradientPanel1.Size = new System.Drawing.Size(618, 235);
             this.guna2GradientPanel1.TabIndex = 0;
             // 
-            // bankSolidGauge
-            // 
-            this.bankSolidGauge.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bankSolidGauge.ForeColor = System.Drawing.Color.White;
-            this.bankSolidGauge.Location = new System.Drawing.Point(411, 66);
-            this.bankSolidGauge.Name = "bankSolidGauge";
-            this.bankSolidGauge.Size = new System.Drawing.Size(117, 51);
-            this.bankSolidGauge.TabIndex = 6;
-            // 
             // pettyCashSolidGauge
             // 
             this.pettyCashSolidGauge.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pettyCashSolidGauge.Location = new System.Drawing.Point(411, 138);
+            this.pettyCashSolidGauge.Location = new System.Drawing.Point(431, 91);
             this.pettyCashSolidGauge.Name = "pettyCashSolidGauge";
-            this.pettyCashSolidGauge.Size = new System.Drawing.Size(117, 51);
+            this.pettyCashSolidGauge.Size = new System.Drawing.Size(117, 71);
             this.pettyCashSolidGauge.TabIndex = 5;
             this.pettyCashSolidGauge.Text = "solidGauge1";
             // 
@@ -124,21 +113,21 @@ namespace Linkup_Finance.Forms
             this.bankTotalLabel.Location = new System.Drawing.Point(389, 206);
             this.bankTotalLabel.Name = "bankTotalLabel";
             this.bankTotalLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bankTotalLabel.Size = new System.Drawing.Size(171, 18);
+            this.bankTotalLabel.Size = new System.Drawing.Size(170, 18);
             this.bankTotalLabel.TabIndex = 4;
-            this.bankTotalLabel.Text = "Total - 1000000000 ETB";
+            this.bankTotalLabel.Text = "Total   1000000000 ETB";
             // 
             // pettyCashLabel
             // 
             this.pettyCashLabel.AutoSize = true;
             this.pettyCashLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pettyCashLabel.ForeColor = System.Drawing.Color.White;
-            this.pettyCashLabel.Location = new System.Drawing.Point(389, 120);
+            this.pettyCashLabel.Location = new System.Drawing.Point(389, 73);
             this.pettyCashLabel.Name = "pettyCashLabel";
             this.pettyCashLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.pettyCashLabel.Size = new System.Drawing.Size(169, 15);
+            this.pettyCashLabel.Size = new System.Drawing.Size(168, 15);
             this.pettyCashLabel.TabIndex = 3;
-            this.pettyCashLabel.Text = "Petty Cash Remaining - 5000";
+            this.pettyCashLabel.Text = "Petty Cash Remaining   5000";
             // 
             // numBanksLabel
             // 
@@ -148,9 +137,9 @@ namespace Linkup_Finance.Forms
             this.numBanksLabel.Location = new System.Drawing.Point(389, 48);
             this.numBanksLabel.Name = "numBanksLabel";
             this.numBanksLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.numBanksLabel.Size = new System.Drawing.Size(159, 15);
+            this.numBanksLabel.Size = new System.Drawing.Size(158, 15);
             this.numBanksLabel.TabIndex = 2;
-            this.numBanksLabel.Text = "Bank Accounts Owned - 11";
+            this.numBanksLabel.Text = "Bank Accounts Owned   11";
             // 
             // label1
             // 
@@ -399,7 +388,6 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
         private LiveCharts.WinForms.PieChart bankPieChart;
         private System.Windows.Forms.Label label1;
-        private LiveCharts.WinForms.SolidGauge bankSolidGauge;
         private LiveCharts.WinForms.SolidGauge pettyCashSolidGauge;
         private System.Windows.Forms.Label bankTotalLabel;
         private System.Windows.Forms.Label pettyCashLabel;
