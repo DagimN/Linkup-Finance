@@ -123,6 +123,26 @@ namespace Linkup_Finance.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Profile_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Profile Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Salary_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Salary Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap User_Icon {
             get {
                 object obj = ResourceManager.GetObject("User Icon", resourceCulture);

@@ -110,6 +110,36 @@ namespace Linkup_Finance.Managers
             return banksList;
         }
 
+        public decimal GetTotalPettyVaultsAmount()
+        {
+            decimal total = 0.00m;
+
+            foreach (PettyVault vault in pettyVaultsList)
+                total += vault.GetAmount();
+
+            return total; 
+        } 
+
+        public int GetTotalPettyVaultsBound()
+        {
+            int bound = 0;
+
+            foreach (PettyVault vault in pettyVaultsList)
+                bound += int.Parse(vault.GetValue().ToString());
+
+            return bound;
+        }
+
+        public decimal GetTotalBankAmount()
+        {
+            decimal total = 0.00m;
+
+            foreach (Bank bank in banksList)
+                total += bank.GetBalance();
+
+            return total;
+        }
+
         public Bank GetBank(string name)
         {
             foreach(Bank bank in banksList)
@@ -243,9 +273,9 @@ namespace Linkup_Finance.Managers
             this.Amount -= amount;
         }
 
-        public void Replenish()
+        public void Replenish(decimal amount)
         {
-            this.Amount += this.Value;
+            this.Amount += amount;
             Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.IndexOf(this.Name) + 2] = this.Amount.ToString();
             Linkup_Finance.Properties.Settings.Default.Save();
         }

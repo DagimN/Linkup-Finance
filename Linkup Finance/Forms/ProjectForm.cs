@@ -26,6 +26,8 @@ namespace Linkup_Finance.Forms
     {
         //TODO: Handle Resizing of controls when maximized
         //TODO: Associate the project with the data being viewed
+        //TODO: Fix the bank error chip
+        //TODO: Fix the petty cash replenish button (incorrect value being added)
         public ProjectManager projectManager;
         private DashboardForm dashboardForm;
         public BankManager bankManager;
@@ -195,7 +197,6 @@ namespace Linkup_Finance.Forms
                     pettyVaultTextBox.Tag = bankManager.GetFirstIndex();
                     pettyVaultTextBox.Text = bankManager.GetFirstIndex().GetName();
                     pettyVaultComboBox.Text = bankManager.GetFirstIndex().GetName();
-                    pettyValueTextBox.Text = bankManager.GetFirstIndex().GetValue().ToString();
                 }
                 else
                     pettyVaultTextBox.PlaceholderText = "Create Petty Vault";
@@ -370,8 +371,6 @@ namespace Linkup_Finance.Forms
 
                 pettyVaultChart.Refresh();
             }
-            
-            pettyValueTextBox.Text = vault.GetValue().ToString();
         }
 
         private void newPettyVaultButton_Click(object sender, EventArgs e)
@@ -413,6 +412,8 @@ namespace Linkup_Finance.Forms
                         pettyVaultComboBox.Text = pettyVaultName;
                         vaultAmountLabel.Text = $"Amount(ETB): {pettyVaultValue}";
                         pettyVaultTextBox.Enabled = false;
+
+                        dashboardForm.RefreshDashboard();
                     }
                     else
                         pettyVaultTextBox.Text = "Invalid Entry. Try Again";
@@ -444,17 +445,29 @@ namespace Linkup_Finance.Forms
         private void replenishButton_Click(object sender, EventArgs e)
         {
             PettyVault vault = (PettyVault)pettyVaultTextBox.Tag;
+            decimal amount;
+            bool isValid = decimal.TryParse(pettyValueTextBox.Text, out amount);
 
-            vault.Replenish();
-            vaultAmountLabel.Text = $"Amount(ETB):{vault.GetAmount()}";
-            foreach(PieSeries series in pettyVaultChart.Series)
+            if (isValid)
             {
-                if(series.Title == vault.GetName())
+                vault.Replenish(amount);
+                vaultAmountLabel.Text = $"Amount(ETB):{vault.GetAmount()}";
+                foreach (PieSeries series in pettyVaultChart.Series)
                 {
-                    series.Values = new ChartValues<decimal> { vault.GetAmount() };
-                    break;
+                    if (series.Title == vault.GetName())
+                    {
+                        series.Values = new ChartValues<decimal> { vault.GetAmount() };
+                        break;
+                    }
                 }
+                pettyValueTextBox.Text = "";
+                dashboardForm.RefreshDashboard();
             }
+            else
+            {
+                pettyValueTextBox.Text = "Incorrect Format";
+                pettyValueTextBox.FillColor = Color.FromArgb(240, 160, 140);
+            }   
         }
 
         private void removeVaultButton_Click(object sender, EventArgs e)
@@ -489,7 +502,14 @@ namespace Linkup_Finance.Forms
                     pettyVaultTextBox.Tag = null;
                     vaultAmountLabel.Text = "Amount(ETB):";
                 }
+
+                dashboardForm.RefreshDashboard();
             }
+        }
+
+        private void pettyValueTextBox_TextChanged(object sender, EventArgs e)
+        {
+            pettyValueTextBox.FillColor = Color.White;
         }
 
         private void newBankButton_Click(object sender, EventArgs e)
@@ -509,7 +529,7 @@ namespace Linkup_Finance.Forms
             decimal balance;
             bool isValid = decimal.TryParse(bankBalanceTextBox.Text, out balance);
             
-            newIncomePanel.Controls.Remove(bankErrorChip);
+            newBankPanel.Controls.Remove(bankErrorChip);
             bankErrorChip = new Guna.UI2.WinForms.Guna2Chip
             {
                 Size = new Size(379, 45),
@@ -517,7 +537,7 @@ namespace Linkup_Finance.Forms
                 Text = "",
                 Visible = false,
             };
-            newIncomePanel.Controls.Add(bankErrorChip);
+            newBankPanel.Controls.Add(bankErrorChip);
             bankErrorChip.BringToFront();
 
             if (isValid)
@@ -545,6 +565,7 @@ namespace Linkup_Finance.Forms
                             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                             LoadChart(name, bankLogsTableAdapter.GetData());
                             dashboardForm.LoadChart(banksTableAdapter.GetData());
+                            dashboardForm.RefreshDashboard();
                             foreach (PieSeries series in bankPieChart.Series)
                             {
                                 series.PushOut = 0;
@@ -556,26 +577,26 @@ namespace Linkup_Finance.Forms
                         }
                         else
                         {
-                            incomeErrorChip.Visible = true;
-                            incomeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
+                            bankErrorChip.Visible = true;
+                            bankErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
                         }
                     }
                     else
                     {
-                        incomeErrorChip.Visible = true;
-                        incomeErrorChip.Text = "A bank with the same name already exists. Try a different alternative.";
+                        bankErrorChip.Visible = true;
+                        bankErrorChip.Text = "A bank with the same name already exists. Try a different alternative.";
                     }
                 }
                 else
                 {
-                    incomeErrorChip.Visible = true;
-                    incomeErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                    bankErrorChip.Visible = true;
+                    bankErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
                 }
             }
             else
             {
-                incomeErrorChip.Visible = true;
-                incomeErrorChip.Text = "The balance value is in an incorrect format. Try again.";
+                bankErrorChip.Visible = true;
+                bankErrorChip.Text = "The balance value is in an incorrect format. Try again.";
             }
         }
 
@@ -605,8 +626,8 @@ namespace Linkup_Finance.Forms
 
                 LoadChart(bank.GetBankName(), bankLogsTableAdapter.GetData());
                 dashboardForm.LoadChart(banksTableAdapter.GetData());
-            }
-                
+                dashboardForm.RefreshDashboard();
+            }    
             else
                 depositTextBox.Text = "Invalid Value";
         }
@@ -938,7 +959,10 @@ namespace Linkup_Finance.Forms
             {
                 string url = expenseDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-                Process.Start(url);
+                if (Exists(url))
+                    Process.Start(url);
+                else
+                    MessageBox.Show("The folder does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1238,7 +1262,10 @@ namespace Linkup_Finance.Forms
             {
                 string url = incomeDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-                Process.Start(url);
+                if (Exists(url))
+                    Process.Start(url);
+                else
+                    MessageBox.Show("The folder does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

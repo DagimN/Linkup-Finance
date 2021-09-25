@@ -69,6 +69,12 @@ namespace Linkup_Finance.Forms
 
             transactionChart.Series = new SeriesCollection(dayConfig);
             bankPieChart.LegendLocation = LegendLocation.Right;
+
+            bankSolidGauge.Uses360Mode = true;
+            pettyCashSolidGauge.Uses360Mode = true;
+            bankSolidGauge.To = 20;
+            pettyCashSolidGauge.To = projectForm.bankManager.GetTotalPettyVaultsBound();
+
             transactionChart.Pan = PanningOptions.X;
             transactionChart.AxisX.Add(xAxis);
             transactionChart.AxisY.Add(yAxis);
@@ -113,6 +119,12 @@ namespace Linkup_Finance.Forms
             LoadChart(projectForm.incomeTableAdapter.GetData());
             LoadChart(projectForm.expenseTableAdapter.GetData());
             LoadChart(projectForm.banksTableAdapter.GetData());
+
+            numBanksLabel.Text = $"Bank Accounts Owned - {projectForm.banksTableAdapter.GetData().Rows.Count}";
+            pettyCashLabel.Text = $"Petty Cash Remaining - {projectForm.bankManager.GetTotalPettyVaultsAmount()}";
+            bankTotalLabel.Text = $"Total - {projectForm.bankManager.GetTotalBankAmount()} ETB";
+            pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
+            bankSolidGauge.Value = projectForm.banksTableAdapter.GetData().Rows.Count;
         }
 
         #region Custom Functions
@@ -171,6 +183,15 @@ namespace Linkup_Finance.Forms
                     });
                 }
             }
+        }
+
+        public void RefreshDashboard()
+        {
+            numBanksLabel.Text = $"Bank Accounts Owned - {projectForm.banksTableAdapter.GetData().Rows.Count}";
+            pettyCashLabel.Text = $"Petty Cash Remaining - {projectForm.bankManager.GetTotalPettyVaultsAmount()}";
+            bankTotalLabel.Text = $"Total - {projectForm.bankManager.GetTotalBankAmount()} ETB";
+            pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
+            bankSolidGauge.Value = projectForm.banksTableAdapter.GetData().Rows.Count;
         }
         #endregion
     }

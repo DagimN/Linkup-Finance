@@ -118,8 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Linkup Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Linkup Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Delete Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Salary Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Salary Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Maximize Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Maximize Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -133,10 +136,13 @@
   <data name="Close Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Linkup Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Linkup Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Maximized_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Maximized Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Delete Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Profile Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Profile Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
