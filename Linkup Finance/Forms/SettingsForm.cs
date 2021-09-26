@@ -20,6 +20,38 @@ namespace Linkup_Finance.Forms
             userManager = new UserManager();
         }
 
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.UserLog' table. You can move, or remove it, as needed.
+            this.userLogTableAdapter.Fill(this.linkupDatabaseDataSet.UserLog);
+            usersTableAdapter.Fill(this.linkupDatabaseDataSet.Users);
+
+            for (int i = 0; i < usersTableAdapter.GetData().Rows.Count; i++)
+            {
+                string name = usersTableAdapter.GetData().Rows[i].ItemArray[1].ToString();
+                string strType = usersTableAdapter.GetData().Rows[i].ItemArray[2].ToString();
+                string job = usersTableAdapter.GetData().Rows[i].ItemArray[4].ToString();
+                string password = usersTableAdapter.GetData().Rows[i].ItemArray[3].ToString();
+                AccountType type;
+
+                if (strType == "Admin")
+                    type = AccountType.Admin;
+                else if (strType == "Accountant")
+                    type = AccountType.Accountant;
+                else
+                    type = AccountType.Other;
+
+                usersComboBox.Items.Add(name);
+
+                userManager.RetrieveUsers(name, type, password, job);
+            }
+
+            if (usersComboBox.Items.Count > 0)
+                usersComboBox.Text = usersComboBox.Items[0].ToString();
+        }
+
+        #region UserTab
+
         private void addUserButton_Click(object sender, EventArgs e)
         {
             newUserPanel.Visible = true;
@@ -105,34 +137,6 @@ namespace Linkup_Finance.Forms
             }
         }
 
-        private void SettingsForm_Load(object sender, EventArgs e)
-        {
-            usersTableAdapter.Fill(this.linkupDatabaseDataSet.Users);
-
-            for(int i = 0; i < usersTableAdapter.GetData().Rows.Count; i++)
-            {
-                string name = usersTableAdapter.GetData().Rows[i].ItemArray[1].ToString();
-                string strType = usersTableAdapter.GetData().Rows[i].ItemArray[2].ToString();
-                string job = usersTableAdapter.GetData().Rows[i].ItemArray[4].ToString();
-                string password = usersTableAdapter.GetData().Rows[i].ItemArray[3].ToString();
-                AccountType type;
-
-                if (strType == "Admin")
-                    type = AccountType.Admin;
-                else if (strType == "Accountant")
-                    type = AccountType.Accountant;
-                else
-                    type = AccountType.Other;
-                
-                usersComboBox.Items.Add(name);
-
-                userManager.RetrieveUsers(name, type, password, job);
-            }
-
-            if(usersComboBox.Items.Count > 0)
-                usersComboBox.Text = usersComboBox.Items[0].ToString();
-        }
-
         private void editProfileButton_Click(object sender, EventArgs e)
         {
             if (!profileNameTextBox.Visible)
@@ -161,5 +165,20 @@ namespace Linkup_Finance.Forms
             }
             
         }
+
+        #endregion 
+
+        #region EmployeeTab
+
+        private void closeEmployeePanel_Click(object sender, EventArgs e)
+        {
+            newEmployeePanel.Visible = false;
+        }
+
+        private void addEmployeeButton_Click(object sender, EventArgs e)
+        {
+            newEmployeePanel.Visible = true;
+        }
+        #endregion
     }
 }
