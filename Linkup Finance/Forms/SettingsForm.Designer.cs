@@ -30,13 +30,13 @@ namespace Linkup_Finance.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.userPage = new System.Windows.Forms.TabPage();
             this.profileOtherRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
@@ -72,35 +72,11 @@ namespace Linkup_Finance.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.employeePage = new System.Windows.Forms.TabPage();
-            this.addEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.employeeProfilePanel = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.miscellaneousPage = new System.Windows.Forms.TabPage();
-            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
-            this.usersTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UsersTableAdapter();
-            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
-            this.userLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.userLogTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UserLogTableAdapter();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
             this.newEmployeePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.employeeEmailTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.employeeEmailLabel = new System.Windows.Forms.Label();
+            this.employeePhoneTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.employeePhoneLabel = new System.Windows.Forms.Label();
             this.employeeErrorChip = new Guna.UI2.WinForms.Guna2Chip();
             this.closeEmployeePanel = new Guna.UI2.WinForms.Guna2Button();
             this.submitEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
@@ -111,10 +87,54 @@ namespace Linkup_Finance.Forms
             this.employeeNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.employeeNameLabel = new System.Windows.Forms.Label();
             this.newEmployeeLabel = new System.Windows.Forms.Label();
-            this.employeePhoneTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.employeePhoneLabel = new System.Windows.Forms.Label();
-            this.employeeEmailTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.employeeEmailLabel = new System.Windows.Forms.Label();
+            this.employeesComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.addEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.employeeProfilePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.removeEmolyeeButton = new Guna.UI2.WinForms.Guna2Button();
+            this.salaryTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.salaryLabel = new System.Windows.Forms.Label();
+            this.bonusTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.employeeProfileJobLabel = new System.Windows.Forms.Label();
+            this.nameLabel = new System.Windows.Forms.Label();
+            this.miscellaneousPage = new System.Windows.Forms.TabPage();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
+            this.payEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
+            this.activeEmployeeRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.inactiveEmployeeRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.bonusLabel = new System.Windows.Forms.Label();
+            this.employeeProfileJobTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.netSalaryTotalLabel = new System.Windows.Forms.Label();
+            this.editEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
+            this.employeeLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usersTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UsersTableAdapter();
+            this.userLogTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UserLogTableAdapter();
+            this.employeesTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeesTableAdapter();
+            this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bonusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pensionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salaryDueDateSelection = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.nameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2TabControl1.SuspendLayout();
             this.userPage.SuspendLayout();
             this.newUserPanel.SuspendLayout();
@@ -122,17 +142,19 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.employeePage.SuspendLayout();
+            this.newEmployeePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
             this.employeeProfilePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.miscellaneousPage.SuspendLayout();
             this.guna2Panel4.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.newEmployeePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2TabControl1
@@ -685,35 +707,35 @@ namespace Linkup_Finance.Forms
             // 
             // guna2DataGridView2
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
             this.guna2DataGridView2.AutoGenerateColumns = false;
             this.guna2DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.guna2DataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.guna2DataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.guna2DataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.guna2DataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.guna2DataGridView2.ColumnHeadersHeight = 30;
             this.guna2DataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
             this.dateTimeDataGridViewTextBoxColumn});
             this.guna2DataGridView2.DataSource = this.userLogBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView2.DefaultCellStyle = dataGridViewCellStyle24;
             this.guna2DataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2DataGridView2.EnableHeadersVisualStyles = false;
             this.guna2DataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
@@ -823,7 +845,7 @@ namespace Linkup_Finance.Forms
             // 
             this.employeePage.BackColor = System.Drawing.SystemColors.ControlLight;
             this.employeePage.Controls.Add(this.newEmployeePanel);
-            this.employeePage.Controls.Add(this.guna2ComboBox1);
+            this.employeePage.Controls.Add(this.employeesComboBox);
             this.employeePage.Controls.Add(this.addEmployeeButton);
             this.employeePage.Controls.Add(this.guna2DataGridView1);
             this.employeePage.Controls.Add(this.employeeProfilePanel);
@@ -833,434 +855,6 @@ namespace Linkup_Finance.Forms
             this.employeePage.Size = new System.Drawing.Size(1042, 508);
             this.employeePage.TabIndex = 1;
             this.employeePage.Text = "Employees";
-            // 
-            // addEmployeeButton
-            // 
-            this.addEmployeeButton.CheckedState.Parent = this.addEmployeeButton;
-            this.addEmployeeButton.CustomImages.Parent = this.addEmployeeButton;
-            this.addEmployeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.addEmployeeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.addEmployeeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.addEmployeeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.addEmployeeButton.DisabledState.Parent = this.addEmployeeButton;
-            this.addEmployeeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.addEmployeeButton.ForeColor = System.Drawing.Color.White;
-            this.addEmployeeButton.HoverState.Parent = this.addEmployeeButton;
-            this.addEmployeeButton.Location = new System.Drawing.Point(3, 8);
-            this.addEmployeeButton.Name = "addEmployeeButton";
-            this.addEmployeeButton.ShadowDecoration.Parent = this.addEmployeeButton;
-            this.addEmployeeButton.Size = new System.Drawing.Size(180, 36);
-            this.addEmployeeButton.TabIndex = 2;
-            this.addEmployeeButton.Text = "Add Employee";
-            this.addEmployeeButton.Click += new System.EventHandler(this.addEmployeeButton_Click);
-            // 
-            // guna2DataGridView1
-            // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.guna2DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.guna2DataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.guna2DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.guna2DataGridView1.ColumnHeadersHeight = 4;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
-            this.guna2DataGridView1.EnableHeadersVisualStyles = false;
-            this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(6, 50);
-            this.guna2DataGridView1.Name = "guna2DataGridView1";
-            this.guna2DataGridView1.RowHeadersVisible = false;
-            this.guna2DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(692, 450);
-            this.guna2DataGridView1.TabIndex = 1;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 4;
-            this.guna2DataGridView1.ThemeStyle.ReadOnly = false;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Height = 22;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            // 
-            // employeeProfilePanel
-            // 
-            this.employeeProfilePanel.BorderRadius = 10;
-            this.employeeProfilePanel.Controls.Add(this.pictureBox2);
-            this.employeeProfilePanel.Controls.Add(this.guna2Button2);
-            this.employeeProfilePanel.Controls.Add(this.label4);
-            this.employeeProfilePanel.Controls.Add(this.guna2TextBox2);
-            this.employeeProfilePanel.Controls.Add(this.label3);
-            this.employeeProfilePanel.Controls.Add(this.guna2TextBox1);
-            this.employeeProfilePanel.Controls.Add(this.label2);
-            this.employeeProfilePanel.Controls.Add(this.label1);
-            this.employeeProfilePanel.FillColor = System.Drawing.Color.White;
-            this.employeeProfilePanel.Location = new System.Drawing.Point(704, 8);
-            this.employeeProfilePanel.Name = "employeeProfilePanel";
-            this.employeeProfilePanel.ShadowDecoration.Parent = this.employeeProfilePanel;
-            this.employeeProfilePanel.Size = new System.Drawing.Size(330, 492);
-            this.employeeProfilePanel.TabIndex = 0;
-            // 
-            // guna2Button2
-            // 
-            this.guna2Button2.CheckedState.Parent = this.guna2Button2;
-            this.guna2Button2.CustomImages.Parent = this.guna2Button2;
-            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.DisabledState.Parent = this.guna2Button2;
-            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.HoverState.Parent = this.guna2Button2;
-            this.guna2Button2.Location = new System.Drawing.Point(147, 444);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.ShadowDecoration.Parent = this.guna2Button2;
-            this.guna2Button2.Size = new System.Drawing.Size(180, 45);
-            this.guna2Button2.TabIndex = 3;
-            this.guna2Button2.Text = "Remove Employee";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(121, 271);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 18);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "ETB";
-            // 
-            // guna2TextBox2
-            // 
-            this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox2.DefaultText = "5000";
-            this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.DisabledState.Parent = this.guna2TextBox2;
-            this.guna2TextBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.FocusedState.Parent = this.guna2TextBox2;
-            this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.HoverState.Parent = this.guna2TextBox2;
-            this.guna2TextBox2.Location = new System.Drawing.Point(115, 262);
-            this.guna2TextBox2.Name = "guna2TextBox2";
-            this.guna2TextBox2.PasswordChar = '\0';
-            this.guna2TextBox2.PlaceholderText = "";
-            this.guna2TextBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.guna2TextBox2.SelectedText = "";
-            this.guna2TextBox2.SelectionStart = 4;
-            this.guna2TextBox2.ShadowDecoration.Parent = this.guna2TextBox2;
-            this.guna2TextBox2.Size = new System.Drawing.Size(200, 36);
-            this.guna2TextBox2.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(20, 271);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 18);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Salary:";
-            // 
-            // guna2TextBox1
-            // 
-            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox1.DefaultText = "Graphics Designer";
-            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.DisabledState.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.FocusedState.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.HoverState.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.Location = new System.Drawing.Point(115, 210);
-            this.guna2TextBox1.Name = "guna2TextBox1";
-            this.guna2TextBox1.PasswordChar = '\0';
-            this.guna2TextBox1.PlaceholderText = "";
-            this.guna2TextBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.SelectionStart = 17;
-            this.guna2TextBox1.ShadowDecoration.Parent = this.guna2TextBox1;
-            this.guna2TextBox1.Size = new System.Drawing.Size(200, 36);
-            this.guna2TextBox1.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(20, 219);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Role:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(69, 137);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(217, 35);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Employee Name";
-            // 
-            // miscellaneousPage
-            // 
-            this.miscellaneousPage.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.miscellaneousPage.Controls.Add(this.guna2Panel4);
-            this.miscellaneousPage.Controls.Add(this.guna2Panel3);
-            this.miscellaneousPage.Controls.Add(this.guna2Panel2);
-            this.miscellaneousPage.Controls.Add(this.guna2Panel1);
-            this.miscellaneousPage.Location = new System.Drawing.Point(154, 4);
-            this.miscellaneousPage.Name = "miscellaneousPage";
-            this.miscellaneousPage.Size = new System.Drawing.Size(1042, 508);
-            this.miscellaneousPage.TabIndex = 2;
-            this.miscellaneousPage.Text = "Miscellaneous";
-            // 
-            // guna2Panel4
-            // 
-            this.guna2Panel4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.guna2Panel4.BorderRadius = 10;
-            this.guna2Panel4.Controls.Add(this.guna2Button6);
-            this.guna2Panel4.FillColor = System.Drawing.Color.White;
-            this.guna2Panel4.Location = new System.Drawing.Point(17, 399);
-            this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.ShadowDecoration.Parent = this.guna2Panel4;
-            this.guna2Panel4.Size = new System.Drawing.Size(1017, 100);
-            this.guna2Panel4.TabIndex = 5;
-            // 
-            // guna2Button6
-            // 
-            this.guna2Button6.CheckedState.Parent = this.guna2Button6;
-            this.guna2Button6.CustomImages.Parent = this.guna2Button6;
-            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.DisabledState.Parent = this.guna2Button6;
-            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button6.ForeColor = System.Drawing.Color.White;
-            this.guna2Button6.HoverState.Parent = this.guna2Button6;
-            this.guna2Button6.Location = new System.Drawing.Point(842, 50);
-            this.guna2Button6.Name = "guna2Button6";
-            this.guna2Button6.ShadowDecoration.Parent = this.guna2Button6;
-            this.guna2Button6.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button6.TabIndex = 0;
-            this.guna2Button6.Text = "Check Updates";
-            // 
-            // guna2Panel3
-            // 
-            this.guna2Panel3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.guna2Panel3.BorderRadius = 10;
-            this.guna2Panel3.Controls.Add(this.guna2Button8);
-            this.guna2Panel3.Controls.Add(this.guna2Button5);
-            this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(17, 272);
-            this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.ShadowDecoration.Parent = this.guna2Panel3;
-            this.guna2Panel3.Size = new System.Drawing.Size(1017, 100);
-            this.guna2Panel3.TabIndex = 5;
-            // 
-            // guna2Button5
-            // 
-            this.guna2Button5.CheckedState.Parent = this.guna2Button5;
-            this.guna2Button5.CustomImages.Parent = this.guna2Button5;
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.DisabledState.Parent = this.guna2Button5;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button5.ForeColor = System.Drawing.Color.White;
-            this.guna2Button5.HoverState.Parent = this.guna2Button5;
-            this.guna2Button5.Location = new System.Drawing.Point(673, 50);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.ShadowDecoration.Parent = this.guna2Button5;
-            this.guna2Button5.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button5.TabIndex = 0;
-            this.guna2Button5.Text = "Backup";
-            // 
-            // guna2Panel2
-            // 
-            this.guna2Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.guna2Panel2.BorderRadius = 10;
-            this.guna2Panel2.Controls.Add(this.guna2Button4);
-            this.guna2Panel2.FillColor = System.Drawing.Color.White;
-            this.guna2Panel2.Location = new System.Drawing.Point(17, 145);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.ShadowDecoration.Parent = this.guna2Panel2;
-            this.guna2Panel2.Size = new System.Drawing.Size(1017, 100);
-            this.guna2Panel2.TabIndex = 5;
-            // 
-            // guna2Button4
-            // 
-            this.guna2Button4.CheckedState.Parent = this.guna2Button4;
-            this.guna2Button4.CustomImages.Parent = this.guna2Button4;
-            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.DisabledState.Parent = this.guna2Button4;
-            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button4.ForeColor = System.Drawing.Color.White;
-            this.guna2Button4.HoverState.Parent = this.guna2Button4;
-            this.guna2Button4.Location = new System.Drawing.Point(842, 49);
-            this.guna2Button4.Name = "guna2Button4";
-            this.guna2Button4.ShadowDecoration.Parent = this.guna2Button4;
-            this.guna2Button4.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button4.TabIndex = 0;
-            this.guna2Button4.Text = "Export Excel";
-            // 
-            // guna2Panel1
-            // 
-            this.guna2Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.guna2Panel1.BorderRadius = 10;
-            this.guna2Panel1.Controls.Add(this.guna2Button3);
-            this.guna2Panel1.FillColor = System.Drawing.Color.White;
-            this.guna2Panel1.Location = new System.Drawing.Point(17, 18);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.ShadowDecoration.Parent = this.guna2Panel1;
-            this.guna2Panel1.Size = new System.Drawing.Size(1017, 100);
-            this.guna2Panel1.TabIndex = 4;
-            // 
-            // guna2Button3
-            // 
-            this.guna2Button3.CheckedState.Parent = this.guna2Button3;
-            this.guna2Button3.CustomImages.Parent = this.guna2Button3;
-            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.DisabledState.Parent = this.guna2Button3;
-            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button3.ForeColor = System.Drawing.Color.White;
-            this.guna2Button3.HoverState.Parent = this.guna2Button3;
-            this.guna2Button3.Location = new System.Drawing.Point(842, 46);
-            this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.ShadowDecoration.Parent = this.guna2Button3;
-            this.guna2Button3.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button3.TabIndex = 0;
-            this.guna2Button3.Text = "Export PDF";
-            // 
-            // usersTableAdapter
-            // 
-            this.usersTableAdapter.ClearBeforeFill = true;
-            // 
-            // linkupDatabaseDataSet
-            // 
-            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
-            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // userLogBindingSource
-            // 
-            this.userLogBindingSource.DataMember = "UserLog";
-            this.userLogBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
-            // userLogTableAdapter
-            // 
-            this.userLogTableAdapter.ClearBeforeFill = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // dateTimeDataGridViewTextBoxColumn
-            // 
-            this.dateTimeDataGridViewTextBoxColumn.DataPropertyName = "DateTime";
-            this.dateTimeDataGridViewTextBoxColumn.HeaderText = "Last Recently Logged In";
-            this.dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(115, 14);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(108, 120);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            // 
-            // guna2ComboBox1
-            // 
-            this.guna2ComboBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox1.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.FocusedState.Parent = this.guna2ComboBox1;
-            this.guna2ComboBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.guna2ComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox1.HoverState.Parent = this.guna2ComboBox1;
-            this.guna2ComboBox1.ItemHeight = 30;
-            this.guna2ComboBox1.ItemsAppearance.Parent = this.guna2ComboBox1;
-            this.guna2ComboBox1.Location = new System.Drawing.Point(189, 8);
-            this.guna2ComboBox1.Name = "guna2ComboBox1";
-            this.guna2ComboBox1.ShadowDecoration.Parent = this.guna2ComboBox1;
-            this.guna2ComboBox1.Size = new System.Drawing.Size(320, 36);
-            this.guna2ComboBox1.TabIndex = 3;
-            // 
-            // guna2Button8
-            // 
-            this.guna2Button8.CheckedState.Parent = this.guna2Button8;
-            this.guna2Button8.CustomImages.Parent = this.guna2Button8;
-            this.guna2Button8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button8.DisabledState.Parent = this.guna2Button8;
-            this.guna2Button8.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button8.ForeColor = System.Drawing.Color.White;
-            this.guna2Button8.HoverState.Parent = this.guna2Button8;
-            this.guna2Button8.Location = new System.Drawing.Point(842, 50);
-            this.guna2Button8.Name = "guna2Button8";
-            this.guna2Button8.ShadowDecoration.Parent = this.guna2Button8;
-            this.guna2Button8.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button8.TabIndex = 1;
-            this.guna2Button8.Text = "Recover";
             // 
             // newEmployeePanel
             // 
@@ -1290,6 +884,78 @@ namespace Linkup_Finance.Forms
             this.newEmployeePanel.Size = new System.Drawing.Size(643, 320);
             this.newEmployeePanel.TabIndex = 14;
             this.newEmployeePanel.Visible = false;
+            // 
+            // employeeEmailTextBox
+            // 
+            this.employeeEmailTextBox.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.employeeEmailTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.employeeEmailTextBox.DefaultText = "";
+            this.employeeEmailTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.employeeEmailTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.employeeEmailTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.employeeEmailTextBox.DisabledState.Parent = this.employeeEmailTextBox;
+            this.employeeEmailTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.employeeEmailTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeeEmailTextBox.FocusedState.Parent = this.employeeEmailTextBox;
+            this.employeeEmailTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.employeeEmailTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeeEmailTextBox.HoverState.Parent = this.employeeEmailTextBox;
+            this.employeeEmailTextBox.Location = new System.Drawing.Point(378, 138);
+            this.employeeEmailTextBox.Name = "employeeEmailTextBox";
+            this.employeeEmailTextBox.PasswordChar = '\0';
+            this.employeeEmailTextBox.PlaceholderText = "";
+            this.employeeEmailTextBox.SelectedText = "";
+            this.employeeEmailTextBox.ShadowDecoration.Parent = this.employeeEmailTextBox;
+            this.employeeEmailTextBox.Size = new System.Drawing.Size(221, 30);
+            this.employeeEmailTextBox.TabIndex = 26;
+            // 
+            // employeeEmailLabel
+            // 
+            this.employeeEmailLabel.AutoSize = true;
+            this.employeeEmailLabel.BackColor = System.Drawing.Color.Transparent;
+            this.employeeEmailLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.employeeEmailLabel.ForeColor = System.Drawing.Color.Black;
+            this.employeeEmailLabel.Location = new System.Drawing.Point(324, 150);
+            this.employeeEmailLabel.Name = "employeeEmailLabel";
+            this.employeeEmailLabel.Size = new System.Drawing.Size(48, 18);
+            this.employeeEmailLabel.TabIndex = 25;
+            this.employeeEmailLabel.Text = "Email: ";
+            // 
+            // employeePhoneTextBox
+            // 
+            this.employeePhoneTextBox.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.employeePhoneTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.employeePhoneTextBox.DefaultText = "";
+            this.employeePhoneTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.employeePhoneTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.employeePhoneTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.employeePhoneTextBox.DisabledState.Parent = this.employeePhoneTextBox;
+            this.employeePhoneTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.employeePhoneTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeePhoneTextBox.FocusedState.Parent = this.employeePhoneTextBox;
+            this.employeePhoneTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.employeePhoneTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeePhoneTextBox.HoverState.Parent = this.employeePhoneTextBox;
+            this.employeePhoneTextBox.Location = new System.Drawing.Point(378, 97);
+            this.employeePhoneTextBox.Name = "employeePhoneTextBox";
+            this.employeePhoneTextBox.PasswordChar = '\0';
+            this.employeePhoneTextBox.PlaceholderText = "";
+            this.employeePhoneTextBox.SelectedText = "";
+            this.employeePhoneTextBox.ShadowDecoration.Parent = this.employeePhoneTextBox;
+            this.employeePhoneTextBox.Size = new System.Drawing.Size(221, 30);
+            this.employeePhoneTextBox.TabIndex = 24;
+            // 
+            // employeePhoneLabel
+            // 
+            this.employeePhoneLabel.AutoSize = true;
+            this.employeePhoneLabel.BackColor = System.Drawing.Color.Transparent;
+            this.employeePhoneLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.employeePhoneLabel.ForeColor = System.Drawing.Color.Black;
+            this.employeePhoneLabel.Location = new System.Drawing.Point(319, 109);
+            this.employeePhoneLabel.Name = "employeePhoneLabel";
+            this.employeePhoneLabel.Size = new System.Drawing.Size(56, 18);
+            this.employeePhoneLabel.TabIndex = 23;
+            this.employeePhoneLabel.Text = "Phone: ";
             // 
             // employeeErrorChip
             // 
@@ -1347,6 +1013,7 @@ namespace Linkup_Finance.Forms
             this.submitEmployeeButton.Size = new System.Drawing.Size(180, 45);
             this.submitEmployeeButton.TabIndex = 17;
             this.submitEmployeeButton.Text = "Submit";
+            this.submitEmployeeButton.Click += new System.EventHandler(this.submitEmployeeButton_Click);
             // 
             // employeeSalaryTextBox
             // 
@@ -1469,77 +1136,702 @@ namespace Linkup_Finance.Forms
             this.newEmployeeLabel.TabIndex = 1;
             this.newEmployeeLabel.Text = "New Employee";
             // 
-            // employeePhoneTextBox
+            // employeesComboBox
             // 
-            this.employeePhoneTextBox.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.employeePhoneTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.employeePhoneTextBox.DefaultText = "";
-            this.employeePhoneTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.employeePhoneTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.employeePhoneTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.employeePhoneTextBox.DisabledState.Parent = this.employeePhoneTextBox;
-            this.employeePhoneTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.employeePhoneTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.employeePhoneTextBox.FocusedState.Parent = this.employeePhoneTextBox;
-            this.employeePhoneTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.employeePhoneTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.employeePhoneTextBox.HoverState.Parent = this.employeePhoneTextBox;
-            this.employeePhoneTextBox.Location = new System.Drawing.Point(378, 97);
-            this.employeePhoneTextBox.Name = "employeePhoneTextBox";
-            this.employeePhoneTextBox.PasswordChar = '\0';
-            this.employeePhoneTextBox.PlaceholderText = "";
-            this.employeePhoneTextBox.SelectedText = "";
-            this.employeePhoneTextBox.ShadowDecoration.Parent = this.employeePhoneTextBox;
-            this.employeePhoneTextBox.Size = new System.Drawing.Size(221, 30);
-            this.employeePhoneTextBox.TabIndex = 24;
+            this.employeesComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.employeesComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.employeesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.employeesComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeesComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeesComboBox.FocusedState.Parent = this.employeesComboBox;
+            this.employeesComboBox.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.employeesComboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.employeesComboBox.HoverState.Parent = this.employeesComboBox;
+            this.employeesComboBox.ItemHeight = 30;
+            this.employeesComboBox.ItemsAppearance.Parent = this.employeesComboBox;
+            this.employeesComboBox.Location = new System.Drawing.Point(189, 8);
+            this.employeesComboBox.Name = "employeesComboBox";
+            this.employeesComboBox.ShadowDecoration.Parent = this.employeesComboBox;
+            this.employeesComboBox.Size = new System.Drawing.Size(320, 36);
+            this.employeesComboBox.TabIndex = 3;
             // 
-            // employeePhoneLabel
+            // addEmployeeButton
             // 
-            this.employeePhoneLabel.AutoSize = true;
-            this.employeePhoneLabel.BackColor = System.Drawing.Color.Transparent;
-            this.employeePhoneLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.employeePhoneLabel.ForeColor = System.Drawing.Color.Black;
-            this.employeePhoneLabel.Location = new System.Drawing.Point(319, 109);
-            this.employeePhoneLabel.Name = "employeePhoneLabel";
-            this.employeePhoneLabel.Size = new System.Drawing.Size(56, 18);
-            this.employeePhoneLabel.TabIndex = 23;
-            this.employeePhoneLabel.Text = "Phone: ";
+            this.addEmployeeButton.CheckedState.Parent = this.addEmployeeButton;
+            this.addEmployeeButton.CustomImages.Parent = this.addEmployeeButton;
+            this.addEmployeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.addEmployeeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.addEmployeeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.addEmployeeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.addEmployeeButton.DisabledState.Parent = this.addEmployeeButton;
+            this.addEmployeeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.addEmployeeButton.ForeColor = System.Drawing.Color.White;
+            this.addEmployeeButton.HoverState.Parent = this.addEmployeeButton;
+            this.addEmployeeButton.Location = new System.Drawing.Point(3, 8);
+            this.addEmployeeButton.Name = "addEmployeeButton";
+            this.addEmployeeButton.ShadowDecoration.Parent = this.addEmployeeButton;
+            this.addEmployeeButton.Size = new System.Drawing.Size(180, 36);
+            this.addEmployeeButton.TabIndex = 2;
+            this.addEmployeeButton.Text = "Add Employee";
+            this.addEmployeeButton.Click += new System.EventHandler(this.addEmployeeButton_Click);
             // 
-            // employeeEmailTextBox
+            // guna2DataGridView1
             // 
-            this.employeeEmailTextBox.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.employeeEmailTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.employeeEmailTextBox.DefaultText = "";
-            this.employeeEmailTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.employeeEmailTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.employeeEmailTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.employeeEmailTextBox.DisabledState.Parent = this.employeeEmailTextBox;
-            this.employeeEmailTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.employeeEmailTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.employeeEmailTextBox.FocusedState.Parent = this.employeeEmailTextBox;
-            this.employeeEmailTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.employeeEmailTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.employeeEmailTextBox.HoverState.Parent = this.employeeEmailTextBox;
-            this.employeeEmailTextBox.Location = new System.Drawing.Point(378, 138);
-            this.employeeEmailTextBox.Name = "employeeEmailTextBox";
-            this.employeeEmailTextBox.PasswordChar = '\0';
-            this.employeeEmailTextBox.PlaceholderText = "";
-            this.employeeEmailTextBox.SelectedText = "";
-            this.employeeEmailTextBox.ShadowDecoration.Parent = this.employeeEmailTextBox;
-            this.employeeEmailTextBox.Size = new System.Drawing.Size(221, 30);
-            this.employeeEmailTextBox.TabIndex = 26;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
+            this.guna2DataGridView1.AutoGenerateColumns = false;
+            this.guna2DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.guna2DataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.guna2DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.guna2DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            this.guna2DataGridView1.ColumnHeadersHeight = 30;
+            this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn1,
+            this.salaryDataGridViewTextBoxColumn,
+            this.bonusDataGridViewTextBoxColumn,
+            this.pensionDataGridViewTextBoxColumn,
+            this.taxDataGridViewTextBoxColumn,
+            this.netDataGridViewTextBoxColumn,
+            this.dateDataGridViewTextBoxColumn});
+            this.guna2DataGridView1.DataSource = this.employeeLogsBindingSource;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle21;
+            this.guna2DataGridView1.EnableHeadersVisualStyles = false;
+            this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.guna2DataGridView1.Location = new System.Drawing.Point(6, 50);
+            this.guna2DataGridView1.Name = "guna2DataGridView1";
+            this.guna2DataGridView1.RowHeadersVisible = false;
+            this.guna2DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.guna2DataGridView1.Size = new System.Drawing.Size(692, 450);
+            this.guna2DataGridView1.TabIndex = 1;
+            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.guna2DataGridView1.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 30;
+            this.guna2DataGridView1.ThemeStyle.ReadOnly = false;
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.Height = 22;
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // employeeEmailLabel
+            // employeeProfilePanel
             // 
-            this.employeeEmailLabel.AutoSize = true;
-            this.employeeEmailLabel.BackColor = System.Drawing.Color.Transparent;
-            this.employeeEmailLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.employeeEmailLabel.ForeColor = System.Drawing.Color.Black;
-            this.employeeEmailLabel.Location = new System.Drawing.Point(324, 150);
-            this.employeeEmailLabel.Name = "employeeEmailLabel";
-            this.employeeEmailLabel.Size = new System.Drawing.Size(48, 18);
-            this.employeeEmailLabel.TabIndex = 25;
-            this.employeeEmailLabel.Text = "Email: ";
+            this.employeeProfilePanel.BorderRadius = 10;
+            this.employeeProfilePanel.Controls.Add(this.nameTextBox);
+            this.employeeProfilePanel.Controls.Add(this.pictureBox3);
+            this.employeeProfilePanel.Controls.Add(this.label1);
+            this.employeeProfilePanel.Controls.Add(this.salaryDueDateSelection);
+            this.employeeProfilePanel.Controls.Add(this.netSalaryTotalLabel);
+            this.employeeProfilePanel.Controls.Add(this.employeeProfileJobTextBox);
+            this.employeeProfilePanel.Controls.Add(this.bonusLabel);
+            this.employeeProfilePanel.Controls.Add(this.inactiveEmployeeRadioButton);
+            this.employeeProfilePanel.Controls.Add(this.activeEmployeeRadioButton);
+            this.employeeProfilePanel.Controls.Add(this.pictureBox2);
+            this.employeeProfilePanel.Controls.Add(this.salaryTextBox);
+            this.employeeProfilePanel.Controls.Add(this.salaryLabel);
+            this.employeeProfilePanel.Controls.Add(this.bonusTextBox);
+            this.employeeProfilePanel.Controls.Add(this.employeeProfileJobLabel);
+            this.employeeProfilePanel.Controls.Add(this.nameLabel);
+            this.employeeProfilePanel.Controls.Add(this.payEmployeeButton);
+            this.employeeProfilePanel.Controls.Add(this.editEmployeeButton);
+            this.employeeProfilePanel.Controls.Add(this.removeEmolyeeButton);
+            this.employeeProfilePanel.FillColor = System.Drawing.Color.White;
+            this.employeeProfilePanel.Location = new System.Drawing.Point(704, 8);
+            this.employeeProfilePanel.Name = "employeeProfilePanel";
+            this.employeeProfilePanel.ShadowDecoration.Parent = this.employeeProfilePanel;
+            this.employeeProfilePanel.Size = new System.Drawing.Size(330, 492);
+            this.employeeProfilePanel.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(23, 14);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(108, 120);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // removeEmolyeeButton
+            // 
+            this.removeEmolyeeButton.BackColor = System.Drawing.Color.White;
+            this.removeEmolyeeButton.BorderRadius = 10;
+            this.removeEmolyeeButton.CheckedState.Parent = this.removeEmolyeeButton;
+            this.removeEmolyeeButton.CustomImages.Parent = this.removeEmolyeeButton;
+            this.removeEmolyeeButton.CustomizableEdges.BottomLeft = false;
+            this.removeEmolyeeButton.CustomizableEdges.TopRight = false;
+            this.removeEmolyeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.removeEmolyeeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.removeEmolyeeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.removeEmolyeeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.removeEmolyeeButton.DisabledState.Parent = this.removeEmolyeeButton;
+            this.removeEmolyeeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.removeEmolyeeButton.ForeColor = System.Drawing.Color.White;
+            this.removeEmolyeeButton.HoverState.Parent = this.removeEmolyeeButton;
+            this.removeEmolyeeButton.Location = new System.Drawing.Point(225, 447);
+            this.removeEmolyeeButton.Name = "removeEmolyeeButton";
+            this.removeEmolyeeButton.ShadowDecoration.Parent = this.removeEmolyeeButton;
+            this.removeEmolyeeButton.Size = new System.Drawing.Size(105, 45);
+            this.removeEmolyeeButton.TabIndex = 3;
+            this.removeEmolyeeButton.Text = "Remove";
+            // 
+            // salaryTextBox
+            // 
+            this.salaryTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.salaryTextBox.DefaultText = "";
+            this.salaryTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.salaryTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.salaryTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.salaryTextBox.DisabledState.Parent = this.salaryTextBox;
+            this.salaryTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.salaryTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.salaryTextBox.FocusedState.Parent = this.salaryTextBox;
+            this.salaryTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.salaryTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.salaryTextBox.HoverState.Parent = this.salaryTextBox;
+            this.salaryTextBox.Location = new System.Drawing.Point(115, 251);
+            this.salaryTextBox.Name = "salaryTextBox";
+            this.salaryTextBox.PasswordChar = '\0';
+            this.salaryTextBox.PlaceholderText = "Salary";
+            this.salaryTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.salaryTextBox.SelectedText = "";
+            this.salaryTextBox.ShadowDecoration.Parent = this.salaryTextBox;
+            this.salaryTextBox.Size = new System.Drawing.Size(200, 36);
+            this.salaryTextBox.TabIndex = 5;
+            this.salaryTextBox.Visible = false;
+            // 
+            // salaryLabel
+            // 
+            this.salaryLabel.AutoSize = true;
+            this.salaryLabel.BackColor = System.Drawing.Color.White;
+            this.salaryLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.salaryLabel.ForeColor = System.Drawing.Color.Black;
+            this.salaryLabel.Location = new System.Drawing.Point(20, 263);
+            this.salaryLabel.Name = "salaryLabel";
+            this.salaryLabel.Size = new System.Drawing.Size(49, 18);
+            this.salaryLabel.TabIndex = 4;
+            this.salaryLabel.Text = "Salary:";
+            // 
+            // bonusTextBox
+            // 
+            this.bonusTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.bonusTextBox.DefaultText = "";
+            this.bonusTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.bonusTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.bonusTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.bonusTextBox.DisabledState.Parent = this.bonusTextBox;
+            this.bonusTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.bonusTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.bonusTextBox.FocusedState.Parent = this.bonusTextBox;
+            this.bonusTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bonusTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.bonusTextBox.HoverState.Parent = this.bonusTextBox;
+            this.bonusTextBox.Location = new System.Drawing.Point(115, 293);
+            this.bonusTextBox.Name = "bonusTextBox";
+            this.bonusTextBox.PasswordChar = '\0';
+            this.bonusTextBox.PlaceholderText = "Insert Value";
+            this.bonusTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.bonusTextBox.SelectedText = "";
+            this.bonusTextBox.ShadowDecoration.Parent = this.bonusTextBox;
+            this.bonusTextBox.Size = new System.Drawing.Size(200, 36);
+            this.bonusTextBox.TabIndex = 3;
+            // 
+            // employeeProfileJobLabel
+            // 
+            this.employeeProfileJobLabel.AutoSize = true;
+            this.employeeProfileJobLabel.BackColor = System.Drawing.Color.White;
+            this.employeeProfileJobLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.employeeProfileJobLabel.ForeColor = System.Drawing.Color.Black;
+            this.employeeProfileJobLabel.Location = new System.Drawing.Point(20, 219);
+            this.employeeProfileJobLabel.Name = "employeeProfileJobLabel";
+            this.employeeProfileJobLabel.Size = new System.Drawing.Size(64, 18);
+            this.employeeProfileJobLabel.TabIndex = 2;
+            this.employeeProfileJobLabel.Text = "Job Title:";
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.BackColor = System.Drawing.Color.White;
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel.ForeColor = System.Drawing.Color.Black;
+            this.nameLabel.Location = new System.Drawing.Point(137, 14);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(162, 25);
+            this.nameLabel.TabIndex = 1;
+            this.nameLabel.Text = "Employee Name";
+            this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // miscellaneousPage
+            // 
+            this.miscellaneousPage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.miscellaneousPage.Controls.Add(this.guna2Panel4);
+            this.miscellaneousPage.Controls.Add(this.guna2Panel3);
+            this.miscellaneousPage.Controls.Add(this.guna2Panel2);
+            this.miscellaneousPage.Controls.Add(this.guna2Panel1);
+            this.miscellaneousPage.Location = new System.Drawing.Point(154, 4);
+            this.miscellaneousPage.Name = "miscellaneousPage";
+            this.miscellaneousPage.Size = new System.Drawing.Size(1042, 508);
+            this.miscellaneousPage.TabIndex = 2;
+            this.miscellaneousPage.Text = "Miscellaneous";
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.guna2Panel4.BorderRadius = 10;
+            this.guna2Panel4.Controls.Add(this.guna2Button6);
+            this.guna2Panel4.FillColor = System.Drawing.Color.White;
+            this.guna2Panel4.Location = new System.Drawing.Point(17, 399);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.ShadowDecoration.Parent = this.guna2Panel4;
+            this.guna2Panel4.Size = new System.Drawing.Size(1017, 100);
+            this.guna2Panel4.TabIndex = 5;
+            // 
+            // guna2Button6
+            // 
+            this.guna2Button6.CheckedState.Parent = this.guna2Button6;
+            this.guna2Button6.CustomImages.Parent = this.guna2Button6;
+            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button6.DisabledState.Parent = this.guna2Button6;
+            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button6.ForeColor = System.Drawing.Color.White;
+            this.guna2Button6.HoverState.Parent = this.guna2Button6;
+            this.guna2Button6.Location = new System.Drawing.Point(842, 50);
+            this.guna2Button6.Name = "guna2Button6";
+            this.guna2Button6.ShadowDecoration.Parent = this.guna2Button6;
+            this.guna2Button6.Size = new System.Drawing.Size(163, 38);
+            this.guna2Button6.TabIndex = 0;
+            this.guna2Button6.Text = "Check Updates";
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.guna2Panel3.BorderRadius = 10;
+            this.guna2Panel3.Controls.Add(this.guna2Button8);
+            this.guna2Panel3.Controls.Add(this.guna2Button5);
+            this.guna2Panel3.FillColor = System.Drawing.Color.White;
+            this.guna2Panel3.Location = new System.Drawing.Point(17, 272);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.ShadowDecoration.Parent = this.guna2Panel3;
+            this.guna2Panel3.Size = new System.Drawing.Size(1017, 100);
+            this.guna2Panel3.TabIndex = 5;
+            // 
+            // guna2Button8
+            // 
+            this.guna2Button8.CheckedState.Parent = this.guna2Button8;
+            this.guna2Button8.CustomImages.Parent = this.guna2Button8;
+            this.guna2Button8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button8.DisabledState.Parent = this.guna2Button8;
+            this.guna2Button8.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button8.ForeColor = System.Drawing.Color.White;
+            this.guna2Button8.HoverState.Parent = this.guna2Button8;
+            this.guna2Button8.Location = new System.Drawing.Point(842, 50);
+            this.guna2Button8.Name = "guna2Button8";
+            this.guna2Button8.ShadowDecoration.Parent = this.guna2Button8;
+            this.guna2Button8.Size = new System.Drawing.Size(163, 38);
+            this.guna2Button8.TabIndex = 1;
+            this.guna2Button8.Text = "Recover";
+            // 
+            // guna2Button5
+            // 
+            this.guna2Button5.CheckedState.Parent = this.guna2Button5;
+            this.guna2Button5.CustomImages.Parent = this.guna2Button5;
+            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button5.DisabledState.Parent = this.guna2Button5;
+            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button5.ForeColor = System.Drawing.Color.White;
+            this.guna2Button5.HoverState.Parent = this.guna2Button5;
+            this.guna2Button5.Location = new System.Drawing.Point(673, 50);
+            this.guna2Button5.Name = "guna2Button5";
+            this.guna2Button5.ShadowDecoration.Parent = this.guna2Button5;
+            this.guna2Button5.Size = new System.Drawing.Size(163, 38);
+            this.guna2Button5.TabIndex = 0;
+            this.guna2Button5.Text = "Backup";
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.guna2Panel2.BorderRadius = 10;
+            this.guna2Panel2.Controls.Add(this.guna2Button4);
+            this.guna2Panel2.FillColor = System.Drawing.Color.White;
+            this.guna2Panel2.Location = new System.Drawing.Point(17, 145);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.ShadowDecoration.Parent = this.guna2Panel2;
+            this.guna2Panel2.Size = new System.Drawing.Size(1017, 100);
+            this.guna2Panel2.TabIndex = 5;
+            // 
+            // guna2Button4
+            // 
+            this.guna2Button4.CheckedState.Parent = this.guna2Button4;
+            this.guna2Button4.CustomImages.Parent = this.guna2Button4;
+            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button4.DisabledState.Parent = this.guna2Button4;
+            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button4.ForeColor = System.Drawing.Color.White;
+            this.guna2Button4.HoverState.Parent = this.guna2Button4;
+            this.guna2Button4.Location = new System.Drawing.Point(842, 49);
+            this.guna2Button4.Name = "guna2Button4";
+            this.guna2Button4.ShadowDecoration.Parent = this.guna2Button4;
+            this.guna2Button4.Size = new System.Drawing.Size(163, 38);
+            this.guna2Button4.TabIndex = 0;
+            this.guna2Button4.Text = "Export Excel";
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.guna2Panel1.BorderRadius = 10;
+            this.guna2Panel1.Controls.Add(this.guna2Button3);
+            this.guna2Panel1.FillColor = System.Drawing.Color.White;
+            this.guna2Panel1.Location = new System.Drawing.Point(17, 18);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.ShadowDecoration.Parent = this.guna2Panel1;
+            this.guna2Panel1.Size = new System.Drawing.Size(1017, 100);
+            this.guna2Panel1.TabIndex = 4;
+            // 
+            // guna2Button3
+            // 
+            this.guna2Button3.CheckedState.Parent = this.guna2Button3;
+            this.guna2Button3.CustomImages.Parent = this.guna2Button3;
+            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button3.DisabledState.Parent = this.guna2Button3;
+            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button3.ForeColor = System.Drawing.Color.White;
+            this.guna2Button3.HoverState.Parent = this.guna2Button3;
+            this.guna2Button3.Location = new System.Drawing.Point(842, 46);
+            this.guna2Button3.Name = "guna2Button3";
+            this.guna2Button3.ShadowDecoration.Parent = this.guna2Button3;
+            this.guna2Button3.Size = new System.Drawing.Size(163, 38);
+            this.guna2Button3.TabIndex = 0;
+            this.guna2Button3.Text = "Export PDF";
+            // 
+            // payEmployeeButton
+            // 
+            this.payEmployeeButton.BackColor = System.Drawing.Color.White;
+            this.payEmployeeButton.BorderRadius = 10;
+            this.payEmployeeButton.CheckedState.Parent = this.payEmployeeButton;
+            this.payEmployeeButton.CustomImages.Parent = this.payEmployeeButton;
+            this.payEmployeeButton.CustomizableEdges.BottomRight = false;
+            this.payEmployeeButton.CustomizableEdges.TopLeft = false;
+            this.payEmployeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.payEmployeeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.payEmployeeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.payEmployeeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.payEmployeeButton.DisabledState.Parent = this.payEmployeeButton;
+            this.payEmployeeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.payEmployeeButton.ForeColor = System.Drawing.Color.White;
+            this.payEmployeeButton.HoverState.Parent = this.payEmployeeButton;
+            this.payEmployeeButton.Location = new System.Drawing.Point(0, 447);
+            this.payEmployeeButton.Name = "payEmployeeButton";
+            this.payEmployeeButton.ShadowDecoration.Parent = this.payEmployeeButton;
+            this.payEmployeeButton.Size = new System.Drawing.Size(104, 45);
+            this.payEmployeeButton.TabIndex = 8;
+            this.payEmployeeButton.Text = "Pay";
+            // 
+            // activeEmployeeRadioButton
+            // 
+            this.activeEmployeeRadioButton.AutoSize = true;
+            this.activeEmployeeRadioButton.BackColor = System.Drawing.Color.White;
+            this.activeEmployeeRadioButton.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.activeEmployeeRadioButton.CheckedState.BorderThickness = 0;
+            this.activeEmployeeRadioButton.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.activeEmployeeRadioButton.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.activeEmployeeRadioButton.CheckedState.InnerOffset = -4;
+            this.activeEmployeeRadioButton.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activeEmployeeRadioButton.ForeColor = System.Drawing.Color.Black;
+            this.activeEmployeeRadioButton.Location = new System.Drawing.Point(118, 423);
+            this.activeEmployeeRadioButton.Name = "activeEmployeeRadioButton";
+            this.activeEmployeeRadioButton.Size = new System.Drawing.Size(57, 18);
+            this.activeEmployeeRadioButton.TabIndex = 9;
+            this.activeEmployeeRadioButton.Text = "Active";
+            this.activeEmployeeRadioButton.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.activeEmployeeRadioButton.UncheckedState.BorderThickness = 2;
+            this.activeEmployeeRadioButton.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.activeEmployeeRadioButton.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.activeEmployeeRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // inactiveEmployeeRadioButton
+            // 
+            this.inactiveEmployeeRadioButton.AutoSize = true;
+            this.inactiveEmployeeRadioButton.BackColor = System.Drawing.Color.White;
+            this.inactiveEmployeeRadioButton.Checked = true;
+            this.inactiveEmployeeRadioButton.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.inactiveEmployeeRadioButton.CheckedState.BorderThickness = 0;
+            this.inactiveEmployeeRadioButton.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.inactiveEmployeeRadioButton.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.inactiveEmployeeRadioButton.CheckedState.InnerOffset = -4;
+            this.inactiveEmployeeRadioButton.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inactiveEmployeeRadioButton.ForeColor = System.Drawing.Color.Black;
+            this.inactiveEmployeeRadioButton.Location = new System.Drawing.Point(179, 423);
+            this.inactiveEmployeeRadioButton.Name = "inactiveEmployeeRadioButton";
+            this.inactiveEmployeeRadioButton.Size = new System.Drawing.Size(65, 18);
+            this.inactiveEmployeeRadioButton.TabIndex = 10;
+            this.inactiveEmployeeRadioButton.TabStop = true;
+            this.inactiveEmployeeRadioButton.Text = "Inactive";
+            this.inactiveEmployeeRadioButton.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.inactiveEmployeeRadioButton.UncheckedState.BorderThickness = 2;
+            this.inactiveEmployeeRadioButton.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.inactiveEmployeeRadioButton.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.inactiveEmployeeRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // bonusLabel
+            // 
+            this.bonusLabel.AutoSize = true;
+            this.bonusLabel.BackColor = System.Drawing.Color.White;
+            this.bonusLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bonusLabel.ForeColor = System.Drawing.Color.Black;
+            this.bonusLabel.Location = new System.Drawing.Point(20, 307);
+            this.bonusLabel.Name = "bonusLabel";
+            this.bonusLabel.Size = new System.Drawing.Size(50, 18);
+            this.bonusLabel.TabIndex = 11;
+            this.bonusLabel.Text = "Bonus:";
+            // 
+            // employeeProfileJobTextBox
+            // 
+            this.employeeProfileJobTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.employeeProfileJobTextBox.DefaultText = "";
+            this.employeeProfileJobTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.employeeProfileJobTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.employeeProfileJobTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.employeeProfileJobTextBox.DisabledState.Parent = this.employeeProfileJobTextBox;
+            this.employeeProfileJobTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.employeeProfileJobTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeeProfileJobTextBox.FocusedState.Parent = this.employeeProfileJobTextBox;
+            this.employeeProfileJobTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.employeeProfileJobTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.employeeProfileJobTextBox.HoverState.Parent = this.employeeProfileJobTextBox;
+            this.employeeProfileJobTextBox.Location = new System.Drawing.Point(115, 208);
+            this.employeeProfileJobTextBox.Name = "employeeProfileJobTextBox";
+            this.employeeProfileJobTextBox.PasswordChar = '\0';
+            this.employeeProfileJobTextBox.PlaceholderText = "Job Title";
+            this.employeeProfileJobTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.employeeProfileJobTextBox.SelectedText = "";
+            this.employeeProfileJobTextBox.ShadowDecoration.Parent = this.employeeProfileJobTextBox;
+            this.employeeProfileJobTextBox.Size = new System.Drawing.Size(200, 36);
+            this.employeeProfileJobTextBox.TabIndex = 12;
+            this.employeeProfileJobTextBox.Visible = false;
+            // 
+            // netSalaryTotalLabel
+            // 
+            this.netSalaryTotalLabel.AutoSize = true;
+            this.netSalaryTotalLabel.BackColor = System.Drawing.Color.White;
+            this.netSalaryTotalLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.netSalaryTotalLabel.ForeColor = System.Drawing.Color.Black;
+            this.netSalaryTotalLabel.Location = new System.Drawing.Point(148, 389);
+            this.netSalaryTotalLabel.Name = "netSalaryTotalLabel";
+            this.netSalaryTotalLabel.Size = new System.Drawing.Size(69, 18);
+            this.netSalaryTotalLabel.TabIndex = 13;
+            this.netSalaryTotalLabel.Text = "Net Total:";
+            // 
+            // editEmployeeButton
+            // 
+            this.editEmployeeButton.BackColor = System.Drawing.Color.White;
+            this.editEmployeeButton.BorderRadius = 10;
+            this.editEmployeeButton.CheckedState.Parent = this.editEmployeeButton;
+            this.editEmployeeButton.CustomImages.Parent = this.editEmployeeButton;
+            this.editEmployeeButton.CustomizableEdges.BottomLeft = false;
+            this.editEmployeeButton.CustomizableEdges.BottomRight = false;
+            this.editEmployeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.editEmployeeButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.editEmployeeButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.editEmployeeButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.editEmployeeButton.DisabledState.Parent = this.editEmployeeButton;
+            this.editEmployeeButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.editEmployeeButton.ForeColor = System.Drawing.Color.White;
+            this.editEmployeeButton.HoverState.Parent = this.editEmployeeButton;
+            this.editEmployeeButton.Location = new System.Drawing.Point(115, 447);
+            this.editEmployeeButton.Name = "editEmployeeButton";
+            this.editEmployeeButton.ShadowDecoration.Parent = this.editEmployeeButton;
+            this.editEmployeeButton.Size = new System.Drawing.Size(102, 45);
+            this.editEmployeeButton.TabIndex = 14;
+            this.editEmployeeButton.Text = "Edit";
+            this.editEmployeeButton.Click += new System.EventHandler(this.editEmployeeButton_Click);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // dateTimeDataGridViewTextBoxColumn
+            // 
+            this.dateTimeDataGridViewTextBoxColumn.DataPropertyName = "DateTime";
+            this.dateTimeDataGridViewTextBoxColumn.HeaderText = "Last Recently Logged In";
+            this.dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
+            // 
+            // userLogBindingSource
+            // 
+            this.userLogBindingSource.DataMember = "UserLog";
+            this.userLogBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // linkupDatabaseDataSet
+            // 
+            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
+            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // employeeLogsBindingSource
+            // 
+            this.employeeLogsBindingSource.DataMember = "EmployeeLogs";
+            this.employeeLogsBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // usersTableAdapter
+            // 
+            this.usersTableAdapter.ClearBeforeFill = true;
+            // 
+            // userLogTableAdapter
+            // 
+            this.userLogTableAdapter.ClearBeforeFill = true;
+            // 
+            // employeesTableAdapter
+            // 
+            this.employeesTableAdapter.ClearBeforeFill = true;
+            // 
+            // employeeLogsTableAdapter
+            // 
+            this.employeeLogsTableAdapter.ClearBeforeFill = true;
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            // 
+            // salaryDataGridViewTextBoxColumn
+            // 
+            this.salaryDataGridViewTextBoxColumn.DataPropertyName = "Salary";
+            this.salaryDataGridViewTextBoxColumn.HeaderText = "Salary";
+            this.salaryDataGridViewTextBoxColumn.Name = "salaryDataGridViewTextBoxColumn";
+            // 
+            // bonusDataGridViewTextBoxColumn
+            // 
+            this.bonusDataGridViewTextBoxColumn.DataPropertyName = "Bonus";
+            this.bonusDataGridViewTextBoxColumn.HeaderText = "Bonus";
+            this.bonusDataGridViewTextBoxColumn.Name = "bonusDataGridViewTextBoxColumn";
+            // 
+            // pensionDataGridViewTextBoxColumn
+            // 
+            this.pensionDataGridViewTextBoxColumn.DataPropertyName = "Pension";
+            this.pensionDataGridViewTextBoxColumn.HeaderText = "Pension";
+            this.pensionDataGridViewTextBoxColumn.Name = "pensionDataGridViewTextBoxColumn";
+            // 
+            // taxDataGridViewTextBoxColumn
+            // 
+            this.taxDataGridViewTextBoxColumn.DataPropertyName = "Tax";
+            this.taxDataGridViewTextBoxColumn.HeaderText = "Tax";
+            this.taxDataGridViewTextBoxColumn.Name = "taxDataGridViewTextBoxColumn";
+            // 
+            // netDataGridViewTextBoxColumn
+            // 
+            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
+            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
+            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            // 
+            // salaryDueDateSelection
+            // 
+            this.salaryDueDateSelection.CheckedState.Parent = this.salaryDueDateSelection;
+            this.salaryDueDateSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.salaryDueDateSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.salaryDueDateSelection.HoverState.Parent = this.salaryDueDateSelection;
+            this.salaryDueDateSelection.Location = new System.Drawing.Point(115, 335);
+            this.salaryDueDateSelection.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.salaryDueDateSelection.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.salaryDueDateSelection.Name = "salaryDueDateSelection";
+            this.salaryDueDateSelection.ShadowDecoration.Parent = this.salaryDueDateSelection;
+            this.salaryDueDateSelection.Size = new System.Drawing.Size(200, 36);
+            this.salaryDueDateSelection.TabIndex = 15;
+            this.salaryDueDateSelection.Value = new System.DateTime(2021, 9, 26, 14, 39, 52, 944);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(20, 350);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 18);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Salary Due:";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(167, 84);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(132, 50);
+            this.pictureBox3.TabIndex = 17;
+            this.pictureBox3.TabStop = false;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.nameTextBox.DefaultText = "";
+            this.nameTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.nameTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.nameTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.nameTextBox.DisabledState.Parent = this.nameTextBox;
+            this.nameTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.nameTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.nameTextBox.FocusedState.Parent = this.nameTextBox;
+            this.nameTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.nameTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.nameTextBox.HoverState.Parent = this.nameTextBox;
+            this.nameTextBox.Location = new System.Drawing.Point(142, 14);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.PasswordChar = '\0';
+            this.nameTextBox.PlaceholderText = "Name";
+            this.nameTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nameTextBox.SelectedText = "";
+            this.nameTextBox.ShadowDecoration.Parent = this.nameTextBox;
+            this.nameTextBox.Size = new System.Drawing.Size(178, 36);
+            this.nameTextBox.TabIndex = 18;
+            this.nameTextBox.Visible = false;
             // 
             // SettingsForm
             // 
@@ -1562,19 +1854,21 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.employeePage.ResumeLayout(false);
+            this.newEmployeePanel.ResumeLayout(false);
+            this.newEmployeePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
             this.employeeProfilePanel.ResumeLayout(false);
             this.employeeProfilePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.miscellaneousPage.ResumeLayout(false);
             this.guna2Panel4.ResumeLayout(false);
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.newEmployeePanel.ResumeLayout(false);
-            this.newEmployeePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1585,7 +1879,7 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.TabPage userPage;
         private System.Windows.Forms.TabPage employeePage;
         private System.Windows.Forms.TabPage miscellaneousPage;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button removeEmolyeeButton;
         private Guna.UI2.WinForms.Guna2Button addEmployeeButton;
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         private Guna.UI2.WinForms.Guna2Panel employeeProfilePanel;
@@ -1597,12 +1891,11 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private System.Windows.Forms.Label label3;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
+        private System.Windows.Forms.Label salaryLabel;
+        private Guna.UI2.WinForms.Guna2TextBox bonusTextBox;
+        private System.Windows.Forms.Label employeeProfileJobLabel;
+        private System.Windows.Forms.Label nameLabel;
+        private Guna.UI2.WinForms.Guna2TextBox salaryTextBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
         private Guna.UI2.WinForms.Guna2Button addUserButton;
@@ -1642,7 +1935,7 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox employeesComboBox;
         private Guna.UI2.WinForms.Guna2Button guna2Button8;
         private Guna.UI2.WinForms.Guna2Panel newEmployeePanel;
         private Guna.UI2.WinForms.Guna2Chip employeeErrorChip;
@@ -1659,5 +1952,26 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.Label employeeEmailLabel;
         private Guna.UI2.WinForms.Guna2TextBox employeePhoneTextBox;
         private System.Windows.Forms.Label employeePhoneLabel;
+        private LinkupDatabaseDataSetTableAdapters.EmployeesTableAdapter employeesTableAdapter;
+        private System.Windows.Forms.Label netSalaryTotalLabel;
+        private Guna.UI2.WinForms.Guna2TextBox employeeProfileJobTextBox;
+        private System.Windows.Forms.Label bonusLabel;
+        private Guna.UI2.WinForms.Guna2RadioButton inactiveEmployeeRadioButton;
+        private Guna.UI2.WinForms.Guna2RadioButton activeEmployeeRadioButton;
+        private Guna.UI2.WinForms.Guna2Button payEmployeeButton;
+        private Guna.UI2.WinForms.Guna2Button editEmployeeButton;
+        private System.Windows.Forms.BindingSource employeeLogsBindingSource;
+        private LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter employeeLogsTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn salaryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bonusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pensionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn taxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn netDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2DateTimePicker salaryDueDateSelection;
+        private Guna.UI2.WinForms.Guna2TextBox nameTextBox;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

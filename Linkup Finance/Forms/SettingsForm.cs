@@ -22,9 +22,12 @@ namespace Linkup_Finance.Forms
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
+            this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             // TODO: This line of code loads data into the 'linkupDatabaseDataSet.UserLog' table. You can move, or remove it, as needed.
             this.userLogTableAdapter.Fill(this.linkupDatabaseDataSet.UserLog);
             usersTableAdapter.Fill(this.linkupDatabaseDataSet.Users);
+            employeesTableAdapter.Fill(this.linkupDatabaseDataSet.Employees);
 
             for (int i = 0; i < usersTableAdapter.GetData().Rows.Count; i++)
             {
@@ -48,6 +51,31 @@ namespace Linkup_Finance.Forms
 
             if (usersComboBox.Items.Count > 0)
                 usersComboBox.Text = usersComboBox.Items[0].ToString();
+
+            for(int i = 0; i < employeesTableAdapter.GetData().Rows.Count; i++)
+            {
+                string name = employeesTableAdapter.GetData().Rows[i].ItemArray[1].ToString();
+                string job = employeesTableAdapter.GetData().Rows[i].ItemArray[3].ToString();
+                decimal salary = (decimal)employeesTableAdapter.GetData().Rows[i].ItemArray[2];
+                string phone = employeesTableAdapter.GetData().Rows[i].ItemArray[4].ToString();
+                string email = employeesTableAdapter.GetData().Rows[i].ItemArray[5].ToString();
+                DateTime entryDateTime = (DateTime)employeesTableAdapter.GetData().Rows[i].ItemArray[6];
+                DateTime salaryDueDateTime = (DateTime)employeesTableAdapter.GetData().Rows[i].ItemArray[7];
+                string strStatus = employeesTableAdapter.GetData().Rows[i].ItemArray[8].ToString();
+                EmployeeStatus status;
+
+                if (strStatus == "Active")
+                    status = EmployeeStatus.Active;
+                else
+                    status = EmployeeStatus.Inactive;
+
+                employeesComboBox.Items.Add(name);
+
+                userManager.RetrieveEmployees(name, salary, job, phone, email, entryDateTime, salaryDueDateTime, status);
+            }
+
+            if (employeesComboBox.Items.Count > 0)
+                employeesComboBox.Text = employeesComboBox.Items[0].ToString();
         }
 
         #region UserTab
@@ -179,6 +207,103 @@ namespace Linkup_Finance.Forms
         {
             newEmployeePanel.Visible = true;
         }
+
+        private void submitEmployeeButton_Click(object sender, EventArgs e)
+        {
+            string name = employeeNameTextBox.Text;
+            string job = employeeJobTitleTextBox.Text;
+            string phone = employeePhoneTextBox.Text;
+            string email = employeeEmailTextBox.Text;
+            string strSalary = employeeSalaryTextBox.Text;
+            EmployeeStatus status = EmployeeStatus.Inactive;
+            decimal salary;
+            DateTime salaryDueDate = DateTime.Now, entryDateTime = DateTime.Now;
+            bool isValid = decimal.TryParse(strSalary, out salary);
+
+            newEmployeePanel.Controls.Remove(employeeErrorChip);
+            employeeErrorChip = new Guna.UI2.WinForms.Guna2Chip
+            {
+                Size = new Size(365, 45),
+                Location = new Point(224, 18),
+                Text = "",
+                Visible = false,
+                BackColor = Color.Transparent
+            };
+            newEmployeePanel.Controls.Add(employeeErrorChip);
+            employeeErrorChip.BringToFront();
+
+            if (isValid)
+            {
+                if (name != "" && job != "")
+                {
+                    if (!userManager.EmployeeExists(name))
+                    {
+                        if (userManager.AddEmployee(name, salary, job, phone, email, entryDateTime, salaryDueDate, status))
+                        {
+                            employeeNameTextBox.ResetText();
+                            employeeJobTitleTextBox.ResetText();
+                            employeePhoneTextBox.ResetText();
+                            employeeEmailTextBox.ResetText();
+                            employeeSalaryTextBox.ResetText();
+                            newEmployeePanel.Visible = false;
+                            employeeErrorChip.Visible = false;
+
+                            nameLabel.Text = name;
+                            employeeProfileJobLabel.Text = $"Job Title: {job}";
+                            salaryLabel.Text = $"Salary: {salary} ETB";
+                            salaryDueDateSelection.Value = salaryDueDate;
+                            employeesComboBox.Items.Add(name);
+                            employeesComboBox.Text = name;
+                        }
+                        else
+                        {
+                            employeeErrorChip.Visible = true;
+                            employeeErrorChip.Text = "An error as occured when inserting data to the database. Make sure all the required data is correct.";
+                        }
+                    }
+                    else
+                    {
+                        employeeErrorChip.Visible = true;
+                        employeeErrorChip.Text = "An account already exists with the same user name";
+                    }
+                }
+                else
+                {
+                    employeeErrorChip.Visible = true;
+                    employeeErrorChip.Text = "There are missing values that are required to continue. Fill them and try again";
+                }
+            }
+            else
+            {
+                employeeErrorChip.Visible = true;
+                employeeErrorChip.Text = "The salary value is in an incorrect format. Try again.";
+            }
+        }
+
+        private void editEmployeeButton_Click(object sender, EventArgs e)
+        {
+            if (!employeeProfileJobTextBox.Visible)
+            {
+                employeeProfileJobTextBox.Visible = true;
+                salaryTextBox.Visible = true;
+                nameTextBox.Visible = true;
+                employeeProfileJobLabel.Text = "Job Title: ";
+                salaryLabel.Text = "Salary: ";
+                editEmployeeButton.Text = "Submit";
+            }
+            else
+            {
+                employeeProfileJobTextBox.Visible = false;
+                salaryTextBox.Visible = false;
+                nameTextBox.Visible = false;
+                salaryLabel.Text = $"Salary: ";
+                employeeProfileJobLabel.Text = $"Job Title: ";
+                editEmployeeButton.Text = "Edit";
+            }
+        }
+
         #endregion
+
+
     }
 }
