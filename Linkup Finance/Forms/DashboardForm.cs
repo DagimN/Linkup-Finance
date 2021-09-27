@@ -18,6 +18,7 @@ namespace Linkup_Finance.Forms
         private LineSeries incomeSeries, expenseSeries;
         private Axis xAxis, yAxis;
         private ProjectForm projectForm;
+        private SettingsForm settingsForm;
         private int zoomValue = 99;
 
         private class DateModel
@@ -26,10 +27,11 @@ namespace Linkup_Finance.Forms
             public double Value { get; set; }
 
         }
-        public DashboardForm(ProjectForm projectForm)
+        public DashboardForm(ProjectForm projectForm, SettingsForm settingsForm)
         {
             InitializeComponent();
             this.projectForm = projectForm;
+            this.settingsForm = settingsForm;
 
             //Initializing Chart Components
             var dayConfig = Mappers.Xy<DateModel>()
@@ -110,6 +112,7 @@ namespace Linkup_Finance.Forms
             projectForm.incomeTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Income);
             projectForm.expenseTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Expense);
             projectForm.banksTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Banks);
+            settingsForm.employeesTableAdapter.Fill(settingsForm.linkupDatabaseDataSet.Employees);
 
             transactionChart.Series.Add(incomeSeries);
             transactionChart.Series.Add(expenseSeries);
@@ -122,6 +125,8 @@ namespace Linkup_Finance.Forms
             pettyCashLabel.Text = $"Petty Cash Remaining   {projectForm.bankManager.GetTotalPettyVaultsAmount()}";
             bankTotalLabel.Text = $"Total   {projectForm.bankManager.GetTotalBankAmount(projectForm.banksTableAdapter.GetData())} ETB";
             pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
+
+            employeeAmountLabel.Text = settingsForm.userManager.GetEmployeeCount(settingsForm.employeesTableAdapter.GetData()).ToString();
         }
 
         #region Custom Functions
@@ -189,6 +194,8 @@ namespace Linkup_Finance.Forms
             pettyCashLabel.Text = $"Petty Cash Remaining   {projectForm.bankManager.GetTotalPettyVaultsAmount()}";
             bankTotalLabel.Text = $"Total   {projectForm.bankManager.GetTotalBankAmount()} ETB";
             pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
+
+            employeeAmountLabel.Text = settingsForm.userManager.GetEmployeeCount().ToString();
         }
         #endregion
     }

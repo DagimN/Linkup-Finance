@@ -37,11 +37,12 @@ namespace Linkup_Finance
             if (!Exists(expenseDirectory))
                 CreateDirectory(expenseDirectory);
 
-            projectForm = new ProjectForm();
-            dashboardForm = new DashboardForm(projectForm);
-            projectForm.Link(dashboardForm);
             settingsForm = new SettingsForm();
-
+            projectForm = new ProjectForm();
+            dashboardForm = new DashboardForm(projectForm, settingsForm);
+            projectForm.Link(dashboardForm);
+            settingsForm.Link(dashboardForm);
+            
             openChildForm(settingsForm);
             openChildForm(projectForm);
             openChildForm(dashboardForm);
@@ -108,6 +109,38 @@ namespace Linkup_Finance
         private void titleBarPanel_MouseUp(object sender, MouseEventArgs e)
         {
             drag = false;
+        }
+
+        private void titleBarPanel_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (state == FormWindowState.Normal)
+            {
+                for (int i = 0; i < Application.OpenForms.Count; i++)
+                    if (Application.OpenForms[i].TopLevel)
+                    {
+                        Application.OpenForms[i].WindowState = FormWindowState.Maximized;
+                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximized_Icon;
+                    }
+
+                ResizeControls();
+
+                state = FormWindowState.Maximized;
+            }
+
+            else
+            {
+                for (int i = 0; i < Application.OpenForms.Count; i++)
+                    if (Application.OpenForms[i].TopLevel)
+                    {
+                        Application.OpenForms[i].WindowState = FormWindowState.Normal;
+                        Application.OpenForms[i].Size = new Size(1200, 586);
+                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximize_Icon;
+                    }
+
+                ResizeControls();
+
+                state = FormWindowState.Normal;
+            }
         }
 
         private void maximizeButton_Click(object sender, EventArgs e)
@@ -203,38 +236,6 @@ namespace Linkup_Finance
             else
             {
                 projectForm.ledgerTabControl.Size = new Size(1200, 590);
-            }
-        }
-
-        private void titleBarPanel_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (state == FormWindowState.Normal)
-            {
-                for (int i = 0; i < Application.OpenForms.Count; i++)
-                    if (Application.OpenForms[i].TopLevel)
-                    {
-                        Application.OpenForms[i].WindowState = FormWindowState.Maximized;
-                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximized_Icon;
-                    }
-
-                ResizeControls();
-
-                state = FormWindowState.Maximized;
-            }
-
-            else
-            {
-                for (int i = 0; i < Application.OpenForms.Count; i++)
-                    if (Application.OpenForms[i].TopLevel)
-                    {
-                        Application.OpenForms[i].WindowState = FormWindowState.Normal;
-                        Application.OpenForms[i].Size = new Size(1200, 586);
-                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximize_Icon;
-                    }
-
-                ResizeControls();
-
-                state = FormWindowState.Normal;
             }
         }
     }

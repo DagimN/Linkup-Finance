@@ -14,10 +14,13 @@ namespace Linkup_Finance.Forms
     public partial class SettingsForm : Form
     {
         public UserManager userManager;
+        private DashboardForm dashboardForm;
         public SettingsForm()
         {
             InitializeComponent();
             userManager = new UserManager();
+
+            salaryDueDateSelection.Value = DateTime.Now.AddDays(30);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
@@ -85,6 +88,8 @@ namespace Linkup_Finance.Forms
                 nameLabel.Text = employee.GetName();
                 employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
                 salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
+                emailLabel.Text = $"Email: {employee.GetEmail()}";
+                phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
                 if (employee.GetStatus() == EmployeeStatus.Active)
                     activeEmployeeRadioButton.Checked = true;
@@ -93,8 +98,11 @@ namespace Linkup_Finance.Forms
 
                 salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-                netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal() } ETB";
+                string total = employee.GetNetTotal().ToString();
+                netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
             }
+
+            dashboardForm.RefreshDashboard();
         }
 
         #region UserTab
@@ -236,7 +244,7 @@ namespace Linkup_Finance.Forms
             string strSalary = employeeSalaryTextBox.Text;
             EmployeeStatus status = EmployeeStatus.Inactive;
             decimal salary;
-            DateTime salaryDueDate = DateTime.Now, entryDateTime = DateTime.Now;
+            DateTime salaryDueDate = DateTime.Now.AddDays(30), entryDateTime = DateTime.Now;
             bool isValid = decimal.TryParse(strSalary, out salary);
 
             newEmployeePanel.Controls.Remove(employeeErrorChip);
@@ -275,6 +283,8 @@ namespace Linkup_Finance.Forms
                             nameLabel.Text = employee.GetName();
                             employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
                             salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
+                            emailLabel.Text = $"Email: {employee.GetEmail()}";
+                            phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
                             if (employee.GetStatus() == EmployeeStatus.Active)
                                 activeEmployeeRadioButton.Checked = true;
@@ -283,7 +293,8 @@ namespace Linkup_Finance.Forms
 
                             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-                            netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal() } ETB";
+                            string total = employee.GetNetTotal().ToString();
+                            netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
                         }
                         else
                         {
@@ -312,40 +323,156 @@ namespace Linkup_Finance.Forms
 
         private void editEmployeeButton_Click(object sender, EventArgs e)
         {
+            Employee employee = (Employee)employeesComboBox.Tag;
             if (!employeeProfileJobTextBox.Visible)
             {
                 employeeProfileJobTextBox.Visible = true;
                 salaryTextBox.Visible = true;
                 nameTextBox.Visible = true;
+                emailTextBox.Visible = true;
+                phoneTextBox.Visible = true;
                 employeeProfileJobLabel.Text = "Job Title: ";
                 salaryLabel.Text = "Salary: ";
+                emailLabel.Text = "Email: ";
+                phoneLabel.Text = "Phone: ";
+                nameTextBox.Text = employee.GetName();
+                employeeProfileJobTextBox.Text = employee.GetJob();
+                salaryTextBox.Text = employee.GetSalary().ToString();
+                emailTextBox.Text = employee.GetEmail();
+                phoneTextBox.Text = employee.GetPhone();
                 editEmployeeButton.Text = "Submit";
             }
             else
             {
-                employeeProfileJobTextBox.Visible = false;
-                salaryTextBox.Visible = false;
-                nameTextBox.Visible = false;
-                salaryLabel.Text = $"Salary: ";
-                employeeProfileJobLabel.Text = $"Job Title: ";
-                editEmployeeButton.Text = "Edit";
+                
+                string newJob = employeeProfileJobTextBox.Text;
+                string newName = nameTextBox.Text;
+                string newEmail = emailTextBox.Text;
+                string newPhone = phoneTextBox.Text;
+                DateTime newDate = salaryDueDateSelection.Value;
+                decimal newSalary;
+                bool isValid = decimal.TryParse(salaryTextBox.Text, out newSalary);
+                EmployeeStatus newStatus = (activeEmployeeRadioButton.Checked) ? EmployeeStatus.Active : EmployeeStatus.Inactive;
+
+                if (isValid)
+                {
+                    if (userManager.EditEmployee(employee, newName, newSalary, newJob, newPhone, newEmail, employee.GetEntryDate(), newDate, newStatus))
+                    {
+                        employeeProfileJobTextBox.Visible = false;
+                        salaryTextBox.Visible = false;
+                        nameTextBox.Visible = false;
+                        emailTextBox.Visible = false;
+                        phoneTextBox.Visible = false;
+                        nameLabel.Text = employee.GetName();
+                        salaryLabel.Text = $"Salary: {employee.GetSalary()}";
+                        employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
+                        emailLabel.Text = $"Email: {employee.GetEmail()}";
+                        phoneLabel.Text = $"Phone: {employee.GetPhone()}";
+                        if (newStatus == EmployeeStatus.Active)
+                            activeEmployeeRadioButton.Checked = true;
+                        else
+                            inactiveEmployeeRadioButton.Checked = true;
+
+                        editEmployeeButton.Text = "Edit";
+                    }
+                }
             }
         }
 
         private void activeEmployeeRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            Employee employee = (Employee)employeesComboBox.Tag;
+
             if (activeEmployeeRadioButton.Checked)
+            {
+                userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), employee.GetSalaryDueDate(), EmployeeStatus.Active);
                 statusPictureBox.Image = Linkup_Finance.Properties.Resources.Active_Image;
+            }       
         }
 
         private void inactiveEmployeeRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            Employee employee = (Employee)employeesComboBox.Tag;
+
             if (inactiveEmployeeRadioButton.Checked)
+            {
+                userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), employee.GetSalaryDueDate(), EmployeeStatus.Inactive);
                 statusPictureBox.Image = Linkup_Finance.Properties.Resources.Inactive_Image;
+            }
+        }
+
+        private void employeesComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string name = employeesComboBox.Text;
+            Employee employee = userManager.GetEmployee(name);
+
+            employeesComboBox.Tag = employee;
+            nameLabel.Text = employee.GetName();
+            employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
+            salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
+            emailLabel.Text = $"Email: {employee.GetEmail()}";
+            phoneLabel.Text = $"Phone: {employee.GetPhone()}";
+
+            if (employee.GetStatus() == EmployeeStatus.Active)
+                activeEmployeeRadioButton.Checked = true;
+            else
+                inactiveEmployeeRadioButton.Checked = true;
+
+            salaryDueDateSelection.Value = employee.GetSalaryDueDate();
+
+            string total = employee.GetNetTotal().ToString();
+            netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+        }
+
+        private void removeEmolyeeButton_Click(object sender, EventArgs e)
+        {
+            Employee employee = (Employee)employeesComboBox.Tag;
+
+            userManager.RemoveEmployee(employee);
+            employeesComboBox.Items.Remove(employee.GetName());
+
+            if(employeesComboBox.Items.Count > 0)
+                employeesComboBox.Text = employeesComboBox.Items[0].ToString();
+            else
+            {
+                employeesComboBox.Tag = null;
+                nameLabel.Text = "Employee Name";
+                employeeProfileJobLabel.Text = "Job Title: ";
+                salaryLabel.Text = "Salary: ";
+                emailLabel.Text = "Email: ";
+                phoneLabel.Text = "Phone: ";
+                inactiveEmployeeRadioButton.Checked = true;
+                salaryDueDateSelection.Value = DateTime.Now.AddDays(30);
+                netSalaryTotalLabel.Text = "Net Total: ";
+            }
+        }
+
+        private void salaryDueDateSelection_ValueChanged(object sender, EventArgs e)
+        {
+            Employee employee = (Employee)employeesComboBox.Tag;
+
+            if (employee != null)
+            {
+                DateTime oldDate = employee.GetSalaryDueDate();
+                DateTime newDate = salaryDueDateSelection.Value;
+
+                if (DateTime.Compare(newDate, DateTime.Now) > 0)
+                    if (!userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), newDate, employee.GetStatus()))
+                        salaryDueDateSelection.Value = oldDate;
+                    else
+                        salaryDueDateSelection.Value = employee.GetSalaryDueDate();
+            }
         }
 
         #endregion
 
+        #region Custom Functions
 
+        public void Link(DashboardForm dashboardForm)
+        {
+            this.dashboardForm = dashboardForm;
+        }
+
+        #endregion
     }
 }

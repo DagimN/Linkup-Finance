@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 using System.Configuration;
 namespace Linkup_Finance.Managers
 {
@@ -110,7 +111,7 @@ namespace Linkup_Finance.Managers
         public bool AddEmployee(string name, decimal salary, string job, string phone, string email, DateTime entryDateTime, DateTime salaryDueDate, EmployeeStatus status)
         {
             string empStatus;
-            Employee employee = new Employee(name, salary, job, phone, email, entryDateTime, salaryDueDate);
+            Employee employee = new Employee(name, salary, job, phone, email, entryDateTime, salaryDueDate, status);
             employeesList.Add(employee);
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
@@ -160,7 +161,7 @@ namespace Linkup_Finance.Managers
             return false;
         }
 
-        public bool RemoveEmployee(Employee employee, int id)
+        public bool RemoveEmployee(Employee employee)
         {
             employeesList.Remove(employee);
 
@@ -169,12 +170,13 @@ namespace Linkup_Finance.Managers
                 try
                 {
                     string deleteQuery = "DELETE FROM Employees" +
-                                        " WHERE Id = @Id";
+                                        " WHERE Name = @Name and EntryDate = @EntryDate";
                     SqlCommand command = new SqlCommand(deleteQuery, con);
 
                     con.Open();
 
-                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@Name", employee.GetName());
+                    command.Parameters.AddWithValue("@EntryDate", employee.GetEntryDate());
                     command.ExecuteNonQuery();
 
                     return true;
@@ -192,7 +194,7 @@ namespace Linkup_Finance.Managers
 
         public void RetrieveEmployees(string name, decimal salary, string job, string phone, string email, DateTime entryDateTime, DateTime salaryDueDate, EmployeeStatus status)
         {
-            Employee employee = new Employee(name, salary, job, phone, email, entryDateTime, salaryDueDate);
+            Employee employee = new Employee(name, salary, job, phone, email, entryDateTime, salaryDueDate, status);
             employeesList.Add(employee);
         }
 
@@ -203,6 +205,71 @@ namespace Linkup_Finance.Managers
                     return employee;
 
             return null;
+        }
+
+        public int GetEmployeeCount()
+        {
+            return this.employeesList.Count;
+        }
+
+        public int GetEmployeeCount(DataTable dataTable)
+        {
+            return dataTable.Rows.Count;
+        }
+
+        public bool EditEmployee(Employee employee, string newName, decimal newSalary, string newJob, string newPhone, string newEmail, DateTime newEntryDateTime, DateTime newSalaryDueDate, EmployeeStatus newStatus)
+        {
+            string oldName = employee.GetName();
+            string status = (newStatus == EmployeeStatus.Active) ? "Active" : "Inactive";
+            DateTime entryDate = employee.GetEntryDate();
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string updateQuery = "UPDATE Employees " +
+                                     "SET Name = @Name, " +
+                                         "Salary = @Salary, " +
+                                         "Job = @Job, " +
+                                         "Phone = @Phone, " +
+                                         "Email = @Email, " +
+                                         "SalaryDue = @SalaryDue, " +
+                                         "Status = @Status " +
+                                     "WHERE Name = @OldName and " +
+                                           "EntryDate = @EntryDate";
+                    SqlCommand command = new SqlCommand(updateQuery, con);
+                    con.Open();
+                    command.Parameters.AddWithValue("@Name", newName);
+                    command.Parameters.AddWithValue("@Salary", newSalary);
+                    command.Parameters.AddWithValue("@Job", newJob);
+                    command.Parameters.AddWithValue("@Phone", newPhone);
+                    command.Parameters.AddWithValue("@Email", newEmail);
+                    command.Parameters.AddWithValue("@SalaryDue", newSalaryDueDate);
+                    command.Parameters.AddWithValue("@Status", status);
+                    command.Parameters.AddWithValue("@OldName", oldName);
+                    command.Parameters.AddWithValue("@EntryDate", entryDate);
+
+                    command.ExecuteNonQuery();
+
+                    employee.SetName(newName);
+                    employee.SetSalary(newSalary);
+                    employee.SetJob(newJob);
+                    employee.SetPhone(newPhone);
+                    employee.SetEmail(newEmail);
+                    employee.SetSalaryDueDate(newSalaryDueDate);
+                    employee.SetStatus(newStatus);
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
     }
 
@@ -253,7 +320,7 @@ namespace Linkup_Finance.Managers
         private DateTime SalaryDue { get; set; }
         private decimal Salary { get; set; }
 
-        public Employee(string name, decimal salary, string job, string phone, string email, DateTime entryDateTime, DateTime salaryDueDate)
+        public Employee(string name, decimal salary, string job, string phone, string email, DateTime entryDateTime, DateTime salaryDueDate, EmployeeStatus status)
         {
             this.Name = name;
             this.Salary = salary;
@@ -262,6 +329,7 @@ namespace Linkup_Finance.Managers
             this.Email = email;
             this.EntryDate = entryDateTime;
             this.SalaryDue = salaryDueDate;
+            this.Status = status;
         }
 
         public string GetName()
@@ -306,7 +374,44 @@ namespace Linkup_Finance.Managers
 
         public decimal GetNetTotal()
         {
-            return this.Salary - this.Salary * 0.35m - this.Salary * 0.3m;
+            return this.Salary - (this.Salary * 0.35m) - (this.Salary * 0.3m);
         }
+
+        public void SetName(string newName)
+        {
+            this.Name = newName;
+        }
+
+        public void SetJob(string newJob)
+        {
+            this.Job = newJob;
+        }
+
+        public void SetSalary(decimal newSalary)
+        {
+            this.Salary = newSalary;
+        }
+
+        public void SetPhone(string newPhone)
+        {
+            this.Phone = newPhone;
+        }
+
+        public void SetStatus(EmployeeStatus newStatus)
+        {
+            this.Status = newStatus;
+        }
+
+        public void SetEmail(string newEmail)
+        {
+            this.Email = newEmail;
+        }
+
+        public void SetSalaryDueDate(DateTime newDate)
+        {
+            this.SalaryDue = newDate;
+        }
+
+
     }
 }
