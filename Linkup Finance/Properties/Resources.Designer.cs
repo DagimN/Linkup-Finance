@@ -63,6 +63,16 @@ namespace Linkup_Finance.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Active_Image {
+            get {
+                object obj = ResourceManager.GetObject("Active Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Close_Icon {
             get {
                 object obj = ResourceManager.GetObject("Close Icon", resourceCulture);
@@ -76,6 +86,16 @@ namespace Linkup_Finance.Properties {
         internal static System.Drawing.Bitmap Delete_Icon {
             get {
                 object obj = ResourceManager.GetObject("Delete Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Inactive_Image {
+            get {
+                object obj = ResourceManager.GetObject("Inactive Image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

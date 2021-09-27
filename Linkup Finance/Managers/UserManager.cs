@@ -195,6 +195,15 @@ namespace Linkup_Finance.Managers
             Employee employee = new Employee(name, salary, job, phone, email, entryDateTime, salaryDueDate);
             employeesList.Add(employee);
         }
+
+        public Employee GetEmployee(string name)
+        {
+            foreach (Employee employee in employeesList)
+                if (employee.GetName().ToLower() == name.ToLower())
+                    return employee;
+
+            return null;
+        }
     }
 
     public class User
@@ -275,6 +284,11 @@ namespace Linkup_Finance.Managers
             return this.Phone;
         }
 
+        public EmployeeStatus GetStatus()
+        {
+            return this.Status;
+        }
+
         public string GetEmail()
         {
             return this.Email;
@@ -288,6 +302,11 @@ namespace Linkup_Finance.Managers
         public DateTime GetSalaryDueDate()
         {
             return this.SalaryDue;
+        }
+
+        public decimal GetNetTotal()
+        {
+            return this.Salary - this.Salary * 0.35m - this.Salary * 0.3m;
         }
     }
 }

@@ -47,6 +47,8 @@ namespace Linkup_Finance.Forms
                 usersComboBox.Items.Add(name);
 
                 userManager.RetrieveUsers(name, type, password, job);
+
+                //TODO: Load User Information for viewing
             }
 
             if (usersComboBox.Items.Count > 0)
@@ -75,7 +77,24 @@ namespace Linkup_Finance.Forms
             }
 
             if (employeesComboBox.Items.Count > 0)
-                employeesComboBox.Text = employeesComboBox.Items[0].ToString();
+            {
+                Employee employee = userManager.GetEmployee(employeesComboBox.Items[0].ToString());
+                employeesComboBox.Text = employee.GetName();
+                employeesComboBox.Tag = employee;
+
+                nameLabel.Text = employee.GetName();
+                employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
+                salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
+
+                if (employee.GetStatus() == EmployeeStatus.Active)
+                    activeEmployeeRadioButton.Checked = true;
+                else
+                    inactiveEmployeeRadioButton.Checked = true;
+
+                salaryDueDateSelection.Value = employee.GetSalaryDueDate();
+
+                netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal() } ETB";
+            }
         }
 
         #region UserTab
@@ -248,12 +267,23 @@ namespace Linkup_Finance.Forms
                             newEmployeePanel.Visible = false;
                             employeeErrorChip.Visible = false;
 
-                            nameLabel.Text = name;
-                            employeeProfileJobLabel.Text = $"Job Title: {job}";
-                            salaryLabel.Text = $"Salary: {salary} ETB";
-                            salaryDueDateSelection.Value = salaryDueDate;
                             employeesComboBox.Items.Add(name);
-                            employeesComboBox.Text = name;
+                            Employee employee = userManager.GetEmployee(name);
+                            employeesComboBox.Text = employee.GetName();
+                            employeesComboBox.Tag = employee;
+
+                            nameLabel.Text = employee.GetName();
+                            employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
+                            salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
+
+                            if (employee.GetStatus() == EmployeeStatus.Active)
+                                activeEmployeeRadioButton.Checked = true;
+                            else
+                                inactiveEmployeeRadioButton.Checked = true;
+
+                            salaryDueDateSelection.Value = employee.GetSalaryDueDate();
+
+                            netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal() } ETB";
                         }
                         else
                         {
@@ -300,6 +330,18 @@ namespace Linkup_Finance.Forms
                 employeeProfileJobLabel.Text = $"Job Title: ";
                 editEmployeeButton.Text = "Edit";
             }
+        }
+
+        private void activeEmployeeRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (activeEmployeeRadioButton.Checked)
+                statusPictureBox.Image = Linkup_Finance.Properties.Resources.Active_Image;
+        }
+
+        private void inactiveEmployeeRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (inactiveEmployeeRadioButton.Checked)
+                statusPictureBox.Image = Linkup_Finance.Properties.Resources.Inactive_Image;
         }
 
         #endregion
