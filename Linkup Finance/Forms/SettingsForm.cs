@@ -15,6 +15,7 @@ namespace Linkup_Finance.Forms
     {
         public UserManager userManager;
         private DashboardForm dashboardForm;
+        private AccountType loggedInAccountType;
         public SettingsForm()
         {
             InitializeComponent();
@@ -246,7 +247,6 @@ namespace Linkup_Finance.Forms
 
                 if (userManager.EditUser(user, newName, newJob, newPassword, newType))
                 {
-                    userNameTextBox.Visible = false;
                     profileJobTitleTextBox.Visible = false;
                     profilePasswordTextBox.Visible = false;
                     profilePasswordLabel.Visible = false;
@@ -563,6 +563,11 @@ namespace Linkup_Finance.Forms
         public void Link(DashboardForm dashboardForm)
         {
             this.dashboardForm = dashboardForm;
+        }
+
+        public void SetAccountType(AccountType type)
+        {
+            loggedInAccountType = type;
         }
 
         #endregion

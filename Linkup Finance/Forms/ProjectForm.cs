@@ -32,6 +32,7 @@ namespace Linkup_Finance.Forms
         private DashboardForm dashboardForm;
         public BankManager bankManager;
         private int zoomIncomeValue = 99, zoomExpenseValue = 99;
+        private AccountType loggedInAccountType;
         
         private LineSeries grossSeries, netSeries, amountSeries, totalSeries, balanceSeries;
         private Axis xIncomeAxis, yIncomeAxis, xExpenseAxis, yExpenseAxis, xBankAxis, yBankAxis;
@@ -1586,6 +1587,11 @@ namespace Linkup_Finance.Forms
         public void Link(DashboardForm dashboardForm)
         {
             this.dashboardForm = dashboardForm;
+        }
+
+        public void SetAccountType(AccountType type)
+        {
+            loggedInAccountType = type;
         }
 
         #endregion

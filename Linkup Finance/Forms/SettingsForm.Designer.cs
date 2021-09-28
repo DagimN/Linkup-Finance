@@ -70,6 +70,10 @@ namespace Linkup_Finance.Forms
             this.usersLabel = new System.Windows.Forms.Label();
             this.addUserButton = new Guna.UI2.WinForms.Guna2Button();
             this.guna2DataGridView2 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
             this.editProfileButton = new Guna.UI2.WinForms.Guna2Button();
             this.profileJobTitleLabel = new System.Windows.Forms.Label();
             this.profileTypeLabel = new System.Windows.Forms.Label();
@@ -95,6 +99,14 @@ namespace Linkup_Finance.Forms
             this.employeesComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.addEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
             this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bonusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pensionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.employeeProfilePanel = new Guna.UI2.WinForms.Guna2Panel();
             this.phoneTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.emailTextBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -128,18 +140,6 @@ namespace Linkup_Finance.Forms
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.salaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bonusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pensionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.taxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UsersTableAdapter();
             this.userLogTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UserLogTableAdapter();
             this.employeesTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeesTableAdapter();
@@ -149,10 +149,13 @@ namespace Linkup_Finance.Forms
             this.newUserPanel.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).BeginInit();
             this.employeePage.SuspendLayout();
             this.newEmployeePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).BeginInit();
             this.employeeProfilePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -161,9 +164,6 @@ namespace Linkup_Finance.Forms
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2TabControl1
@@ -449,7 +449,7 @@ namespace Linkup_Finance.Forms
             this.jobTitleTextBox.PlaceholderText = "Job Title";
             this.jobTitleTextBox.SelectedText = "";
             this.jobTitleTextBox.ShadowDecoration.Parent = this.jobTitleTextBox;
-            this.jobTitleTextBox.Size = new System.Drawing.Size(395, 30);
+            this.jobTitleTextBox.Size = new System.Drawing.Size(395, 35);
             this.jobTitleTextBox.TabIndex = 6;
             // 
             // jobTitleLabel
@@ -855,6 +855,28 @@ namespace Linkup_Finance.Forms
             this.guna2DataGridView2.ThemeStyle.RowsStyle.Height = 22;
             this.guna2DataGridView2.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView2.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // dateTimeDataGridViewTextBoxColumn
+            // 
+            this.dateTimeDataGridViewTextBoxColumn.DataPropertyName = "DateTime";
+            this.dateTimeDataGridViewTextBoxColumn.HeaderText = "Last Recently Logged In";
+            this.dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
+            // 
+            // userLogBindingSource
+            // 
+            this.userLogBindingSource.DataMember = "UserLog";
+            this.userLogBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
+            // linkupDatabaseDataSet
+            // 
+            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
+            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // editProfileButton
             // 
@@ -1329,6 +1351,53 @@ namespace Linkup_Finance.Forms
             this.guna2DataGridView1.ThemeStyle.RowsStyle.Height = 22;
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            // 
+            // salaryDataGridViewTextBoxColumn
+            // 
+            this.salaryDataGridViewTextBoxColumn.DataPropertyName = "Salary";
+            this.salaryDataGridViewTextBoxColumn.HeaderText = "Salary";
+            this.salaryDataGridViewTextBoxColumn.Name = "salaryDataGridViewTextBoxColumn";
+            // 
+            // bonusDataGridViewTextBoxColumn
+            // 
+            this.bonusDataGridViewTextBoxColumn.DataPropertyName = "Bonus";
+            this.bonusDataGridViewTextBoxColumn.HeaderText = "Bonus";
+            this.bonusDataGridViewTextBoxColumn.Name = "bonusDataGridViewTextBoxColumn";
+            // 
+            // pensionDataGridViewTextBoxColumn
+            // 
+            this.pensionDataGridViewTextBoxColumn.DataPropertyName = "Pension";
+            this.pensionDataGridViewTextBoxColumn.HeaderText = "Pension";
+            this.pensionDataGridViewTextBoxColumn.Name = "pensionDataGridViewTextBoxColumn";
+            // 
+            // taxDataGridViewTextBoxColumn
+            // 
+            this.taxDataGridViewTextBoxColumn.DataPropertyName = "Tax";
+            this.taxDataGridViewTextBoxColumn.HeaderText = "Tax";
+            this.taxDataGridViewTextBoxColumn.Name = "taxDataGridViewTextBoxColumn";
+            // 
+            // netDataGridViewTextBoxColumn
+            // 
+            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
+            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
+            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            // 
+            // employeeLogsBindingSource
+            // 
+            this.employeeLogsBindingSource.DataMember = "EmployeeLogs";
+            this.employeeLogsBindingSource.DataSource = this.linkupDatabaseDataSet;
             // 
             // employeeProfilePanel
             // 
@@ -1923,75 +1992,6 @@ namespace Linkup_Finance.Forms
             this.guna2Button3.TabIndex = 0;
             this.guna2Button3.Text = "Export PDF";
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // dateTimeDataGridViewTextBoxColumn
-            // 
-            this.dateTimeDataGridViewTextBoxColumn.DataPropertyName = "DateTime";
-            this.dateTimeDataGridViewTextBoxColumn.HeaderText = "Last Recently Logged In";
-            this.dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
-            // 
-            // userLogBindingSource
-            // 
-            this.userLogBindingSource.DataMember = "UserLog";
-            this.userLogBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
-            // linkupDatabaseDataSet
-            // 
-            this.linkupDatabaseDataSet.DataSetName = "LinkupDatabaseDataSet";
-            this.linkupDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            // 
-            // salaryDataGridViewTextBoxColumn
-            // 
-            this.salaryDataGridViewTextBoxColumn.DataPropertyName = "Salary";
-            this.salaryDataGridViewTextBoxColumn.HeaderText = "Salary";
-            this.salaryDataGridViewTextBoxColumn.Name = "salaryDataGridViewTextBoxColumn";
-            // 
-            // bonusDataGridViewTextBoxColumn
-            // 
-            this.bonusDataGridViewTextBoxColumn.DataPropertyName = "Bonus";
-            this.bonusDataGridViewTextBoxColumn.HeaderText = "Bonus";
-            this.bonusDataGridViewTextBoxColumn.Name = "bonusDataGridViewTextBoxColumn";
-            // 
-            // pensionDataGridViewTextBoxColumn
-            // 
-            this.pensionDataGridViewTextBoxColumn.DataPropertyName = "Pension";
-            this.pensionDataGridViewTextBoxColumn.HeaderText = "Pension";
-            this.pensionDataGridViewTextBoxColumn.Name = "pensionDataGridViewTextBoxColumn";
-            // 
-            // taxDataGridViewTextBoxColumn
-            // 
-            this.taxDataGridViewTextBoxColumn.DataPropertyName = "Tax";
-            this.taxDataGridViewTextBoxColumn.HeaderText = "Tax";
-            this.taxDataGridViewTextBoxColumn.Name = "taxDataGridViewTextBoxColumn";
-            // 
-            // netDataGridViewTextBoxColumn
-            // 
-            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
-            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
-            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            // 
-            // employeeLogsBindingSource
-            // 
-            this.employeeLogsBindingSource.DataMember = "EmployeeLogs";
-            this.employeeLogsBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
             // usersTableAdapter
             // 
             this.usersTableAdapter.ClearBeforeFill = true;
@@ -2027,11 +2027,14 @@ namespace Linkup_Finance.Forms
             this.guna2Panel5.ResumeLayout(false);
             this.guna2Panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).EndInit();
             this.employeePage.ResumeLayout(false);
             this.newEmployeePanel.ResumeLayout(false);
             this.newEmployeePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).EndInit();
             this.employeeProfilePanel.ResumeLayout(false);
             this.employeeProfilePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBox)).EndInit();
@@ -2041,9 +2044,6 @@ namespace Linkup_Finance.Forms
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

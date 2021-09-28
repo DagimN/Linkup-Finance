@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using LiveCharts.Wpf;
 using LiveCharts;
 using LiveCharts.Configurations;
+using Linkup_Finance.Managers;
 
 namespace Linkup_Finance.Forms
 {
@@ -20,6 +21,7 @@ namespace Linkup_Finance.Forms
         private ProjectForm projectForm;
         private SettingsForm settingsForm;
         private int zoomValue = 99;
+        private AccountType loggedInAccountType;
 
         private class DateModel
         {
@@ -142,14 +144,28 @@ namespace Linkup_Finance.Forms
                 for (int i = 0; i < sortedData.Length; i++)
                 {
                     DateTime time;
-                    
+
                     time = (DateTime)sortedData[i].ItemArray[9];
 
-                    incomeSeries.Values.Add(new DateModel
+                    if (loggedInAccountType == AccountType.Admin)
                     {
-                        DateTime = time,
-                        Value = double.Parse(sortedData[i].ItemArray[8].ToString())
-                    });
+                        incomeSeries.Values.Add(new DateModel
+                        {
+                            DateTime = time,
+                            Value = double.Parse(sortedData[i].ItemArray[8].ToString())
+                        });
+                    }
+                    else
+                    {
+                        if(sortedData[i].ItemArray[4].ToString() == "1")
+                        {
+                            incomeSeries.Values.Add(new DateModel
+                            {
+                                DateTime = time,
+                                Value = double.Parse(sortedData[i].ItemArray[8].ToString())
+                            });
+                        }
+                    }
                 }
             }
 
@@ -164,11 +180,25 @@ namespace Linkup_Finance.Forms
                     
                     time = (DateTime)sortedData[i].ItemArray[8];
 
-                    expenseSeries.Values.Add(new DateModel
+                    if (loggedInAccountType == AccountType.Admin)
                     {
-                        DateTime = time,
-                        Value = double.Parse(sortedData[i].ItemArray[10].ToString())
-                    });
+                        expenseSeries.Values.Add(new DateModel
+                        {
+                            DateTime = time,
+                            Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                        });
+                    }
+                    else
+                    {
+                        if (sortedData[i].ItemArray[12].ToString() == "1")
+                        {
+                            expenseSeries.Values.Add(new DateModel
+                            {
+                                DateTime = time,
+                                Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                            });
+                        }
+                    }
                 }
             }
 
@@ -196,6 +226,11 @@ namespace Linkup_Finance.Forms
             pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
 
             employeeAmountLabel.Text = settingsForm.userManager.GetEmployeeCount().ToString();
+        }
+
+        public void SetAccountType(AccountType type)
+        {
+            loggedInAccountType = type;
         }
         #endregion
     }

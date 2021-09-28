@@ -7,6 +7,7 @@ using System.Data;
 using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
+using Linkup_Finance.Managers;
 
 namespace Linkup_Finance
 {
@@ -20,6 +21,7 @@ namespace Linkup_Finance
         private DashboardForm dashboardForm;
         public ProjectForm projectForm;
         private SettingsForm settingsForm;
+        private AccountType loggedInAccountType;
 
         private Point startPoint = new Point(0, 0);
         private bool drag = false;
@@ -219,6 +221,13 @@ namespace Linkup_Finance
                     titleBarPanel.Size = new Size(1200, 76);
 
                     dashboardForm.welcomeNameLabel.Text = name;
+                    loggedInAccountType = AccountType.Other;
+
+                    projectForm.SetAccountType(loggedInAccountType);
+                    dashboardForm.SetAccountType(loggedInAccountType);
+                    settingsForm.SetAccountType(loggedInAccountType);
+                    dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
+                    dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
                     //TODO: User log logic implementation right over here
                 }
                 else
@@ -247,6 +256,20 @@ namespace Linkup_Finance
                             dashboardForm.welcomeNameLabel.Text = name;
                             exists = true;
 
+                            string type = userDataTable.Rows[i].ItemArray[2].ToString();
+
+                            if (type == "Admin")
+                                loggedInAccountType = AccountType.Admin;
+                            else if (type == "Accountant")
+                                loggedInAccountType = AccountType.Accountant;
+                            else
+                                loggedInAccountType = AccountType.Other;
+
+                            projectForm.SetAccountType(loggedInAccountType);
+                            dashboardForm.SetAccountType(loggedInAccountType);
+                            settingsForm.SetAccountType(loggedInAccountType);
+                            dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
+                            dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
                             //TODO: User log logic implementation right over here
 
                             break;
