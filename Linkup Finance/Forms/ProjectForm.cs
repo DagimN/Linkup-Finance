@@ -238,6 +238,10 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Expense' table. You can move, or remove it, as needed.
+            this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
+            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
             this.banksTableAdapter.Fill(this.linkupDatabaseDataSet.Banks);
             this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
@@ -693,10 +697,12 @@ namespace Linkup_Finance.Forms
             string reason = reasonExpenseTextBox.Text;
             string bank = expenseBankComboBox.Text;
             string product = productExpenseTextBox.Text;
+            int tin = 0;
             bool hasReceipt = receiptExpenseRadioButton.Checked;
             decimal amount;
             DateTime date = expenseDateSelection.Value;
             bool isValid = decimal.TryParse(amountExpenseTextBox.Text, out amount);
+            isValid = int.TryParse(expenseTinTextBox.Text, out tin);
             string[] attachements = (string[])submitExpenseButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
@@ -726,13 +732,13 @@ namespace Linkup_Finance.Forms
             {
                 if (project != null)
                 {
-                    if (name != "" && reason != "" && bank != "" && amount != 0.00m)
+                    if (name != "" && reason != "" && bank != "" && tin != 0 && amount != 0.00m)
                     {
                         if (!(hasReceipt ^ attachements != null))
                         {
                             //TODO: Implement insertion of data to the expense table in the database
                            
-                            if (project.AddExpense(name, reason, product, bank, hasReceipt, amount, project.GetProjectName(), date, attachmentDirectory))
+                            if (project.AddExpense(name, reason, product, bank, hasReceipt, amount, project.GetProjectName(), date, tin, attachmentDirectory))
                             {
                                 //Associate attachements with entry and store in local machine
                                 if (attachements != null)
@@ -768,6 +774,7 @@ namespace Linkup_Finance.Forms
                                 expenseBankComboBox.ResetText();
                                 reasonExpenseTextBox.ResetText();
                                 amountExpenseTextBox.ResetText();
+                                expenseTinTextBox.ResetText();
                                 submitExpenseButton.Tag = null;
                                 productExpenseTextBox.ResetText();
                                 expenseDateSelection.Value = DateTime.Now;
@@ -805,7 +812,7 @@ namespace Linkup_Finance.Forms
             else
             {
                 expenseErrorChip.Visible = true;
-                expenseErrorChip.Text = "The amount value is in an incorrect format. Try again.";
+                expenseErrorChip.Text = "The amount value or the tin number is in an incorrect format. Try again.";
             }
         }
 
@@ -1001,10 +1008,12 @@ namespace Linkup_Finance.Forms
             string name = nameIncomeTextBox.Text;
             string reason = reasonIncomeTextBox.Text;
             string bank = incomeBankComboBox.Text;
+            int tin = 0;
             bool hasReceipt = receiptIncomeRadioButton.Checked;
             decimal gross;
             DateTime date = incomeDateSelection.Value;
             bool isValid = decimal.TryParse(grossIncomeTextBox.Text, out gross);
+            isValid = int.TryParse(incomeTinTextBox.Text, out tin);
             string[] attachements = (string[])submitIncomeButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
@@ -1034,11 +1043,11 @@ namespace Linkup_Finance.Forms
             {
                 if (project != null)
                 {
-                    if (name != "" && reason != "" && bank != "" && gross != 0.00m)
+                    if (name != "" && reason != "" && bank != "" && tin != 0 && gross != 0.00m)
                     {
                         if(!(hasReceipt ^ attachements != null))
                         {
-                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, project.GetProjectName(), date, attachmentDirectory))
+                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, project.GetProjectName(), date, tin, attachmentDirectory))
                             {
                                 //Associate attachements with entry and store in local machine
                                 if (attachements != null)
@@ -1085,6 +1094,7 @@ namespace Linkup_Finance.Forms
                                 incomeBankComboBox.ResetText();
                                 reasonIncomeTextBox.ResetText();
                                 grossIncomeTextBox.ResetText();
+                                incomeTinTextBox.ResetText();
                                 submitIncomeButton.Tag = null;
                                 incomeDateSelection.Value = DateTime.Now;
                                 newIncomePanel.Visible = false;
@@ -1120,7 +1130,7 @@ namespace Linkup_Finance.Forms
             else
             {
                 incomeErrorChip.Visible = true;
-                incomeErrorChip.Text = "The gross value is in an incorrect format. Try again.";
+                incomeErrorChip.Text = "The gross value or the tin number is in an incorrect format. Try again.";
             }
         }
 

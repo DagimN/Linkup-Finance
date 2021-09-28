@@ -139,7 +139,7 @@ namespace Linkup_Finance.Managers
             return projectName;
         }
 
-        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string project, DateTime date, string attachement = null)
+        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string project, DateTime date, int tin, string attachement = null)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
@@ -148,8 +148,8 @@ namespace Linkup_Finance.Managers
                     decimal vat = gross * 0.15m;
                     decimal withholding = gross * 0.02m;
                     decimal net = gross + vat - withholding;
-                    string insertQuery = "INSERT INTO Income(Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project)" +
-                                         $" VALUES(@Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project)";
+                    string insertQuery = "INSERT INTO Income(Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project, Tin)" +
+                                         $" VALUES(@Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project, @Tin)";
                     SqlCommand command = new SqlCommand(insertQuery, con);
                     command.Parameters.AddWithValue("@Payer", name);
                     command.Parameters.AddWithValue("@Reason", reason);
@@ -161,6 +161,7 @@ namespace Linkup_Finance.Managers
                     command.Parameters.AddWithValue("@Receipt", hasReceipt);
                     command.Parameters.AddWithValue("@Date", date);
                     command.Parameters.AddWithValue("@Project", project);
+                    command.Parameters.AddWithValue("@Tin", tin);
                     con.Open();
                     command.ExecuteNonQuery();
                 }
@@ -177,7 +178,7 @@ namespace Linkup_Finance.Managers
             return true;
         }
 
-        public bool AddExpense(string name, string reason, string product, string bank, bool hasReceipt, decimal amount, string project, DateTime date, string attachement = null)
+        public bool AddExpense(string name, string reason, string product, string bank, bool hasReceipt, decimal amount, string project, DateTime date, int tin, string attachement = null)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
@@ -194,8 +195,8 @@ namespace Linkup_Finance.Managers
                     else if (amount >= 3000.00m)
                         type = "Service";
 
-                    string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt)" +
-                                         $" VALUES(@ExpName,@Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{attachement}\',@Total,@Project,@Receipt)";
+                    string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt, Tin)" +
+                                         $" VALUES(@ExpName,@Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{attachement}\',@Total,@Project,@Receipt,@Tin)";
                     SqlCommand command = new SqlCommand(insertQuery, con);
                     command.Parameters.AddWithValue("@ExpName", name);
                     command.Parameters.AddWithValue("@Product", product);
@@ -209,6 +210,7 @@ namespace Linkup_Finance.Managers
                     command.Parameters.AddWithValue("@Total", total);
                     command.Parameters.AddWithValue("@Project", project);
                     command.Parameters.AddWithValue("@Receipt", hasReceipt);
+                    command.Parameters.AddWithValue("@Tin", tin);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception)

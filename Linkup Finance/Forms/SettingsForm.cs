@@ -56,6 +56,7 @@ namespace Linkup_Finance.Forms
 
             if (usersComboBox.Items.Count > 0)
                 usersComboBox.Text = usersComboBox.Items[0].ToString();
+                
 
             for(int i = 0; i < employeesTableAdapter.GetData().Rows.Count; i++)
             {
@@ -169,9 +170,14 @@ namespace Linkup_Finance.Forms
                         newUserPanel.Visible = false;
                         userErrorChip.Visible = false;
 
-                        profileNameLabel.Text = $"Name: {name}";
+                        User user = userManager.GetUser(name);
+                        profileNameLabel.Text = $"Name: {user.GetName()}";
                         profileTypeLabel.Text = $"Type: {strType}";
-                        profileJobTitleLabel.Text = $"Job Title: {job}";
+                        profileJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
+                        userPictureBox.Tag = user;
+
+                        usersComboBox.Items.Add(user.GetName());
+                        usersComboBox.Text = user.GetName();
                     }
                     else
                     {
@@ -194,31 +200,113 @@ namespace Linkup_Finance.Forms
 
         private void editProfileButton_Click(object sender, EventArgs e)
         {
+            User user = (User)userPictureBox.Tag;
+
             if (!profileNameTextBox.Visible)
             {
-                profileNameTextBox.Visible = true;
-                profileJobTitleTextBox.Visible = true;
-                profileAdminRadioButton.Visible = true;
-                profileAccountantRadioButton.Visible = true;
-                profileOtherRadioButton.Visible = true;
-                profileNameLabel.Text = "Name: ";
-                profileTypeLabel.Text = "Type: ";
-                profileJobTitleLabel.Text = "Job Title: ";
-                editProfileButton.Text = "Submit";
+                if (user != null)
+                {
+                    profileNameTextBox.Visible = true;
+                    profileJobTitleTextBox.Visible = true;
+                    profileAdminRadioButton.Visible = true;
+                    profileAccountantRadioButton.Visible = true;
+                    profileOtherRadioButton.Visible = true;
+                    profilePasswordTextBox.Visible = true;
+                    profilePasswordLabel.Visible = true;
+                    profileNameLabel.Text = "Name: ";
+                    profileTypeLabel.Text = "Type: ";
+                    profileJobTitleLabel.Text = "Job Title: ";
+                    profileNameTextBox.Text = user.GetName();
+                    profileJobTitleTextBox.Text = user.GetJob();
+                    profilePasswordTextBox.Text = user.GetPassword();
+
+                    if (user.GetAccountType() == AccountType.Admin)
+                        profileAdminRadioButton.Checked = true;
+                    else if (user.GetAccountType() == AccountType.Accountant)
+                        profileAccountantRadioButton.Checked = true;
+                    else
+                        profileOtherRadioButton.Checked = true;
+
+                    editProfileButton.Text = "Submit";
+                }
             }
             else
             {
-                profileNameTextBox.Visible = false;
-                profileJobTitleTextBox.Visible = false;
-                profileAdminRadioButton.Visible = false;
-                profileAccountantRadioButton.Visible = false;
-                profileOtherRadioButton.Visible = false;
-                profileNameLabel.Text = $"Name: ";
-                profileTypeLabel.Text = $"Type: ";
-                profileJobTitleLabel.Text = $"Job Title: ";
-                editProfileButton.Text = "Edit Profile";
+                string newName = profileNameTextBox.Text;
+                string newJob = profileJobTitleTextBox.Text;
+                string newPassword = profilePasswordTextBox.Text;
+                AccountType newType;
+
+                if (profileAdminRadioButton.Checked)
+                    newType = AccountType.Admin;
+                else if (profileAccountantRadioButton.Checked)
+                    newType = AccountType.Accountant;
+                else
+                    newType = AccountType.Other;
+
+                if (userManager.EditUser(user, newName, newJob, newPassword, newType))
+                {
+                    userNameTextBox.Visible = false;
+                    profileJobTitleTextBox.Visible = false;
+                    profilePasswordTextBox.Visible = false;
+                    profilePasswordLabel.Visible = false;
+                    profileNameTextBox.Visible = false;
+                    profileJobTitleTextBox.Visible = false;
+                    profileAdminRadioButton.Visible = false;
+                    profileAccountantRadioButton.Visible = false;
+                    profileOtherRadioButton.Visible = false;
+                    profileNameLabel.Text = $"Name: {user.GetName()}";
+                    profileJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
+                    editProfileButton.Text = "Edit Profile";
+
+                    if (user.GetAccountType() == AccountType.Admin)
+                        profileTypeLabel.Text = "Type: Administrator";
+                    else if (user.GetAccountType() == AccountType.Accountant)
+                        profileTypeLabel.Text = "Type: Accountant";
+                    else
+                        profileTypeLabel.Text = "Type: Other";
+                        
+                    editEmployeeButton.Text = "Edit";
+                }
             }
-            
+        }
+
+        private void removeUserButton_Click(object sender, EventArgs e)
+        {
+            User user = (User)usersComboBox.Tag;
+
+            userManager.RemoveUser(user);
+            usersComboBox.Items.Remove(user.GetName());
+
+            if (usersComboBox.Items.Count > 0)
+                usersComboBox.Text = usersComboBox.Items[0].ToString();
+            else
+            {
+                usersComboBox.Tag = null;
+
+                otherUserNameLabel.Text = "Name: ";
+                otherUserJobTitleLabel.Text = "Job Title: ";
+                otherUserTypeLabel.Text = "Type: ";
+            }
+        }
+
+        private void usersComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string name = usersComboBox.Text;
+            User user = userManager.GetUser(name);
+            string type;
+
+            if (user.GetAccountType() == AccountType.Admin)
+                type = "Administrator";
+            else if (user.GetAccountType() == AccountType.Accountant)
+                type = "Accountant";
+            else
+                type = "Other";
+
+            usersComboBox.Tag = user;
+            otherUserNameLabel.Text = $"Name: {user.GetName()}";
+            otherUserJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
+            otherUserTypeLabel.Text = $"Type: {type}";
         }
 
         #endregion 
@@ -326,25 +414,29 @@ namespace Linkup_Finance.Forms
             Employee employee = (Employee)employeesComboBox.Tag;
             if (!employeeProfileJobTextBox.Visible)
             {
-                employeeProfileJobTextBox.Visible = true;
-                salaryTextBox.Visible = true;
-                nameTextBox.Visible = true;
-                emailTextBox.Visible = true;
-                phoneTextBox.Visible = true;
-                employeeProfileJobLabel.Text = "Job Title: ";
-                salaryLabel.Text = "Salary: ";
-                emailLabel.Text = "Email: ";
-                phoneLabel.Text = "Phone: ";
-                nameTextBox.Text = employee.GetName();
-                employeeProfileJobTextBox.Text = employee.GetJob();
-                salaryTextBox.Text = employee.GetSalary().ToString();
-                emailTextBox.Text = employee.GetEmail();
-                phoneTextBox.Text = employee.GetPhone();
-                editEmployeeButton.Text = "Submit";
+                if(employee != null)
+                {
+                    employeeProfileJobTextBox.Visible = true;
+                    salaryTextBox.Visible = true;
+                    nameTextBox.Visible = true;
+                    emailTextBox.Visible = true;
+                    phoneTextBox.Visible = true;
+                    employeeProfileJobLabel.Text = "Job Title: ";
+                    salaryLabel.Text = "Salary: ";
+                    emailLabel.Text = "Email: ";
+                    phoneLabel.Text = "Phone: ";
+
+                    nameTextBox.Text = employee.GetName();
+                    employeeProfileJobTextBox.Text = employee.GetJob();
+                    salaryTextBox.Text = employee.GetSalary().ToString();
+                    emailTextBox.Text = employee.GetEmail();
+                    phoneTextBox.Text = employee.GetPhone();
+
+                    editEmployeeButton.Text = "Submit";
+                }
             }
             else
             {
-                
                 string newJob = employeeProfileJobTextBox.Text;
                 string newName = nameTextBox.Text;
                 string newEmail = emailTextBox.Text;
@@ -424,7 +516,7 @@ namespace Linkup_Finance.Forms
             netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
         }
 
-        private void removeEmolyeeButton_Click(object sender, EventArgs e)
+        private void removeEmployeeButton_Click(object sender, EventArgs e)
         {
             Employee employee = (Employee)employeesComboBox.Tag;
 

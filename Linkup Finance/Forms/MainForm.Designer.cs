@@ -36,33 +36,47 @@ namespace Linkup_Finance
             this.settingsButton = new Guna.UI2.WinForms.Guna2Button();
             this.projectButton = new Guna.UI2.WinForms.Guna2Button();
             this.dashboardButton = new Guna.UI2.WinForms.Guna2Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.financeLabel = new System.Windows.Forms.Label();
+            this.smallLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.workPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.userNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.loginPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.userNameLabel = new System.Windows.Forms.Label();
+            this.passwordLabel = new System.Windows.Forms.Label();
+            this.passwordTextBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.loginButton = new Guna.UI2.WinForms.Guna2Button();
+            this.otherCheckBox = new Guna.UI2.WinForms.Guna2CheckBox();
             this.titleBarPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.smallLogoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            this.loginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // titleBarPanel
             // 
             this.titleBarPanel.BackColor = System.Drawing.SystemColors.Control;
             this.titleBarPanel.BorderRadius = 10;
+            this.titleBarPanel.Controls.Add(this.loginPanel);
+            this.titleBarPanel.Controls.Add(this.label2);
+            this.titleBarPanel.Controls.Add(this.logoPictureBox);
             this.titleBarPanel.Controls.Add(this.maximizeButton);
             this.titleBarPanel.Controls.Add(this.closeButton);
             this.titleBarPanel.Controls.Add(this.minimizeButton);
             this.titleBarPanel.Controls.Add(this.settingsButton);
             this.titleBarPanel.Controls.Add(this.projectButton);
             this.titleBarPanel.Controls.Add(this.dashboardButton);
-            this.titleBarPanel.Controls.Add(this.label1);
-            this.titleBarPanel.Controls.Add(this.pictureBox1);
+            this.titleBarPanel.Controls.Add(this.financeLabel);
+            this.titleBarPanel.Controls.Add(this.smallLogoPictureBox);
             this.titleBarPanel.CustomizableEdges.TopLeft = false;
             this.titleBarPanel.CustomizableEdges.TopRight = false;
             this.titleBarPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.titleBarPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.titleBarPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(103)))), ((int)(((byte)(113)))));
             this.titleBarPanel.Location = new System.Drawing.Point(0, 0);
             this.titleBarPanel.Name = "titleBarPanel";
             this.titleBarPanel.ShadowDecoration.Parent = this.titleBarPanel;
-            this.titleBarPanel.Size = new System.Drawing.Size(1200, 70);
+            this.titleBarPanel.Size = new System.Drawing.Size(1200, 574);
             this.titleBarPanel.TabIndex = 0;
             this.titleBarPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDoubleClick);
             this.titleBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
@@ -136,6 +150,7 @@ namespace Linkup_Finance
             this.settingsButton.Size = new System.Drawing.Size(143, 32);
             this.settingsButton.TabIndex = 8;
             this.settingsButton.Text = "Settings";
+            this.settingsButton.Visible = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // projectButton
@@ -160,6 +175,7 @@ namespace Linkup_Finance
             this.projectButton.Size = new System.Drawing.Size(143, 32);
             this.projectButton.TabIndex = 7;
             this.projectButton.Text = "Projects";
+            this.projectButton.Visible = false;
             this.projectButton.Click += new System.EventHandler(this.projectButton_Click);
             // 
             // dashboardButton
@@ -184,30 +200,33 @@ namespace Linkup_Finance
             this.dashboardButton.Size = new System.Drawing.Size(143, 32);
             this.dashboardButton.TabIndex = 6;
             this.dashboardButton.Text = "Dashboard";
+            this.dashboardButton.Visible = false;
             this.dashboardButton.Click += new System.EventHandler(this.dashboardButton_Click);
             // 
-            // label1
+            // financeLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.label1.Location = new System.Drawing.Point(93, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "FINANCE";
+            this.financeLabel.AutoSize = true;
+            this.financeLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.financeLabel.Location = new System.Drawing.Point(93, 52);
+            this.financeLabel.Name = "financeLabel";
+            this.financeLabel.Size = new System.Drawing.Size(53, 13);
+            this.financeLabel.TabIndex = 0;
+            this.financeLabel.Text = "FINANCE";
+            this.financeLabel.Visible = false;
             // 
-            // pictureBox1
+            // smallLogoPictureBox
             // 
-            this.pictureBox1.Image = global::Linkup_Finance.Properties.Resources.Linkup_Logo;
-            this.pictureBox1.Location = new System.Drawing.Point(22, -13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(124, 106);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
+            this.smallLogoPictureBox.Image = global::Linkup_Finance.Properties.Resources.Linkup_Logo;
+            this.smallLogoPictureBox.Location = new System.Drawing.Point(22, -13);
+            this.smallLogoPictureBox.Name = "smallLogoPictureBox";
+            this.smallLogoPictureBox.Size = new System.Drawing.Size(124, 106);
+            this.smallLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.smallLogoPictureBox.TabIndex = 4;
+            this.smallLogoPictureBox.TabStop = false;
+            this.smallLogoPictureBox.Visible = false;
+            this.smallLogoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseDown);
+            this.smallLogoPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseMove);
+            this.smallLogoPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleBarPanel_MouseUp);
             // 
             // workPanel
             // 
@@ -218,13 +237,172 @@ namespace Linkup_Finance
             this.workPanel.Size = new System.Drawing.Size(1200, 516);
             this.workPanel.TabIndex = 1;
             // 
+            // logoPictureBox
+            // 
+            this.logoPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(103)))), ((int)(((byte)(113)))));
+            this.logoPictureBox.Image = global::Linkup_Finance.Properties.Resources.Linkup_Logo;
+            this.logoPictureBox.Location = new System.Drawing.Point(422, 139);
+            this.logoPictureBox.Name = "logoPictureBox";
+            this.logoPictureBox.Size = new System.Drawing.Size(340, 198);
+            this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logoPictureBox.TabIndex = 12;
+            this.logoPictureBox.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(633, 261);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 20);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "FINANCE";
+            // 
+            // userNameTextBox
+            // 
+            this.userNameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.userNameTextBox.BorderRadius = 7;
+            this.userNameTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.userNameTextBox.DefaultText = "";
+            this.userNameTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.userNameTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.userNameTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.userNameTextBox.DisabledState.Parent = this.userNameTextBox;
+            this.userNameTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.userNameTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.userNameTextBox.FocusedState.Parent = this.userNameTextBox;
+            this.userNameTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.userNameTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.userNameTextBox.HoverState.Parent = this.userNameTextBox;
+            this.userNameTextBox.Location = new System.Drawing.Point(123, 27);
+            this.userNameTextBox.Name = "userNameTextBox";
+            this.userNameTextBox.PasswordChar = '\0';
+            this.userNameTextBox.PlaceholderText = "Username";
+            this.userNameTextBox.SelectedText = "";
+            this.userNameTextBox.ShadowDecoration.Parent = this.userNameTextBox;
+            this.userNameTextBox.Size = new System.Drawing.Size(304, 36);
+            this.userNameTextBox.TabIndex = 14;
+            this.userNameTextBox.TextChanged += new System.EventHandler(this.userNameTextBox_TextChanged);
+            // 
+            // loginPanel
+            // 
+            this.loginPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.loginPanel.BorderRadius = 10;
+            this.loginPanel.Controls.Add(this.otherCheckBox);
+            this.loginPanel.Controls.Add(this.loginButton);
+            this.loginPanel.Controls.Add(this.passwordTextBox);
+            this.loginPanel.Controls.Add(this.passwordLabel);
+            this.loginPanel.Controls.Add(this.userNameLabel);
+            this.loginPanel.Controls.Add(this.userNameTextBox);
+            this.loginPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.loginPanel.Location = new System.Drawing.Point(368, 316);
+            this.loginPanel.Name = "loginPanel";
+            this.loginPanel.ShadowDecoration.Parent = this.loginPanel;
+            this.loginPanel.Size = new System.Drawing.Size(455, 226);
+            this.loginPanel.TabIndex = 15;
+            // 
+            // userNameLabel
+            // 
+            this.userNameLabel.AutoSize = true;
+            this.userNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.userNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userNameLabel.Location = new System.Drawing.Point(20, 35);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.Size = new System.Drawing.Size(97, 20);
+            this.userNameLabel.TabIndex = 16;
+            this.userNameLabel.Text = "User Name: ";
+            // 
+            // passwordLabel
+            // 
+            this.passwordLabel.AutoSize = true;
+            this.passwordLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordLabel.Location = new System.Drawing.Point(31, 105);
+            this.passwordLabel.Name = "passwordLabel";
+            this.passwordLabel.Size = new System.Drawing.Size(86, 20);
+            this.passwordLabel.TabIndex = 17;
+            this.passwordLabel.Text = "Password: ";
+            // 
+            // passwordTextBox
+            // 
+            this.passwordTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.passwordTextBox.BorderRadius = 7;
+            this.passwordTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.passwordTextBox.DefaultText = "";
+            this.passwordTextBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.passwordTextBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.passwordTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.passwordTextBox.DisabledState.Parent = this.passwordTextBox;
+            this.passwordTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.passwordTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.passwordTextBox.FocusedState.Parent = this.passwordTextBox;
+            this.passwordTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.passwordTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.passwordTextBox.HoverState.Parent = this.passwordTextBox;
+            this.passwordTextBox.Location = new System.Drawing.Point(123, 95);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '\0';
+            this.passwordTextBox.PlaceholderText = "Password";
+            this.passwordTextBox.SelectedText = "";
+            this.passwordTextBox.ShadowDecoration.Parent = this.passwordTextBox;
+            this.passwordTextBox.Size = new System.Drawing.Size(304, 36);
+            this.passwordTextBox.TabIndex = 18;
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
+            // 
+            // loginButton
+            // 
+            this.loginButton.AutoRoundedCorners = true;
+            this.loginButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.loginButton.BorderRadius = 15;
+            this.loginButton.CheckedState.Parent = this.loginButton;
+            this.loginButton.CustomImages.Parent = this.loginButton;
+            this.loginButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.loginButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.loginButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.loginButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.loginButton.DisabledState.Parent = this.loginButton;
+            this.loginButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.loginButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.loginButton.ForeColor = System.Drawing.Color.White;
+            this.loginButton.HoverState.Parent = this.loginButton;
+            this.loginButton.Location = new System.Drawing.Point(90, 165);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.ShadowDecoration.Parent = this.loginButton;
+            this.loginButton.Size = new System.Drawing.Size(143, 32);
+            this.loginButton.TabIndex = 16;
+            this.loginButton.Text = "Login";
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
+            // 
+            // otherCheckBox
+            // 
+            this.otherCheckBox.Animated = true;
+            this.otherCheckBox.AutoSize = true;
+            this.otherCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.otherCheckBox.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.otherCheckBox.CheckedState.BorderRadius = 2;
+            this.otherCheckBox.CheckedState.BorderThickness = 0;
+            this.otherCheckBox.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.otherCheckBox.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.otherCheckBox.Location = new System.Drawing.Point(292, 170);
+            this.otherCheckBox.Name = "otherCheckBox";
+            this.otherCheckBox.Size = new System.Drawing.Size(108, 19);
+            this.otherCheckBox.TabIndex = 19;
+            this.otherCheckBox.Text = "Login as Other";
+            this.otherCheckBox.UncheckedState.BorderColor = System.Drawing.Color.White;
+            this.otherCheckBox.UncheckedState.BorderRadius = 2;
+            this.otherCheckBox.UncheckedState.BorderThickness = 0;
+            this.otherCheckBox.UncheckedState.FillColor = System.Drawing.Color.White;
+            this.otherCheckBox.UseVisualStyleBackColor = false;
+            this.otherCheckBox.CheckedChanged += new System.EventHandler(this.otherCheckBox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 586);
-            this.Controls.Add(this.workPanel);
             this.Controls.Add(this.titleBarPanel);
+            this.Controls.Add(this.workPanel);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.Info;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -233,7 +411,10 @@ namespace Linkup_Finance
             this.Load += new System.EventHandler(this.Form1_Load);
             this.titleBarPanel.ResumeLayout(false);
             this.titleBarPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.smallLogoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            this.loginPanel.ResumeLayout(false);
+            this.loginPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -241,7 +422,7 @@ namespace Linkup_Finance
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel titleBarPanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox smallLogoPictureBox;
         private Guna.UI2.WinForms.Guna2Button settingsButton;
         private Guna.UI2.WinForms.Guna2Button projectButton;
         private Guna.UI2.WinForms.Guna2Button dashboardButton;
@@ -249,7 +430,16 @@ namespace Linkup_Finance
         private System.Windows.Forms.Button maximizeButton;
         private System.Windows.Forms.Button closeButton;
         private Guna.UI2.WinForms.Guna2Panel workPanel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label financeLabel;
+        private Guna.UI2.WinForms.Guna2Panel loginPanel;
+        private Guna.UI2.WinForms.Guna2CheckBox otherCheckBox;
+        private Guna.UI2.WinForms.Guna2Button loginButton;
+        private Guna.UI2.WinForms.Guna2TextBox passwordTextBox;
+        private System.Windows.Forms.Label passwordLabel;
+        private System.Windows.Forms.Label userNameLabel;
+        private Guna.UI2.WinForms.Guna2TextBox userNameTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox logoPictureBox;
     }
 }
 

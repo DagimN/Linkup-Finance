@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Linkup_Finance.Forms;
-using System.IO;
+using System.Data;
 using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
@@ -197,7 +197,95 @@ namespace Linkup_Finance
             openChildForm(settingsForm);
         }
 
-        //Custom Functions
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            string name = userNameTextBox.Text;
+            string password = passwordTextBox.Text;
+            DataTable userDataTable = settingsForm.usersTableAdapter.GetData();
+            bool exists = false;
+
+            if (otherCheckBox.Checked)
+            {
+                if(name != "")
+                {
+                    logoPictureBox.Visible = false;
+                    loginPanel.Visible = false;
+                    dashboardButton.Visible = true;
+                    settingsButton.Visible = true;
+                    projectButton.Visible = true;
+                    smallLogoPictureBox.Visible = true;
+                    financeLabel.Visible = true;
+
+                    titleBarPanel.Size = new Size(1200, 76);
+
+                    dashboardForm.welcomeNameLabel.Text = name;
+                    //TODO: User log logic implementation right over here
+                }
+                else
+                {
+                    userNameTextBox.Text = "Username is not provided.";
+                    userNameTextBox.FillColor = Color.FromArgb(240, 160, 140);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < userDataTable.Rows.Count; i++)
+                {
+                    if (name.ToLower() == userDataTable.Rows[i].ItemArray[1].ToString().ToLower())
+                    {
+                        if (password == userDataTable.Rows[i].ItemArray[3].ToString())
+                        {
+                            logoPictureBox.Visible = false;
+                            loginPanel.Visible = false;
+                            dashboardButton.Visible = true;
+                            settingsButton.Visible = true;
+                            projectButton.Visible = true;
+                            smallLogoPictureBox.Visible = true;
+                            financeLabel.Visible = true;
+
+                            titleBarPanel.Size = new Size(1200, 76);
+                            dashboardForm.welcomeNameLabel.Text = name;
+                            exists = true;
+
+                            //TODO: User log logic implementation right over here
+
+                            break;
+                        }
+                        else
+                        {
+                            passwordTextBox.Text = "Invalid Password";
+                            passwordTextBox.FillColor = Color.FromArgb(240, 160, 140);
+                        }
+                    }
+                }
+
+                if (!exists)
+                {
+                    userNameTextBox.Text = "Username does not exists";
+                    userNameTextBox.FillColor = Color.FromArgb(240, 160, 140);
+                }
+            }
+        }
+
+        private void userNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            userNameTextBox.FillColor = Color.White;
+        }
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+            passwordTextBox.FillColor = Color.White;
+        }
+
+        private void otherCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (otherCheckBox.Checked)
+                passwordTextBox.Enabled = false;
+            else
+                passwordTextBox.Enabled = true;
+        }
+
+        #region Custom Functions
 
         public static void TransitionPanel(Size oldSize, Size newsize, Point oldPoint)
         {
@@ -238,5 +326,7 @@ namespace Linkup_Finance
                 projectForm.ledgerTabControl.Size = new Size(1200, 590);
             }
         }
+
+        #endregion
     }
 }

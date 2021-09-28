@@ -78,7 +78,7 @@ namespace Linkup_Finance.Managers
             }
         }
 
-        public bool RemoveUser(User user, int id)
+        public bool RemoveUser(User user)
         {
             usersList.Remove(user);
 
@@ -87,17 +87,75 @@ namespace Linkup_Finance.Managers
                 try
                 {
                     string deleteQuery = "DELETE FROM Users" +
-                                        " WHERE Id = @Id";
+                                        " WHERE Name=@Name";
                     SqlCommand command = new SqlCommand(deleteQuery, con);
 
                     con.Open();
 
-                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@Name", user.GetName());
                     command.ExecuteNonQuery();
 
                     return true;
                 }
                 catch
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        public User GetUser(string name)
+        {
+            foreach (User user in usersList)
+                if (user.GetName().ToLower() == name.ToLower())
+                    return user;
+
+            return null;
+        }
+
+        public bool EditUser(User user, string newName, string newJob, string newPassword, AccountType newType)
+        {
+            string oldName = user.GetName();
+            string type;
+
+            if (newType == AccountType.Admin)
+                type = "Admin";
+            else if (newType == AccountType.Accountant)
+                type = "Accountant";
+            else
+                type = "Other";
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string updateQuery = "UPDATE Users " +
+                                        "SET Name=@Name, " +
+                                            "Type=@Type, " +
+                                            "Password=@Password, " +
+                                            "JobTitle=@JobTitle " +
+                                        "WHERE Name=@OldName";
+                    SqlCommand command = new SqlCommand(updateQuery, con);
+                    con.Open();
+                    command.Parameters.AddWithValue("@Name", newName);
+                    command.Parameters.AddWithValue("@Type", type);
+                    command.Parameters.AddWithValue("@Password", newPassword);
+                    command.Parameters.AddWithValue("@JobTitle", newJob);
+                    command.Parameters.AddWithValue("@OldName", oldName);
+                    command.ExecuteNonQuery();
+
+                    user.SetName(newName);
+                    user.SetType(newType);
+                    user.SetPassword(newPassword);
+                    user.SetJob(newJob);
+
+                    return true;
+                }
+                catch (Exception)
                 {
                     return false;
                 }
@@ -306,6 +364,26 @@ namespace Linkup_Finance.Managers
         public AccountType GetAccountType()
         {
             return this.Type;
+        }
+
+        public void SetName(string name)
+        {
+            this.Name = name;
+        }
+
+        public void SetPassword(string newPassword)
+        {
+            this.Password = newPassword;
+        }
+
+        public void SetType(AccountType newType)
+        {
+            this.Type = newType;
+        }
+
+        public void SetJob(string newJob)
+        {
+            this.Job = newJob;
         }
     }
 
