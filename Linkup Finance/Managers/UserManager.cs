@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using System.Windows.Forms;
+
 namespace Linkup_Finance.Managers
 {
     public enum AccountType { Admin, Accountant, Other }
@@ -158,6 +160,32 @@ namespace Linkup_Finance.Managers
                 catch (Exception)
                 {
                     return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        public void LogUser(string name)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string insertQuery = "INSERT INTO UserLog(Name, DateTime) " +
+                                         "VALUES(@Name, @DateTime)";
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+                    con.Open();
+
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@DateTime", DateTime.Now);
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error has occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {

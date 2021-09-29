@@ -201,8 +201,8 @@ namespace Linkup_Finance
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            string name = userNameTextBox.Text;
-            string password = passwordTextBox.Text;
+            string name = userNameTextBox.Text.Trim();
+            string password = passwordTextBox.Text.Trim();
             DataTable userDataTable = settingsForm.usersTableAdapter.GetData();
             bool exists = false;
 
@@ -225,7 +225,7 @@ namespace Linkup_Finance
 
                     projectForm.SetAccountType(loggedInAccountType);
                     dashboardForm.SetAccountType(loggedInAccountType);
-                    settingsForm.SetAccountType(loggedInAccountType);
+                    settingsForm.SetAccountType(name, loggedInAccountType);
 
                     dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
                     dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
@@ -247,8 +247,7 @@ namespace Linkup_Finance
                     projectForm.removeVaultButton.Enabled = false;
 
                     settingsButton.Enabled = false;
-                    
-                    //TODO: User log logic implementation right over here
+                    settingsForm.userManager.LogUser(name);
                 }
                 else
                 {
@@ -287,7 +286,7 @@ namespace Linkup_Finance
 
                             projectForm.SetAccountType(loggedInAccountType);
                             dashboardForm.SetAccountType(loggedInAccountType);
-                            settingsForm.SetAccountType(loggedInAccountType);
+                            settingsForm.SetAccountType(name, loggedInAccountType);
 
                             dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
                             dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
@@ -335,7 +334,8 @@ namespace Linkup_Finance
                                 settingsButton.Enabled = true;
                             else
                                 settingsButton.Enabled = false;
-                            //TODO: User log logic implementation right over here
+
+                            settingsForm.userManager.LogUser(name);
 
                             break;
                         }
@@ -343,6 +343,8 @@ namespace Linkup_Finance
                         {
                             passwordTextBox.Text = "Invalid Password";
                             passwordTextBox.FillColor = Color.FromArgb(240, 160, 140);
+
+                            break;
                         }
                     }
                 }

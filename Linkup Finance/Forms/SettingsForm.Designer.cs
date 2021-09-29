@@ -2071,14 +2071,10 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.Label employeeProfileJobLabel;
         private System.Windows.Forms.Label nameLabel;
         private Guna.UI2.WinForms.Guna2TextBox salaryTextBox;
-        private System.Windows.Forms.PictureBox userPictureBox;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
         private Guna.UI2.WinForms.Guna2Button addUserButton;
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView2;
         private Guna.UI2.WinForms.Guna2Button editProfileButton;
-        private System.Windows.Forms.Label profileJobTitleLabel;
-        private System.Windows.Forms.Label profileTypeLabel;
-        private System.Windows.Forms.Label profileNameLabel;
         private System.Windows.Forms.Label label5;
         private Guna.UI2.WinForms.Guna2Panel newUserPanel;
         private Guna.UI2.WinForms.Guna2RadioButton otherRadioButton;
@@ -2157,5 +2153,9 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.Label otherUserJobTitleLabel;
         private System.Windows.Forms.Label otherUserNameLabel;
         public LinkupDatabaseDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
+        private System.Windows.Forms.PictureBox userPictureBox;
+        private System.Windows.Forms.Label profileJobTitleLabel;
+        private System.Windows.Forms.Label profileTypeLabel;
+        private System.Windows.Forms.Label profileNameLabel;
     }
 }

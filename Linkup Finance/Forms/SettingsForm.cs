@@ -16,6 +16,7 @@ namespace Linkup_Finance.Forms
         public UserManager userManager;
         private DashboardForm dashboardForm;
         private AccountType loggedInAccountType;
+        private string loggedInUserName;
         public SettingsForm()
         {
             InitializeComponent();
@@ -26,9 +27,7 @@ namespace Linkup_Finance.Forms
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
             this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.UserLog' table. You can move, or remove it, as needed.
             this.userLogTableAdapter.Fill(this.linkupDatabaseDataSet.UserLog);
             usersTableAdapter.Fill(this.linkupDatabaseDataSet.Users);
             employeesTableAdapter.Fill(this.linkupDatabaseDataSet.Employees);
@@ -51,14 +50,29 @@ namespace Linkup_Finance.Forms
                 usersComboBox.Items.Add(name);
 
                 userManager.RetrieveUsers(name, type, password, job);
-
-                //TODO: Load User Information for viewing
             }
 
             if (usersComboBox.Items.Count > 0)
                 usersComboBox.Text = usersComboBox.Items[0].ToString();
-                
 
+            if(loggedInUserName != null)
+            {
+                User user = userManager.GetUser(loggedInUserName);
+                string type;
+
+                if (user.GetAccountType() == AccountType.Admin)
+                    type = "Administrator";
+                else if (user.GetAccountType() == AccountType.Accountant)
+                    type = "Accountant";
+                else
+                    type = "Other";
+
+                userPictureBox.Tag = user;
+                profileNameLabel.Text = $"Name: {user.GetName()}";
+                profileJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
+                profileTypeLabel.Text = $"Type: {type}";
+            }
+                
             for(int i = 0; i < employeesTableAdapter.GetData().Rows.Count; i++)
             {
                 string name = employeesTableAdapter.GetData().Rows[i].ItemArray[1].ToString();
@@ -265,8 +279,10 @@ namespace Linkup_Finance.Forms
                         profileTypeLabel.Text = "Type: Accountant";
                     else
                         profileTypeLabel.Text = "Type: Other";
-                        
+
+                    usersComboBox.Text = user.GetName();
                     editEmployeeButton.Text = "Edit";
+                    userPictureBox.Tag = user;
                 }
             }
         }
@@ -565,8 +581,9 @@ namespace Linkup_Finance.Forms
             this.dashboardForm = dashboardForm;
         }
 
-        public void SetAccountType(AccountType type)
+        public void SetAccountType(string userName, AccountType type)
         {
+            loggedInUserName = userName;
             loggedInAccountType = type;
         }
 
