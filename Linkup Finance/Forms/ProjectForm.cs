@@ -239,14 +239,10 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Expense' table. You can move, or remove it, as needed.
             this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.Income' table. You can move, or remove it, as needed.
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
             this.banksTableAdapter.Fill(this.linkupDatabaseDataSet.Banks);
-            this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
 
             foreach(Project project in projectManager.RetrieveProjects(projectsTableAdapter))
@@ -333,7 +329,9 @@ namespace Linkup_Finance.Forms
                 {
                     projectManager.RemoveProject(projectName);
                     projectOption.Items.Remove(projectOption.Text);
-                    if (projectOption.Text == "")
+                    if (projectOption.Items.Count > 0)
+                        projectOption.Text = projectOption.Items[0].ToString();
+                    else
                         removeProjectButton.Visible = false;
                 }
             }
@@ -341,8 +339,10 @@ namespace Linkup_Finance.Forms
 
         private void projectOption_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (projectOption.Text != "")
-                removeProjectButton.Visible = true;
+            if(loggedInAccountType == AccountType.Admin) 
+                if (projectOption.Text != "")
+                    removeProjectButton.Visible = true;
+
             Thread.Sleep(500);
             Project project = projectManager.Exists(projectOption.Text, true);
             projectOption.Tag = project;
@@ -1283,7 +1283,7 @@ namespace Linkup_Finance.Forms
         #endregion
 
         #region CustomFunctions
-        private void LoadChart(string name, DataTable dataTable)
+        public void LoadChart(string name, DataTable dataTable)
         {
             DataRow[] sortedData = SortData(dataTable);
             
@@ -1324,18 +1324,38 @@ namespace Linkup_Finance.Forms
                 {
                     DateTime time = (DateTime)sortedData[i].ItemArray[9];
 
-                    if(name == sortedData[i].ItemArray[11].ToString())
+                    if (name == sortedData[i].ItemArray[11].ToString())
                     {
-                        grossSeries.Values.Add(new DateModel
+                        if(loggedInAccountType == AccountType.Admin)
                         {
-                            DateTime = time,
-                            Value = double.Parse(sortedData[i].ItemArray[5].ToString())
-                        });
-                        netSeries.Values.Add(new DateModel
+                            grossSeries.Values.Add(new DateModel
+                            {
+                                DateTime = time,
+                                Value = double.Parse(sortedData[i].ItemArray[5].ToString())
+                            });
+                            netSeries.Values.Add(new DateModel
+                            {
+                                DateTime = time,
+                                Value = double.Parse(sortedData[i].ItemArray[8].ToString())
+                            });
+                        }
+                        else
                         {
-                            DateTime = time,
-                            Value = double.Parse(sortedData[i].ItemArray[8].ToString())
-                        });
+                            if(sortedData[i].ItemArray[4].ToString() == "1")
+                            {
+                                grossSeries.Values.Add(new DateModel
+                                {
+                                    DateTime = time,
+                                    Value = double.Parse(sortedData[i].ItemArray[5].ToString())
+                                });
+                                netSeries.Values.Add(new DateModel
+                                {
+                                    DateTime = time,
+                                    Value = double.Parse(sortedData[i].ItemArray[8].ToString())
+                                });
+                            }
+                        }
+                        
                     }
                 }    
             }
@@ -1350,16 +1370,35 @@ namespace Linkup_Finance.Forms
 
                     if(name == sortedData[i].ItemArray[11].ToString())
                     {
-                        amountSeries.Values.Add(new DateModel
+                        if(loggedInAccountType == AccountType.Admin)
                         {
-                            DateTime = time,
-                            Value = double.Parse(sortedData[i].ItemArray[2].ToString())
-                        });
-                        totalSeries.Values.Add(new DateModel
+                            amountSeries.Values.Add(new DateModel
+                            {
+                                DateTime = time,
+                                Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                            });
+                            totalSeries.Values.Add(new DateModel
+                            {
+                                DateTime = time,
+                                Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                            });
+                        }
+                        else
                         {
-                            DateTime = time,
-                            Value = double.Parse(sortedData[i].ItemArray[10].ToString())
-                        });
+                            if(sortedData[i].ItemArray[12].ToString() == "1")
+                            {
+                                amountSeries.Values.Add(new DateModel
+                                {
+                                    DateTime = time,
+                                    Value = double.Parse(sortedData[i].ItemArray[2].ToString())
+                                });
+                                totalSeries.Values.Add(new DateModel
+                                {
+                                    DateTime = time,
+                                    Value = double.Parse(sortedData[i].ItemArray[10].ToString())
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -1556,9 +1595,18 @@ namespace Linkup_Finance.Forms
                 removed = 0;
 
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
                     if (dataGridView.Rows[i].Cells[10].Value != null)
                         if (dataGridView.Rows[i].Cells[10].Value.ToString() != filter)
                             tobeRemovedList.Add(i);
+
+                    if(loggedInAccountType != AccountType.Admin)
+                        if (dataGridView.Rows[i].Cells[6].Value != null)
+                            if (dataGridView.Rows[i].Cells[6].Value.ToString() != "1")
+                                if(!tobeRemovedList.Contains(i))
+                                    tobeRemovedList.Add(i);
+                }
+                    
 
                 foreach (int rowIndex in tobeRemovedList)
                 {
@@ -1572,9 +1620,18 @@ namespace Linkup_Finance.Forms
                 removed = 0;
 
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
                     if (dataGridView.Rows[i].Cells[12].Value != null)
                         if (dataGridView.Rows[i].Cells[12].Value.ToString() != filter)
                             tobeRemovedList.Add(i);
+
+                    if (loggedInAccountType != AccountType.Admin)
+                        if (dataGridView.Rows[i].Cells[8].Value != null)
+                            if (dataGridView.Rows[i].Cells[8].Value.ToString() != "1")
+                                if(!tobeRemovedList.Contains(i))
+                                    tobeRemovedList.Add(i);
+                }
+                    
 
                 foreach (int rowIndex in tobeRemovedList)
                 {

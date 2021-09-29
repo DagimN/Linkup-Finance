@@ -226,8 +226,28 @@ namespace Linkup_Finance
                     projectForm.SetAccountType(loggedInAccountType);
                     dashboardForm.SetAccountType(loggedInAccountType);
                     settingsForm.SetAccountType(loggedInAccountType);
+
                     dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
                     dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
+
+                    if(projectForm.projectOption.Text != "")
+                    {
+                        projectForm.LoadChart(projectForm.projectOption.Text, projectForm.incomeTableAdapter.GetData());
+                        projectForm.LoadChart(projectForm.projectOption.Text, projectForm.expenseTableAdapter.GetData());
+                    }
+
+                    projectForm.newProjectButton.Enabled = false;
+                    projectForm.newIncomeButton.Enabled = false;
+                    projectForm.newExpenseButton.Enabled = false;
+                    projectForm.newBankButton.Enabled = false;
+                    projectForm.newPettyVaultButton.Enabled = false;
+                    projectForm.depositButton.Enabled = false;
+                    projectForm.removeProjectButton.Visible = false;
+                    projectForm.replenishButton.Enabled = false;
+                    projectForm.removeVaultButton.Enabled = false;
+
+                    settingsButton.Enabled = false;
+                    
                     //TODO: User log logic implementation right over here
                 }
                 else
@@ -268,8 +288,53 @@ namespace Linkup_Finance
                             projectForm.SetAccountType(loggedInAccountType);
                             dashboardForm.SetAccountType(loggedInAccountType);
                             settingsForm.SetAccountType(loggedInAccountType);
+
                             dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
                             dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
+
+                            if (loggedInAccountType == AccountType.Other)
+                            {
+                                projectForm.newProjectButton.Enabled = false;
+                                projectForm.newIncomeButton.Enabled = false;
+                                projectForm.newExpenseButton.Enabled = false;
+                                projectForm.newBankButton.Enabled = false;
+                                projectForm.newPettyVaultButton.Enabled = false;
+                                projectForm.depositButton.Enabled = false;
+                                projectForm.removeProjectButton.Visible = false;
+                                projectForm.replenishButton.Enabled = false;
+                                projectForm.removeVaultButton.Enabled = false;
+                            }
+
+                            if (loggedInAccountType == AccountType.Accountant)
+                            {
+                                projectForm.newProjectButton.Enabled = false;
+                                projectForm.newIncomeButton.Enabled = true;
+                                projectForm.newExpenseButton.Enabled = true;
+                                projectForm.newBankButton.Enabled = false;
+                                projectForm.newPettyVaultButton.Enabled = false;
+                                projectForm.depositButton.Enabled = false;
+                                projectForm.removeProjectButton.Visible = false;
+                                projectForm.replenishButton.Enabled = false;
+                                projectForm.removeVaultButton.Enabled = false;
+                            }
+
+                            if (loggedInAccountType == AccountType.Admin)
+                            {
+                                projectForm.newProjectButton.Enabled = true;
+                                projectForm.newIncomeButton.Enabled = true;
+                                projectForm.newExpenseButton.Enabled = true;
+                                projectForm.newBankButton.Enabled = true;
+                                projectForm.newPettyVaultButton.Enabled = true;
+                                projectForm.depositButton.Enabled = true;
+                                projectForm.removeProjectButton.Visible = true;
+                                projectForm.replenishButton.Enabled = true;
+                                projectForm.removeVaultButton.Enabled = true;
+                            }
+
+                            if (loggedInAccountType == AccountType.Admin)
+                                settingsButton.Enabled = true;
+                            else
+                                settingsButton.Enabled = false;
                             //TODO: User log logic implementation right over here
 
                             break;

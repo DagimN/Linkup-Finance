@@ -54,12 +54,12 @@ namespace Linkup_Finance.Forms
             this.profilePictureBox = new System.Windows.Forms.PictureBox();
             this.payrollChart = new LiveCharts.WinForms.CartesianChart();
             this.guna2ShadowPanel3 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.welcomeNameLabel = new System.Windows.Forms.Label();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.employeeToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.welcomeNameLabel = new System.Windows.Forms.Label();
             this.guna2ShadowPanel1.SuspendLayout();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2ShadowPanel2.SuspendLayout();
@@ -363,6 +363,16 @@ namespace Linkup_Finance.Forms
             this.guna2ShadowPanel3.Size = new System.Drawing.Size(547, 241);
             this.guna2ShadowPanel3.TabIndex = 2;
             // 
+            // welcomeNameLabel
+            // 
+            this.welcomeNameLabel.AutoSize = true;
+            this.welcomeNameLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.welcomeNameLabel.ForeColor = System.Drawing.Color.White;
+            this.welcomeNameLabel.Location = new System.Drawing.Point(20, 96);
+            this.welcomeNameLabel.Name = "welcomeNameLabel";
+            this.welcomeNameLabel.Size = new System.Drawing.Size(0, 35);
+            this.welcomeNameLabel.TabIndex = 4;
+            // 
             // guna2Button3
             // 
             this.guna2Button3.CheckedState.Parent = this.guna2Button3;
@@ -375,7 +385,7 @@ namespace Linkup_Finance.Forms
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
             this.guna2Button3.HoverState.Parent = this.guna2Button3;
-            this.guna2Button3.Location = new System.Drawing.Point(14, 193);
+            this.guna2Button3.Location = new System.Drawing.Point(380, 166);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.ShadowDecoration.Parent = this.guna2Button3;
             this.guna2Button3.Size = new System.Drawing.Size(128, 36);
@@ -394,7 +404,7 @@ namespace Linkup_Finance.Forms
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
             this.guna2Button2.HoverState.Parent = this.guna2Button2;
-            this.guna2Button2.Location = new System.Drawing.Point(406, 83);
+            this.guna2Button2.Location = new System.Drawing.Point(380, 66);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.ShadowDecoration.Parent = this.guna2Button2;
             this.guna2Button2.Size = new System.Drawing.Size(128, 36);
@@ -413,7 +423,7 @@ namespace Linkup_Finance.Forms
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.HoverState.Parent = this.guna2Button1;
-            this.guna2Button1.Location = new System.Drawing.Point(406, 142);
+            this.guna2Button1.Location = new System.Drawing.Point(380, 116);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.ShadowDecoration.Parent = this.guna2Button1;
             this.guna2Button1.Size = new System.Drawing.Size(128, 36);
@@ -430,16 +440,6 @@ namespace Linkup_Finance.Forms
             this.welcomeLabel.Size = new System.Drawing.Size(137, 35);
             this.welcomeLabel.TabIndex = 0;
             this.welcomeLabel.Text = "Welcome";
-            // 
-            // welcomeNameLabel
-            // 
-            this.welcomeNameLabel.AutoSize = true;
-            this.welcomeNameLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.welcomeNameLabel.ForeColor = System.Drawing.Color.White;
-            this.welcomeNameLabel.Location = new System.Drawing.Point(20, 96);
-            this.welcomeNameLabel.Name = "welcomeNameLabel";
-            this.welcomeNameLabel.Size = new System.Drawing.Size(0, 35);
-            this.welcomeNameLabel.TabIndex = 4;
             // 
             // DashboardForm
             // 

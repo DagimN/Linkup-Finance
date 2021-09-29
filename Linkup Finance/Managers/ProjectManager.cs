@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Linkup_Finance.Managers
 {
@@ -112,10 +113,29 @@ namespace Linkup_Finance.Managers
                         con.Open();
                         string deleteQuery = "DELETE FROM Projects" +
                                             " WHERE Name=@Name";
+                        string deleteIncome = "DELETE FROM Income " +
+                                              "WHERE Project=@Project";
+                        string deleteExpense = "DELETE FROM Expense " +
+                                               "WHERE Project=@Project";
+                       
                         SqlCommand command = new SqlCommand(deleteQuery, con);
 
                         command.Parameters.AddWithValue("@Name", name);
                         command.ExecuteNonQuery();
+
+                        command = new SqlCommand(deleteIncome, con);
+
+                        command.Parameters.AddWithValue("@Project", name);
+                        command.ExecuteNonQuery();
+
+                        command = new SqlCommand(deleteExpense, con);
+
+                        command.Parameters.AddWithValue("@Project", name);
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error has occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {
