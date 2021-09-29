@@ -27,6 +27,8 @@ namespace Linkup_Finance.Forms
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
+            this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             this.userLogTableAdapter.Fill(this.linkupDatabaseDataSet.UserLog);
             usersTableAdapter.Fill(this.linkupDatabaseDataSet.Users);
@@ -55,7 +57,7 @@ namespace Linkup_Finance.Forms
             if (usersComboBox.Items.Count > 0)
                 usersComboBox.Text = usersComboBox.Items[0].ToString();
 
-            if(loggedInUserName != null)
+            if(loggedInUserName != null && loggedInAccountType != AccountType.Other)
             {
                 User user = userManager.GetUser(loggedInUserName);
                 string type;
@@ -570,6 +572,38 @@ namespace Linkup_Finance.Forms
                     else
                         salaryDueDateSelection.Value = employee.GetSalaryDueDate();
             }
+        }
+
+        private void payEmployeeButton_Click(object sender, EventArgs e)
+        {
+            Employee employee = (Employee)employeesComboBox.Tag;
+            string bonusText = bonusTextBox.Text;
+            decimal bonus;
+            bool isValid;
+
+            if(bonusText == "")
+            {
+                bonus = 0.00m;
+                isValid = true;
+            }
+            else
+                isValid = decimal.TryParse(bonusText, out bonus);
+
+            if (isValid)
+            {
+                if (employee.Pay(bonus))
+                {
+                    employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
+                }
+                else
+                {
+                    //Report Database Error
+                }
+            }
+            else
+            {
+                //Report decimal Error
+            }   
         }
 
         #endregion

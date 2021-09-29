@@ -518,6 +518,97 @@ namespace Linkup_Finance.Managers
             this.SalaryDue = newDate;
         }
 
+        public bool Pay(decimal bonus)
+        {
+            decimal incomeRate;
+            decimal deductible;
+            decimal salary = this.Salary + bonus;
+            decimal pension7 = this.Salary * 0.07m;
+            decimal pension11 = this.Salary * 0.11m;
+            decimal tax, net;
 
+            if (this.Salary >= 0.00m && this.Salary <= 600.00m)
+            {
+                incomeRate = 0m;
+                deductible = 0m;
+            }
+            else if (this.Salary >= 601.00m && this.Salary <= 1650.00m)
+            {
+                incomeRate = 0.1m;
+                deductible = 60.00m;
+            }
+            else if(this.Salary >= 1651.00m && this.Salary <= 3200.00m)
+            {
+                incomeRate = 0.15m;
+                deductible = 142.50m;
+            }
+            else if(this.Salary >= 3201.00m && this.Salary <= 5250.00m)
+            {
+                incomeRate = 0.2m;
+                deductible = 302.5m;
+            }
+            else if (this.Salary >= 5251.00m && this.Salary <= 7800.00m)
+            {
+                incomeRate = 0.25m;
+                deductible = 565.00m;
+            }
+            else if (this.Salary >= 7801.00m && this.Salary <= 10900.00m)
+            {
+                incomeRate = 0.3m;
+                deductible = 955.00m;
+            }
+            else
+            {
+                incomeRate = 0.35m;
+                deductible = 1500.00m;
+            }
+
+            net = salary - (salary * incomeRate) + deductible;
+            tax = salary * incomeRate;
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string insertQuery = "INSERT INTO EmployeeLogs(Name, Salary, Bonus, Pension7, Pension11, Tax, Net, Date) " +
+                                         "VALUES(@Name, @Salary, @Bonus, @Pension7, @Pension11, @Tax, @Net, @Date)";
+                    string updateQuery = "UPDATE Employees " +
+                                         "SET SalaryDue=@SalaryDue " +
+                                         "WHERE Name=@Name and EntryDate=@EntryDate";
+
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+                    con.Open();
+
+                    command.Parameters.AddWithValue("@Name", this.Name);
+                    command.Parameters.AddWithValue("@Salary", this.Salary);
+                    command.Parameters.AddWithValue("@Bonus", bonus);
+                    command.Parameters.AddWithValue("@Pension7", pension7);
+                    command.Parameters.AddWithValue("@Pension11", pension11);
+                    command.Parameters.AddWithValue("@Tax", tax);
+                    command.Parameters.AddWithValue("@Net", net);
+                    command.Parameters.AddWithValue("@Date", DateTime.Now);
+
+                    command.ExecuteNonQuery();
+
+                    command = new SqlCommand(updateQuery, con);
+
+                    command.Parameters.AddWithValue("@SalaryDue", DateTime.Now.AddDays(30));
+                    command.Parameters.AddWithValue("@Name", this.Name);
+                    command.Parameters.AddWithValue("@EntryDate", this.EntryDate);
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 }

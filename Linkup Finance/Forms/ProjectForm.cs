@@ -28,6 +28,8 @@ namespace Linkup_Finance.Forms
         //TODO: Associate the project with the data being viewed
         //TODO: Fix the bank error chip
         //TODO: Fix the petty cash replenish button (incorrect value being added)
+        //TODO: In the expense tab, when inserting a new expense, give an option of either a goods or service. If the former is picked,
+        //withholding will be cut with a value of 10000 and above, and if the latter is picked, withholding will be cut with a value of 3000 and above 
         public ProjectManager projectManager;
         private DashboardForm dashboardForm;
         public BankManager bankManager;
@@ -239,6 +241,8 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
+            this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);

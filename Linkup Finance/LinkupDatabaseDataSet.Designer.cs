@@ -3062,13 +3062,15 @@ namespace Linkup_Finance {
             
             private global::System.Data.DataColumn columnBonus;
             
-            private global::System.Data.DataColumn columnPension;
-            
             private global::System.Data.DataColumn columnTax;
             
             private global::System.Data.DataColumn columnNet;
             
             private global::System.Data.DataColumn columnDate;
+            
+            private global::System.Data.DataColumn columnPension7;
+            
+            private global::System.Data.DataColumn columnPension11;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -3137,14 +3139,6 @@ namespace Linkup_Finance {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PensionColumn {
-                get {
-                    return this.columnPension;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn TaxColumn {
                 get {
                     return this.columnTax;
@@ -3164,6 +3158,22 @@ namespace Linkup_Finance {
             public global::System.Data.DataColumn DateColumn {
                 get {
                     return this.columnDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Pension7Column {
+                get {
+                    return this.columnPension7;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Pension11Column {
+                get {
+                    return this.columnPension11;
                 }
             }
             
@@ -3204,17 +3214,18 @@ namespace Linkup_Finance {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public EmployeeLogsRow AddEmployeeLogsRow(string Name, decimal Salary, decimal Bonus, decimal Pension, decimal Tax, decimal Net, System.DateTime Date) {
+            public EmployeeLogsRow AddEmployeeLogsRow(string Name, decimal Salary, decimal Bonus, decimal Tax, decimal Net, System.DateTime Date, decimal Pension7, decimal Pension11) {
                 EmployeeLogsRow rowEmployeeLogsRow = ((EmployeeLogsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Name,
                         Salary,
                         Bonus,
-                        Pension,
                         Tax,
                         Net,
-                        Date};
+                        Date,
+                        Pension7,
+                        Pension11};
                 rowEmployeeLogsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEmployeeLogsRow);
                 return rowEmployeeLogsRow;
@@ -3248,10 +3259,11 @@ namespace Linkup_Finance {
                 this.columnName = base.Columns["Name"];
                 this.columnSalary = base.Columns["Salary"];
                 this.columnBonus = base.Columns["Bonus"];
-                this.columnPension = base.Columns["Pension"];
                 this.columnTax = base.Columns["Tax"];
                 this.columnNet = base.Columns["Net"];
                 this.columnDate = base.Columns["Date"];
+                this.columnPension7 = base.Columns["Pension7"];
+                this.columnPension11 = base.Columns["Pension11"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3265,14 +3277,16 @@ namespace Linkup_Finance {
                 base.Columns.Add(this.columnSalary);
                 this.columnBonus = new global::System.Data.DataColumn("Bonus", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBonus);
-                this.columnPension = new global::System.Data.DataColumn("Pension", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPension);
                 this.columnTax = new global::System.Data.DataColumn("Tax", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTax);
                 this.columnNet = new global::System.Data.DataColumn("Net", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNet);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDate);
+                this.columnPension7 = new global::System.Data.DataColumn("Pension7", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPension7);
+                this.columnPension11 = new global::System.Data.DataColumn("Pension11", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPension11);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -3285,10 +3299,11 @@ namespace Linkup_Finance {
                 this.columnName.MaxLength = 500;
                 this.columnSalary.AllowDBNull = false;
                 this.columnBonus.AllowDBNull = false;
-                this.columnPension.AllowDBNull = false;
                 this.columnTax.AllowDBNull = false;
                 this.columnNet.AllowDBNull = false;
                 this.columnDate.AllowDBNull = false;
+                this.columnPension7.AllowDBNull = false;
+                this.columnPension11.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4594,17 +4609,6 @@ namespace Linkup_Finance {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public decimal Pension {
-                get {
-                    return ((decimal)(this[this.tableEmployeeLogs.PensionColumn]));
-                }
-                set {
-                    this[this.tableEmployeeLogs.PensionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public decimal Tax {
                 get {
                     return ((decimal)(this[this.tableEmployeeLogs.TaxColumn]));
@@ -4633,6 +4637,28 @@ namespace Linkup_Finance {
                 }
                 set {
                     this[this.tableEmployeeLogs.DateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal Pension7 {
+                get {
+                    return ((decimal)(this[this.tableEmployeeLogs.Pension7Column]));
+                }
+                set {
+                    this[this.tableEmployeeLogs.Pension7Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal Pension11 {
+                get {
+                    return ((decimal)(this[this.tableEmployeeLogs.Pension11Column]));
+                }
+                set {
+                    this[this.tableEmployeeLogs.Pension11Column] = value;
                 }
             }
         }
@@ -8303,55 +8329,60 @@ SELECT Id, Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName F
             tableMapping.ColumnMappings.Add("Name", "Name");
             tableMapping.ColumnMappings.Add("Salary", "Salary");
             tableMapping.ColumnMappings.Add("Bonus", "Bonus");
-            tableMapping.ColumnMappings.Add("Pension", "Pension");
             tableMapping.ColumnMappings.Add("Tax", "Tax");
             tableMapping.ColumnMappings.Add("Net", "Net");
             tableMapping.ColumnMappings.Add("Date", "Date");
+            tableMapping.ColumnMappings.Add("Pension7", "Pension7");
+            tableMapping.ColumnMappings.Add("Pension11", "Pension11");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[EmployeeLogs] WHERE (([Id] = @Original_Id) AND ([Name] = @Original_Name) AND ([Salary] = @Original_Salary) AND ([Bonus] = @Original_Bonus) AND ([Pension] = @Original_Pension) AND ([Tax] = @Original_Tax) AND ([Net] = @Original_Net) AND ([Date] = @Original_Date))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [EmployeeLogs] WHERE (([Id] = @Original_Id) AND ([Name] = @Original_Name) AND ([Salary] = @Original_Salary) AND ([Bonus] = @Original_Bonus) AND ([Tax] = @Original_Tax) AND ([Net] = @Original_Net) AND ([Date] = @Original_Date) AND ([Pension11] = @Original_Pension11) AND ([Pension7] = @Original_Pension7))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Name", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Salary", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Salary", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Bonus", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Bonus", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pension", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Tax", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Tax", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Net", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Net", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pension11", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension11", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pension7", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension7", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[EmployeeLogs] ([Name], [Salary], [Bonus], [Pension], [Tax], [Net], [Date]) VALUES (@Name, @Salary, @Bonus, @Pension, @Tax, @Net, @Date);
-SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [EmployeeLogs] ([Name], [Salary], [Bonus], [Tax], [Net], [Date], [Pension11], [Pension7]) VALUES (@Name, @Salary, @Bonus, @Tax, @Net, @Date, @Pension11, @Pension7);
+SELECT Id, Name, Salary, Bonus, Tax, Net, Date, Pension11, Pension7 FROM EmployeeLogs WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Salary", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Salary", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Bonus", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Bonus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pension", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Tax", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Tax", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Net", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Net", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pension11", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension11", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pension7", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension7", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[EmployeeLogs] SET [Name] = @Name, [Salary] = @Salary, [Bonus] = @Bonus, [Pension] = @Pension, [Tax] = @Tax, [Net] = @Net, [Date] = @Date WHERE (([Id] = @Original_Id) AND ([Name] = @Original_Name) AND ([Salary] = @Original_Salary) AND ([Bonus] = @Original_Bonus) AND ([Pension] = @Original_Pension) AND ([Tax] = @Original_Tax) AND ([Net] = @Original_Net) AND ([Date] = @Original_Date));
-SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [EmployeeLogs] SET [Name] = @Name, [Salary] = @Salary, [Bonus] = @Bonus, [Tax] = @Tax, [Net] = @Net, [Date] = @Date, [Pension11] = @Pension11, [Pension7] = @Pension7 WHERE (([Id] = @Original_Id) AND ([Name] = @Original_Name) AND ([Salary] = @Original_Salary) AND ([Bonus] = @Original_Bonus) AND ([Tax] = @Original_Tax) AND ([Net] = @Original_Net) AND ([Date] = @Original_Date) AND ([Pension11] = @Original_Pension11) AND ([Pension7] = @Original_Pension7));
+SELECT Id, Name, Salary, Bonus, Tax, Net, Date, Pension11, Pension7 FROM EmployeeLogs WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Salary", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Salary", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Bonus", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Bonus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pension", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Tax", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Tax", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Net", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Net", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pension11", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension11", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pension7", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension7", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Name", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Salary", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Salary", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Bonus", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Bonus", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pension", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Tax", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Tax", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Net", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Net", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Date", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pension11", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension11", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pension7", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Pension7", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -8368,7 +8399,8 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM dbo.EmployeeLogs";
+            this._commandCollection[0].CommandText = "SELECT Id, Name, Salary, Bonus, Tax, Net, Date, Pension11, Pension7 FROM Employee" +
+                "Logs";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -8429,7 +8461,7 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_Name, decimal Original_Salary, decimal Original_Bonus, decimal Original_Pension, decimal Original_Tax, decimal Original_Net, System.DateTime Original_Date) {
+        public virtual int Delete(int Original_Id, string Original_Name, decimal Original_Salary, decimal Original_Bonus, decimal Original_Tax, decimal Original_Net, System.DateTime Original_Date, decimal Original_Pension11, decimal Original_Pension7) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_Name == null)) {
                 throw new global::System.ArgumentNullException("Original_Name");
@@ -8439,10 +8471,11 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
             }
             this.Adapter.DeleteCommand.Parameters[2].Value = ((decimal)(Original_Salary));
             this.Adapter.DeleteCommand.Parameters[3].Value = ((decimal)(Original_Bonus));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_Pension));
-            this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_Tax));
-            this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_Net));
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((System.DateTime)(Original_Date));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_Tax));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_Net));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_Date));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((decimal)(Original_Pension11));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_Pension7));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8463,7 +8496,7 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, decimal Salary, decimal Bonus, decimal Pension, decimal Tax, decimal Net, System.DateTime Date) {
+        public virtual int Insert(string Name, decimal Salary, decimal Bonus, decimal Tax, decimal Net, System.DateTime Date, decimal Pension11, decimal Pension7) {
             if ((Name == null)) {
                 throw new global::System.ArgumentNullException("Name");
             }
@@ -8472,10 +8505,11 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
             }
             this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(Salary));
             this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(Bonus));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(Pension));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Tax));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Net));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(Date));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(Tax));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Net));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(Date));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(Pension11));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(Pension7));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8500,18 +8534,20 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
                     string Name, 
                     decimal Salary, 
                     decimal Bonus, 
-                    decimal Pension, 
                     decimal Tax, 
                     decimal Net, 
                     System.DateTime Date, 
+                    decimal Pension11, 
+                    decimal Pension7, 
                     int Original_Id, 
                     string Original_Name, 
                     decimal Original_Salary, 
                     decimal Original_Bonus, 
-                    decimal Original_Pension, 
                     decimal Original_Tax, 
                     decimal Original_Net, 
                     System.DateTime Original_Date, 
+                    decimal Original_Pension11, 
+                    decimal Original_Pension7, 
                     int Id) {
             if ((Name == null)) {
                 throw new global::System.ArgumentNullException("Name");
@@ -8521,24 +8557,26 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
             }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(Salary));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(Bonus));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(Pension));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Tax));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Net));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Date));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(Tax));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Net));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(Date));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(Pension11));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(Pension7));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
             if ((Original_Name == null)) {
                 throw new global::System.ArgumentNullException("Original_Name");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_Name));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_Name));
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(Original_Salary));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(Original_Bonus));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_Pension));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(Original_Salary));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_Bonus));
             this.Adapter.UpdateCommand.Parameters[12].Value = ((decimal)(Original_Tax));
             this.Adapter.UpdateCommand.Parameters[13].Value = ((decimal)(Original_Net));
             this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_Date));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Id));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_Pension11));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_Pension7));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8559,8 +8597,25 @@ SELECT Id, Name, Salary, Bonus, Pension, Tax, Net, Date FROM EmployeeLogs WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Name, decimal Salary, decimal Bonus, decimal Pension, decimal Tax, decimal Net, System.DateTime Date, int Original_Id, string Original_Name, decimal Original_Salary, decimal Original_Bonus, decimal Original_Pension, decimal Original_Tax, decimal Original_Net, System.DateTime Original_Date) {
-            return this.Update(Name, Salary, Bonus, Pension, Tax, Net, Date, Original_Id, Original_Name, Original_Salary, Original_Bonus, Original_Pension, Original_Tax, Original_Net, Original_Date, Original_Id);
+        public virtual int Update(
+                    string Name, 
+                    decimal Salary, 
+                    decimal Bonus, 
+                    decimal Tax, 
+                    decimal Net, 
+                    System.DateTime Date, 
+                    decimal Pension11, 
+                    decimal Pension7, 
+                    int Original_Id, 
+                    string Original_Name, 
+                    decimal Original_Salary, 
+                    decimal Original_Bonus, 
+                    decimal Original_Tax, 
+                    decimal Original_Net, 
+                    System.DateTime Original_Date, 
+                    decimal Original_Pension11, 
+                    decimal Original_Pension7) {
+            return this.Update(Name, Salary, Bonus, Tax, Net, Date, Pension11, Pension7, Original_Id, Original_Name, Original_Salary, Original_Bonus, Original_Tax, Original_Net, Original_Date, Original_Pension11, Original_Pension7, Original_Id);
         }
     }
     
