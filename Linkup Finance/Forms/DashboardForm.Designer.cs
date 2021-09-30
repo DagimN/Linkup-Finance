@@ -174,7 +174,7 @@ namespace Linkup_Finance.Forms
             this.zoomTrackBar.Name = "zoomTrackBar";
             this.zoomTrackBar.Size = new System.Drawing.Size(242, 23);
             this.zoomTrackBar.TabIndex = 22;
-            this.zoomTrackBar.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(113)))), ((int)(((byte)(255)))));
+            this.zoomTrackBar.ThumbColor = System.Drawing.Color.DodgerBlue;
             this.zoomTrackBar.Value = 99;
             this.zoomTrackBar.ValueChanged += new System.EventHandler(this.zoomTrackBar_ValueChanged);
             // 
@@ -182,7 +182,9 @@ namespace Linkup_Finance.Forms
             // 
             this.transactionDateSelection.BorderRadius = 5;
             this.transactionDateSelection.CheckedState.Parent = this.transactionDateSelection;
+            this.transactionDateSelection.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(220)))), ((int)(((byte)(230)))));
             this.transactionDateSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.transactionDateSelection.ForeColor = System.Drawing.Color.Black;
             this.transactionDateSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
             this.transactionDateSelection.HoverState.Parent = this.transactionDateSelection;
             this.transactionDateSelection.Location = new System.Drawing.Point(19, 18);
@@ -284,7 +286,9 @@ namespace Linkup_Finance.Forms
             // 
             this.payrollDateSelection.BorderRadius = 5;
             this.payrollDateSelection.CheckedState.Parent = this.payrollDateSelection;
+            this.payrollDateSelection.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(220)))), ((int)(((byte)(230)))));
             this.payrollDateSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.payrollDateSelection.ForeColor = System.Drawing.Color.Black;
             this.payrollDateSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
             this.payrollDateSelection.HoverState.Parent = this.payrollDateSelection;
             this.payrollDateSelection.Location = new System.Drawing.Point(183, 13);

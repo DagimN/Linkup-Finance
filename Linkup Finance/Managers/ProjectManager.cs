@@ -237,7 +237,10 @@ namespace Linkup_Finance.Managers
                     else
                     {
                         if (amount <= 1000)
+                        {
                             type = "Petty";
+                            vat = 0m;
+                        }
                         else
                             type = "Normal";
                     }

@@ -29,6 +29,7 @@ namespace Linkup_Finance
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.titleBarPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.loginPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.otherCheckBox = new Guna.UI2.WinForms.Guna2CheckBox();
@@ -113,7 +114,7 @@ namespace Linkup_Finance
             this.otherCheckBox.Location = new System.Drawing.Point(292, 170);
             this.otherCheckBox.Name = "otherCheckBox";
             this.otherCheckBox.Size = new System.Drawing.Size(108, 19);
-            this.otherCheckBox.TabIndex = 19;
+            this.otherCheckBox.TabIndex = 17;
             this.otherCheckBox.Text = "Login as Other";
             this.otherCheckBox.UncheckedState.BorderColor = System.Drawing.Color.White;
             this.otherCheckBox.UncheckedState.BorderRadius = 2;
@@ -164,12 +165,12 @@ namespace Linkup_Finance
             this.passwordTextBox.HoverState.Parent = this.passwordTextBox;
             this.passwordTextBox.Location = new System.Drawing.Point(123, 95);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '\0';
+            this.passwordTextBox.PasswordChar = '●';
             this.passwordTextBox.PlaceholderText = "Password";
             this.passwordTextBox.SelectedText = "";
             this.passwordTextBox.ShadowDecoration.Parent = this.passwordTextBox;
             this.passwordTextBox.Size = new System.Drawing.Size(304, 36);
-            this.passwordTextBox.TabIndex = 18;
+            this.passwordTextBox.TabIndex = 15;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // passwordLabel
@@ -406,6 +407,7 @@ namespace Linkup_Finance
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.Info;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.Form1_Load);

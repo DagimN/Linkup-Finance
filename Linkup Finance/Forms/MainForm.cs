@@ -8,6 +8,7 @@ using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
 using Linkup_Finance.Managers;
+using System.Diagnostics;
 
 namespace Linkup_Finance
 {
@@ -152,8 +153,11 @@ namespace Linkup_Finance
                 for (int i = 0; i < Application.OpenForms.Count; i++)
                     if (Application.OpenForms[i].TopLevel)
                     {
-                        Application.OpenForms[i].WindowState = FormWindowState.Maximized;
-                        maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximized_Icon;
+                        if(Application.OpenForms[i].Name != "DateTimeDialog")
+                        {
+                            Application.OpenForms[i].WindowState = FormWindowState.Maximized;
+                            maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximized_Icon;
+                        }
                     }
 
                 ResizeControls();
@@ -261,6 +265,8 @@ namespace Linkup_Finance
                 {
                     if (name.ToLower() == userDataTable.Rows[i].ItemArray[1].ToString().ToLower())
                     {
+                        exists = true;
+
                         if (password == userDataTable.Rows[i].ItemArray[3].ToString())
                         {
                             logoPictureBox.Visible = false;
@@ -273,7 +279,6 @@ namespace Linkup_Finance
 
                             titleBarPanel.Size = new Size(1200, 76);
                             dashboardForm.welcomeNameLabel.Text = name;
-                            exists = true;
 
                             string type = userDataTable.Rows[i].ItemArray[2].ToString();
 
@@ -342,6 +347,7 @@ namespace Linkup_Finance
                         else
                         {
                             passwordTextBox.Text = "Invalid Password";
+                            passwordTextBox.PasswordChar = char.Parse("\0");
                             passwordTextBox.FillColor = Color.FromArgb(240, 160, 140);
 
                             break;
@@ -365,6 +371,7 @@ namespace Linkup_Finance
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
             passwordTextBox.FillColor = Color.White;
+            passwordTextBox.PasswordChar = '●';
         }
 
         private void otherCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -410,10 +417,12 @@ namespace Linkup_Finance
             if(state == FormWindowState.Maximized)
             {
                 projectForm.ledgerTabControl.Size = new Size(1200, 530);
+                projectForm.newIncomePanel.Location = new Point(214, 114);
             }
             else
             {
                 projectForm.ledgerTabControl.Size = new Size(1200, 590);
+                projectForm.newIncomePanel.Location = new Point(290, 280);
             }
         }
 

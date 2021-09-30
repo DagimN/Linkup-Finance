@@ -30,13 +30,13 @@ namespace Linkup_Finance.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.userPage = new System.Windows.Forms.TabPage();
             this.newUserPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -98,7 +98,7 @@ namespace Linkup_Finance.Forms
             this.newEmployeeLabel = new System.Windows.Forms.Label();
             this.employeesComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.addEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.employeePayrollDataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.salaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -109,6 +109,7 @@ namespace Linkup_Finance.Forms
             this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeeLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.employeeProfilePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.phoneTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.emailTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.phoneLabel = new System.Windows.Forms.Label();
@@ -145,7 +146,6 @@ namespace Linkup_Finance.Forms
             this.userLogTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UserLogTableAdapter();
             this.employeesTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeesTableAdapter();
             this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
-            this.label2 = new System.Windows.Forms.Label();
             this.guna2TabControl1.SuspendLayout();
             this.userPage.SuspendLayout();
             this.newUserPanel.SuspendLayout();
@@ -156,7 +156,7 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).BeginInit();
             this.employeePage.SuspendLayout();
             this.newEmployeePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeePayrollDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).BeginInit();
             this.employeeProfilePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBox)).BeginInit();
@@ -295,7 +295,9 @@ namespace Linkup_Finance.Forms
             // 
             this.userErrorChip.AutoRoundedCorners = true;
             this.userErrorChip.BackColor = System.Drawing.Color.Transparent;
+            this.userErrorChip.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(65)))), ((int)(((byte)(60)))));
             this.userErrorChip.BorderRadius = 21;
+            this.userErrorChip.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(65)))), ((int)(((byte)(60)))));
             this.userErrorChip.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.userErrorChip.ForeColor = System.Drawing.Color.White;
             this.userErrorChip.Location = new System.Drawing.Point(224, 18);
@@ -331,6 +333,8 @@ namespace Linkup_Finance.Forms
             // 
             // submitUserButton
             // 
+            this.submitUserButton.BackColor = System.Drawing.Color.Silver;
+            this.submitUserButton.BorderRadius = 10;
             this.submitUserButton.CheckedState.Parent = this.submitUserButton;
             this.submitUserButton.CustomImages.Parent = this.submitUserButton;
             this.submitUserButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -726,6 +730,7 @@ namespace Linkup_Finance.Forms
             // 
             // removeUserButton
             // 
+            this.removeUserButton.BorderRadius = 10;
             this.removeUserButton.CheckedState.Parent = this.removeUserButton;
             this.removeUserButton.CustomImages.Parent = this.removeUserButton;
             this.removeUserButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -778,6 +783,7 @@ namespace Linkup_Finance.Forms
             // 
             // addUserButton
             // 
+            this.addUserButton.BorderRadius = 10;
             this.addUserButton.CheckedState.Parent = this.addUserButton;
             this.addUserButton.CustomImages.Parent = this.addUserButton;
             this.addUserButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -798,35 +804,35 @@ namespace Linkup_Finance.Forms
             // 
             // guna2DataGridView2
             // 
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             this.guna2DataGridView2.AutoGenerateColumns = false;
             this.guna2DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.guna2DataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.guna2DataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.guna2DataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.guna2DataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.guna2DataGridView2.ColumnHeadersHeight = 30;
             this.guna2DataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
             this.dateTimeDataGridViewTextBoxColumn});
             this.guna2DataGridView2.DataSource = this.userLogBindingSource;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView2.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView2.DefaultCellStyle = dataGridViewCellStyle18;
             this.guna2DataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2DataGridView2.EnableHeadersVisualStyles = false;
             this.guna2DataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
@@ -882,6 +888,7 @@ namespace Linkup_Finance.Forms
             // 
             // editProfileButton
             // 
+            this.editProfileButton.BorderRadius = 10;
             this.editProfileButton.CheckedState.Parent = this.editProfileButton;
             this.editProfileButton.CustomImages.Parent = this.editProfileButton;
             this.editProfileButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -960,7 +967,7 @@ namespace Linkup_Finance.Forms
             this.employeePage.Controls.Add(this.newEmployeePanel);
             this.employeePage.Controls.Add(this.employeesComboBox);
             this.employeePage.Controls.Add(this.addEmployeeButton);
-            this.employeePage.Controls.Add(this.guna2DataGridView1);
+            this.employeePage.Controls.Add(this.employeePayrollDataGridView);
             this.employeePage.Controls.Add(this.employeeProfilePanel);
             this.employeePage.Location = new System.Drawing.Point(154, 4);
             this.employeePage.Name = "employeePage";
@@ -1074,7 +1081,9 @@ namespace Linkup_Finance.Forms
             // 
             this.employeeErrorChip.AutoRoundedCorners = true;
             this.employeeErrorChip.BackColor = System.Drawing.Color.Transparent;
+            this.employeeErrorChip.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(65)))), ((int)(((byte)(60)))));
             this.employeeErrorChip.BorderRadius = 21;
+            this.employeeErrorChip.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(65)))), ((int)(((byte)(60)))));
             this.employeeErrorChip.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.employeeErrorChip.ForeColor = System.Drawing.Color.White;
             this.employeeErrorChip.Location = new System.Drawing.Point(224, 18);
@@ -1110,6 +1119,8 @@ namespace Linkup_Finance.Forms
             // 
             // submitEmployeeButton
             // 
+            this.submitEmployeeButton.BackColor = System.Drawing.Color.Silver;
+            this.submitEmployeeButton.BorderRadius = 10;
             this.submitEmployeeButton.CheckedState.Parent = this.submitEmployeeButton;
             this.submitEmployeeButton.CustomImages.Parent = this.submitEmployeeButton;
             this.submitEmployeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -1261,7 +1272,7 @@ namespace Linkup_Finance.Forms
             this.employeesComboBox.HoverState.Parent = this.employeesComboBox;
             this.employeesComboBox.ItemHeight = 30;
             this.employeesComboBox.ItemsAppearance.Parent = this.employeesComboBox;
-            this.employeesComboBox.Location = new System.Drawing.Point(189, 8);
+            this.employeesComboBox.Location = new System.Drawing.Point(131, 8);
             this.employeesComboBox.Name = "employeesComboBox";
             this.employeesComboBox.ShadowDecoration.Parent = this.employeesComboBox;
             this.employeesComboBox.Size = new System.Drawing.Size(320, 36);
@@ -1270,6 +1281,7 @@ namespace Linkup_Finance.Forms
             // 
             // addEmployeeButton
             // 
+            this.addEmployeeButton.BorderRadius = 10;
             this.addEmployeeButton.CheckedState.Parent = this.addEmployeeButton;
             this.addEmployeeButton.CustomImages.Parent = this.addEmployeeButton;
             this.addEmployeeButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -1283,31 +1295,31 @@ namespace Linkup_Finance.Forms
             this.addEmployeeButton.Location = new System.Drawing.Point(3, 8);
             this.addEmployeeButton.Name = "addEmployeeButton";
             this.addEmployeeButton.ShadowDecoration.Parent = this.addEmployeeButton;
-            this.addEmployeeButton.Size = new System.Drawing.Size(180, 36);
+            this.addEmployeeButton.Size = new System.Drawing.Size(122, 36);
             this.addEmployeeButton.TabIndex = 2;
             this.addEmployeeButton.Text = "Add Employee";
             this.addEmployeeButton.Click += new System.EventHandler(this.addEmployeeButton_Click);
             // 
-            // guna2DataGridView1
+            // employeePayrollDataGridView
             // 
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.guna2DataGridView1.AutoGenerateColumns = false;
-            this.guna2DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.guna2DataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.guna2DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            this.guna2DataGridView1.ColumnHeadersHeight = 30;
-            this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            this.employeePayrollDataGridView.AutoGenerateColumns = false;
+            this.employeePayrollDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.employeePayrollDataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.employeePayrollDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.employeePayrollDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.employeePayrollDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            this.employeePayrollDataGridView.ColumnHeadersHeight = 30;
+            this.employeePayrollDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn1,
             this.dateDataGridViewTextBoxColumn,
             this.salaryDataGridViewTextBoxColumn,
@@ -1316,44 +1328,44 @@ namespace Linkup_Finance.Forms
             this.pension11DataGridViewTextBoxColumn,
             this.taxDataGridViewTextBoxColumn,
             this.netDataGridViewTextBoxColumn});
-            this.guna2DataGridView1.DataSource = this.employeeLogsBindingSource;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle18;
-            this.guna2DataGridView1.EnableHeadersVisualStyles = false;
-            this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(6, 50);
-            this.guna2DataGridView1.Name = "guna2DataGridView1";
-            this.guna2DataGridView1.RowHeadersVisible = false;
-            this.guna2DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(692, 450);
-            this.guna2DataGridView1.TabIndex = 1;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 30;
-            this.guna2DataGridView1.ThemeStyle.ReadOnly = false;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Height = 22;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.employeePayrollDataGridView.DataSource = this.employeeLogsBindingSource;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.employeePayrollDataGridView.DefaultCellStyle = dataGridViewCellStyle15;
+            this.employeePayrollDataGridView.EnableHeadersVisualStyles = false;
+            this.employeePayrollDataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.employeePayrollDataGridView.Location = new System.Drawing.Point(6, 50);
+            this.employeePayrollDataGridView.Name = "employeePayrollDataGridView";
+            this.employeePayrollDataGridView.RowHeadersVisible = false;
+            this.employeePayrollDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.employeePayrollDataGridView.Size = new System.Drawing.Size(692, 450);
+            this.employeePayrollDataGridView.TabIndex = 1;
+            this.employeePayrollDataGridView.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.employeePayrollDataGridView.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.employeePayrollDataGridView.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.employeePayrollDataGridView.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.employeePayrollDataGridView.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.employeePayrollDataGridView.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.employeePayrollDataGridView.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.employeePayrollDataGridView.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.employeePayrollDataGridView.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.employeePayrollDataGridView.ThemeStyle.HeaderStyle.Height = 30;
+            this.employeePayrollDataGridView.ThemeStyle.ReadOnly = false;
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.Height = 22;
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.employeePayrollDataGridView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
             // nameDataGridViewTextBoxColumn1
             // 
@@ -1449,6 +1461,19 @@ namespace Linkup_Finance.Forms
             this.employeeProfilePanel.ShadowDecoration.Parent = this.employeeProfilePanel;
             this.employeeProfilePanel.Size = new System.Drawing.Size(330, 492);
             this.employeeProfilePanel.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Silver;
+            this.label2.Location = new System.Drawing.Point(33, 344);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(287, 14);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Payment will be available before 7 days of the salary due.";
             // 
             // phoneTextBox
             // 
@@ -1575,7 +1600,9 @@ namespace Linkup_Finance.Forms
             // salaryDueDateSelection
             // 
             this.salaryDueDateSelection.CheckedState.Parent = this.salaryDueDateSelection;
+            this.salaryDueDateSelection.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(220)))), ((int)(((byte)(230)))));
             this.salaryDueDateSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.salaryDueDateSelection.ForeColor = System.Drawing.Color.Black;
             this.salaryDueDateSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
             this.salaryDueDateSelection.HoverState.Parent = this.salaryDueDateSelection;
             this.salaryDueDateSelection.Location = new System.Drawing.Point(115, 315);
@@ -2028,19 +2055,6 @@ namespace Linkup_Finance.Forms
             // 
             this.employeeLogsTableAdapter.ClearBeforeFill = true;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Silver;
-            this.label2.Location = new System.Drawing.Point(33, 344);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(287, 14);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Payment will be available before 7 days of the salary due.";
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2066,7 +2080,7 @@ namespace Linkup_Finance.Forms
             this.employeePage.ResumeLayout(false);
             this.newEmployeePanel.ResumeLayout(false);
             this.newEmployeePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeePayrollDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).EndInit();
             this.employeeProfilePanel.ResumeLayout(false);
             this.employeeProfilePanel.PerformLayout();
@@ -2089,7 +2103,7 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.TabPage miscellaneousPage;
         private Guna.UI2.WinForms.Guna2Button removeEmployeeButton;
         private Guna.UI2.WinForms.Guna2Button addEmployeeButton;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
+        private Guna.UI2.WinForms.Guna2DataGridView employeePayrollDataGridView;
         private Guna.UI2.WinForms.Guna2Panel employeeProfilePanel;
         private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel4;

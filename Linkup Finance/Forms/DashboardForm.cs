@@ -52,8 +52,8 @@ namespace Linkup_Finance.Forms
             {
                 Values = new ChartValues<DateModel>(),
                 Title = "Expense",
-                Stroke = System.Windows.Media.Brushes.ForestGreen,
-                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 34, 139, 34))
+                Stroke = System.Windows.Media.Brushes.DodgerBlue,
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 160, 220, 255))
             };
 
             xAxis = new Axis

@@ -95,6 +95,8 @@ namespace Linkup_Finance.Forms
                 userManager.RetrieveEmployees(name, salary, job, phone, email, entryDateTime, salaryDueDateTime, status);
             }
 
+            dashboardForm.RefreshDashboard();
+
             if (employeesComboBox.Items.Count > 0)
             {
                 Employee employee = userManager.GetEmployee(employeesComboBox.Items[0].ToString());
@@ -118,14 +120,13 @@ namespace Linkup_Finance.Forms
                     inactiveEmployeeRadioButton.Checked = true;
                 }
                     
-
                 salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
                 string total = employee.GetNetTotal(0.00m).ToString();
                 netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
-            }
 
-            dashboardForm.RefreshDashboard();
+                RemoveItems(employeePayrollDataGridView, employeesComboBox.Text);
+            }
         }
 
         #region UserTab
@@ -158,7 +159,8 @@ namespace Linkup_Finance.Forms
                 Location = new Point(224, 18),
                 Text = "",
                 Visible = false,
-                BackColor = Color.Transparent
+                BackColor = Color.Transparent,
+                FillColor = Color.FromArgb(210, 65, 60)
             };
             newUserPanel.Controls.Add(userErrorChip);
             userErrorChip.BringToFront();
@@ -365,7 +367,8 @@ namespace Linkup_Finance.Forms
                 Location = new Point(224, 18),
                 Text = "",
                 Visible = false,
-                BackColor = Color.Transparent
+                BackColor = Color.Transparent,
+                FillColor = Color.FromArgb(210, 65, 60)
             };
             newEmployeePanel.Controls.Add(employeeErrorChip);
             employeeErrorChip.BringToFront();
@@ -412,6 +415,8 @@ namespace Linkup_Finance.Forms
 
                             string total = employee.GetNetTotal(0.00m).ToString();
                             netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+
+                            RemoveItems(employeePayrollDataGridView, employee.GetName());
 
                             dashboardForm.RefreshDashboard();
                         }
@@ -555,6 +560,9 @@ namespace Linkup_Finance.Forms
 
             string total = employee.GetNetTotal(0.00m).ToString();
             netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+
+            employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
+            RemoveItems(employeePayrollDataGridView, employee.GetName());
         }
 
         private void removeEmployeeButton_Click(object sender, EventArgs e)
@@ -622,6 +630,7 @@ namespace Linkup_Finance.Forms
                     payEmployeeButton.Enabled = false;
                     dashboardForm.RefreshDashboard();
                     dashboardForm.LoadChart(employeeLogsTableAdapter.GetData());
+                    RemoveItems(employeePayrollDataGridView, employee.GetName());
                     salaryDueDateSelection.Value = DateTime.Now.AddDays(30);
                 }
                 else
@@ -668,6 +677,22 @@ namespace Linkup_Finance.Forms
             loggedInAccountType = type;
         }
 
+        private void RemoveItems(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string name)
+        {
+            List<int> tobeRemovedList = new List<int>();
+            int removed = 0;
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
+                if (dataGridView.Rows[i].Cells[2].Value != null)
+                    if (dataGridView.Rows[i].Cells[0].Value.ToString() != name)
+                        tobeRemovedList.Add(i);
+
+            foreach (int rowIndex in tobeRemovedList)
+            {
+                dataGridView.Rows.RemoveAt(rowIndex - removed);
+                removed++;
+            }
+        }
         #endregion
     }
 }

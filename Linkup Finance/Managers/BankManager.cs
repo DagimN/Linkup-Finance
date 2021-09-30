@@ -264,6 +264,40 @@ namespace Linkup_Finance.Managers
                 }
             }
         }
+
+        public static bool SubmitLog(decimal amount, string reason, DateTime date, string tpName, string project = null)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    con.Open();
+
+                    string insertQuery = "INSERT INTO BankLogs(Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName)" +
+                                         $" VALUES(@Bank, @Balance, @PrevBalance, @Type, @Reason, @Date, \'{project}\', @tpName)";
+                    SqlCommand insertCommand = new SqlCommand(insertQuery, con);
+
+                    insertCommand.Parameters.AddWithValue("@Bank", "Petty");
+                    insertCommand.Parameters.AddWithValue("@Balance", amount);
+                    insertCommand.Parameters.AddWithValue("@PrevBalance", 0.00m);
+                    insertCommand.Parameters.AddWithValue("@Type", "Petty Expense");
+                    insertCommand.Parameters.AddWithValue("@Reason", reason);
+                    insertCommand.Parameters.AddWithValue("@Date", date);
+                    insertCommand.Parameters.AddWithValue("@tpName", tpName);
+                    insertCommand.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 
     public class PettyVault
@@ -282,6 +316,8 @@ namespace Linkup_Finance.Managers
         public void DecreaseValue(decimal amount)
         {
             this.Amount -= amount;
+            Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.IndexOf(this.Name) + 2] = this.Amount.ToString();
+            Linkup_Finance.Properties.Settings.Default.Save();
         }
 
         public void Replenish(decimal amount)
