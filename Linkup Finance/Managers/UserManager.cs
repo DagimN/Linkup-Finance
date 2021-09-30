@@ -303,6 +303,32 @@ namespace Linkup_Finance.Managers
             return dataTable.Rows.Count;
         }
 
+        public int GetPaidEmployeeCount()
+        {
+            int paidEmployee = 0;
+
+            foreach (Employee employee in employeesList)
+                if (employee.GetIsPaid())
+                    paidEmployee++;
+
+            return paidEmployee;
+        }
+
+        public int GetPaidEmployeeCount(DataTable dataTable)
+        {
+            int paidEmployee = 0;
+
+            for(int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                DateTime salaryDue = (DateTime)dataTable.Rows[i].ItemArray[7];
+
+                if (DateTime.Compare(salaryDue.Subtract(TimeSpan.FromDays(7)), DateTime.Now) >= 0)
+                    paidEmployee++;
+            }
+
+            return paidEmployee;
+        }
+
         public bool EditEmployee(Employee employee, string newName, decimal newSalary, string newJob, string newPhone, string newEmail, DateTime newEntryDateTime, DateTime newSalaryDueDate, EmployeeStatus newStatus)
         {
             string oldName = employee.GetName();
@@ -356,6 +382,49 @@ namespace Linkup_Finance.Managers
                     con.Close();
                 }
             }
+        }
+
+        public decimal GetTotalBonus(DataTable dataTable)
+        {
+            decimal total = 0m;
+
+            for(int i = 0; i < dataTable.Rows.Count; i++)
+                total += (decimal)dataTable.Rows[i].ItemArray[3];
+
+            return total;
+        }
+
+        public decimal GetTotalIncomeTax(DataTable dataTable)
+        {
+            decimal total = 0m;
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+                total += (decimal)dataTable.Rows[i].ItemArray[4];
+
+            return total;
+        }
+
+        public decimal GetTotalNet(DataTable dataTable)
+        {
+            decimal total = 0m;
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+                total += (decimal)dataTable.Rows[i].ItemArray[5];
+
+            return total;
+        }
+
+        public decimal GetTotalPension(DataTable dataTable)
+        {
+            decimal total = 0m;
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                total += (decimal)dataTable.Rows[i].ItemArray[7];
+                total += (decimal)dataTable.Rows[i].ItemArray[8];
+            }
+
+            return total;
         }
     }
 
@@ -425,6 +494,7 @@ namespace Linkup_Finance.Managers
         private DateTime EntryDate { get; set; }
         private DateTime SalaryDue { get; set; }
         private decimal Salary { get; set; }
+        private bool IsPaid { get; set; }
 
         public Employee(string name, decimal salary, string job, string phone, string email, DateTime entryDateTime, DateTime salaryDueDate, EmployeeStatus status)
         {
@@ -436,6 +506,11 @@ namespace Linkup_Finance.Managers
             this.EntryDate = entryDateTime;
             this.SalaryDue = salaryDueDate;
             this.Status = status;
+
+            if (DateTime.Compare(this.SalaryDue.Subtract(TimeSpan.FromDays(7)), DateTime.Now) >= 0)
+                this.IsPaid = true;
+            else
+                this.IsPaid = false;
         }
 
         public string GetName()
@@ -478,9 +553,57 @@ namespace Linkup_Finance.Managers
             return this.SalaryDue;
         }
 
-        public decimal GetNetTotal()
+        public decimal GetNetTotal(decimal bonus)
         {
-            return this.Salary - (this.Salary * 0.35m) - (this.Salary * 0.3m);
+            decimal incomeRate;
+            decimal deductible;
+            decimal salary = this.Salary + bonus;
+            decimal net;
+
+            if (this.Salary >= 0.00m && this.Salary <= 600.00m)
+            {
+                incomeRate = 0m;
+                deductible = 0m;
+            }
+            else if (this.Salary >= 601.00m && this.Salary <= 1650.00m)
+            {
+                incomeRate = 0.1m;
+                deductible = 60.00m;
+            }
+            else if (this.Salary >= 1651.00m && this.Salary <= 3200.00m)
+            {
+                incomeRate = 0.15m;
+                deductible = 142.50m;
+            }
+            else if (this.Salary >= 3201.00m && this.Salary <= 5250.00m)
+            {
+                incomeRate = 0.2m;
+                deductible = 302.5m;
+            }
+            else if (this.Salary >= 5251.00m && this.Salary <= 7800.00m)
+            {
+                incomeRate = 0.25m;
+                deductible = 565.00m;
+            }
+            else if (this.Salary >= 7801.00m && this.Salary <= 10900.00m)
+            {
+                incomeRate = 0.3m;
+                deductible = 955.00m;
+            }
+            else
+            {
+                incomeRate = 0.35m;
+                deductible = 1500.00m;
+            }
+
+            net = salary - (salary * incomeRate) + deductible;
+
+            return net;
+        }
+
+        public bool GetIsPaid()
+        {
+            return IsPaid;
         }
 
         public void SetName(string newName)
@@ -526,6 +649,7 @@ namespace Linkup_Finance.Managers
             decimal pension7 = this.Salary * 0.07m;
             decimal pension11 = this.Salary * 0.11m;
             decimal tax, net;
+            DateTime oldDate = this.SalaryDue;
 
             if (this.Salary >= 0.00m && this.Salary <= 600.00m)
             {
@@ -565,6 +689,8 @@ namespace Linkup_Finance.Managers
 
             net = salary - (salary * incomeRate) + deductible;
             tax = salary * incomeRate;
+            this.IsPaid = true;
+            this.SalaryDue = DateTime.Now.AddDays(30);
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
@@ -592,7 +718,7 @@ namespace Linkup_Finance.Managers
 
                     command = new SqlCommand(updateQuery, con);
 
-                    command.Parameters.AddWithValue("@SalaryDue", DateTime.Now.AddDays(30));
+                    command.Parameters.AddWithValue("@SalaryDue", this.SalaryDue);
                     command.Parameters.AddWithValue("@Name", this.Name);
                     command.Parameters.AddWithValue("@EntryDate", this.EntryDate);
 
@@ -602,6 +728,8 @@ namespace Linkup_Finance.Managers
                 }
                 catch (Exception)
                 {
+                    this.IsPaid = false;
+                    this.SalaryDue = oldDate;
                     return false;
                 }
                 finally

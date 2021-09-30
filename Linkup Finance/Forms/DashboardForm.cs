@@ -17,7 +17,7 @@ namespace Linkup_Finance.Forms
     public partial class DashboardForm : Form
     {
         private LineSeries incomeSeries, expenseSeries;
-        private Axis xAxis, yAxis;
+        private Axis xAxis, yAxis, xPayrollAxis, yPayrollAxis;
         private ProjectForm projectForm;
         private SettingsForm settingsForm;
         private int zoomValue = 99;
@@ -39,7 +39,7 @@ namespace Linkup_Finance.Forms
             var dayConfig = Mappers.Xy<DateModel>()
                 .X(dayModel => (double)dayModel.DateTime.Ticks / TimeSpan.FromDays(1).Ticks)
                 .Y(dayModel => dayModel.Value);
-
+            
             incomeSeries = new LineSeries
             {
                 Values = new ChartValues<DateModel>(),
@@ -71,7 +71,23 @@ namespace Linkup_Finance.Forms
                 LabelFormatter = value => value + " ETB"
             };
 
+            xPayrollAxis = new Axis
+            {
+                LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks)).ToString("dd MMM yyyy"),
+                MaxRange = DateTime.MaxValue.Subtract(TimeSpan.FromDays(146400)).Year,
+                MinValue = DateTime.Now.Subtract(TimeSpan.FromDays(15)).Ticks / TimeSpan.TicksPerDay,
+                MaxValue = DateTime.Now.AddDays(15).Ticks / TimeSpan.TicksPerDay
+            };
+
+            yPayrollAxis = new Axis
+            {
+                MinValue = 0,
+                Foreground = incomeSeries.Fill,
+                LabelFormatter = value => value + " ETB"
+            };
+
             transactionChart.Series = new SeriesCollection(dayConfig);
+            payrollChart.Series = new SeriesCollection(dayConfig);
             bankPieChart.LegendLocation = LegendLocation.Right;
 
             pettyCashSolidGauge.Uses360Mode = true;
@@ -80,6 +96,13 @@ namespace Linkup_Finance.Forms
             transactionChart.Pan = PanningOptions.X;
             transactionChart.AxisX.Add(xAxis);
             transactionChart.AxisY.Add(yAxis);
+
+            payrollChart.Pan = PanningOptions.X;
+            payrollChart.AxisX.Add(xPayrollAxis);
+            payrollChart.AxisY.Add(yPayrollAxis);
+
+            payrollDateSelection.Value = DateTime.Now;
+            transactionDateSelection.Value = DateTime.Now;
         }
 
         private void transactionDateSelection_ValueChanged(object sender, EventArgs e)
@@ -109,12 +132,20 @@ namespace Linkup_Finance.Forms
             }
         }
 
+        private void payrollDateSelection_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dateSelection = payrollDateSelection.Value;
+            xPayrollAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(15)).Ticks / TimeSpan.TicksPerDay;
+            xPayrollAxis.MaxValue = dateSelection.AddDays(15).Ticks / TimeSpan.TicksPerDay;
+        }
+
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             projectForm.incomeTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Income);
             projectForm.expenseTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Expense);
             projectForm.banksTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Banks);
             settingsForm.employeesTableAdapter.Fill(settingsForm.linkupDatabaseDataSet.Employees);
+            settingsForm.employeeLogsTableAdapter.Fill(settingsForm.linkupDatabaseDataSet.EmployeeLogs);
 
             transactionChart.Series.Add(incomeSeries);
             transactionChart.Series.Add(expenseSeries);
@@ -122,6 +153,7 @@ namespace Linkup_Finance.Forms
             LoadChart(projectForm.incomeTableAdapter.GetData());
             LoadChart(projectForm.expenseTableAdapter.GetData());
             LoadChart(projectForm.banksTableAdapter.GetData());
+            LoadChart(settingsForm.employeeLogsTableAdapter.GetData());
 
             numBanksLabel.Text = $"Bank Accounts Owned   {projectForm.banksTableAdapter.GetData().Rows.Count}";
             pettyCashLabel.Text = $"Petty Cash Remaining   {projectForm.bankManager.GetTotalPettyVaultsAmount()}";
@@ -129,6 +161,12 @@ namespace Linkup_Finance.Forms
             pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
 
             employeeAmountLabel.Text = settingsForm.userManager.GetEmployeeCount(settingsForm.employeesTableAdapter.GetData()).ToString();
+            paidEmployeesCountLabel.Text = settingsForm.userManager.GetPaidEmployeeCount(settingsForm.employeesTableAdapter.GetData()).ToString();
+
+            totalBonusLabel.Text = $"Total Bonus: {settingsForm.userManager.GetTotalBonus(settingsForm.employeeLogsTableAdapter.GetData())}";
+            totalTaxLabel.Text = $"Total Income Tax: {settingsForm.userManager.GetTotalIncomeTax(settingsForm.employeeLogsTableAdapter.GetData())}";
+            totalPensionLabel.Text = $"Total Pension: {settingsForm.userManager.GetTotalPension(settingsForm.employeeLogsTableAdapter.GetData())}";
+            totalNetLabel.Text = $"Total Net: {settingsForm.userManager.GetTotalNet(settingsForm.employeeLogsTableAdapter.GetData())}";
         }
 
         #region Custom Functions
@@ -215,10 +253,37 @@ namespace Linkup_Finance.Forms
                     });
                 }
             }
+
+            if(dataTable is LinkupDatabaseDataSet.EmployeeLogsDataTable)
+            {
+                payrollChart.Series.Clear();
+                sortedData = projectForm.SortData(dataTable);
+
+                for(int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    payrollChart.Series.Add(new ColumnSeries
+                    {
+                        Values = new ChartValues<DateModel>
+                        {
+                            new DateModel
+                            {
+                                DateTime = (DateTime)sortedData[i].ItemArray[6],
+                                Value = double.Parse(sortedData[i].ItemArray[5].ToString())
+                            }
+                        },
+                        Title = dataTable.Rows[i].ItemArray[1].ToString(),
+                        ScalesYAt = 0,
+                        MaxColumnWidth = 50,
+                        Fill = System.Windows.Media.Brushes.DodgerBlue
+                    });
+                }
+            }
         }
 
         public void RefreshDashboard()
         {
+            settingsForm.employeeLogsTableAdapter.Fill(settingsForm.linkupDatabaseDataSet.EmployeeLogs);
+
             pettyCashSolidGauge.To = projectForm.bankManager.GetTotalPettyVaultsBound();
             numBanksLabel.Text = $"Bank Accounts Owned   {projectForm.banksTableAdapter.GetData().Rows.Count}";
             pettyCashLabel.Text = $"Petty Cash Remaining   {projectForm.bankManager.GetTotalPettyVaultsAmount()}";
@@ -226,6 +291,12 @@ namespace Linkup_Finance.Forms
             pettyCashSolidGauge.Value = double.Parse(projectForm.bankManager.GetTotalPettyVaultsAmount().ToString());
 
             employeeAmountLabel.Text = settingsForm.userManager.GetEmployeeCount().ToString();
+            paidEmployeesCountLabel.Text = settingsForm.userManager.GetPaidEmployeeCount().ToString();
+
+            totalBonusLabel.Text = $"Total Bonus: {settingsForm.userManager.GetTotalBonus(settingsForm.employeeLogsTableAdapter.GetData())}";
+            totalTaxLabel.Text = $"Total Income Tax: {settingsForm.userManager.GetTotalIncomeTax(settingsForm.employeeLogsTableAdapter.GetData())}";
+            totalPensionLabel.Text = $"Total Pension: {settingsForm.userManager.GetTotalPension(settingsForm.employeeLogsTableAdapter.GetData())}";
+            totalNetLabel.Text = $"Total Net: {settingsForm.userManager.GetTotalNet(settingsForm.employeeLogsTableAdapter.GetData())}";
         }
 
         public void SetAccountType(AccountType type)

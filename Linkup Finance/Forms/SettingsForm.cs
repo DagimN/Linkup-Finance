@@ -27,8 +27,6 @@ namespace Linkup_Finance.Forms
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
-            this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             this.userLogTableAdapter.Fill(this.linkupDatabaseDataSet.UserLog);
             usersTableAdapter.Fill(this.linkupDatabaseDataSet.Users);
@@ -110,13 +108,20 @@ namespace Linkup_Finance.Forms
                 phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
                 if (employee.GetStatus() == EmployeeStatus.Active)
+                {
+                    payEmployeeButton.Enabled = true;
                     activeEmployeeRadioButton.Checked = true;
+                }
                 else
+                {
+                    payEmployeeButton.Enabled = false;
                     inactiveEmployeeRadioButton.Checked = true;
+                }
+                    
 
                 salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-                string total = employee.GetNetTotal().ToString();
+                string total = employee.GetNetTotal(0.00m).ToString();
                 netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
             }
 
@@ -393,14 +398,22 @@ namespace Linkup_Finance.Forms
                             phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
                             if (employee.GetStatus() == EmployeeStatus.Active)
+                            {
                                 activeEmployeeRadioButton.Checked = true;
+                                payEmployeeButton.Enabled = true;
+                            }
                             else
+                            {
                                 inactiveEmployeeRadioButton.Checked = true;
-
+                                payEmployeeButton.Enabled = false;
+                            }
+                                
                             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-                            string total = employee.GetNetTotal().ToString();
+                            string total = employee.GetNetTotal(0.00m).ToString();
                             netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+
+                            dashboardForm.RefreshDashboard();
                         }
                         else
                         {
@@ -497,6 +510,10 @@ namespace Linkup_Finance.Forms
             {
                 userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), employee.GetSalaryDueDate(), EmployeeStatus.Active);
                 statusPictureBox.Image = Linkup_Finance.Properties.Resources.Active_Image;
+                if (employee.GetIsPaid())
+                    payEmployeeButton.Enabled = false;
+                else
+                    payEmployeeButton.Enabled = true;
             }       
         }
 
@@ -508,6 +525,7 @@ namespace Linkup_Finance.Forms
             {
                 userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), employee.GetSalaryDueDate(), EmployeeStatus.Inactive);
                 statusPictureBox.Image = Linkup_Finance.Properties.Resources.Inactive_Image;
+                payEmployeeButton.Enabled = false;
             }
         }
 
@@ -528,9 +546,14 @@ namespace Linkup_Finance.Forms
             else
                 inactiveEmployeeRadioButton.Checked = true;
 
+            if (employee.GetIsPaid())
+                payEmployeeButton.Enabled = false;
+            else
+                payEmployeeButton.Enabled = true;
+
             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-            string total = employee.GetNetTotal().ToString();
+            string total = employee.GetNetTotal(0.00m).ToString();
             netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
         }
 
@@ -571,6 +594,8 @@ namespace Linkup_Finance.Forms
                         salaryDueDateSelection.Value = oldDate;
                     else
                         salaryDueDateSelection.Value = employee.GetSalaryDueDate();
+                else
+                    salaryDueDateSelection.Value = oldDate;
             }
         }
 
@@ -594,16 +619,38 @@ namespace Linkup_Finance.Forms
                 if (employee.Pay(bonus))
                 {
                     employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
+                    payEmployeeButton.Enabled = false;
+                    dashboardForm.RefreshDashboard();
+                    dashboardForm.LoadChart(employeeLogsTableAdapter.GetData());
+                    salaryDueDateSelection.Value = DateTime.Now.AddDays(30);
                 }
                 else
                 {
-                    //Report Database Error
+                    //TODO: Report Database Error
                 }
             }
             else
             {
-                //Report decimal Error
+                //TODO: Report decimal Error
             }   
+        }
+
+        private void bonusTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Employee employee = (Employee)employeesComboBox.Tag;
+            string bonusText = bonusTextBox.Text;
+            decimal bonus;
+            bool isValid = decimal.TryParse(bonusText, out bonus);
+
+            if (isValid)
+                netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal(bonus)}";
+            else
+            {
+                if (bonusText != "")
+                    netSalaryTotalLabel.Text = "Invalid Bonus Value";
+                else
+                    netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal(0m)}";
+            }
         }
 
         #endregion

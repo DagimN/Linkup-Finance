@@ -43,12 +43,12 @@ namespace Linkup_Finance.Forms
             this.transactionChart = new LiveCharts.WinForms.CartesianChart();
             this.guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2GradientPanel2 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.label8 = new System.Windows.Forms.Label();
+            this.totalBonusLabel = new System.Windows.Forms.Label();
+            this.totalPensionLabel = new System.Windows.Forms.Label();
+            this.totalTaxLabel = new System.Windows.Forms.Label();
+            this.totalNetLabel = new System.Windows.Forms.Label();
+            this.payrollDateSelection = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.paidEmployeesCountLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.employeeAmountLabel = new System.Windows.Forms.Label();
             this.profilePictureBox = new System.Windows.Forms.PictureBox();
@@ -207,8 +207,8 @@ namespace Linkup_Finance.Forms
             // 
             this.guna2ShadowPanel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2ShadowPanel2.Controls.Add(this.guna2GradientPanel2);
-            this.guna2ShadowPanel2.Controls.Add(this.guna2DateTimePicker1);
-            this.guna2ShadowPanel2.Controls.Add(this.label8);
+            this.guna2ShadowPanel2.Controls.Add(this.payrollDateSelection);
+            this.guna2ShadowPanel2.Controls.Add(this.paidEmployeesCountLabel);
             this.guna2ShadowPanel2.Controls.Add(this.pictureBox1);
             this.guna2ShadowPanel2.Controls.Add(this.employeeAmountLabel);
             this.guna2ShadowPanel2.Controls.Add(this.profilePictureBox);
@@ -223,10 +223,10 @@ namespace Linkup_Finance.Forms
             // guna2GradientPanel2
             // 
             this.guna2GradientPanel2.BorderRadius = 5;
-            this.guna2GradientPanel2.Controls.Add(this.label7);
-            this.guna2GradientPanel2.Controls.Add(this.label4);
-            this.guna2GradientPanel2.Controls.Add(this.label6);
-            this.guna2GradientPanel2.Controls.Add(this.label5);
+            this.guna2GradientPanel2.Controls.Add(this.totalBonusLabel);
+            this.guna2GradientPanel2.Controls.Add(this.totalPensionLabel);
+            this.guna2GradientPanel2.Controls.Add(this.totalTaxLabel);
+            this.guna2GradientPanel2.Controls.Add(this.totalNetLabel);
             this.guna2GradientPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(70)))), ((int)(((byte)(115)))));
             this.guna2GradientPanel2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
             this.guna2GradientPanel2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
@@ -236,76 +236,77 @@ namespace Linkup_Finance.Forms
             this.guna2GradientPanel2.Size = new System.Drawing.Size(589, 29);
             this.guna2GradientPanel2.TabIndex = 0;
             // 
-            // label7
+            // totalBonusLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(3, 10);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(128, 13);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Total Bonus: 1000000000";
+            this.totalBonusLabel.AutoSize = true;
+            this.totalBonusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalBonusLabel.ForeColor = System.Drawing.Color.White;
+            this.totalBonusLabel.Location = new System.Drawing.Point(3, 10);
+            this.totalBonusLabel.Name = "totalBonusLabel";
+            this.totalBonusLabel.Size = new System.Drawing.Size(128, 13);
+            this.totalBonusLabel.TabIndex = 6;
+            this.totalBonusLabel.Text = "Total Bonus: 1000000000";
             // 
-            // label4
+            // totalPensionLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(435, 10);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Total Pension: 1000000000";
+            this.totalPensionLabel.AutoSize = true;
+            this.totalPensionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPensionLabel.ForeColor = System.Drawing.Color.White;
+            this.totalPensionLabel.Location = new System.Drawing.Point(435, 10);
+            this.totalPensionLabel.Name = "totalPensionLabel";
+            this.totalPensionLabel.Size = new System.Drawing.Size(136, 13);
+            this.totalPensionLabel.TabIndex = 3;
+            this.totalPensionLabel.Text = "Total Pension: 1000000000";
             // 
-            // label6
+            // totalTaxLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(137, 10);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Total Income Tax: 1000000000";
+            this.totalTaxLabel.AutoSize = true;
+            this.totalTaxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTaxLabel.ForeColor = System.Drawing.Color.White;
+            this.totalTaxLabel.Location = new System.Drawing.Point(137, 10);
+            this.totalTaxLabel.Name = "totalTaxLabel";
+            this.totalTaxLabel.Size = new System.Drawing.Size(151, 13);
+            this.totalTaxLabel.TabIndex = 5;
+            this.totalTaxLabel.Text = "Total Income Tax: 1000000000";
             // 
-            // label5
+            // totalNetLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(294, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(135, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Total Net Pay: 1000000000";
+            this.totalNetLabel.AutoSize = true;
+            this.totalNetLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalNetLabel.ForeColor = System.Drawing.Color.White;
+            this.totalNetLabel.Location = new System.Drawing.Point(294, 10);
+            this.totalNetLabel.Name = "totalNetLabel";
+            this.totalNetLabel.Size = new System.Drawing.Size(135, 13);
+            this.totalNetLabel.TabIndex = 4;
+            this.totalNetLabel.Text = "Total Net Pay: 1000000000";
             // 
-            // guna2DateTimePicker1
+            // payrollDateSelection
             // 
-            this.guna2DateTimePicker1.BorderRadius = 5;
-            this.guna2DateTimePicker1.CheckedState.Parent = this.guna2DateTimePicker1;
-            this.guna2DateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.guna2DateTimePicker1.HoverState.Parent = this.guna2DateTimePicker1;
-            this.guna2DateTimePicker1.Location = new System.Drawing.Point(183, 13);
-            this.guna2DateTimePicker1.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.guna2DateTimePicker1.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.guna2DateTimePicker1.Name = "guna2DateTimePicker1";
-            this.guna2DateTimePicker1.ShadowDecoration.Parent = this.guna2DateTimePicker1;
-            this.guna2DateTimePicker1.Size = new System.Drawing.Size(222, 36);
-            this.guna2DateTimePicker1.TabIndex = 22;
-            this.guna2DateTimePicker1.Value = new System.DateTime(2021, 9, 19, 20, 28, 51, 470);
+            this.payrollDateSelection.BorderRadius = 5;
+            this.payrollDateSelection.CheckedState.Parent = this.payrollDateSelection;
+            this.payrollDateSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.payrollDateSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.payrollDateSelection.HoverState.Parent = this.payrollDateSelection;
+            this.payrollDateSelection.Location = new System.Drawing.Point(183, 13);
+            this.payrollDateSelection.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.payrollDateSelection.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.payrollDateSelection.Name = "payrollDateSelection";
+            this.payrollDateSelection.ShadowDecoration.Parent = this.payrollDateSelection;
+            this.payrollDateSelection.Size = new System.Drawing.Size(222, 36);
+            this.payrollDateSelection.TabIndex = 22;
+            this.payrollDateSelection.Value = new System.DateTime(2021, 9, 19, 20, 28, 51, 470);
+            this.payrollDateSelection.ValueChanged += new System.EventHandler(this.payrollDateSelection_ValueChanged);
             // 
-            // label8
+            // paidEmployeesCountLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(70)))), ((int)(((byte)(115)))));
-            this.label8.Location = new System.Drawing.Point(537, 39);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 28);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "7/11";
+            this.paidEmployeesCountLabel.AutoSize = true;
+            this.paidEmployeesCountLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paidEmployeesCountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(70)))), ((int)(((byte)(115)))));
+            this.paidEmployeesCountLabel.Location = new System.Drawing.Point(537, 39);
+            this.paidEmployeesCountLabel.Name = "paidEmployeesCountLabel";
+            this.paidEmployeesCountLabel.Size = new System.Drawing.Size(53, 28);
+            this.paidEmployeesCountLabel.TabIndex = 7;
+            this.paidEmployeesCountLabel.Text = "7/11";
             // 
             // pictureBox1
             // 
@@ -484,16 +485,16 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.Label pettyCashLabel;
         private System.Windows.Forms.Label numBanksLabel;
         private LiveCharts.WinForms.CartesianChart payrollChart;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label totalPensionLabel;
         private System.Windows.Forms.Label employeeAmountLabel;
         private System.Windows.Forms.PictureBox profilePictureBox;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label paidEmployeesCountLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label totalBonusLabel;
+        private System.Windows.Forms.Label totalTaxLabel;
+        private System.Windows.Forms.Label totalNetLabel;
         private System.Windows.Forms.ToolTip employeeToolTip;
-        private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker1;
+        private Guna.UI2.WinForms.Guna2DateTimePicker payrollDateSelection;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel2;
         private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;

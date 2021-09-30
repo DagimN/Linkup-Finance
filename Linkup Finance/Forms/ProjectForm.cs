@@ -1543,7 +1543,7 @@ namespace Linkup_Finance.Forms
 
             if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
                 itemIndex = 9;
-            else if (dataTable is LinkupDatabaseDataSet.BankLogsDataTable)
+            else if (dataTable is LinkupDatabaseDataSet.BankLogsDataTable || dataTable is LinkupDatabaseDataSet.EmployeeLogsDataTable)
                 itemIndex = 6;
             else
                 itemIndex = 8;
