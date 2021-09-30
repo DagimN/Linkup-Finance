@@ -54,6 +54,8 @@ namespace Linkup_Finance.Forms
             this.toIncomeDateLabel = new System.Windows.Forms.Label();
             this.fromIncomeDateLabel = new System.Windows.Forms.Label();
             this.newIncomePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.incomeTypeComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.incomeTypeLabel = new System.Windows.Forms.Label();
             this.incomeTinTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.incomeTinLabel = new System.Windows.Forms.Label();
             this.incomeBankComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -78,18 +80,6 @@ namespace Linkup_Finance.Forms
             this.zoomIncomeNumericUpDown = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.zoomIncomeTrackBar = new Guna.UI2.WinForms.Guna2TrackBar();
             this.incomeDataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.payerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grossDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vATDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.withholdingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.receiptDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reasonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.attachementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.incomeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.linkupDatabaseDataSet = new Linkup_Finance.LinkupDatabaseDataSet();
             this.filterLabel = new System.Windows.Forms.Label();
@@ -135,20 +125,6 @@ namespace Linkup_Finance.Forms
             this.newExpenseButton = new Guna.UI2.WinForms.Guna2Button();
             this.expenseChart = new LiveCharts.WinForms.CartesianChart();
             this.expenseDataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.expNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bankDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vATDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.withholdingDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.receiptDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reasonDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.attachementDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tinDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.balanceTabPage = new System.Windows.Forms.TabPage();
             this.newBankPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -192,16 +168,6 @@ namespace Linkup_Finance.Forms
             this.newBankButton = new Guna.UI2.WinForms.Guna2Button();
             this.payrollTabPage = new System.Windows.Forms.TabPage();
             this.guna2DataGridView4 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.removeProjectButton = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.exitSubmissionButton = new Guna.UI2.WinForms.Guna2Button();
-            this.projectsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.projectsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter();
-            this.banksTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.BanksTableAdapter();
-            this.bankLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.BankLogsTableAdapter();
-            this.incomeTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter();
-            this.expenseTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ExpenseTableAdapter();
-            this.employeeLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.salaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -210,6 +176,45 @@ namespace Linkup_Finance.Forms
             this.pension11DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.taxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.netDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeLogsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.removeProjectButton = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.exitSubmissionButton = new Guna.UI2.WinForms.Guna2Button();
+            this.projectsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.projectsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ProjectsTableAdapter();
+            this.banksTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.BanksTableAdapter();
+            this.bankLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.BankLogsTableAdapter();
+            this.incomeTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter();
+            this.expenseTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ExpenseTableAdapter();
+            this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
+            this.payerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.grossDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vATDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.withholdingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.netDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.receiptDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reasonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.attachementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Project = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tinDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.incomeType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expenseTypeComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.expenseTypeLabel = new System.Windows.Forms.Label();
+            this.expNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vATDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.withholdingDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.receiptDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reasonDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.attachementDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tinDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerTabControl.SuspendLayout();
             this.incomeTabPage.SuspendLayout();
             this.newIncomePanel.SuspendLayout();
@@ -229,8 +234,8 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.bankLogsBindingSource)).BeginInit();
             this.payrollTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // newProjectButton
@@ -468,6 +473,8 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.newIncomePanel.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.newIncomePanel.BorderRadius = 10;
+            this.newIncomePanel.Controls.Add(this.incomeTypeComboBox);
+            this.newIncomePanel.Controls.Add(this.incomeTypeLabel);
             this.newIncomePanel.Controls.Add(this.incomeTinTextBox);
             this.newIncomePanel.Controls.Add(this.incomeTinLabel);
             this.newIncomePanel.Controls.Add(this.incomeBankComboBox);
@@ -496,6 +503,41 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.TabIndex = 12;
             this.newIncomePanel.Visible = false;
             // 
+            // incomeTypeComboBox
+            // 
+            this.incomeTypeComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.incomeTypeComboBox.BorderColor = System.Drawing.Color.Black;
+            this.incomeTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.incomeTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.incomeTypeComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.incomeTypeComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.incomeTypeComboBox.FocusedState.Parent = this.incomeTypeComboBox;
+            this.incomeTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.incomeTypeComboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.incomeTypeComboBox.HoverState.Parent = this.incomeTypeComboBox;
+            this.incomeTypeComboBox.ItemHeight = 25;
+            this.incomeTypeComboBox.Items.AddRange(new object[] {
+            "None",
+            "Goods",
+            "Service"});
+            this.incomeTypeComboBox.ItemsAppearance.Parent = this.incomeTypeComboBox;
+            this.incomeTypeComboBox.Location = new System.Drawing.Point(100, 246);
+            this.incomeTypeComboBox.Name = "incomeTypeComboBox";
+            this.incomeTypeComboBox.ShadowDecoration.Parent = this.incomeTypeComboBox;
+            this.incomeTypeComboBox.Size = new System.Drawing.Size(201, 31);
+            this.incomeTypeComboBox.TabIndex = 30;
+            // 
+            // incomeTypeLabel
+            // 
+            this.incomeTypeLabel.AutoSize = true;
+            this.incomeTypeLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.incomeTypeLabel.ForeColor = System.Drawing.Color.Black;
+            this.incomeTypeLabel.Location = new System.Drawing.Point(46, 255);
+            this.incomeTypeLabel.Name = "incomeTypeLabel";
+            this.incomeTypeLabel.Size = new System.Drawing.Size(41, 18);
+            this.incomeTypeLabel.TabIndex = 29;
+            this.incomeTypeLabel.Text = "Type:";
+            // 
             // incomeTinTextBox
             // 
             this.incomeTinTextBox.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -511,7 +553,7 @@ namespace Linkup_Finance.Forms
             this.incomeTinTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.incomeTinTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.incomeTinTextBox.HoverState.Parent = this.incomeTinTextBox;
-            this.incomeTinTextBox.Location = new System.Drawing.Point(101, 228);
+            this.incomeTinTextBox.Location = new System.Drawing.Point(101, 200);
             this.incomeTinTextBox.Name = "incomeTinTextBox";
             this.incomeTinTextBox.PasswordChar = '\0';
             this.incomeTinTextBox.PlaceholderText = "Tin Number";
@@ -525,7 +567,7 @@ namespace Linkup_Finance.Forms
             this.incomeTinLabel.AutoSize = true;
             this.incomeTinLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.incomeTinLabel.ForeColor = System.Drawing.Color.Black;
-            this.incomeTinLabel.Location = new System.Drawing.Point(59, 241);
+            this.incomeTinLabel.Location = new System.Drawing.Point(53, 208);
             this.incomeTinLabel.Name = "incomeTinLabel";
             this.incomeTinLabel.Size = new System.Drawing.Size(30, 18);
             this.incomeTinLabel.TabIndex = 27;
@@ -545,7 +587,7 @@ namespace Linkup_Finance.Forms
             this.incomeBankComboBox.HoverState.Parent = this.incomeBankComboBox;
             this.incomeBankComboBox.ItemHeight = 25;
             this.incomeBankComboBox.ItemsAppearance.Parent = this.incomeBankComboBox;
-            this.incomeBankComboBox.Location = new System.Drawing.Point(101, 131);
+            this.incomeBankComboBox.Location = new System.Drawing.Point(101, 107);
             this.incomeBankComboBox.Name = "incomeBankComboBox";
             this.incomeBankComboBox.ShadowDecoration.Parent = this.incomeBankComboBox;
             this.incomeBankComboBox.Size = new System.Drawing.Size(201, 31);
@@ -645,6 +687,7 @@ namespace Linkup_Finance.Forms
             // 
             // nonreceiptIncomeRadioButton
             // 
+            this.nonreceiptIncomeRadioButton.Animated = true;
             this.nonreceiptIncomeRadioButton.AutoSize = true;
             this.nonreceiptIncomeRadioButton.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.nonreceiptIncomeRadioButton.CheckedState.BorderThickness = 0;
@@ -663,6 +706,7 @@ namespace Linkup_Finance.Forms
             // 
             // receiptIncomeRadioButton
             // 
+            this.receiptIncomeRadioButton.Animated = true;
             this.receiptIncomeRadioButton.AutoSize = true;
             this.receiptIncomeRadioButton.Checked = true;
             this.receiptIncomeRadioButton.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
@@ -696,7 +740,7 @@ namespace Linkup_Finance.Forms
             this.grossIncomeTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grossIncomeTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.grossIncomeTextBox.HoverState.Parent = this.grossIncomeTextBox;
-            this.grossIncomeTextBox.Location = new System.Drawing.Point(101, 180);
+            this.grossIncomeTextBox.Location = new System.Drawing.Point(101, 154);
             this.grossIncomeTextBox.Name = "grossIncomeTextBox";
             this.grossIncomeTextBox.PasswordChar = '\0';
             this.grossIncomeTextBox.PlaceholderText = "Gross";
@@ -710,7 +754,7 @@ namespace Linkup_Finance.Forms
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(48, 193);
+            this.label6.Location = new System.Drawing.Point(42, 161);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(47, 18);
             this.label6.TabIndex = 9;
@@ -721,7 +765,7 @@ namespace Linkup_Finance.Forms
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(53, 145);
+            this.label5.Location = new System.Drawing.Point(47, 114);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 18);
             this.label5.TabIndex = 7;
@@ -778,7 +822,7 @@ namespace Linkup_Finance.Forms
             this.nameIncomeTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.nameIncomeTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.nameIncomeTextBox.HoverState.Parent = this.nameIncomeTextBox;
-            this.nameIncomeTextBox.Location = new System.Drawing.Point(101, 83);
+            this.nameIncomeTextBox.Location = new System.Drawing.Point(101, 61);
             this.nameIncomeTextBox.Name = "nameIncomeTextBox";
             this.nameIncomeTextBox.PasswordChar = '\0';
             this.nameIncomeTextBox.PlaceholderText = "Name";
@@ -792,7 +836,7 @@ namespace Linkup_Finance.Forms
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(48, 96);
+            this.label3.Location = new System.Drawing.Point(42, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 18);
             this.label3.TabIndex = 2;
@@ -911,7 +955,8 @@ namespace Linkup_Finance.Forms
             this.dateDataGridViewTextBoxColumn,
             this.attachementDataGridViewTextBoxColumn,
             this.Project,
-            this.tinDataGridViewTextBoxColumn});
+            this.tinDataGridViewTextBoxColumn,
+            this.incomeType});
             this.incomeDataGridView.DataSource = this.incomeBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
@@ -951,79 +996,6 @@ namespace Linkup_Finance.Forms
             this.incomeDataGridView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.incomeDataGridView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.incomeDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.incomeDataGridView_CellContentClick);
-            // 
-            // payerDataGridViewTextBoxColumn
-            // 
-            this.payerDataGridViewTextBoxColumn.DataPropertyName = "Payer ";
-            this.payerDataGridViewTextBoxColumn.HeaderText = "Payer ";
-            this.payerDataGridViewTextBoxColumn.Name = "payerDataGridViewTextBoxColumn";
-            // 
-            // bankDataGridViewTextBoxColumn
-            // 
-            this.bankDataGridViewTextBoxColumn.DataPropertyName = "Bank";
-            this.bankDataGridViewTextBoxColumn.HeaderText = "Bank";
-            this.bankDataGridViewTextBoxColumn.Name = "bankDataGridViewTextBoxColumn";
-            // 
-            // grossDataGridViewTextBoxColumn
-            // 
-            this.grossDataGridViewTextBoxColumn.DataPropertyName = "Gross";
-            this.grossDataGridViewTextBoxColumn.HeaderText = "Gross";
-            this.grossDataGridViewTextBoxColumn.Name = "grossDataGridViewTextBoxColumn";
-            // 
-            // vATDataGridViewTextBoxColumn
-            // 
-            this.vATDataGridViewTextBoxColumn.DataPropertyName = "VAT";
-            this.vATDataGridViewTextBoxColumn.HeaderText = "VAT";
-            this.vATDataGridViewTextBoxColumn.Name = "vATDataGridViewTextBoxColumn";
-            // 
-            // withholdingDataGridViewTextBoxColumn
-            // 
-            this.withholdingDataGridViewTextBoxColumn.DataPropertyName = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn.HeaderText = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn.Name = "withholdingDataGridViewTextBoxColumn";
-            // 
-            // netDataGridViewTextBoxColumn
-            // 
-            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
-            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
-            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
-            // 
-            // receiptDataGridViewTextBoxColumn
-            // 
-            this.receiptDataGridViewTextBoxColumn.DataPropertyName = "Receipt";
-            this.receiptDataGridViewTextBoxColumn.HeaderText = "Receipt";
-            this.receiptDataGridViewTextBoxColumn.Name = "receiptDataGridViewTextBoxColumn";
-            // 
-            // reasonDataGridViewTextBoxColumn
-            // 
-            this.reasonDataGridViewTextBoxColumn.DataPropertyName = "Reason";
-            this.reasonDataGridViewTextBoxColumn.HeaderText = "Reason";
-            this.reasonDataGridViewTextBoxColumn.Name = "reasonDataGridViewTextBoxColumn";
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            // 
-            // attachementDataGridViewTextBoxColumn
-            // 
-            this.attachementDataGridViewTextBoxColumn.DataPropertyName = "Attachement";
-            this.attachementDataGridViewTextBoxColumn.HeaderText = "Attachement";
-            this.attachementDataGridViewTextBoxColumn.Name = "attachementDataGridViewTextBoxColumn";
-            // 
-            // Project
-            // 
-            this.Project.DataPropertyName = "Project";
-            this.Project.HeaderText = "Project";
-            this.Project.Name = "Project";
-            this.Project.Visible = false;
-            // 
-            // tinDataGridViewTextBoxColumn
-            // 
-            this.tinDataGridViewTextBoxColumn.DataPropertyName = "Tin";
-            this.tinDataGridViewTextBoxColumn.HeaderText = "Tin";
-            this.tinDataGridViewTextBoxColumn.Name = "tinDataGridViewTextBoxColumn";
             // 
             // incomeBindingSource
             // 
@@ -1238,6 +1210,8 @@ namespace Linkup_Finance.Forms
             this.newExpensePanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.newExpensePanel.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.newExpensePanel.BorderRadius = 10;
+            this.newExpensePanel.Controls.Add(this.expenseTypeComboBox);
+            this.newExpensePanel.Controls.Add(this.expenseTypeLabel);
             this.newExpensePanel.Controls.Add(this.expenseTinTextBox);
             this.newExpensePanel.Controls.Add(this.expenseTinLabel);
             this.newExpensePanel.Controls.Add(this.expenseBankComboBox);
@@ -1283,7 +1257,7 @@ namespace Linkup_Finance.Forms
             this.expenseTinTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.expenseTinTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.expenseTinTextBox.HoverState.Parent = this.expenseTinTextBox;
-            this.expenseTinTextBox.Location = new System.Drawing.Point(101, 259);
+            this.expenseTinTextBox.Location = new System.Drawing.Point(102, 211);
             this.expenseTinTextBox.Name = "expenseTinTextBox";
             this.expenseTinTextBox.PasswordChar = '\0';
             this.expenseTinTextBox.PlaceholderText = "Tin Number";
@@ -1297,7 +1271,7 @@ namespace Linkup_Finance.Forms
             this.expenseTinLabel.AutoSize = true;
             this.expenseTinLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.expenseTinLabel.ForeColor = System.Drawing.Color.Black;
-            this.expenseTinLabel.Location = new System.Drawing.Point(59, 272);
+            this.expenseTinLabel.Location = new System.Drawing.Point(66, 223);
             this.expenseTinLabel.Name = "expenseTinLabel";
             this.expenseTinLabel.Size = new System.Drawing.Size(30, 18);
             this.expenseTinLabel.TabIndex = 29;
@@ -1317,7 +1291,7 @@ namespace Linkup_Finance.Forms
             this.expenseBankComboBox.HoverState.Parent = this.expenseBankComboBox;
             this.expenseBankComboBox.ItemHeight = 25;
             this.expenseBankComboBox.ItemsAppearance.Parent = this.expenseBankComboBox;
-            this.expenseBankComboBox.Location = new System.Drawing.Point(101, 105);
+            this.expenseBankComboBox.Location = new System.Drawing.Point(102, 93);
             this.expenseBankComboBox.Name = "expenseBankComboBox";
             this.expenseBankComboBox.ShadowDecoration.Parent = this.expenseBankComboBox;
             this.expenseBankComboBox.Size = new System.Drawing.Size(201, 31);
@@ -1338,7 +1312,7 @@ namespace Linkup_Finance.Forms
             this.productExpenseTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.productExpenseTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.productExpenseTextBox.HoverState.Parent = this.productExpenseTextBox;
-            this.productExpenseTextBox.Location = new System.Drawing.Point(102, 208);
+            this.productExpenseTextBox.Location = new System.Drawing.Point(102, 172);
             this.productExpenseTextBox.Name = "productExpenseTextBox";
             this.productExpenseTextBox.PasswordChar = '\0';
             this.productExpenseTextBox.PlaceholderText = "Product";
@@ -1352,7 +1326,7 @@ namespace Linkup_Finance.Forms
             this.productExpenseLabel.AutoSize = true;
             this.productExpenseLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productExpenseLabel.ForeColor = System.Drawing.Color.Black;
-            this.productExpenseLabel.Location = new System.Drawing.Point(33, 218);
+            this.productExpenseLabel.Location = new System.Drawing.Point(35, 184);
             this.productExpenseLabel.Name = "productExpenseLabel";
             this.productExpenseLabel.Size = new System.Drawing.Size(61, 18);
             this.productExpenseLabel.TabIndex = 23;
@@ -1452,6 +1426,7 @@ namespace Linkup_Finance.Forms
             // 
             // nonreceiptExpenseRadioButton
             // 
+            this.nonreceiptExpenseRadioButton.Animated = true;
             this.nonreceiptExpenseRadioButton.AutoSize = true;
             this.nonreceiptExpenseRadioButton.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.nonreceiptExpenseRadioButton.CheckedState.BorderThickness = 0;
@@ -1470,6 +1445,7 @@ namespace Linkup_Finance.Forms
             // 
             // receiptExpenseRadioButton
             // 
+            this.receiptExpenseRadioButton.Animated = true;
             this.receiptExpenseRadioButton.AutoSize = true;
             this.receiptExpenseRadioButton.Checked = true;
             this.receiptExpenseRadioButton.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
@@ -1503,7 +1479,7 @@ namespace Linkup_Finance.Forms
             this.amountExpenseTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.amountExpenseTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.amountExpenseTextBox.HoverState.Parent = this.amountExpenseTextBox;
-            this.amountExpenseTextBox.Location = new System.Drawing.Point(102, 157);
+            this.amountExpenseTextBox.Location = new System.Drawing.Point(102, 133);
             this.amountExpenseTextBox.Name = "amountExpenseTextBox";
             this.amountExpenseTextBox.PasswordChar = '\0';
             this.amountExpenseTextBox.PlaceholderText = "Amount";
@@ -1517,7 +1493,7 @@ namespace Linkup_Finance.Forms
             this.amountExpenseLabel.AutoSize = true;
             this.amountExpenseLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.amountExpenseLabel.ForeColor = System.Drawing.Color.Black;
-            this.amountExpenseLabel.Location = new System.Drawing.Point(33, 168);
+            this.amountExpenseLabel.Location = new System.Drawing.Point(33, 145);
             this.amountExpenseLabel.Name = "amountExpenseLabel";
             this.amountExpenseLabel.Size = new System.Drawing.Size(63, 18);
             this.amountExpenseLabel.TabIndex = 9;
@@ -1528,7 +1504,7 @@ namespace Linkup_Finance.Forms
             this.bankExpenseLabel.AutoSize = true;
             this.bankExpenseLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bankExpenseLabel.ForeColor = System.Drawing.Color.Black;
-            this.bankExpenseLabel.Location = new System.Drawing.Point(54, 118);
+            this.bankExpenseLabel.Location = new System.Drawing.Point(54, 106);
             this.bankExpenseLabel.Name = "bankExpenseLabel";
             this.bankExpenseLabel.Size = new System.Drawing.Size(42, 18);
             this.bankExpenseLabel.TabIndex = 7;
@@ -1599,7 +1575,7 @@ namespace Linkup_Finance.Forms
             this.nameExpenseLabel.AutoSize = true;
             this.nameExpenseLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameExpenseLabel.ForeColor = System.Drawing.Color.Black;
-            this.nameExpenseLabel.Location = new System.Drawing.Point(47, 62);
+            this.nameExpenseLabel.Location = new System.Drawing.Point(47, 66);
             this.nameExpenseLabel.Name = "nameExpenseLabel";
             this.nameExpenseLabel.Size = new System.Drawing.Size(49, 18);
             this.nameExpenseLabel.TabIndex = 2;
@@ -1861,91 +1837,6 @@ namespace Linkup_Finance.Forms
             this.expenseDataGridView.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.expenseDataGridView.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.expenseDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.expenseDataGridView_CellContentClick);
-            // 
-            // expNameDataGridViewTextBoxColumn
-            // 
-            this.expNameDataGridViewTextBoxColumn.DataPropertyName = "ExpName";
-            this.expNameDataGridViewTextBoxColumn.HeaderText = "ExpName";
-            this.expNameDataGridViewTextBoxColumn.Name = "expNameDataGridViewTextBoxColumn";
-            // 
-            // productDataGridViewTextBoxColumn
-            // 
-            this.productDataGridViewTextBoxColumn.DataPropertyName = "Product";
-            this.productDataGridViewTextBoxColumn.HeaderText = "Product";
-            this.productDataGridViewTextBoxColumn.Name = "productDataGridViewTextBoxColumn";
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            // 
-            // bankDataGridViewTextBoxColumn1
-            // 
-            this.bankDataGridViewTextBoxColumn1.DataPropertyName = "Bank";
-            this.bankDataGridViewTextBoxColumn1.HeaderText = "Bank";
-            this.bankDataGridViewTextBoxColumn1.Name = "bankDataGridViewTextBoxColumn1";
-            // 
-            // amountDataGridViewTextBoxColumn
-            // 
-            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
-            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
-            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
-            // 
-            // vATDataGridViewTextBoxColumn1
-            // 
-            this.vATDataGridViewTextBoxColumn1.DataPropertyName = "VAT";
-            this.vATDataGridViewTextBoxColumn1.HeaderText = "VAT";
-            this.vATDataGridViewTextBoxColumn1.Name = "vATDataGridViewTextBoxColumn1";
-            // 
-            // withholdingDataGridViewTextBoxColumn1
-            // 
-            this.withholdingDataGridViewTextBoxColumn1.DataPropertyName = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn1.HeaderText = "Withholding";
-            this.withholdingDataGridViewTextBoxColumn1.Name = "withholdingDataGridViewTextBoxColumn1";
-            // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            // 
-            // receiptDataGridViewTextBoxColumn1
-            // 
-            this.receiptDataGridViewTextBoxColumn1.DataPropertyName = "Receipt";
-            this.receiptDataGridViewTextBoxColumn1.HeaderText = "Receipt";
-            this.receiptDataGridViewTextBoxColumn1.Name = "receiptDataGridViewTextBoxColumn1";
-            // 
-            // reasonDataGridViewTextBoxColumn1
-            // 
-            this.reasonDataGridViewTextBoxColumn1.DataPropertyName = "Reason";
-            this.reasonDataGridViewTextBoxColumn1.HeaderText = "Reason";
-            this.reasonDataGridViewTextBoxColumn1.Name = "reasonDataGridViewTextBoxColumn1";
-            // 
-            // dateDataGridViewTextBoxColumn1
-            // 
-            this.dateDataGridViewTextBoxColumn1.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn1.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn1.Name = "dateDataGridViewTextBoxColumn1";
-            // 
-            // attachementDataGridViewTextBoxColumn1
-            // 
-            this.attachementDataGridViewTextBoxColumn1.DataPropertyName = "Attachement";
-            this.attachementDataGridViewTextBoxColumn1.HeaderText = "Attachement";
-            this.attachementDataGridViewTextBoxColumn1.Name = "attachementDataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Project";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Project";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // tinDataGridViewTextBoxColumn1
-            // 
-            this.tinDataGridViewTextBoxColumn1.DataPropertyName = "Tin";
-            this.tinDataGridViewTextBoxColumn1.HeaderText = "Tin";
-            this.tinDataGridViewTextBoxColumn1.Name = "tinDataGridViewTextBoxColumn1";
             // 
             // expenseBindingSource
             // 
@@ -2710,6 +2601,59 @@ namespace Linkup_Finance.Forms
             this.guna2DataGridView4.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView4.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // dateDataGridViewTextBoxColumn3
+            // 
+            this.dateDataGridViewTextBoxColumn3.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn3.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn3.Name = "dateDataGridViewTextBoxColumn3";
+            // 
+            // salaryDataGridViewTextBoxColumn
+            // 
+            this.salaryDataGridViewTextBoxColumn.DataPropertyName = "Salary";
+            this.salaryDataGridViewTextBoxColumn.HeaderText = "Salary";
+            this.salaryDataGridViewTextBoxColumn.Name = "salaryDataGridViewTextBoxColumn";
+            // 
+            // bonusDataGridViewTextBoxColumn
+            // 
+            this.bonusDataGridViewTextBoxColumn.DataPropertyName = "Bonus";
+            this.bonusDataGridViewTextBoxColumn.HeaderText = "Bonus";
+            this.bonusDataGridViewTextBoxColumn.Name = "bonusDataGridViewTextBoxColumn";
+            // 
+            // pension7DataGridViewTextBoxColumn
+            // 
+            this.pension7DataGridViewTextBoxColumn.DataPropertyName = "Pension7";
+            this.pension7DataGridViewTextBoxColumn.HeaderText = "Pension(7%)";
+            this.pension7DataGridViewTextBoxColumn.Name = "pension7DataGridViewTextBoxColumn";
+            // 
+            // pension11DataGridViewTextBoxColumn
+            // 
+            this.pension11DataGridViewTextBoxColumn.DataPropertyName = "Pension11";
+            this.pension11DataGridViewTextBoxColumn.HeaderText = "Pension(11%)";
+            this.pension11DataGridViewTextBoxColumn.Name = "pension11DataGridViewTextBoxColumn";
+            // 
+            // taxDataGridViewTextBoxColumn
+            // 
+            this.taxDataGridViewTextBoxColumn.DataPropertyName = "Tax";
+            this.taxDataGridViewTextBoxColumn.HeaderText = "Tax";
+            this.taxDataGridViewTextBoxColumn.Name = "taxDataGridViewTextBoxColumn";
+            // 
+            // netDataGridViewTextBoxColumn1
+            // 
+            this.netDataGridViewTextBoxColumn1.DataPropertyName = "Net";
+            this.netDataGridViewTextBoxColumn1.HeaderText = "Net";
+            this.netDataGridViewTextBoxColumn1.Name = "netDataGridViewTextBoxColumn1";
+            // 
+            // employeeLogsBindingSource
+            // 
+            this.employeeLogsBindingSource.DataMember = "EmployeeLogs";
+            this.employeeLogsBindingSource.DataSource = this.linkupDatabaseDataSet;
+            // 
             // removeProjectButton
             // 
             this.removeProjectButton.BackColor = System.Drawing.Color.White;
@@ -2783,62 +2727,212 @@ namespace Linkup_Finance.Forms
             // 
             this.expenseTableAdapter.ClearBeforeFill = true;
             // 
-            // employeeLogsBindingSource
-            // 
-            this.employeeLogsBindingSource.DataMember = "EmployeeLogs";
-            this.employeeLogsBindingSource.DataSource = this.linkupDatabaseDataSet;
-            // 
             // employeeLogsTableAdapter
             // 
             this.employeeLogsTableAdapter.ClearBeforeFill = true;
             // 
-            // nameDataGridViewTextBoxColumn
+            // payerDataGridViewTextBoxColumn
             // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.payerDataGridViewTextBoxColumn.DataPropertyName = "Payer ";
+            this.payerDataGridViewTextBoxColumn.HeaderText = "Payer ";
+            this.payerDataGridViewTextBoxColumn.Name = "payerDataGridViewTextBoxColumn";
             // 
-            // dateDataGridViewTextBoxColumn3
+            // bankDataGridViewTextBoxColumn
             // 
-            this.dateDataGridViewTextBoxColumn3.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn3.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn3.Name = "dateDataGridViewTextBoxColumn3";
+            this.bankDataGridViewTextBoxColumn.DataPropertyName = "Bank";
+            this.bankDataGridViewTextBoxColumn.HeaderText = "Bank";
+            this.bankDataGridViewTextBoxColumn.Name = "bankDataGridViewTextBoxColumn";
             // 
-            // salaryDataGridViewTextBoxColumn
+            // grossDataGridViewTextBoxColumn
             // 
-            this.salaryDataGridViewTextBoxColumn.DataPropertyName = "Salary";
-            this.salaryDataGridViewTextBoxColumn.HeaderText = "Salary";
-            this.salaryDataGridViewTextBoxColumn.Name = "salaryDataGridViewTextBoxColumn";
+            this.grossDataGridViewTextBoxColumn.DataPropertyName = "Gross";
+            this.grossDataGridViewTextBoxColumn.HeaderText = "Gross";
+            this.grossDataGridViewTextBoxColumn.Name = "grossDataGridViewTextBoxColumn";
             // 
-            // bonusDataGridViewTextBoxColumn
+            // vATDataGridViewTextBoxColumn
             // 
-            this.bonusDataGridViewTextBoxColumn.DataPropertyName = "Bonus";
-            this.bonusDataGridViewTextBoxColumn.HeaderText = "Bonus";
-            this.bonusDataGridViewTextBoxColumn.Name = "bonusDataGridViewTextBoxColumn";
+            this.vATDataGridViewTextBoxColumn.DataPropertyName = "VAT";
+            this.vATDataGridViewTextBoxColumn.HeaderText = "VAT";
+            this.vATDataGridViewTextBoxColumn.Name = "vATDataGridViewTextBoxColumn";
             // 
-            // pension7DataGridViewTextBoxColumn
+            // withholdingDataGridViewTextBoxColumn
             // 
-            this.pension7DataGridViewTextBoxColumn.DataPropertyName = "Pension7";
-            this.pension7DataGridViewTextBoxColumn.HeaderText = "Pension(7%)";
-            this.pension7DataGridViewTextBoxColumn.Name = "pension7DataGridViewTextBoxColumn";
+            this.withholdingDataGridViewTextBoxColumn.DataPropertyName = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn.HeaderText = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn.Name = "withholdingDataGridViewTextBoxColumn";
             // 
-            // pension11DataGridViewTextBoxColumn
+            // netDataGridViewTextBoxColumn
             // 
-            this.pension11DataGridViewTextBoxColumn.DataPropertyName = "Pension11";
-            this.pension11DataGridViewTextBoxColumn.HeaderText = "Pension(11%)";
-            this.pension11DataGridViewTextBoxColumn.Name = "pension11DataGridViewTextBoxColumn";
+            this.netDataGridViewTextBoxColumn.DataPropertyName = "Net";
+            this.netDataGridViewTextBoxColumn.HeaderText = "Net";
+            this.netDataGridViewTextBoxColumn.Name = "netDataGridViewTextBoxColumn";
             // 
-            // taxDataGridViewTextBoxColumn
+            // receiptDataGridViewTextBoxColumn
             // 
-            this.taxDataGridViewTextBoxColumn.DataPropertyName = "Tax";
-            this.taxDataGridViewTextBoxColumn.HeaderText = "Tax";
-            this.taxDataGridViewTextBoxColumn.Name = "taxDataGridViewTextBoxColumn";
+            this.receiptDataGridViewTextBoxColumn.DataPropertyName = "Receipt";
+            this.receiptDataGridViewTextBoxColumn.HeaderText = "Receipt";
+            this.receiptDataGridViewTextBoxColumn.Name = "receiptDataGridViewTextBoxColumn";
             // 
-            // netDataGridViewTextBoxColumn1
+            // reasonDataGridViewTextBoxColumn
             // 
-            this.netDataGridViewTextBoxColumn1.DataPropertyName = "Net";
-            this.netDataGridViewTextBoxColumn1.HeaderText = "Net";
-            this.netDataGridViewTextBoxColumn1.Name = "netDataGridViewTextBoxColumn1";
+            this.reasonDataGridViewTextBoxColumn.DataPropertyName = "Reason";
+            this.reasonDataGridViewTextBoxColumn.HeaderText = "Reason";
+            this.reasonDataGridViewTextBoxColumn.Name = "reasonDataGridViewTextBoxColumn";
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            // 
+            // attachementDataGridViewTextBoxColumn
+            // 
+            this.attachementDataGridViewTextBoxColumn.DataPropertyName = "Attachement";
+            this.attachementDataGridViewTextBoxColumn.HeaderText = "Attachement";
+            this.attachementDataGridViewTextBoxColumn.Name = "attachementDataGridViewTextBoxColumn";
+            this.attachementDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.attachementDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Project
+            // 
+            this.Project.DataPropertyName = "Project";
+            this.Project.HeaderText = "Project";
+            this.Project.Name = "Project";
+            this.Project.Visible = false;
+            // 
+            // tinDataGridViewTextBoxColumn
+            // 
+            this.tinDataGridViewTextBoxColumn.DataPropertyName = "Tin";
+            this.tinDataGridViewTextBoxColumn.HeaderText = "Tin";
+            this.tinDataGridViewTextBoxColumn.Name = "tinDataGridViewTextBoxColumn";
+            // 
+            // incomeType
+            // 
+            this.incomeType.DataPropertyName = "Type";
+            this.incomeType.HeaderText = "Type";
+            this.incomeType.Name = "incomeType";
+            // 
+            // expenseTypeComboBox
+            // 
+            this.expenseTypeComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.expenseTypeComboBox.BorderColor = System.Drawing.Color.Black;
+            this.expenseTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.expenseTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.expenseTypeComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.expenseTypeComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.expenseTypeComboBox.FocusedState.Parent = this.expenseTypeComboBox;
+            this.expenseTypeComboBox.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.expenseTypeComboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.expenseTypeComboBox.HoverState.Parent = this.expenseTypeComboBox;
+            this.expenseTypeComboBox.ItemHeight = 25;
+            this.expenseTypeComboBox.Items.AddRange(new object[] {
+            "None",
+            "Goods",
+            "Service"});
+            this.expenseTypeComboBox.ItemsAppearance.Parent = this.expenseTypeComboBox;
+            this.expenseTypeComboBox.Location = new System.Drawing.Point(102, 250);
+            this.expenseTypeComboBox.Name = "expenseTypeComboBox";
+            this.expenseTypeComboBox.ShadowDecoration.Parent = this.expenseTypeComboBox;
+            this.expenseTypeComboBox.Size = new System.Drawing.Size(201, 31);
+            this.expenseTypeComboBox.TabIndex = 32;
+            // 
+            // expenseTypeLabel
+            // 
+            this.expenseTypeLabel.AutoSize = true;
+            this.expenseTypeLabel.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expenseTypeLabel.ForeColor = System.Drawing.Color.Black;
+            this.expenseTypeLabel.Location = new System.Drawing.Point(55, 263);
+            this.expenseTypeLabel.Name = "expenseTypeLabel";
+            this.expenseTypeLabel.Size = new System.Drawing.Size(41, 18);
+            this.expenseTypeLabel.TabIndex = 31;
+            this.expenseTypeLabel.Text = "Type:";
+            // 
+            // expNameDataGridViewTextBoxColumn
+            // 
+            this.expNameDataGridViewTextBoxColumn.DataPropertyName = "ExpName";
+            this.expNameDataGridViewTextBoxColumn.HeaderText = "ExpName";
+            this.expNameDataGridViewTextBoxColumn.Name = "expNameDataGridViewTextBoxColumn";
+            // 
+            // productDataGridViewTextBoxColumn
+            // 
+            this.productDataGridViewTextBoxColumn.DataPropertyName = "Product";
+            this.productDataGridViewTextBoxColumn.HeaderText = "Product";
+            this.productDataGridViewTextBoxColumn.Name = "productDataGridViewTextBoxColumn";
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            // 
+            // bankDataGridViewTextBoxColumn1
+            // 
+            this.bankDataGridViewTextBoxColumn1.DataPropertyName = "Bank";
+            this.bankDataGridViewTextBoxColumn1.HeaderText = "Bank";
+            this.bankDataGridViewTextBoxColumn1.Name = "bankDataGridViewTextBoxColumn1";
+            // 
+            // amountDataGridViewTextBoxColumn
+            // 
+            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
+            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
+            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
+            // 
+            // vATDataGridViewTextBoxColumn1
+            // 
+            this.vATDataGridViewTextBoxColumn1.DataPropertyName = "VAT";
+            this.vATDataGridViewTextBoxColumn1.HeaderText = "VAT";
+            this.vATDataGridViewTextBoxColumn1.Name = "vATDataGridViewTextBoxColumn1";
+            // 
+            // withholdingDataGridViewTextBoxColumn1
+            // 
+            this.withholdingDataGridViewTextBoxColumn1.DataPropertyName = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn1.HeaderText = "Withholding";
+            this.withholdingDataGridViewTextBoxColumn1.Name = "withholdingDataGridViewTextBoxColumn1";
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            // 
+            // receiptDataGridViewTextBoxColumn1
+            // 
+            this.receiptDataGridViewTextBoxColumn1.DataPropertyName = "Receipt";
+            this.receiptDataGridViewTextBoxColumn1.HeaderText = "Receipt";
+            this.receiptDataGridViewTextBoxColumn1.Name = "receiptDataGridViewTextBoxColumn1";
+            // 
+            // reasonDataGridViewTextBoxColumn1
+            // 
+            this.reasonDataGridViewTextBoxColumn1.DataPropertyName = "Reason";
+            this.reasonDataGridViewTextBoxColumn1.HeaderText = "Reason";
+            this.reasonDataGridViewTextBoxColumn1.Name = "reasonDataGridViewTextBoxColumn1";
+            // 
+            // dateDataGridViewTextBoxColumn1
+            // 
+            this.dateDataGridViewTextBoxColumn1.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn1.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn1.Name = "dateDataGridViewTextBoxColumn1";
+            // 
+            // attachementDataGridViewTextBoxColumn1
+            // 
+            this.attachementDataGridViewTextBoxColumn1.DataPropertyName = "Attachement";
+            this.attachementDataGridViewTextBoxColumn1.HeaderText = "Attachement";
+            this.attachementDataGridViewTextBoxColumn1.Name = "attachementDataGridViewTextBoxColumn1";
+            this.attachementDataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.attachementDataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Project";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Project";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // tinDataGridViewTextBoxColumn1
+            // 
+            this.tinDataGridViewTextBoxColumn1.DataPropertyName = "Tin";
+            this.tinDataGridViewTextBoxColumn1.HeaderText = "Tin";
+            this.tinDataGridViewTextBoxColumn1.Name = "tinDataGridViewTextBoxColumn1";
             // 
             // ProjectForm
             // 
@@ -2885,8 +2979,8 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.bankLogsBindingSource)).EndInit();
             this.payrollTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3015,32 +3109,6 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.BindingSource expenseBindingSource;
         public LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter incomeTableAdapter;
         public LinkupDatabaseDataSetTableAdapters.ExpenseTableAdapter expenseTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn payerDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bankDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn grossDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vATDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn withholdingDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn netDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn receiptDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reasonDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn attachementDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Project;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tinDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn expNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bankDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn amountDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vATDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn withholdingDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn receiptDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reasonDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn attachementDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tinDataGridViewTextBoxColumn1;
         public Guna.UI2.WinForms.Guna2ComboBox projectOption;
         public Guna.UI2.WinForms.Guna2Button newProjectButton;
         public Guna.UI2.WinForms.Guna2Button newIncomeButton;
@@ -3061,5 +3129,36 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn pension11DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn taxDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn netDataGridViewTextBoxColumn1;
+        private Guna.UI2.WinForms.Guna2ComboBox incomeTypeComboBox;
+        private System.Windows.Forms.Label incomeTypeLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn payerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bankDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn grossDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vATDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn withholdingDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn netDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn receiptDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reasonDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewLinkColumn attachementDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Project;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tinDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn incomeType;
+        private Guna.UI2.WinForms.Guna2ComboBox expenseTypeComboBox;
+        private System.Windows.Forms.Label expenseTypeLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn expNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bankDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn amountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vATDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn withholdingDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn receiptDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reasonDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewLinkColumn attachementDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tinDataGridViewTextBoxColumn1;
     }
 }

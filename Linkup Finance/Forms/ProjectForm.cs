@@ -30,6 +30,7 @@ namespace Linkup_Finance.Forms
         //TODO: Fix the petty cash replenish button (incorrect value being added)
         //TODO: In the expense tab, when inserting a new expense, give an option of either a goods or service. If the former is picked,
         //withholding will be cut with a value of 10000 and above, and if the latter is picked, withholding will be cut with a value of 3000 and above 
+        //TODO: Give maximum bounds for the date selectors
         public ProjectManager projectManager;
         private DashboardForm dashboardForm;
         public BankManager bankManager;
@@ -681,6 +682,8 @@ namespace Linkup_Finance.Forms
         {
             newExpensePanel.Visible = true;
 
+            expenseTypeComboBox.Text = "None";
+
             foreach(string bank in bankOptionBox.Items)
                 expenseBankComboBox.Items.Add(bank);
 
@@ -695,7 +698,6 @@ namespace Linkup_Finance.Forms
 
         private void submitExpenseButton_Click(object sender, EventArgs e)
         {
-            //TODO: Use bank object to classify which it is and implement submit log
             Project project = (Project)projectOption.Tag;
            
             string name = nameExpenseTextBox.Text;
@@ -712,6 +714,7 @@ namespace Linkup_Finance.Forms
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
             string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Expense", folderName) : null;
+            string type = expenseTypeComboBox.Text;
 
             newExpensePanel.Controls.Remove(expenseErrorChip);
             expenseErrorChip = new Guna.UI2.WinForms.Guna2Chip
@@ -741,9 +744,7 @@ namespace Linkup_Finance.Forms
                     {
                         if (!(hasReceipt ^ attachements != null))
                         {
-                            //TODO: Implement insertion of data to the expense table in the database
-                           
-                            if (project.AddExpense(name, reason, product, bank, hasReceipt, amount, project.GetProjectName(), date, tin, attachmentDirectory))
+                            if (project.AddExpense(name, reason, product, bank, hasReceipt, amount, project.GetProjectName(), date, tin, type, attachmentDirectory))
                             {
                                 //Associate attachements with entry and store in local machine
                                 if (attachements != null)
@@ -787,6 +788,7 @@ namespace Linkup_Finance.Forms
                                 expenseErrorChip.Visible = false;
                                 expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
                                 LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
+                                dashboardForm.LoadChart(expenseTableAdapter.GetData());
                                 RemoveItems(expenseDataGridView, projectOption.Text);
                             }
                             else
@@ -986,6 +988,8 @@ namespace Linkup_Finance.Forms
         {
             newIncomePanel.Visible = true;
 
+            incomeTypeComboBox.Text = "None";
+
             foreach (string bank in bankOptionBox.Items)
                 incomeBankComboBox.Items.Add(bank);
 
@@ -1023,6 +1027,7 @@ namespace Linkup_Finance.Forms
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
             string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Income",folderName) : null;
+            string type = incomeTypeComboBox.Text;
 
             newIncomePanel.Controls.Remove(incomeErrorChip);
             incomeErrorChip = new Guna.UI2.WinForms.Guna2Chip
@@ -1052,7 +1057,7 @@ namespace Linkup_Finance.Forms
                     {
                         if(!(hasReceipt ^ attachements != null))
                         {
-                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, project.GetProjectName(), date, tin, attachmentDirectory))
+                            if (project.AddIncome(name, reason, bank, hasReceipt, gross, project.GetProjectName(), date, tin, (type != "None") ? type : null, attachmentDirectory))
                             {
                                 //Associate attachements with entry and store in local machine
                                 if (attachements != null)
@@ -1107,6 +1112,7 @@ namespace Linkup_Finance.Forms
                                 incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
                                 RemoveItems(incomeDataGridView, projectOption.Text);
                                 LoadChart(project.GetProjectName() ,incomeTableAdapter.GetData());
+                                dashboardForm.LoadChart(incomeTableAdapter.GetData());
                             }
                             else
                             {

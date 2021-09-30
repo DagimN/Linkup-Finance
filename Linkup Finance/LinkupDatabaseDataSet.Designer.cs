@@ -1181,6 +1181,8 @@ namespace Linkup_Finance {
             
             private global::System.Data.DataColumn columnTin;
             
+            private global::System.Data.DataColumn columnType;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public IncomeDataTable() {
@@ -1320,6 +1322,14 @@ namespace Linkup_Finance {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TypeColumn {
+                get {
+                    return this.columnType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1355,7 +1365,7 @@ namespace Linkup_Finance {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public IncomeRow AddIncomeRow(int Id, string Payer_, string Reason, string Bank, byte Receipt, decimal Gross, decimal VAT, decimal Withholding, decimal Net, System.DateTime Date, string Attachement, string Project, int Tin) {
+            public IncomeRow AddIncomeRow(int Id, string Payer_, string Reason, string Bank, byte Receipt, decimal Gross, decimal VAT, decimal Withholding, decimal Net, System.DateTime Date, string Attachement, string Project, int Tin, string Type) {
                 IncomeRow rowIncomeRow = ((IncomeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -1370,7 +1380,8 @@ namespace Linkup_Finance {
                         Date,
                         Attachement,
                         Project,
-                        Tin};
+                        Tin,
+                        Type};
                 rowIncomeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowIncomeRow);
                 return rowIncomeRow;
@@ -1413,6 +1424,7 @@ namespace Linkup_Finance {
                 this.columnAttachement = base.Columns["Attachement"];
                 this.columnProject = base.Columns["Project"];
                 this.columnTin = base.Columns["Tin"];
+                this.columnType = base.Columns["Type"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1444,6 +1456,8 @@ namespace Linkup_Finance {
                 base.Columns.Add(this.columnProject);
                 this.columnTin = new global::System.Data.DataColumn("Tin", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTin);
+                this.columnType = new global::System.Data.DataColumn("Type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnType);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
@@ -1463,6 +1477,7 @@ namespace Linkup_Finance {
                 this.columnAttachement.MaxLength = 1000;
                 this.columnProject.AllowDBNull = false;
                 this.columnProject.MaxLength = 200;
+                this.columnType.MaxLength = 500;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4091,6 +4106,22 @@ namespace Linkup_Finance {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Type {
+                get {
+                    try {
+                        return ((string)(this[this.tableIncome.TypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Type\' in table \'Income\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIncome.TypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsAttachementNull() {
                 return this.IsNull(this.tableIncome.AttachementColumn);
             }
@@ -4111,6 +4142,18 @@ namespace Linkup_Finance {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTinNull() {
                 this[this.tableIncome.TinColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTypeNull() {
+                return this.IsNull(this.tableIncome.TypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTypeNull() {
+                this[this.tableIncome.TypeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5981,10 +6024,11 @@ SELECT Id, Name, Password, Type, JobTitle FROM Users WHERE (Id = @Id)";
             tableMapping.ColumnMappings.Add("Attachement", "Attachement");
             tableMapping.ColumnMappings.Add("Project", "Project");
             tableMapping.ColumnMappings.Add("Tin", "Tin");
+            tableMapping.ColumnMappings.Add("Type", "Type");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Income] WHERE (([Id] = @Original_Id) AND ([Payer ] = @Original_Payer_) AND ([Bank] = @Original_Bank) AND ([Receipt] = @Original_Receipt) AND ([Gross] = @Original_Gross) AND ((@IsNull_Attachement = 1 AND [Attachement] IS NULL) OR ([Attachement] = @Original_Attachement)) AND ([Date] = @Original_Date) AND ([Net] = @Original_Net) AND ([VAT] = @Original_VAT) AND ([Withholding] = @Original_Withholding) AND ([Project] = @Original_Project) AND ((@IsNull_Tin = 1 AND [Tin] IS NULL) OR ([Tin] = @Original_Tin)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Income] WHERE (([Id] = @Original_Id) AND ([Payer ] = @Original_Payer_) AND ([Bank] = @Original_Bank) AND ([Receipt] = @Original_Receipt) AND ([Gross] = @Original_Gross) AND ((@IsNull_Attachement = 1 AND [Attachement] IS NULL) OR ([Attachement] = @Original_Attachement)) AND ([Date] = @Original_Date) AND ([Net] = @Original_Net) AND ([VAT] = @Original_VAT) AND ([Withholding] = @Original_Withholding) AND ([Project] = @Original_Project) AND ((@IsNull_Tin = 1 AND [Tin] IS NULL) OR ([Tin] = @Original_Tin)) AND ((@IsNull_Type = 1 AND [Type] IS NULL) OR ([Type] = @Original_Type)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Payer_", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Payer ", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6000,10 +6044,12 @@ SELECT Id, Name, Password, Type, JobTitle FROM Users WHERE (Id = @Id)";
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Project", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Project", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Tin", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tin", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Tin", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tin", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Type", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Income] ([Payer ], [Reason], [Bank], [Receipt], [Gross], [Attachement], [Date], [Net], [VAT], [Withholding], [Project], [Tin]) VALUES (@Payer_, @Reason, @Bank, @Receipt, @Gross, @Attachement, @Date, @Net, @VAT, @Withholding, @Project, @Tin);
-SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, Withholding, Project, Tin FROM Income WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Income] ([Payer ], [Reason], [Bank], [Receipt], [Gross], [Attachement], [Date], [Net], [VAT], [Withholding], [Project], [Tin], [Type]) VALUES (@Payer_, @Reason, @Bank, @Receipt, @Gross, @Attachement, @Date, @Net, @VAT, @Withholding, @Project, @Tin, @Type);
+SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, Withholding, Project, Tin, Type FROM Income WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Payer_", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Payer ", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Reason", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Reason", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -6017,10 +6063,11 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Withholding", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Withholding", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Project", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Project", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Tin", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tin", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Type", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Income] SET [Payer ] = @Payer_, [Reason] = @Reason, [Bank] = @Bank, [Receipt] = @Receipt, [Gross] = @Gross, [Attachement] = @Attachement, [Date] = @Date, [Net] = @Net, [VAT] = @VAT, [Withholding] = @Withholding, [Project] = @Project, [Tin] = @Tin WHERE (([Id] = @Original_Id) AND ([Payer ] = @Original_Payer_) AND ([Bank] = @Original_Bank) AND ([Receipt] = @Original_Receipt) AND ([Gross] = @Original_Gross) AND ((@IsNull_Attachement = 1 AND [Attachement] IS NULL) OR ([Attachement] = @Original_Attachement)) AND ([Date] = @Original_Date) AND ([Net] = @Original_Net) AND ([VAT] = @Original_VAT) AND ([Withholding] = @Original_Withholding) AND ([Project] = @Original_Project) AND ((@IsNull_Tin = 1 AND [Tin] IS NULL) OR ([Tin] = @Original_Tin)));
-SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, Withholding, Project, Tin FROM Income WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Income] SET [Payer ] = @Payer_, [Reason] = @Reason, [Bank] = @Bank, [Receipt] = @Receipt, [Gross] = @Gross, [Attachement] = @Attachement, [Date] = @Date, [Net] = @Net, [VAT] = @VAT, [Withholding] = @Withholding, [Project] = @Project, [Tin] = @Tin, [Type] = @Type WHERE (([Id] = @Original_Id) AND ([Payer ] = @Original_Payer_) AND ([Bank] = @Original_Bank) AND ([Receipt] = @Original_Receipt) AND ([Gross] = @Original_Gross) AND ((@IsNull_Attachement = 1 AND [Attachement] IS NULL) OR ([Attachement] = @Original_Attachement)) AND ([Date] = @Original_Date) AND ([Net] = @Original_Net) AND ([VAT] = @Original_VAT) AND ([Withholding] = @Original_Withholding) AND ([Project] = @Original_Project) AND ((@IsNull_Tin = 1 AND [Tin] IS NULL) OR ([Tin] = @Original_Tin)) AND ((@IsNull_Type = 1 AND [Type] IS NULL) OR ([Type] = @Original_Type)));
+SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, Withholding, Project, Tin, Type FROM Income WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Payer_", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Payer ", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Reason", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Reason", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -6034,6 +6081,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Withholding", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 12, 2, "Withholding", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Project", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Project", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Tin", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tin", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Type", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Payer_", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Payer ", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Bank", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Bank", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6048,6 +6096,8 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Project", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Project", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Tin", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tin", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Tin", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tin", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Type", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -6065,7 +6115,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, W" +
-                "ithholding, Project, Tin FROM Income";
+                "ithholding, Project, Tin, Type FROM Income";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6126,7 +6176,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_Payer_, string Original_Bank, bool Original_Receipt, decimal Original_Gross, string Original_Attachement, System.DateTime Original_Date, decimal Original_Net, decimal Original_VAT, decimal Original_Withholding, string Original_Project, global::System.Nullable<int> Original_Tin) {
+        public virtual int Delete(int Original_Id, string Original_Payer_, string Original_Bank, bool Original_Receipt, decimal Original_Gross, string Original_Attachement, System.DateTime Original_Date, decimal Original_Net, decimal Original_VAT, decimal Original_Withholding, string Original_Project, global::System.Nullable<int> Original_Tin, string Original_Type) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_Payer_ == null)) {
                 throw new global::System.ArgumentNullException("Original_Payer_");
@@ -6168,6 +6218,14 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
                 this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
+            if ((Original_Type == null)) {
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((string)(Original_Type));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6188,7 +6246,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Payer_, string Reason, string Bank, bool Receipt, decimal Gross, string Attachement, System.DateTime Date, decimal Net, decimal VAT, decimal Withholding, string Project, global::System.Nullable<int> Tin) {
+        public virtual int Insert(string Payer_, string Reason, string Bank, bool Receipt, decimal Gross, string Attachement, System.DateTime Date, decimal Net, decimal VAT, decimal Withholding, string Project, global::System.Nullable<int> Tin, string Type) {
             if ((Payer_ == null)) {
                 throw new global::System.ArgumentNullException("Payer_");
             }
@@ -6231,6 +6289,12 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
             else {
                 this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
+            if ((Type == null)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(Type));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6264,6 +6328,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
                     decimal Withholding, 
                     string Project, 
                     global::System.Nullable<int> Tin, 
+                    string Type, 
                     int Original_Id, 
                     string Original_Payer_, 
                     string Original_Bank, 
@@ -6276,6 +6341,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
                     decimal Original_Withholding, 
                     string Original_Project, 
                     global::System.Nullable<int> Original_Tin, 
+                    string Original_Type, 
                     int Id) {
             if ((Payer_ == null)) {
                 throw new global::System.ArgumentNullException("Payer_");
@@ -6319,48 +6385,62 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
             else {
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_Id));
+            if ((Type == null)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Type));
+            }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_Id));
             if ((Original_Payer_ == null)) {
                 throw new global::System.ArgumentNullException("Original_Payer_");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_Payer_));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_Payer_));
             }
             if ((Original_Bank == null)) {
                 throw new global::System.ArgumentNullException("Original_Bank");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_Bank));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_Bank));
             }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Original_Receipt));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_Gross));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(Original_Receipt));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(Original_Gross));
             if ((Original_Attachement == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Original_Attachement));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(Original_Attachement));
             }
-            this.Adapter.UpdateCommand.Parameters[19].Value = ((System.DateTime)(Original_Date));
-            this.Adapter.UpdateCommand.Parameters[20].Value = ((decimal)(Original_Net));
-            this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(Original_VAT));
-            this.Adapter.UpdateCommand.Parameters[22].Value = ((decimal)(Original_Withholding));
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((System.DateTime)(Original_Date));
+            this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(Original_Net));
+            this.Adapter.UpdateCommand.Parameters[22].Value = ((decimal)(Original_VAT));
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((decimal)(Original_Withholding));
             if ((Original_Project == null)) {
                 throw new global::System.ArgumentNullException("Original_Project");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((string)(Original_Project));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((string)(Original_Project));
             }
             if ((Original_Tin.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(Original_Tin.Value));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Original_Tin.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Id));
+            if ((Original_Type == null)) {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_Type));
+            }
+            this.Adapter.UpdateCommand.Parameters[29].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6394,6 +6474,7 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
                     decimal Withholding, 
                     string Project, 
                     global::System.Nullable<int> Tin, 
+                    string Type, 
                     int Original_Id, 
                     string Original_Payer_, 
                     string Original_Bank, 
@@ -6405,8 +6486,9 @@ SELECT Id, [Payer ], Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, 
                     decimal Original_VAT, 
                     decimal Original_Withholding, 
                     string Original_Project, 
-                    global::System.Nullable<int> Original_Tin) {
-            return this.Update(Payer_, Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, Withholding, Project, Tin, Original_Id, Original_Payer_, Original_Bank, Original_Receipt, Original_Gross, Original_Attachement, Original_Date, Original_Net, Original_VAT, Original_Withholding, Original_Project, Original_Tin, Original_Id);
+                    global::System.Nullable<int> Original_Tin, 
+                    string Original_Type) {
+            return this.Update(Payer_, Reason, Bank, Receipt, Gross, Attachement, Date, Net, VAT, Withholding, Project, Tin, Type, Original_Id, Original_Payer_, Original_Bank, Original_Receipt, Original_Gross, Original_Attachement, Original_Date, Original_Net, Original_VAT, Original_Withholding, Original_Project, Original_Tin, Original_Type, Original_Id);
         }
     }
     

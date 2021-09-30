@@ -159,17 +159,32 @@ namespace Linkup_Finance.Managers
             return projectName;
         }
 
-        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string project, DateTime date, int tin, string attachement = null)
+        public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string project, DateTime date, int tin, string type = null, string attachement = null)
         {
+            decimal vat = gross * 0.15m;
+            decimal withholding = 0m;
+            decimal net;
+
+            if (type == "Goods")
+            {
+                if (gross >= 10000.00m)
+                    withholding = gross * 0.02m;
+            }
+            else if (type == "Service")
+            {
+                if (gross >= 3000.00m)
+                    withholding = gross * 0.02m;
+            }
+           
+            net = gross + vat - withholding;
+
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
                 try
                 {
-                    decimal vat = gross * 0.15m;
-                    decimal withholding = gross * 0.02m;
-                    decimal net = gross + vat - withholding;
-                    string insertQuery = "INSERT INTO Income(Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project, Tin)" +
-                                         $" VALUES(@Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project, @Tin)";
+                    string insertQuery = "INSERT INTO Income(Payer, Reason, Bank, Gross, VAT, Withholding, Net, Receipt, Date, Attachement, Project, Tin, Type)" +
+                                         $" VALUES(@Payer, @Reason, @Bank, @Gross, @VAT, @Withholding, @Net, @Receipt, @Date, \'{attachement}\', @Project, @Tin, \'{type}\')";
+                    
                     SqlCommand command = new SqlCommand(insertQuery, con);
                     command.Parameters.AddWithValue("@Payer", name);
                     command.Parameters.AddWithValue("@Reason", reason);
@@ -198,7 +213,7 @@ namespace Linkup_Finance.Managers
             return true;
         }
 
-        public bool AddExpense(string name, string reason, string product, string bank, bool hasReceipt, decimal amount, string project, DateTime date, int tin, string attachement = null)
+        public bool AddExpense(string name, string reason, string product, string bank, bool hasReceipt, decimal amount, string project, DateTime date, int tin, string type, string attachement = null)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
@@ -206,14 +221,28 @@ namespace Linkup_Finance.Managers
                 {
                     con.Open();
                     decimal vat = amount * 0.15m;
-                    decimal withholding = amount * 0.02m;
-                    decimal total = amount + vat - withholding;
-                    string type = "Petty";
+                    decimal withholding = 0m;
+                    decimal total;
 
-                    if (amount >= 10000.00m)
-                        type = "Goods";
-                    else if (amount >= 3000.00m)
-                        type = "Service";
+                    if(type == "Goods")
+                    {
+                        if (amount >= 10000.00m)
+                            withholding = amount * 0.02m;
+                    }
+                    else if (type == "Service")
+                    {
+                        if (amount >= 3000.00m)
+                            withholding = amount * 0.02m;
+                    }
+                    else
+                    {
+                        if (amount <= 1000)
+                            type = "Petty";
+                        else
+                            type = "Normal";
+                    }
+                     
+                    total = amount + vat - withholding;
 
                     string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt, Tin)" +
                                          $" VALUES(@ExpName,@Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{attachement}\',@Total,@Project,@Receipt,@Tin)";
