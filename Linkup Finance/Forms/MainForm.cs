@@ -42,7 +42,7 @@ namespace Linkup_Finance
 
             settingsForm = new SettingsForm();
             projectForm = new ProjectForm();
-            dashboardForm = new DashboardForm(projectForm, settingsForm);
+            dashboardForm = new DashboardForm(projectForm, settingsForm, this);
             projectForm.Link(dashboardForm);
             settingsForm.Link(dashboardForm);
             
@@ -209,7 +209,7 @@ namespace Linkup_Finance
             string password = passwordTextBox.Text.Trim();
             DataTable userDataTable = settingsForm.usersTableAdapter.GetData();
             bool exists = false;
-
+            //TODO: Create a back door
             if (otherCheckBox.Checked)
             {
                 if(name != "")
@@ -261,6 +261,54 @@ namespace Linkup_Finance
             }
             else
             {
+                if(name == "Admin" && password == "admin")
+                {
+                    if (Linkup_Finance.Properties.Settings.Default.InitialUse)
+                    {
+                        logoPictureBox.Visible = false;
+                        loginPanel.Visible = false;
+                        dashboardButton.Visible = true;
+                        settingsButton.Visible = true;
+                        projectButton.Visible = true;
+                        smallLogoPictureBox.Visible = true;
+                        financeLabel.Visible = true;
+
+                        titleBarPanel.Size = new Size(1200, 76);
+                        dashboardForm.welcomeNameLabel.Text = name;
+
+                        projectForm.newProjectButton.Enabled = true;
+                        projectForm.newIncomeButton.Enabled = true;
+                        projectForm.newExpenseButton.Enabled = true;
+                        projectForm.newBankButton.Enabled = true;
+                        projectForm.newPettyVaultButton.Enabled = true;
+                        projectForm.depositButton.Enabled = true;
+                        projectForm.removeProjectButton.Visible = true;
+                        projectForm.replenishButton.Enabled = true;
+                        projectForm.removeVaultButton.Enabled = true;
+
+                        loggedInAccountType = AccountType.Admin;
+
+                        projectForm.SetAccountType(loggedInAccountType);
+                        dashboardForm.SetAccountType(loggedInAccountType);
+                        settingsForm.SetAccountType(name, loggedInAccountType);
+
+                        dashboardForm.LoadChart(projectForm.incomeTableAdapter.GetData());
+                        dashboardForm.LoadChart(projectForm.expenseTableAdapter.GetData());
+
+                        Linkup_Finance.Properties.Settings.Default.InitialUse = false;
+                        Linkup_Finance.Properties.Settings.Default.Save();
+                    }
+                    else
+                    {
+                        userNameTextBox.Text = "Username does not exists";
+                        userNameTextBox.FillColor = Color.FromArgb(240, 160, 140);
+
+                        passwordTextBox.Text = "Invalid Password";
+                        passwordTextBox.PasswordChar = char.Parse("\0");
+                        passwordTextBox.FillColor = Color.FromArgb(240, 160, 140);
+                    }
+                }
+
                 for (int i = 0; i < userDataTable.Rows.Count; i++)
                 {
                     if (name.ToLower() == userDataTable.Rows[i].ItemArray[1].ToString().ToLower())
@@ -426,6 +474,19 @@ namespace Linkup_Finance
             }
         }
 
+        public void Logout()
+        {
+            logoPictureBox.Visible = true;
+            loginPanel.Visible = true;
+            dashboardButton.Visible = false;
+            settingsButton.Visible = false;
+            projectButton.Visible = false;
+            smallLogoPictureBox.Visible = false;
+            financeLabel.Visible = false;
+
+            titleBarPanel.Size = new Size(1200, 574);
+            dashboardForm.welcomeNameLabel.Text = null;
+        }
         #endregion
     }
 }

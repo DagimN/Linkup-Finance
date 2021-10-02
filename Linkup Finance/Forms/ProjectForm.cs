@@ -25,12 +25,6 @@ namespace Linkup_Finance.Forms
     public partial class ProjectForm : Form
     {
         //TODO: Handle Resizing of controls when maximized
-        //TODO: Associate the project with the data being viewed
-        //TODO: Fix the bank error chip
-        //TODO: Fix the petty cash replenish button (incorrect value being added)
-        //TODO: In the expense tab, when inserting a new expense, give an option of either a goods or service. If the former is picked,
-        //withholding will be cut with a value of 10000 and above, and if the latter is picked, withholding will be cut with a value of 3000 and above 
-        //TODO: Give maximum bounds for the date selectors
         public ProjectManager projectManager;
         private DashboardForm dashboardForm;
         public BankManager bankManager;
@@ -227,6 +221,69 @@ namespace Linkup_Finance.Forms
             }
         }
 
+        private void ProjectForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
+            this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
+            this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
+            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+            this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+            this.banksTableAdapter.Fill(this.linkupDatabaseDataSet.Banks);
+            this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
+
+            foreach (Project project in projectManager.RetrieveProjects(projectsTableAdapter))
+                projectOption.Items.Add(project.GetProjectName());
+
+            foreach (Bank bank in bankManager.RetrieveBanks(banksTableAdapter))
+                bankOptionBox.Items.Add(bank.GetBankName());
+
+            if (projectOption.Items.Count > 0)
+            {
+                projectOption.Text = projectOption.Items[0].ToString();
+
+                Project project = projectManager.Exists(projectOption.Text, true);
+                projectOption.Tag = project;
+
+                LoadChart(projectOption.Text, incomeTableAdapter.GetData());
+                LoadChart(projectOption.Text, expenseTableAdapter.GetData());
+                RemoveItems(incomeDataGridView, projectOption.Text);
+                RemoveItems(expenseDataGridView, projectOption.Text);
+            }
+
+            if (bankOptionBox.Items.Count > 0)
+            {
+                bankOptionBox.Text = bankOptionBox.Items[0].ToString();
+
+                Bank bank = bankManager.GetBank(bankOptionBox.Text);
+                bankOptionBox.Tag = bank;
+                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
+                LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
+                foreach (PieSeries series in bankPieChart.Series)
+                {
+                    series.PushOut = 0;
+                    if (series.Title == bank.GetBankName())
+                        series.PushOut = 10;
+
+                    pettyVaultChart.Refresh();
+                }
+            }
+
+            incomeVatLabel.Text = $"Total Vat: {GetTotalVat(incomeTableAdapter.GetData())}";
+            expenseVatLabel.Text = $"Total Vat: {GetTotalVat(expenseTableAdapter.GetData())}";
+
+            //TODO: Add data series with the rest of the charts i.e expense, bank 
+            incomeChart.Series.Add(grossSeries);
+            incomeChart.Series.Add(netSeries);
+            expenseChart.Series.Add(amountSeries);
+            expenseChart.Series.Add(totalSeries);
+            bankChart.Series.Add(balanceSeries);
+
+            filterIncomeComboBox.Text = "All";
+            filterExpenseComboBox.Text = "All";
+        }
+
+        #region Project
+
         private void newProjectButton_Click(object sender, EventArgs e)
         {
             newProjectLabel.Visible = true;
@@ -258,64 +315,6 @@ namespace Linkup_Finance.Forms
                 projectNameTextBox.Text = "This name already exists";
                 projectNameTextBox.FillColor = Color.FromArgb(240, 160, 140);
             }
-        }
-
-        private void ProjectForm_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
-            this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
-            this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-            this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
-            this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
-            this.banksTableAdapter.Fill(this.linkupDatabaseDataSet.Banks);
-            this.projectsTableAdapter.Fill(this.linkupDatabaseDataSet.Projects);
-
-            foreach(Project project in projectManager.RetrieveProjects(projectsTableAdapter))
-                projectOption.Items.Add(project.GetProjectName());
-
-            foreach (Bank bank in bankManager.RetrieveBanks(banksTableAdapter))
-                bankOptionBox.Items.Add(bank.GetBankName());
-
-            if(projectOption.Items.Count > 0)
-            {
-                projectOption.Text = projectOption.Items[0].ToString();
-
-                Project project = projectManager.Exists(projectOption.Text, true);
-                projectOption.Tag = project;
-
-                LoadChart(projectOption.Text, incomeTableAdapter.GetData());
-                LoadChart(projectOption.Text, expenseTableAdapter.GetData());
-                RemoveItems(incomeDataGridView, projectOption.Text);
-                RemoveItems(expenseDataGridView, projectOption.Text);
-            }
-
-            if(bankOptionBox.Items.Count > 0)
-            {
-                bankOptionBox.Text = bankOptionBox.Items[0].ToString();
-
-                Bank bank = bankManager.GetBank(bankOptionBox.Text);
-                bankOptionBox.Tag = bank;
-                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
-                LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
-                foreach (PieSeries series in bankPieChart.Series)
-                {
-                    series.PushOut = 0;
-                    if (series.Title == bank.GetBankName())
-                        series.PushOut = 10;
-
-                    pettyVaultChart.Refresh();
-                }
-            }
-
-            //TODO: Add data series with the rest of the charts i.e expense, bank 
-            incomeChart.Series.Add(grossSeries);
-            incomeChart.Series.Add(netSeries);
-            expenseChart.Series.Add(amountSeries);
-            expenseChart.Series.Add(totalSeries);
-            bankChart.Series.Add(balanceSeries);
-
-            filterIncomeComboBox.Text = "All";
-            filterExpenseComboBox.Text = "All";
         }
 
         private void projectNameTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -379,6 +378,8 @@ namespace Linkup_Finance.Forms
             RemoveItems(incomeDataGridView, projectOption.Text);
             RemoveItems(expenseDataGridView, projectOption.Text);
         }
+
+        #endregion
 
         #region BankTab
 
@@ -653,16 +654,41 @@ namespace Linkup_Finance.Forms
         private void bankOptionBox_SelectedValueChanged(object sender, EventArgs e)
         {
             Bank bank = bankManager.GetBank(bankOptionBox.Text);
+            bankOptionBox.Tag = bank;
+            balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
             bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
             LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
             RemoveItems(bankLogDataGridView, bank.GetBankName());
+            deleteBankButton.Visible = true;
             foreach (PieSeries series in bankPieChart.Series)
             {
                 series.PushOut = 0;
                 if (series.Title == bank.GetBankName())
                     series.PushOut = 10;
 
-                pettyVaultChart.Refresh();
+                bankPieChart.Refresh();
+            }
+        }
+
+        private void deleteBankButton_Click(object sender, EventArgs e)
+        {
+            Bank bank = (Bank)bankOptionBox.Tag;
+
+            bankManager.RemoveBank(bank);
+            bankOptionBox.Items.Remove(bank.GetBankName());
+            dashboardForm.LoadChart(banksTableAdapter.GetData());
+            dashboardForm.RefreshDashboard();
+
+            if (bankOptionBox.Items.Count > 0)
+                bankOptionBox.Text = bankOptionBox.Items[0].ToString();
+            else
+            {
+                deleteBankButton.Visible = false;
+                balanceAmountLabel.Text = $"Balance(ETB): ";
+                bankOptionBox.Tag = null;
+                bankPieChart.Series.Clear();
+                bankChart.Series.Clear();
+                RemoveItems(bankLogDataGridView, " ");
             }
         }
 
@@ -814,6 +840,7 @@ namespace Linkup_Finance.Forms
                                 newExpensePanel.Visible = false;
                                 expenseErrorChip.Visible = false;
                                 expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
+                                expenseVatLabel.Text = $"Total Vat: {GetTotalVat(expenseTableAdapter.GetData())}";
                                 LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
                                 dashboardForm.LoadChart(expenseTableAdapter.GetData());
                                 RemoveItems(expenseDataGridView, projectOption.Text);
@@ -1047,7 +1074,6 @@ namespace Linkup_Finance.Forms
 
         private void submitIncomeButton_Click(object sender, EventArgs e)
         {
-            //TODO: Use bank object to classify which it is and implement submit log
             Project project = (Project)projectOption.Tag;
             string name = nameIncomeTextBox.Text;
             string reason = reasonIncomeTextBox.Text;
@@ -1146,6 +1172,7 @@ namespace Linkup_Finance.Forms
                                 newIncomePanel.Visible = false;
                                 incomeErrorChip.Visible = false;
                                 incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+                                incomeVatLabel.Text = $"Total Vat: {GetTotalVat(incomeTableAdapter.GetData())}";
                                 RemoveItems(incomeDataGridView, projectOption.Text);
                                 LoadChart(project.GetProjectName() ,incomeTableAdapter.GetData());
                                 dashboardForm.LoadChart(incomeTableAdapter.GetData());
@@ -1716,6 +1743,24 @@ namespace Linkup_Finance.Forms
             loggedInAccountType = type;
         }
 
+        public decimal GetTotalVat(DataTable dataTable)
+        {
+            decimal total = 0m;
+
+            if(dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+            {
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                    total += (decimal)dataTable.Rows[i].ItemArray[6];
+            }
+
+            if(dataTable is LinkupDatabaseDataSet.ExpenseDataTable)
+            {
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                    total += (decimal)dataTable.Rows[i].ItemArray[4];
+            }
+            
+            return total;
+        }
         #endregion
     }
 }

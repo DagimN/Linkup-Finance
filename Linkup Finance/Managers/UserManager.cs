@@ -349,6 +349,9 @@ namespace Linkup_Finance.Managers
                                          "Status = @Status " +
                                      "WHERE Name = @OldName and " +
                                            "EntryDate = @EntryDate";
+                    string updateEmployeeLogQuery = "UPDATE EmployeeLogs " +
+                                                    "SET Name=@Name " +
+                                                    "WHERE Name=@OldName"; 
                     SqlCommand command = new SqlCommand(updateQuery, con);
                     con.Open();
                     command.Parameters.AddWithValue("@Name", newName);
@@ -363,6 +366,12 @@ namespace Linkup_Finance.Managers
 
                     command.ExecuteNonQuery();
 
+                    command = new SqlCommand(updateEmployeeLogQuery, con);
+                    command.Parameters.AddWithValue("@Name", newName);
+                    command.Parameters.AddWithValue("@OldName", oldName);
+
+                    command.ExecuteNonQuery();
+
                     employee.SetName(newName);
                     employee.SetSalary(newSalary);
                     employee.SetJob(newJob);
@@ -373,9 +382,10 @@ namespace Linkup_Finance.Managers
 
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return false;
+                    throw ex;
+                    //return false;
                 }
                 finally
                 {
@@ -690,7 +700,7 @@ namespace Linkup_Finance.Managers
             net = salary - (salary * incomeRate) + deductible;
             tax = salary * incomeRate;
             this.IsPaid = true;
-            this.SalaryDue = DateTime.Now.AddDays(30);
+            this.SalaryDue = oldDate.AddDays(30);
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {

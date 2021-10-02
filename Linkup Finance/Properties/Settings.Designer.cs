@@ -44,5 +44,17 @@ namespace Linkup_Finance.Properties {
                 this["PettyVaultDictionary"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InitialUse {
+            get {
+                return ((bool)(this["InitialUse"]));
+            }
+            set {
+                this["InitialUse"] = value;
+            }
+        }
     }
 }

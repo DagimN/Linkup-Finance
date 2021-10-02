@@ -55,7 +55,7 @@ namespace Linkup_Finance.Forms
             this.payrollChart = new LiveCharts.WinForms.CartesianChart();
             this.guna2ShadowPanel3 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.welcomeNameLabel = new System.Windows.Forms.Label();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
+            this.logoutButton = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
@@ -357,7 +357,7 @@ namespace Linkup_Finance.Forms
             // 
             this.guna2ShadowPanel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2ShadowPanel3.Controls.Add(this.welcomeNameLabel);
-            this.guna2ShadowPanel3.Controls.Add(this.guna2Button3);
+            this.guna2ShadowPanel3.Controls.Add(this.logoutButton);
             this.guna2ShadowPanel3.Controls.Add(this.guna2Button2);
             this.guna2ShadowPanel3.Controls.Add(this.guna2Button1);
             this.guna2ShadowPanel3.Controls.Add(this.welcomeLabel);
@@ -378,28 +378,29 @@ namespace Linkup_Finance.Forms
             this.welcomeNameLabel.Size = new System.Drawing.Size(0, 35);
             this.welcomeNameLabel.TabIndex = 4;
             // 
-            // guna2Button3
+            // logoutButton
             // 
-            this.guna2Button3.BorderRadius = 10;
-            this.guna2Button3.CheckedState.Parent = this.guna2Button3;
-            this.guna2Button3.CustomImages.Parent = this.guna2Button3;
-            this.guna2Button3.CustomizableEdges.BottomRight = false;
-            this.guna2Button3.CustomizableEdges.TopRight = false;
-            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.DisabledState.Parent = this.guna2Button3;
-            this.guna2Button3.FillColor = System.Drawing.Color.White;
-            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
-            this.guna2Button3.HoverState.Parent = this.guna2Button3;
-            this.guna2Button3.Location = new System.Drawing.Point(413, 164);
-            this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.ShadowDecoration.Parent = this.guna2Button3;
-            this.guna2Button3.Size = new System.Drawing.Size(128, 36);
-            this.guna2Button3.TabIndex = 3;
-            this.guna2Button3.Text = "Logout";
+            this.logoutButton.BorderRadius = 10;
+            this.logoutButton.CheckedState.Parent = this.logoutButton;
+            this.logoutButton.CustomImages.Parent = this.logoutButton;
+            this.logoutButton.CustomizableEdges.BottomRight = false;
+            this.logoutButton.CustomizableEdges.TopRight = false;
+            this.logoutButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.logoutButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.logoutButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.logoutButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.logoutButton.DisabledState.Parent = this.logoutButton;
+            this.logoutButton.FillColor = System.Drawing.Color.White;
+            this.logoutButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.logoutButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(80)))), ((int)(((byte)(85)))));
+            this.logoutButton.HoverState.Parent = this.logoutButton;
+            this.logoutButton.Location = new System.Drawing.Point(413, 164);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.ShadowDecoration.Parent = this.logoutButton;
+            this.logoutButton.Size = new System.Drawing.Size(128, 36);
+            this.logoutButton.TabIndex = 3;
+            this.logoutButton.Text = "Logout";
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
             // guna2Button2
             // 
@@ -512,7 +513,7 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.ToolTip employeeToolTip;
         private Guna.UI2.WinForms.Guna2DateTimePicker payrollDateSelection;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
+        private Guna.UI2.WinForms.Guna2Button logoutButton;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         public System.Windows.Forms.Label welcomeNameLabel;

@@ -20,6 +20,7 @@ namespace Linkup_Finance.Forms
         private Axis xAxis, yAxis, xPayrollAxis, yPayrollAxis;
         private ProjectForm projectForm;
         private SettingsForm settingsForm;
+        private MainForm mainForm;
         private int zoomValue = 99;
         private AccountType loggedInAccountType;
 
@@ -29,11 +30,12 @@ namespace Linkup_Finance.Forms
             public double Value { get; set; }
 
         }
-        public DashboardForm(ProjectForm projectForm, SettingsForm settingsForm)
+        public DashboardForm(ProjectForm projectForm, SettingsForm settingsForm, MainForm mainForm)
         {
             InitializeComponent();
             this.projectForm = projectForm;
             this.settingsForm = settingsForm;
+            this.mainForm = mainForm;
 
             //Initializing Chart Components
             var dayConfig = Mappers.Xy<DateModel>()
@@ -137,6 +139,11 @@ namespace Linkup_Finance.Forms
             DateTime dateSelection = payrollDateSelection.Value;
             xPayrollAxis.MinValue = dateSelection.Subtract(TimeSpan.FromDays(15)).Ticks / TimeSpan.TicksPerDay;
             xPayrollAxis.MaxValue = dateSelection.AddDays(15).Ticks / TimeSpan.TicksPerDay;
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            mainForm.Logout();
         }
 
         private void DashboardForm_Load(object sender, EventArgs e)

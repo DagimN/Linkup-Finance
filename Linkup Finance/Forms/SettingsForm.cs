@@ -55,7 +55,7 @@ namespace Linkup_Finance.Forms
             if (usersComboBox.Items.Count > 0)
                 usersComboBox.Text = usersComboBox.Items[0].ToString();
 
-            if(loggedInUserName != null && loggedInAccountType != AccountType.Other)
+            if(loggedInUserName != null && loggedInUserName != "Admin" && loggedInAccountType != AccountType.Other)
             {
                 User user = userManager.GetUser(loggedInUserName);
                 string type;
@@ -256,6 +256,7 @@ namespace Linkup_Finance.Forms
             }
             else
             {
+                string oldName = user.GetName();
                 string newName = profileNameTextBox.Text;
                 string newJob = profileJobTitleTextBox.Text;
                 string newPassword = profilePasswordTextBox.Text;
@@ -289,7 +290,9 @@ namespace Linkup_Finance.Forms
                     else
                         profileTypeLabel.Text = "Type: Other";
 
-                    usersComboBox.Text = user.GetName();
+                    usersComboBox.Items.Remove(oldName);
+                    usersComboBox.Items.Add(newName);
+                    usersComboBox.Text = newName;
                     editEmployeeButton.Text = "Edit";
                     userPictureBox.Tag = user;
                 }
@@ -473,6 +476,7 @@ namespace Linkup_Finance.Forms
             }
             else
             {
+                string oldName = employee.GetName();
                 string newJob = employeeProfileJobTextBox.Text;
                 string newName = nameTextBox.Text;
                 string newEmail = emailTextBox.Text;
@@ -500,6 +504,10 @@ namespace Linkup_Finance.Forms
                             activeEmployeeRadioButton.Checked = true;
                         else
                             inactiveEmployeeRadioButton.Checked = true;
+
+                        employeesComboBox.Items.Remove(oldName);
+                        employeesComboBox.Items.Add(employee.GetName());
+                        employeesComboBox.Text = employee.GetName(); 
 
                         editEmployeeButton.Text = "Edit";
                     }

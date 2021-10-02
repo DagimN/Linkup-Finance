@@ -159,6 +159,40 @@ namespace Linkup_Finance.Managers
 
             return null;
         }
+
+        public bool RemoveBank(Bank bank)
+        {
+            string name = bank.GetBankName();
+            string accountId = bank.GetAccountId();
+
+            banksList.Remove(bank);
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string deleteQuery = "DELETE FROM Banks " +
+                                         "WHERE Name=@Name and AccountId=@AccountId";
+                    SqlCommand command = new SqlCommand(deleteQuery, con);
+                    
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@AccountId", accountId);
+                    
+                    con.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 
     public class Bank
@@ -182,6 +216,11 @@ namespace Linkup_Finance.Managers
         public decimal GetBalance()
         {
             return this.Balance;
+        }
+
+        public string GetAccountId()
+        {
+            return this.AccountID;
         }
 
         public void Deposit(decimal value)
