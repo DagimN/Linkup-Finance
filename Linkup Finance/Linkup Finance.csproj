@@ -224,6 +224,7 @@
       <DependentUpon>LinkupDatabase.mdf</DependentUpon>
     </Content>
     <Content Include="logo.ico" />
+    <None Include="Resources\logo.png" />
     <None Include="Resources\Inactive Image.png" />
     <None Include="Resources\Active Image.png" />
     <None Include="Resources\User Icon.png" />

@@ -33,17 +33,16 @@ namespace Linkup_Finance.Forms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.userPage = new System.Windows.Forms.TabPage();
             this.newUserPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.otherRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
             this.accountTypeLabel = new System.Windows.Forms.Label();
             this.userErrorChip = new Guna.UI2.WinForms.Guna2Chip();
-            this.closeNewUserPanelButton = new Guna.UI2.WinForms.Guna2Button();
             this.submitUserButton = new Guna.UI2.WinForms.Guna2Button();
             this.accountantRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
             this.adminRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
@@ -79,7 +78,6 @@ namespace Linkup_Finance.Forms
             this.profileTypeLabel = new System.Windows.Forms.Label();
             this.profileNameLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.userPictureBox = new System.Windows.Forms.PictureBox();
             this.employeePage = new System.Windows.Forms.TabPage();
             this.newEmployeePanel = new Guna.UI2.WinForms.Guna2Panel();
             this.employeeEmailTextBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -87,7 +85,6 @@ namespace Linkup_Finance.Forms
             this.employeePhoneTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.employeePhoneLabel = new System.Windows.Forms.Label();
             this.employeeErrorChip = new Guna.UI2.WinForms.Guna2Chip();
-            this.closeEmployeePanel = new Guna.UI2.WinForms.Guna2Button();
             this.submitEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
             this.employeeSalaryTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.employeeSalaryLabel = new System.Windows.Forms.Label();
@@ -115,7 +112,6 @@ namespace Linkup_Finance.Forms
             this.phoneLabel = new System.Windows.Forms.Label();
             this.emailLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.statusPictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.salaryDueDateSelection = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.netSalaryTotalLabel = new System.Windows.Forms.Label();
@@ -123,7 +119,6 @@ namespace Linkup_Finance.Forms
             this.bonusLabel = new System.Windows.Forms.Label();
             this.inactiveEmployeeRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
             this.activeEmployeeRadioButton = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.salaryTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.salaryLabel = new System.Windows.Forms.Label();
             this.bonusTextBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -133,19 +128,29 @@ namespace Linkup_Finance.Forms
             this.editEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
             this.removeEmployeeButton = new Guna.UI2.WinForms.Guna2Button();
             this.miscellaneousPage = new System.Windows.Forms.TabPage();
-            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
+            this.updateButton = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
+            this.recoverButton = new Guna.UI2.WinForms.Guna2Button();
+            this.backupButton = new Guna.UI2.WinForms.Guna2Button();
+            this.exportXLSButton = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
+            this.exportPDFButton = new Guna.UI2.WinForms.Guna2Button();
             this.usersTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UsersTableAdapter();
             this.userLogTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.UserLogTableAdapter();
             this.employeesTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeesTableAdapter();
             this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
+            this.dataComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.guna2CheckBox1 = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.guna2CheckBox2 = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.guna2CheckBox3 = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.locationLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.closeNewUserPanelButton = new Guna.UI2.WinForms.Guna2Button();
+            this.userPictureBox = new System.Windows.Forms.PictureBox();
+            this.closeEmployeePanel = new Guna.UI2.WinForms.Guna2Button();
+            this.statusPictureBox = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2TabControl1.SuspendLayout();
             this.userPage.SuspendLayout();
             this.newUserPanel.SuspendLayout();
@@ -153,19 +158,18 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).BeginInit();
             this.employeePage.SuspendLayout();
             this.newEmployeePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeePayrollDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).BeginInit();
             this.employeeProfilePanel.SuspendLayout();
+            this.miscellaneousPage.SuspendLayout();
+            this.guna2Panel3.SuspendLayout();
+            this.guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.miscellaneousPage.SuspendLayout();
-            this.guna2Panel4.SuspendLayout();
-            this.guna2Panel3.SuspendLayout();
-            this.guna2Panel2.SuspendLayout();
-            this.guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2TabControl1
@@ -306,30 +310,6 @@ namespace Linkup_Finance.Forms
             this.userErrorChip.Size = new System.Drawing.Size(361, 45);
             this.userErrorChip.TabIndex = 22;
             this.userErrorChip.Visible = false;
-            // 
-            // closeNewUserPanelButton
-            // 
-            this.closeNewUserPanelButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeNewUserPanelButton.BorderRadius = 10;
-            this.closeNewUserPanelButton.CheckedState.Parent = this.closeNewUserPanelButton;
-            this.closeNewUserPanelButton.CustomImages.Parent = this.closeNewUserPanelButton;
-            this.closeNewUserPanelButton.CustomizableEdges.TopLeft = false;
-            this.closeNewUserPanelButton.CustomizableEdges.TopRight = false;
-            this.closeNewUserPanelButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeNewUserPanelButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.closeNewUserPanelButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.closeNewUserPanelButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.closeNewUserPanelButton.DisabledState.Parent = this.closeNewUserPanelButton;
-            this.closeNewUserPanelButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.closeNewUserPanelButton.ForeColor = System.Drawing.Color.White;
-            this.closeNewUserPanelButton.HoverState.Parent = this.closeNewUserPanelButton;
-            this.closeNewUserPanelButton.Image = global::Linkup_Finance.Properties.Resources.Close_Icon;
-            this.closeNewUserPanelButton.Location = new System.Drawing.Point(591, 0);
-            this.closeNewUserPanelButton.Name = "closeNewUserPanelButton";
-            this.closeNewUserPanelButton.ShadowDecoration.Parent = this.closeNewUserPanelButton;
-            this.closeNewUserPanelButton.Size = new System.Drawing.Size(37, 36);
-            this.closeNewUserPanelButton.TabIndex = 21;
-            this.closeNewUserPanelButton.Click += new System.EventHandler(this.closeNewUserPanelButton_Click);
             // 
             // submitUserButton
             // 
@@ -952,16 +932,6 @@ namespace Linkup_Finance.Forms
             this.label5.TabIndex = 1;
             this.label5.Text = "User Profile";
             // 
-            // userPictureBox
-            // 
-            this.userPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("userPictureBox.Image")));
-            this.userPictureBox.Location = new System.Drawing.Point(6, 8);
-            this.userPictureBox.Name = "userPictureBox";
-            this.userPictureBox.Size = new System.Drawing.Size(135, 153);
-            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.userPictureBox.TabIndex = 0;
-            this.userPictureBox.TabStop = false;
-            // 
             // employeePage
             // 
             this.employeePage.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -1093,30 +1063,6 @@ namespace Linkup_Finance.Forms
             this.employeeErrorChip.Size = new System.Drawing.Size(361, 45);
             this.employeeErrorChip.TabIndex = 22;
             this.employeeErrorChip.Visible = false;
-            // 
-            // closeEmployeePanel
-            // 
-            this.closeEmployeePanel.BackColor = System.Drawing.Color.Transparent;
-            this.closeEmployeePanel.BorderRadius = 10;
-            this.closeEmployeePanel.CheckedState.Parent = this.closeEmployeePanel;
-            this.closeEmployeePanel.CustomImages.Parent = this.closeEmployeePanel;
-            this.closeEmployeePanel.CustomizableEdges.TopLeft = false;
-            this.closeEmployeePanel.CustomizableEdges.TopRight = false;
-            this.closeEmployeePanel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeEmployeePanel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.closeEmployeePanel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.closeEmployeePanel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.closeEmployeePanel.DisabledState.Parent = this.closeEmployeePanel;
-            this.closeEmployeePanel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.closeEmployeePanel.ForeColor = System.Drawing.Color.White;
-            this.closeEmployeePanel.HoverState.Parent = this.closeEmployeePanel;
-            this.closeEmployeePanel.Image = global::Linkup_Finance.Properties.Resources.Close_Icon;
-            this.closeEmployeePanel.Location = new System.Drawing.Point(591, 0);
-            this.closeEmployeePanel.Name = "closeEmployeePanel";
-            this.closeEmployeePanel.ShadowDecoration.Parent = this.closeEmployeePanel;
-            this.closeEmployeePanel.Size = new System.Drawing.Size(37, 36);
-            this.closeEmployeePanel.TabIndex = 21;
-            this.closeEmployeePanel.Click += new System.EventHandler(this.closeEmployeePanel_Click);
             // 
             // submitEmployeeButton
             // 
@@ -1575,17 +1521,6 @@ namespace Linkup_Finance.Forms
             this.nameTextBox.TabIndex = 18;
             this.nameTextBox.Visible = false;
             // 
-            // statusPictureBox
-            // 
-            this.statusPictureBox.BackColor = System.Drawing.Color.White;
-            this.statusPictureBox.Image = global::Linkup_Finance.Properties.Resources.Inactive_Image;
-            this.statusPictureBox.Location = new System.Drawing.Point(167, 84);
-            this.statusPictureBox.Name = "statusPictureBox";
-            this.statusPictureBox.Size = new System.Drawing.Size(132, 50);
-            this.statusPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.statusPictureBox.TabIndex = 17;
-            this.statusPictureBox.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -1712,17 +1647,6 @@ namespace Linkup_Finance.Forms
             this.activeEmployeeRadioButton.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             this.activeEmployeeRadioButton.UseVisualStyleBackColor = false;
             this.activeEmployeeRadioButton.CheckedChanged += new System.EventHandler(this.activeEmployeeRadioButton_CheckedChanged);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(23, 14);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(108, 120);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
             // 
             // salaryTextBox
             // 
@@ -1886,9 +1810,8 @@ namespace Linkup_Finance.Forms
             // miscellaneousPage
             // 
             this.miscellaneousPage.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.miscellaneousPage.Controls.Add(this.guna2Panel4);
+            this.miscellaneousPage.Controls.Add(this.guna2PictureBox1);
             this.miscellaneousPage.Controls.Add(this.guna2Panel3);
-            this.miscellaneousPage.Controls.Add(this.guna2Panel2);
             this.miscellaneousPage.Controls.Add(this.guna2Panel1);
             this.miscellaneousPage.Location = new System.Drawing.Point(154, 4);
             this.miscellaneousPage.Name = "miscellaneousPage";
@@ -1896,149 +1819,135 @@ namespace Linkup_Finance.Forms
             this.miscellaneousPage.TabIndex = 2;
             this.miscellaneousPage.Text = "Miscellaneous";
             // 
-            // guna2Panel4
+            // updateButton
             // 
-            this.guna2Panel4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.guna2Panel4.BorderRadius = 10;
-            this.guna2Panel4.Controls.Add(this.guna2Button6);
-            this.guna2Panel4.FillColor = System.Drawing.Color.White;
-            this.guna2Panel4.Location = new System.Drawing.Point(17, 399);
-            this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.ShadowDecoration.Parent = this.guna2Panel4;
-            this.guna2Panel4.Size = new System.Drawing.Size(1017, 100);
-            this.guna2Panel4.TabIndex = 5;
-            // 
-            // guna2Button6
-            // 
-            this.guna2Button6.CheckedState.Parent = this.guna2Button6;
-            this.guna2Button6.CustomImages.Parent = this.guna2Button6;
-            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.DisabledState.Parent = this.guna2Button6;
-            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button6.ForeColor = System.Drawing.Color.White;
-            this.guna2Button6.HoverState.Parent = this.guna2Button6;
-            this.guna2Button6.Location = new System.Drawing.Point(842, 50);
-            this.guna2Button6.Name = "guna2Button6";
-            this.guna2Button6.ShadowDecoration.Parent = this.guna2Button6;
-            this.guna2Button6.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button6.TabIndex = 0;
-            this.guna2Button6.Text = "Check Updates";
+            this.updateButton.CheckedState.Parent = this.updateButton;
+            this.updateButton.CustomImages.Parent = this.updateButton;
+            this.updateButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.updateButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.updateButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.updateButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.updateButton.DisabledState.Parent = this.updateButton;
+            this.updateButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.updateButton.ForeColor = System.Drawing.Color.White;
+            this.updateButton.HoverState.Parent = this.updateButton;
+            this.updateButton.Location = new System.Drawing.Point(21, 164);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.ShadowDecoration.Parent = this.updateButton;
+            this.updateButton.Size = new System.Drawing.Size(163, 38);
+            this.updateButton.TabIndex = 0;
+            this.updateButton.Text = "Check Updates";
             // 
             // guna2Panel3
             // 
             this.guna2Panel3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.guna2Panel3.BorderRadius = 10;
-            this.guna2Panel3.Controls.Add(this.guna2Button8);
-            this.guna2Panel3.Controls.Add(this.guna2Button5);
+            this.guna2Panel3.Controls.Add(this.updateButton);
+            this.guna2Panel3.Controls.Add(this.recoverButton);
+            this.guna2Panel3.Controls.Add(this.backupButton);
             this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(17, 272);
+            this.guna2Panel3.Location = new System.Drawing.Point(17, 281);
             this.guna2Panel3.Name = "guna2Panel3";
             this.guna2Panel3.ShadowDecoration.Parent = this.guna2Panel3;
-            this.guna2Panel3.Size = new System.Drawing.Size(1017, 100);
+            this.guna2Panel3.Size = new System.Drawing.Size(556, 219);
             this.guna2Panel3.TabIndex = 5;
             // 
-            // guna2Button8
+            // recoverButton
             // 
-            this.guna2Button8.CheckedState.Parent = this.guna2Button8;
-            this.guna2Button8.CustomImages.Parent = this.guna2Button8;
-            this.guna2Button8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button8.DisabledState.Parent = this.guna2Button8;
-            this.guna2Button8.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button8.ForeColor = System.Drawing.Color.White;
-            this.guna2Button8.HoverState.Parent = this.guna2Button8;
-            this.guna2Button8.Location = new System.Drawing.Point(842, 50);
-            this.guna2Button8.Name = "guna2Button8";
-            this.guna2Button8.ShadowDecoration.Parent = this.guna2Button8;
-            this.guna2Button8.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button8.TabIndex = 1;
-            this.guna2Button8.Text = "Recover";
+            this.recoverButton.CheckedState.Parent = this.recoverButton;
+            this.recoverButton.CustomImages.Parent = this.recoverButton;
+            this.recoverButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.recoverButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.recoverButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.recoverButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.recoverButton.DisabledState.Parent = this.recoverButton;
+            this.recoverButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.recoverButton.ForeColor = System.Drawing.Color.White;
+            this.recoverButton.HoverState.Parent = this.recoverButton;
+            this.recoverButton.Location = new System.Drawing.Point(21, 18);
+            this.recoverButton.Name = "recoverButton";
+            this.recoverButton.ShadowDecoration.Parent = this.recoverButton;
+            this.recoverButton.Size = new System.Drawing.Size(163, 38);
+            this.recoverButton.TabIndex = 1;
+            this.recoverButton.Text = "Recover";
             // 
-            // guna2Button5
+            // backupButton
             // 
-            this.guna2Button5.CheckedState.Parent = this.guna2Button5;
-            this.guna2Button5.CustomImages.Parent = this.guna2Button5;
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.DisabledState.Parent = this.guna2Button5;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button5.ForeColor = System.Drawing.Color.White;
-            this.guna2Button5.HoverState.Parent = this.guna2Button5;
-            this.guna2Button5.Location = new System.Drawing.Point(673, 50);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.ShadowDecoration.Parent = this.guna2Button5;
-            this.guna2Button5.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button5.TabIndex = 0;
-            this.guna2Button5.Text = "Backup";
+            this.backupButton.CheckedState.Parent = this.backupButton;
+            this.backupButton.CustomImages.Parent = this.backupButton;
+            this.backupButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.backupButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.backupButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.backupButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.backupButton.DisabledState.Parent = this.backupButton;
+            this.backupButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.backupButton.ForeColor = System.Drawing.Color.White;
+            this.backupButton.HoverState.Parent = this.backupButton;
+            this.backupButton.Location = new System.Drawing.Point(22, 91);
+            this.backupButton.Name = "backupButton";
+            this.backupButton.ShadowDecoration.Parent = this.backupButton;
+            this.backupButton.Size = new System.Drawing.Size(163, 38);
+            this.backupButton.TabIndex = 0;
+            this.backupButton.Text = "Backup";
             // 
-            // guna2Panel2
+            // exportXLSButton
             // 
-            this.guna2Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.guna2Panel2.BorderRadius = 10;
-            this.guna2Panel2.Controls.Add(this.guna2Button4);
-            this.guna2Panel2.FillColor = System.Drawing.Color.White;
-            this.guna2Panel2.Location = new System.Drawing.Point(17, 145);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.ShadowDecoration.Parent = this.guna2Panel2;
-            this.guna2Panel2.Size = new System.Drawing.Size(1017, 100);
-            this.guna2Panel2.TabIndex = 5;
-            // 
-            // guna2Button4
-            // 
-            this.guna2Button4.CheckedState.Parent = this.guna2Button4;
-            this.guna2Button4.CustomImages.Parent = this.guna2Button4;
-            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.DisabledState.Parent = this.guna2Button4;
-            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button4.ForeColor = System.Drawing.Color.White;
-            this.guna2Button4.HoverState.Parent = this.guna2Button4;
-            this.guna2Button4.Location = new System.Drawing.Point(842, 49);
-            this.guna2Button4.Name = "guna2Button4";
-            this.guna2Button4.ShadowDecoration.Parent = this.guna2Button4;
-            this.guna2Button4.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button4.TabIndex = 0;
-            this.guna2Button4.Text = "Export Excel";
+            this.exportXLSButton.CheckedState.Parent = this.exportXLSButton;
+            this.exportXLSButton.CustomImages.Parent = this.exportXLSButton;
+            this.exportXLSButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.exportXLSButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.exportXLSButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.exportXLSButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.exportXLSButton.DisabledState.Parent = this.exportXLSButton;
+            this.exportXLSButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.exportXLSButton.ForeColor = System.Drawing.Color.White;
+            this.exportXLSButton.HoverState.Parent = this.exportXLSButton;
+            this.exportXLSButton.Location = new System.Drawing.Point(355, 197);
+            this.exportXLSButton.Name = "exportXLSButton";
+            this.exportXLSButton.ShadowDecoration.Parent = this.exportXLSButton;
+            this.exportXLSButton.Size = new System.Drawing.Size(163, 38);
+            this.exportXLSButton.TabIndex = 0;
+            this.exportXLSButton.Text = "Export Excel";
+            this.exportXLSButton.Click += new System.EventHandler(this.exportXLSButton_Click);
             // 
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.guna2Panel1.BorderRadius = 10;
-            this.guna2Panel1.Controls.Add(this.guna2Button3);
+            this.guna2Panel1.Controls.Add(this.label3);
+            this.guna2Panel1.Controls.Add(this.locationLabel);
+            this.guna2Panel1.Controls.Add(this.guna2CheckBox3);
+            this.guna2Panel1.Controls.Add(this.guna2CheckBox2);
+            this.guna2Panel1.Controls.Add(this.guna2CheckBox1);
+            this.guna2Panel1.Controls.Add(this.exportXLSButton);
+            this.guna2Panel1.Controls.Add(this.dataComboBox);
+            this.guna2Panel1.Controls.Add(this.exportPDFButton);
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
-            this.guna2Panel1.Location = new System.Drawing.Point(17, 18);
+            this.guna2Panel1.Location = new System.Drawing.Point(17, 8);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.ShadowDecoration.Parent = this.guna2Panel1;
-            this.guna2Panel1.Size = new System.Drawing.Size(1017, 100);
+            this.guna2Panel1.Size = new System.Drawing.Size(556, 258);
             this.guna2Panel1.TabIndex = 4;
             // 
-            // guna2Button3
+            // exportPDFButton
             // 
-            this.guna2Button3.CheckedState.Parent = this.guna2Button3;
-            this.guna2Button3.CustomImages.Parent = this.guna2Button3;
-            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.DisabledState.Parent = this.guna2Button3;
-            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button3.ForeColor = System.Drawing.Color.White;
-            this.guna2Button3.HoverState.Parent = this.guna2Button3;
-            this.guna2Button3.Location = new System.Drawing.Point(842, 46);
-            this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.ShadowDecoration.Parent = this.guna2Button3;
-            this.guna2Button3.Size = new System.Drawing.Size(163, 38);
-            this.guna2Button3.TabIndex = 0;
-            this.guna2Button3.Text = "Export PDF";
+            this.exportPDFButton.CheckedState.Parent = this.exportPDFButton;
+            this.exportPDFButton.CustomImages.Parent = this.exportPDFButton;
+            this.exportPDFButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.exportPDFButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.exportPDFButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.exportPDFButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.exportPDFButton.DisabledState.Parent = this.exportPDFButton;
+            this.exportPDFButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.exportPDFButton.ForeColor = System.Drawing.Color.White;
+            this.exportPDFButton.HoverState.Parent = this.exportPDFButton;
+            this.exportPDFButton.Location = new System.Drawing.Point(355, 144);
+            this.exportPDFButton.Name = "exportPDFButton";
+            this.exportPDFButton.ShadowDecoration.Parent = this.exportPDFButton;
+            this.exportPDFButton.Size = new System.Drawing.Size(163, 38);
+            this.exportPDFButton.TabIndex = 0;
+            this.exportPDFButton.Text = "Export PDF";
+            this.exportPDFButton.Click += new System.EventHandler(this.exportPDFButton_Click);
             // 
             // usersTableAdapter
             // 
@@ -2055,6 +1964,208 @@ namespace Linkup_Finance.Forms
             // employeeLogsTableAdapter
             // 
             this.employeeLogsTableAdapter.ClearBeforeFill = true;
+            // 
+            // dataComboBox
+            // 
+            this.dataComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.dataComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dataComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dataComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.dataComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.dataComboBox.FocusedState.Parent = this.dataComboBox;
+            this.dataComboBox.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dataComboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.dataComboBox.HoverState.Parent = this.dataComboBox;
+            this.dataComboBox.ItemHeight = 30;
+            this.dataComboBox.Items.AddRange(new object[] {
+            "Balance Sheet",
+            "Income Sheet",
+            "Expense Sheet"});
+            this.dataComboBox.ItemsAppearance.Parent = this.dataComboBox;
+            this.dataComboBox.Location = new System.Drawing.Point(21, 57);
+            this.dataComboBox.Name = "dataComboBox";
+            this.dataComboBox.ShadowDecoration.Parent = this.dataComboBox;
+            this.dataComboBox.Size = new System.Drawing.Size(497, 36);
+            this.dataComboBox.TabIndex = 1;
+            // 
+            // guna2CheckBox1
+            // 
+            this.guna2CheckBox1.AutoSize = true;
+            this.guna2CheckBox1.BackColor = System.Drawing.Color.White;
+            this.guna2CheckBox1.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox1.CheckedState.BorderRadius = 2;
+            this.guna2CheckBox1.CheckedState.BorderThickness = 1;
+            this.guna2CheckBox1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.guna2CheckBox1.ForeColor = System.Drawing.Color.Black;
+            this.guna2CheckBox1.Location = new System.Drawing.Point(21, 188);
+            this.guna2CheckBox1.Name = "guna2CheckBox1";
+            this.guna2CheckBox1.Size = new System.Drawing.Size(87, 17);
+            this.guna2CheckBox1.TabIndex = 2;
+            this.guna2CheckBox1.Text = "Without VAT";
+            this.guna2CheckBox1.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2CheckBox1.UncheckedState.BorderRadius = 2;
+            this.guna2CheckBox1.UncheckedState.BorderThickness = 1;
+            this.guna2CheckBox1.UncheckedState.FillColor = System.Drawing.Color.Gainsboro;
+            this.guna2CheckBox1.UseVisualStyleBackColor = false;
+            // 
+            // guna2CheckBox2
+            // 
+            this.guna2CheckBox2.AutoSize = true;
+            this.guna2CheckBox2.BackColor = System.Drawing.Color.White;
+            this.guna2CheckBox2.Checked = true;
+            this.guna2CheckBox2.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox2.CheckedState.BorderRadius = 2;
+            this.guna2CheckBox2.CheckedState.BorderThickness = 1;
+            this.guna2CheckBox2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.guna2CheckBox2.ForeColor = System.Drawing.Color.Black;
+            this.guna2CheckBox2.Location = new System.Drawing.Point(21, 165);
+            this.guna2CheckBox2.Name = "guna2CheckBox2";
+            this.guna2CheckBox2.Size = new System.Drawing.Size(72, 17);
+            this.guna2CheckBox2.TabIndex = 3;
+            this.guna2CheckBox2.Text = "With VAT";
+            this.guna2CheckBox2.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2CheckBox2.UncheckedState.BorderRadius = 2;
+            this.guna2CheckBox2.UncheckedState.BorderThickness = 1;
+            this.guna2CheckBox2.UncheckedState.FillColor = System.Drawing.Color.Gainsboro;
+            this.guna2CheckBox2.UseVisualStyleBackColor = false;
+            // 
+            // guna2CheckBox3
+            // 
+            this.guna2CheckBox3.AutoSize = true;
+            this.guna2CheckBox3.BackColor = System.Drawing.Color.White;
+            this.guna2CheckBox3.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox3.CheckedState.BorderRadius = 2;
+            this.guna2CheckBox3.CheckedState.BorderThickness = 1;
+            this.guna2CheckBox3.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2CheckBox3.ForeColor = System.Drawing.Color.Black;
+            this.guna2CheckBox3.Location = new System.Drawing.Point(21, 211);
+            this.guna2CheckBox3.Name = "guna2CheckBox3";
+            this.guna2CheckBox3.Size = new System.Drawing.Size(57, 17);
+            this.guna2CheckBox3.TabIndex = 4;
+            this.guna2CheckBox3.Text = "Payroll";
+            this.guna2CheckBox3.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2CheckBox3.UncheckedState.BorderRadius = 2;
+            this.guna2CheckBox3.UncheckedState.BorderThickness = 1;
+            this.guna2CheckBox3.UncheckedState.FillColor = System.Drawing.Color.Gainsboro;
+            this.guna2CheckBox3.UseVisualStyleBackColor = false;
+            // 
+            // locationLabel
+            // 
+            this.locationLabel.AutoSize = true;
+            this.locationLabel.BackColor = System.Drawing.Color.White;
+            this.locationLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.locationLabel.ForeColor = System.Drawing.Color.Gray;
+            this.locationLabel.Location = new System.Drawing.Point(18, 96);
+            this.locationLabel.Name = "locationLabel";
+            this.locationLabel.Size = new System.Drawing.Size(57, 13);
+            this.locationLabel.TabIndex = 5;
+            this.locationLabel.Text = "Location: ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(15, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(170, 35);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Export Data";
+            // 
+            // closeNewUserPanelButton
+            // 
+            this.closeNewUserPanelButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeNewUserPanelButton.BorderRadius = 10;
+            this.closeNewUserPanelButton.CheckedState.Parent = this.closeNewUserPanelButton;
+            this.closeNewUserPanelButton.CustomImages.Parent = this.closeNewUserPanelButton;
+            this.closeNewUserPanelButton.CustomizableEdges.TopLeft = false;
+            this.closeNewUserPanelButton.CustomizableEdges.TopRight = false;
+            this.closeNewUserPanelButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.closeNewUserPanelButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.closeNewUserPanelButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.closeNewUserPanelButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.closeNewUserPanelButton.DisabledState.Parent = this.closeNewUserPanelButton;
+            this.closeNewUserPanelButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.closeNewUserPanelButton.ForeColor = System.Drawing.Color.White;
+            this.closeNewUserPanelButton.HoverState.Parent = this.closeNewUserPanelButton;
+            this.closeNewUserPanelButton.Image = global::Linkup_Finance.Properties.Resources.Close_Icon;
+            this.closeNewUserPanelButton.Location = new System.Drawing.Point(591, 0);
+            this.closeNewUserPanelButton.Name = "closeNewUserPanelButton";
+            this.closeNewUserPanelButton.ShadowDecoration.Parent = this.closeNewUserPanelButton;
+            this.closeNewUserPanelButton.Size = new System.Drawing.Size(37, 36);
+            this.closeNewUserPanelButton.TabIndex = 21;
+            this.closeNewUserPanelButton.Click += new System.EventHandler(this.closeNewUserPanelButton_Click);
+            // 
+            // userPictureBox
+            // 
+            this.userPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("userPictureBox.Image")));
+            this.userPictureBox.Location = new System.Drawing.Point(6, 8);
+            this.userPictureBox.Name = "userPictureBox";
+            this.userPictureBox.Size = new System.Drawing.Size(135, 153);
+            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.userPictureBox.TabIndex = 0;
+            this.userPictureBox.TabStop = false;
+            // 
+            // closeEmployeePanel
+            // 
+            this.closeEmployeePanel.BackColor = System.Drawing.Color.Transparent;
+            this.closeEmployeePanel.BorderRadius = 10;
+            this.closeEmployeePanel.CheckedState.Parent = this.closeEmployeePanel;
+            this.closeEmployeePanel.CustomImages.Parent = this.closeEmployeePanel;
+            this.closeEmployeePanel.CustomizableEdges.TopLeft = false;
+            this.closeEmployeePanel.CustomizableEdges.TopRight = false;
+            this.closeEmployeePanel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.closeEmployeePanel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.closeEmployeePanel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.closeEmployeePanel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.closeEmployeePanel.DisabledState.Parent = this.closeEmployeePanel;
+            this.closeEmployeePanel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.closeEmployeePanel.ForeColor = System.Drawing.Color.White;
+            this.closeEmployeePanel.HoverState.Parent = this.closeEmployeePanel;
+            this.closeEmployeePanel.Image = global::Linkup_Finance.Properties.Resources.Close_Icon;
+            this.closeEmployeePanel.Location = new System.Drawing.Point(591, 0);
+            this.closeEmployeePanel.Name = "closeEmployeePanel";
+            this.closeEmployeePanel.ShadowDecoration.Parent = this.closeEmployeePanel;
+            this.closeEmployeePanel.Size = new System.Drawing.Size(37, 36);
+            this.closeEmployeePanel.TabIndex = 21;
+            this.closeEmployeePanel.Click += new System.EventHandler(this.closeEmployeePanel_Click);
+            // 
+            // statusPictureBox
+            // 
+            this.statusPictureBox.BackColor = System.Drawing.Color.White;
+            this.statusPictureBox.Image = global::Linkup_Finance.Properties.Resources.Inactive_Image;
+            this.statusPictureBox.Location = new System.Drawing.Point(167, 84);
+            this.statusPictureBox.Name = "statusPictureBox";
+            this.statusPictureBox.Size = new System.Drawing.Size(132, 50);
+            this.statusPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.statusPictureBox.TabIndex = 17;
+            this.statusPictureBox.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(23, 14);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(108, 120);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Linkup_Finance.Properties.Resources.logo;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(719, 152);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.ShadowDecoration.Parent = this.guna2PictureBox1;
+            this.guna2PictureBox1.Size = new System.Drawing.Size(228, 200);
+            this.guna2PictureBox1.TabIndex = 6;
+            this.guna2PictureBox1.TabStop = false;
             // 
             // SettingsForm
             // 
@@ -2077,7 +2188,6 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userLogBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkupDatabaseDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).EndInit();
             this.employeePage.ResumeLayout(false);
             this.newEmployeePanel.ResumeLayout(false);
             this.newEmployeePanel.PerformLayout();
@@ -2085,13 +2195,14 @@ namespace Linkup_Finance.Forms
             ((System.ComponentModel.ISupportInitialize)(this.employeeLogsBindingSource)).EndInit();
             this.employeeProfilePanel.ResumeLayout(false);
             this.employeeProfilePanel.PerformLayout();
+            this.miscellaneousPage.ResumeLayout(false);
+            this.guna2Panel3.ResumeLayout(false);
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.miscellaneousPage.ResumeLayout(false);
-            this.guna2Panel4.ResumeLayout(false);
-            this.guna2Panel3.ResumeLayout(false);
-            this.guna2Panel2.ResumeLayout(false);
-            this.guna2Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2106,13 +2217,11 @@ namespace Linkup_Finance.Forms
         private Guna.UI2.WinForms.Guna2Button addEmployeeButton;
         private Guna.UI2.WinForms.Guna2DataGridView employeePayrollDataGridView;
         private Guna.UI2.WinForms.Guna2Panel employeeProfilePanel;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
-        private Guna.UI2.WinForms.Guna2Button guna2Button6;
+        private Guna.UI2.WinForms.Guna2Button exportPDFButton;
+        private Guna.UI2.WinForms.Guna2Button updateButton;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button4;
+        private Guna.UI2.WinForms.Guna2Button backupButton;
+        private Guna.UI2.WinForms.Guna2Button exportXLSButton;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.Label salaryLabel;
         private Guna.UI2.WinForms.Guna2TextBox bonusTextBox;
@@ -2153,7 +2262,7 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.PictureBox pictureBox2;
         private Guna.UI2.WinForms.Guna2ComboBox employeesComboBox;
-        private Guna.UI2.WinForms.Guna2Button guna2Button8;
+        private Guna.UI2.WinForms.Guna2Button recoverButton;
         private Guna.UI2.WinForms.Guna2Panel newEmployeePanel;
         private Guna.UI2.WinForms.Guna2Chip employeeErrorChip;
         private Guna.UI2.WinForms.Guna2Button closeEmployeePanel;
@@ -2207,5 +2316,12 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn netDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label label2;
         public LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter employeeLogsTableAdapter;
+        private Guna.UI2.WinForms.Guna2ComboBox dataComboBox;
+        private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox3;
+        private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox2;
+        private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox1;
+        private System.Windows.Forms.Label locationLabel;
+        private System.Windows.Forms.Label label3;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
     }
 }

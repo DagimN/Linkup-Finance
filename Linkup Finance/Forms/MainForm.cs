@@ -18,6 +18,7 @@ namespace Linkup_Finance
         private static string attachementDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements");
         private static string expenseDirectory = Combine(attachementDirectory, "Expense");
         private static string incomeDirectory = Combine(attachementDirectory, "Income");
+        private static string exportDirectory = Combine(attachementDirectory, "Export Data");
         private Form activeForm;
         private DashboardForm dashboardForm;
         public ProjectForm projectForm;
@@ -39,12 +40,15 @@ namespace Linkup_Finance
                 CreateDirectory(incomeDirectory);
             if (!Exists(expenseDirectory))
                 CreateDirectory(expenseDirectory);
+            if (!Exists(exportDirectory))
+                CreateDirectory(exportDirectory);
 
             settingsForm = new SettingsForm();
             projectForm = new ProjectForm();
             dashboardForm = new DashboardForm(projectForm, settingsForm, this);
             projectForm.Link(dashboardForm);
             settingsForm.Link(dashboardForm);
+            settingsForm.Link(projectForm);
             
             openChildForm(settingsForm);
             openChildForm(projectForm);
@@ -483,6 +487,8 @@ namespace Linkup_Finance
             projectButton.Visible = false;
             smallLogoPictureBox.Visible = false;
             financeLabel.Visible = false;
+            userNameTextBox.ResetText();
+            passwordTextBox.ResetText();
 
             titleBarPanel.Size = new Size(1200, 574);
             dashboardForm.welcomeNameLabel.Text = null;
