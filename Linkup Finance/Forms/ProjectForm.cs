@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
-using System.Collections;
 using System.IO;
 using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Linkup_Finance.Managers;
@@ -199,21 +194,21 @@ namespace Linkup_Finance.Forms
                 else
                 {
                     Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add("Petty Vault");
-                    Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add("1000");
-                    Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add("1000");
+                    Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add("0");
+                    Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.Add("0");
                     Linkup_Finance.Properties.Settings.Default.Save();
 
-                    bankManager.AddPettyVault("Petty Vault", 1000.00m);
+                    bankManager.AddPettyVault("Petty Vault", 0m);
 
                     pettyVaultChart.Series.Add(new PieSeries
                     {
-                        Values = new ChartValues<decimal> { 1000.00m },
+                        Values = new ChartValues<decimal> { 0m },
                         Title = "Petty Vault"
                     });
 
                     pettyVaultComboBox.Items.Add("Petty Vault");
                     pettyVaultComboBox.Text = "Petty Vault";
-                    vaultAmountLabel.Text = "Amount(ETB): 1000.00";
+                    vaultAmountLabel.Text = "Amount(ETB): 0.00";
                     pettyVaultTextBox.Enabled = false;
 
                     dashboardForm.RefreshDashboard();
@@ -476,13 +471,15 @@ namespace Linkup_Finance.Forms
         private void replenishButton_Click(object sender, EventArgs e)
         {
             PettyVault vault = (PettyVault)pettyVaultTextBox.Tag;
+            Project project = (Project)projectOption.Tag;
+            Bank bank = (Bank)bankOptionBox.Tag;
             decimal amount;
             bool isValid = decimal.TryParse(pettyValueTextBox.Text, out amount);
 
             if (isValid)
             {
-                vault.Replenish(amount);
-                vaultAmountLabel.Text = $"Amount(ETB):{vault.GetAmount()}";
+                vault.Replenish(amount, bank);
+                vaultAmountLabel.Text = $"Amount(ETB): {vault.GetAmount()}";
                 foreach (PieSeries series in pettyVaultChart.Series)
                 {
                     if (series.Title == vault.GetName())
@@ -492,6 +489,14 @@ namespace Linkup_Finance.Forms
                     }
                 }
                 pettyValueTextBox.Text = "";
+                bankLogsTableAdapter.Fill(linkupDatabaseDataSet.BankLogs);
+                banksTableAdapter.Fill(linkupDatabaseDataSet.Banks);
+                expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+                LoadChart(bank.GetBankName(), bankLogsTableAdapter.GetData());
+                RemoveItems(bankLogDataGridView, bank.GetBankName());
+                RemoveItems(expenseDataGridView, project.GetProjectName());
+                balanceAmountLabel.Text = $"Balance:{bank.GetBalance()}";
+                dashboardForm.LoadChart(banksTableAdapter.GetData());
                 dashboardForm.RefreshDashboard();
             }
             else
@@ -644,6 +649,7 @@ namespace Linkup_Finance.Forms
                 bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                 LoadChart(bank.GetBankName(), bankLogsTableAdapter.GetData());
                 RemoveItems(bankLogDataGridView, bank.GetBankName());
+                balanceAmountLabel.Text = $"Balance:{bank.GetBalance()}";
                 dashboardForm.LoadChart(banksTableAdapter.GetData());
                 dashboardForm.RefreshDashboard();
             }    
@@ -711,6 +717,12 @@ namespace Linkup_Finance.Forms
         private void closeExpensePanelButton_Click(object sender, EventArgs e)
         {
             newExpensePanel.Visible = false;
+
+            nameExpenseTextBox.ResetText();
+            expenseBankComboBox.ResetText();
+            reasonExpenseTextBox.ResetText();
+            amountExpenseTextBox.ResetText();
+            expenseTinTextBox.ResetText();
         }
 
         private void submitExpenseButton_Click(object sender, EventArgs e)
@@ -726,7 +738,7 @@ namespace Linkup_Finance.Forms
             decimal amount;
             DateTime date = expenseDateSelection.Value;
             bool isValid = decimal.TryParse(amountExpenseTextBox.Text, out amount);
-            isValid = int.TryParse(expenseTinTextBox.Text, out tin);
+            bool isTinValid = (expenseTinTextBox.Text != "") ? int.TryParse(expenseTinTextBox.Text, out tin) : true;
             string[] attachements = (string[])submitExpenseButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
@@ -735,6 +747,9 @@ namespace Linkup_Finance.Forms
 
             if (type == "Petty")
                 bank = type;
+
+            if (expenseTinTextBox.Text == "")
+                tin = 0;
 
             newExpensePanel.Controls.Remove(expenseErrorChip);
             expenseErrorChip = new Guna.UI2.WinForms.Guna2Chip
@@ -757,13 +772,13 @@ namespace Linkup_Finance.Forms
                 }
             }
 
-            if (isValid)
+            if (isValid && isTinValid)
             {
                 if (project != null)
                 {
                     if (name != "" && reason != "" && bank != "" && tin != -1 && amount != 0.00m)
                     {
-                        if (!(hasReceipt ^ attachements != null))
+                        if (attachements != null)
                         {
                             if (project.AddExpense(name, reason, product, bank, hasReceipt, amount, project.GetProjectName(), date, tin, type, attachmentDirectory))
                             {
@@ -855,7 +870,7 @@ namespace Linkup_Finance.Forms
                         else
                         {
                             expenseErrorChip.Visible = true;
-                            expenseErrorChip.Text = "Receipt is missing. Locate the receipt file and try again";
+                            expenseErrorChip.Text = "Attachements are missing. Locate the files to associate with this entry and try again";
                         }
                     }
                     else
@@ -1025,12 +1040,19 @@ namespace Linkup_Finance.Forms
         {
             if (e.ColumnIndex == 11)
             {
-                string url = expenseDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                try
+                {
+                    string url = expenseDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-                if (Exists(url))
-                    Process.Start(url);
-                else
-                    MessageBox.Show("The folder does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (Exists(url))
+                        Process.Start(url);
+                    else
+                        MessageBox.Show("The folder does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error has occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -1040,6 +1062,76 @@ namespace Linkup_Finance.Forms
                 expenseBankComboBox.Enabled = false;
             else
                 expenseBankComboBox.Enabled = true;
+        }
+
+        private void expenseTabPage_Click(object sender, EventArgs e)
+        {
+            newExpenseButton.Focus();
+        }
+
+        private void expenseDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            deleteExpenseEntryButton.Enabled = true;
+            deleteExpenseEntryButton.Tag = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString());
+        }
+
+        private void expenseDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!deleteExpenseEntryButton.Focused)
+            {
+                deleteExpenseEntryButton.Enabled = false;
+                deleteExpenseEntryButton.Tag = null;
+            }
+        }
+
+        private void receiptExpenseRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!receiptExpenseRadioButton.Checked)
+            {
+                expenseTinTextBox.Text = "";
+                expenseTinTextBox.Enabled = false;
+            }
+            else
+                expenseTinTextBox.Enabled = true;
+        }
+
+        private void expenseDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            Project project = (Project)projectOption.Tag;
+            string name = expenseDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+            string product = expenseDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string bank = expenseDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+            decimal amount = (decimal)expenseDataGridView.Rows[e.RowIndex].Cells[4].Value;
+            bool hasReceipt = (int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[8].Value.ToString()) == 1) ? true : false;
+            string reason = expenseDataGridView.Rows[e.RowIndex].Cells[9].Value.ToString();
+            DateTime date = (DateTime)expenseDataGridView.Rows[e.RowIndex].Cells[10].Value;
+            string attachement = expenseDataGridView.Rows[e.RowIndex].Cells[11].Value.ToString();
+            int tin = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+            string type = expenseDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+            int id = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString());
+
+            if (e.ColumnIndex != 5 && e.ColumnIndex != 6 && e.ColumnIndex != 7)
+            {
+                project.EditExpense(id, name, product, bank, amount, hasReceipt, reason, date, attachement, tin, type);
+                expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+                RemoveItems(expenseDataGridView, project.GetProjectName());
+                LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
+                dashboardForm.LoadChart(expenseTableAdapter.GetData());
+                GetTotalVat(expenseTableAdapter.GetData());
+            }
+        }
+
+        private void deleteExpenseEntryButton_Click(object sender, EventArgs e)
+        {
+            Project project = (Project)projectOption.Tag;
+            int id = (int)deleteExpenseEntryButton.Tag;
+
+            project.RemoveExpense(id);
+            expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+            RemoveItems(expenseDataGridView, project.GetProjectName());
+            LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
+            dashboardForm.LoadChart(expenseTableAdapter.GetData());
+            GetTotalVat(expenseTableAdapter.GetData());
         }
 
         #endregion
@@ -1078,12 +1170,12 @@ namespace Linkup_Finance.Forms
             string name = nameIncomeTextBox.Text;
             string reason = reasonIncomeTextBox.Text;
             string bank = incomeBankComboBox.Text;
-            int tin = 0;
+            int tin = -1;
             bool hasReceipt = receiptIncomeRadioButton.Checked;
             decimal gross;
             DateTime date = incomeDateSelection.Value;
             bool isValid = decimal.TryParse(grossIncomeTextBox.Text, out gross);
-            isValid = int.TryParse(incomeTinTextBox.Text, out tin);
+            bool isTinValid = (incomeTinTextBox.Text != "") ? int.TryParse(incomeTinTextBox.Text, out tin) : true;
             string[] attachements = (string[])submitIncomeButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
@@ -1102,6 +1194,9 @@ namespace Linkup_Finance.Forms
             newIncomePanel.Controls.Add(incomeErrorChip);
             incomeErrorChip.BringToFront();
 
+            if (incomeTinTextBox.Text == "")
+                tin = 0;
+
             if(attachements != null)
             {
                 while (Exists(attachmentDirectory))
@@ -1111,13 +1206,13 @@ namespace Linkup_Finance.Forms
                 }
             }
 
-            if (isValid)
+            if (isValid && isTinValid)
             {
                 if (project != null)
                 {
-                    if (name != "" && reason != "" && bank != "" && tin != 0 && gross != 0.00m)
+                    if (name != "" && reason != "" && bank != "" && tin != -1 && gross != 0.00m)
                     {
-                        if(!(hasReceipt ^ attachements != null))
+                        if(attachements != null)
                         {
                             if (project.AddIncome(name, reason, bank, hasReceipt, gross, project.GetProjectName(), date, tin, (type != "None") ? type : null, attachmentDirectory))
                             {
@@ -1175,6 +1270,7 @@ namespace Linkup_Finance.Forms
                                 incomeVatLabel.Text = $"Total Vat: {GetTotalVat(incomeTableAdapter.GetData())}";
                                 RemoveItems(incomeDataGridView, projectOption.Text);
                                 LoadChart(project.GetProjectName() ,incomeTableAdapter.GetData());
+                                GetTotalVat(incomeTableAdapter.GetData());
                                 dashboardForm.LoadChart(incomeTableAdapter.GetData());
                             }
                             else
@@ -1186,7 +1282,7 @@ namespace Linkup_Finance.Forms
                         else
                         {
                             incomeErrorChip.Visible = true;
-                            incomeErrorChip.Text = "Receipt is missing. Locate the receipt file and try again";
+                            incomeErrorChip.Text = "Attachements are missing. Locate the files to associate with this entry and try again";
                         }
                     }
                     else
@@ -1340,16 +1436,92 @@ namespace Linkup_Finance.Forms
             }
         }
 
+        private void incomeDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            deleteIncomeEntryButton.Enabled = true;
+            deleteIncomeEntryButton.Tag = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+        }
+
+        private void incomeDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!deleteIncomeEntryButton.Focused)
+            {
+                deleteIncomeEntryButton.Enabled = false;
+                deleteIncomeEntryButton.Tag = null;
+            }
+        }
+
+        private void deleteIncomeEntryButton_Click(object sender, EventArgs e)
+        {
+            Project project = (Project)projectOption.Tag;
+            int id = (int)deleteIncomeEntryButton.Tag;
+
+            project.RemoveIncome(id);
+            incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            RemoveItems(incomeDataGridView, project.GetProjectName());
+            LoadChart(project.GetProjectName(), incomeTableAdapter.GetData());
+            dashboardForm.LoadChart(incomeTableAdapter.GetData());
+            GetTotalVat(incomeTableAdapter.GetData());
+        }
+
+        private void incomeTabPage_Click(object sender, EventArgs e)
+        {
+            newIncomeButton.Focus();
+        }
+
+        private void receiptIncomeRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!receiptIncomeRadioButton.Checked)
+            {
+                incomeTinTextBox.Text = "";
+                incomeTinTextBox.Enabled = false;
+            }
+            else
+                incomeTinTextBox.Enabled = true;
+        }
+
         private void incomeDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 9)
             {
-                string url = incomeDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                try
+                {
+                    string url = incomeDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
-                if (Exists(url))
-                    Process.Start(url);
-                else
-                    MessageBox.Show("The folder does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (Exists(url))
+                        Process.Start(url);
+                    else
+                        MessageBox.Show("The folder does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Error has occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void incomeDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            Project project = (Project)projectOption.Tag;
+            string name = incomeDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+            string bank = incomeDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+            decimal gross = (decimal)incomeDataGridView.Rows[e.RowIndex].Cells[2].Value;
+            bool hasReceipt = (int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString()) == 1) ? true : false;
+            string reason = incomeDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+            DateTime date = (DateTime)incomeDataGridView.Rows[e.RowIndex].Cells[8].Value;
+            string attachement = incomeDataGridView.Rows[e.RowIndex].Cells[9].Value.ToString();
+            int tin = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[11].Value.ToString());
+            string type = incomeDataGridView.Rows[e.RowIndex].Cells[12].Value.ToString();
+            int id = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+
+            if (e.ColumnIndex != 3 && e.ColumnIndex != 4 && e.ColumnIndex != 5)
+            {
+                project.EditIncome(id, name, bank, gross, hasReceipt, reason, date, attachement, tin, type);
+                incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+                RemoveItems(incomeDataGridView, project.GetProjectName());
+                LoadChart(project.GetProjectName(), incomeTableAdapter.GetData());
+                dashboardForm.LoadChart(incomeTableAdapter.GetData());
+                GetTotalVat(incomeTableAdapter.GetData());
             }
         }
 
@@ -1714,7 +1886,7 @@ namespace Linkup_Finance.Forms
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
                 {
                     if (dataGridView.Rows[i].Cells[12].Value != null)
-                        if (dataGridView.Rows[i].Cells[12].Value.ToString() != filter)
+                        if (dataGridView.Rows[i].Cells[12].Value.ToString() != filter && dataGridView.Rows[i].Cells[12].Value.ToString() != "")
                             tobeRemovedList.Add(i);
 
                     if (loggedInAccountType != AccountType.Admin)

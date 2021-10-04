@@ -161,7 +161,7 @@ namespace Linkup_Finance.Managers
 
         public bool AddIncome(string name, string reason, string bank, bool hasReceipt, decimal gross, string project, DateTime date, int tin, string type = null, string attachement = null)
         {
-            decimal vat = gross * 0.15m;
+            decimal vat = (hasReceipt) ? gross * 0.15m : 0m;
             decimal withholding = 0m;
             decimal net;
 
@@ -174,6 +174,10 @@ namespace Linkup_Finance.Managers
             {
                 if (gross >= 3000.00m)
                     withholding = gross * 0.02m;
+            }
+            else
+            {
+                type = "Normal";
             }
            
             net = gross + vat - withholding;
@@ -220,7 +224,7 @@ namespace Linkup_Finance.Managers
                 try
                 {
                     con.Open();
-                    decimal vat = amount * 0.15m;
+                    decimal vat = (hasReceipt) ? amount * 0.15m : 0m;
                     decimal withholding = 0m;
                     decimal total;
 
@@ -244,6 +248,9 @@ namespace Linkup_Finance.Managers
                         else
                             type = "Normal";
                     }
+
+                    if (!hasReceipt)
+                        withholding = amount * 0.3m;
                      
                     total = amount + vat - withholding;
 
@@ -276,6 +283,200 @@ namespace Linkup_Finance.Managers
             }
 
             return true;
+        }
+
+        public bool RemoveIncome(int id)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string removeQuery = "DELETE FROM Income " +
+                                         "WHERE Id=@Id";
+                    SqlCommand command = new SqlCommand(removeQuery, con);
+                    con.Open();
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        public bool RemoveExpense(int id)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string removeQuery = "DELETE FROM Expense " +
+                                         "WHERE Id=@Id";
+                    SqlCommand command = new SqlCommand(removeQuery, con);
+                    con.Open();
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        public bool EditIncome(int id, string name, string bank, decimal gross, bool hasReceipt, string reason, DateTime date, string attachement, int tin, string type)
+        {
+            decimal vat = (hasReceipt) ? gross * 0.15m : 0m;
+            decimal withholding = 0m;
+            decimal net;
+
+            if (type == "Goods")
+            {
+                if (gross >= 10000.00m)
+                    withholding = gross * 0.02m;
+            }
+            else if (type == "Service")
+            {
+                if (gross >= 3000.00m)
+                    withholding = gross * 0.02m;
+            }
+
+            net = gross + vat - withholding;
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string updateQuery = "UPDATE Income " +
+                                         "SET Payer=@Name, " +
+                                             "Reason=@Reason, " +
+                                             "Bank=@Bank, " +
+                                             "Gross=@Gross, " +
+                                             "VAT=@Vat, " +
+                                             "Withholding=@Withholding, " +
+                                             "Net=@Net, " +
+                                             "Receipt=@Receipt, " +
+                                             "Date=@Date, " +
+                                             $"Attachement=\'{attachement}\', " +
+                                             "Project=@Project, " +
+                                             $"Tin=\'{tin}\', " +
+                                             "Type=@Type " +
+                                             "WHERE Id=@Id";
+                    SqlCommand command = new SqlCommand(updateQuery, con);
+                    con.Open();
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Reason", reason);
+                    command.Parameters.AddWithValue("@Bank", bank);
+                    command.Parameters.AddWithValue("@Gross", gross);
+                    command.Parameters.AddWithValue("@Vat", vat);
+                    command.Parameters.AddWithValue("@Withholding", withholding);
+                    command.Parameters.AddWithValue("@Net", net);
+                    command.Parameters.AddWithValue("@Receipt", hasReceipt);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@Project", this.projectName);
+                    command.Parameters.AddWithValue("@Type", type);
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+        
+        public bool EditExpense(int id, string name, string product, string bank, decimal amount, bool hasReceipt, string reason, DateTime date, string attachement, int tin, string type)
+        {
+            decimal vat = (hasReceipt) ? amount * 0.15m : 0m;
+            decimal withholding = 0m;
+            decimal total;
+
+            if (type == "Goods")
+            {
+                if (amount >= 10000.00m)
+                    withholding = amount * 0.02m;
+            }
+            else if (type == "Service")
+            {
+                if (amount >= 3000.00m)
+                    withholding = amount * 0.02m;
+            }
+
+            if (!hasReceipt)
+                withholding = amount * 0.3m;
+
+            total = amount + vat - withholding;
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string updateQuery = "UPDATE Expense " +
+                                         "SET ExpName=@Name, " +
+                                             "Product=@Product, " +
+                                             "Amount=@Amount, " +
+                                             "Type=@Type, " +
+                                             "VAT=@Vat, " +
+                                             "Withholding=@Withholding, " +
+                                             "Bank=@Bank, " +
+                                             "Reason=@Reason, " +
+                                             "Date=@Date, " +
+                                             $"Attachement=\'{attachement}\', " +
+                                             "Total=@Total, " +
+                                             "Project=@Project, " +
+                                             "Receipt=@Receipt, " +
+                                             $"Tin=\'{tin}\' " +
+                                             "WHERE Id=@Id";
+                    SqlCommand command = new SqlCommand(updateQuery, con);
+                    con.Open();
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Product", product);
+                    command.Parameters.AddWithValue("@Reason", reason);
+                    command.Parameters.AddWithValue("@Bank", bank);
+                    command.Parameters.AddWithValue("@Amount", amount);
+                    command.Parameters.AddWithValue("@Vat", vat);
+                    command.Parameters.AddWithValue("@Withholding", withholding);
+                    command.Parameters.AddWithValue("@Total", total);
+                    command.Parameters.AddWithValue("@Receipt", hasReceipt);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@Project", this.projectName);
+                    command.Parameters.AddWithValue("@Type", type);
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                    //return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
     }
 }

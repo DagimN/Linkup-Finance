@@ -337,6 +337,11 @@ namespace Linkup_Finance.Managers
                 }
             }
         }
+
+        public void Withdraw(decimal amount)
+        {
+            this.Balance -= amount;
+        }
     }
 
     public class PettyVault
@@ -359,8 +364,68 @@ namespace Linkup_Finance.Managers
             Linkup_Finance.Properties.Settings.Default.Save();
         }
 
-        public void Replenish(decimal amount)
+        public void Replenish(decimal amount, Bank bank)
         {
+            DateTime date = DateTime.Now;
+            bank.Withdraw(amount);
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt, Tin)" +
+                                         $" VALUES(@ExpName, @Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{null}\',@Total,@Project,@Receipt,\'{null}\')";
+                    string insertBankQuery = "INSERT INTO BankLogs(Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName)" +
+                                         $" VALUES(@Bank, @Balance, @PrevBalance, @Type, @Reason, @Date, \'{null}\', @tpName)";
+                    string updateBankQuery = "UPDATE Banks " +
+                                         "SET Balance=@Balance " +
+                                         "WHERE Name=@Name";
+                    SqlCommand command = new SqlCommand(insertQuery, con);
+                    con.Open();
+
+                    command.Parameters.AddWithValue("@Amount", amount);
+                    command.Parameters.AddWithValue("@Total", amount);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@Type", "Petty Deposit");
+                    command.Parameters.AddWithValue("@Bank", bank.GetBankName());
+                    command.Parameters.AddWithValue("@Reason", "Petty Cash Replenish");
+                    command.Parameters.AddWithValue("@Project", "");
+                    command.Parameters.AddWithValue("@Receipt", 0);
+                    command.Parameters.AddWithValue("@ExpName", "Petty Deposit");
+                    command.Parameters.AddWithValue("@Product", "");
+                    command.Parameters.AddWithValue("@VAT", 0m);
+                    command.Parameters.AddWithValue("@Withholding", 0m);
+
+                    command.ExecuteNonQuery();
+
+                    command = new SqlCommand(insertBankQuery, con);
+
+                    command.Parameters.AddWithValue("@Bank", bank.GetBankName());
+                    command.Parameters.AddWithValue("@Balance", bank.GetBalance());
+                    command.Parameters.AddWithValue("@PrevBalance", bank.GetBalance() + amount);
+                    command.Parameters.AddWithValue("@Type", "Petty Deposit");
+                    command.Parameters.AddWithValue("@Reason", "Petty Cash Replenish");
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@tpName", "Petty Deposit");
+
+                    command.ExecuteNonQuery();
+
+                    command = new SqlCommand(updateBankQuery, con);
+
+                    command.Parameters.AddWithValue("@Balance", bank.GetBalance());
+                    command.Parameters.AddWithValue("@Name", bank.GetBankName());
+
+                    command.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Error occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
             this.Amount += amount;
             Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.IndexOf(this.Name) + 2] = this.Amount.ToString();
             Linkup_Finance.Properties.Settings.Default.Save();

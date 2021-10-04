@@ -119,15 +119,9 @@ namespace Linkup_Finance.Forms
                 phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
                 if (employee.GetStatus() == EmployeeStatus.Active)
-                {
-                    payEmployeeButton.Enabled = true;
                     activeEmployeeRadioButton.Checked = true;
-                }
                 else
-                {
-                    payEmployeeButton.Enabled = false;
                     inactiveEmployeeRadioButton.Checked = true;
-                }
                     
                 salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
@@ -415,15 +409,9 @@ namespace Linkup_Finance.Forms
                             phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
                             if (employee.GetStatus() == EmployeeStatus.Active)
-                            {
                                 activeEmployeeRadioButton.Checked = true;
-                                payEmployeeButton.Enabled = true;
-                            }
                             else
-                            {
                                 inactiveEmployeeRadioButton.Checked = true;
-                                payEmployeeButton.Enabled = false;
-                            }
                                 
                             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
@@ -534,10 +522,6 @@ namespace Linkup_Finance.Forms
             {
                 userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), employee.GetSalaryDueDate(), EmployeeStatus.Active);
                 statusPictureBox.Image = Linkup_Finance.Properties.Resources.Active_Image;
-                if (employee.GetIsPaid())
-                    payEmployeeButton.Enabled = false;
-                else
-                    payEmployeeButton.Enabled = true;
             }       
         }
 
@@ -569,11 +553,6 @@ namespace Linkup_Finance.Forms
                 activeEmployeeRadioButton.Checked = true;
             else
                 inactiveEmployeeRadioButton.Checked = true;
-
-            if (employee.GetIsPaid())
-                payEmployeeButton.Enabled = false;
-            else
-                payEmployeeButton.Enabled = true;
 
             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
@@ -646,7 +625,6 @@ namespace Linkup_Finance.Forms
                 if (employee.Pay(bonus))
                 {
                     employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
-                    payEmployeeButton.Enabled = false;
                     dashboardForm.RefreshDashboard();
                     dashboardForm.LoadChart(employeeLogsTableAdapter.GetData());
                     RemoveItems(employeePayrollDataGridView, employee.GetName());
