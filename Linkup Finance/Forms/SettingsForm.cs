@@ -703,9 +703,10 @@ namespace Linkup_Finance.Forms
                 y += font.MeasureString("Balance Sheet", format).Height + 5;
 
                 int i = 1;
-                decimal total = 0m;
-                string[] header = { "Date", "Description", "Bank", "Type" ,"Payer", "Amount" };
-                dataSource = new string[incomeDataTable.Rows.Count + expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 2][];
+                decimal total = 0m, tax;
+                string percent;
+                string[] header = { "Date", "Description", "Bank", "Type" ,"Name", "Amount" };
+                dataSource = new string[incomeDataTable.Rows.Count + expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 5][];
 
                 dataSource[0] = header;
                 foreach (string[] item in SortData(ExportDataSource(incomeDataTable, expenseDataTable, employeeLogsDataTable)))
@@ -717,7 +718,49 @@ namespace Linkup_Finance.Forms
                         total -= decimal.Parse(item[5]);
                 }
 
+                if (total >= 0m && total <= 7200m)
+                {
+                    percent = "0%";
+                    tax = 0m;
+                }
+                else if (total >= 7201m && total <= 19800m)
+                {
+                    percent = "10%";
+                    tax = (total * 0.1m) - 720m;
+                }
+                else if (total >= 19801m && total <= 38400m)
+                {
+                    percent = "15%";
+                    tax = (total * 0.15m) - 1710m;
+                }
+                else if (total >= 38401m && total <= 63000m)
+                {
+                    percent = "20%";
+                    tax = (total * 0.2m) - 3630m;
+                }
+                else if (total >= 63001m && total <= 93600m)
+                {
+                    percent = "25%";
+                    tax = (total * 0.25m) - 6780m;
+                }
+                else if (total >= 93601m && total <= 130800)
+                {
+                    percent = "30%";
+                    tax = (total * 0.3m) - 11460m;
+                }
+                else
+                {
+                    percent = "35%";
+                    tax = (total * 0.35m) - 18000m;
+                }
+                    
+                string[] inputVatItem = { " ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(incomeDataTable).ToString() };
+                string[] outputVatItem = { " ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(expenseDataTable).ToString() };
+                string[] taxItem = { " ", " ", " ", " ", $"Income Tax{percent}", tax.ToString() };
                 string[] finalItem = { " ", " ", " ", " ","Total", total.ToString() };
+                dataSource[i++] = inputVatItem;
+                dataSource[i++] = outputVatItem;
+                dataSource[i++] = taxItem;
                 dataSource[i] = finalItem;
             }
             else if (dataComboBox.Text == "Income Sheet")
@@ -735,7 +778,7 @@ namespace Linkup_Finance.Forms
                 int i = 1;
                 decimal total = 0m;
                 string[] header = { "Date", "Description", "Bank", "Payer", "Amount" };
-                dataSource = new string[incomeDataTable.Rows.Count + 2][];
+                dataSource = new string[incomeDataTable.Rows.Count + 3][];
 
                 dataSource[0] = header;
                 foreach (string[] item in SortData(ExportDataSource(incomeDataTable)))
@@ -744,6 +787,35 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
+                string[] vatItem = { " ", " ", " ", "VAT", projectForm.GetTotalVat(incomeDataTable).ToString() };
+                string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
+                dataSource[i++] = vatItem;
+                dataSource[i] = finalItem;
+            }
+            else if(dataComboBox.Text == "Payroll Sheet")
+            {
+                DataTable payrollDataTable;
+                employeeLogsTableAdapter.Fill(projectForm.linkupDatabaseDataSet.EmployeeLogs);
+
+                payrollDataTable = employeeLogsTableAdapter.GetData();
+
+                pdfLocation = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Export Data", "Payroll Sheet.pdf");
+
+                page.Canvas.DrawString("Payroll Sheet", font, brush, page.Canvas.ClientSize.Width / 2, y, format);
+                y += font.MeasureString("Payroll Sheet", format).Height + 5;
+
+                int i = 1;
+                decimal total = 0m;
+                string[] header = { "Date", "Description", "Bank", "Employee", "Amount" };
+                dataSource = new string[payrollDataTable.Rows.Count + 2][];
+
+                dataSource[0] = header;
+                foreach (string[] item in SortData(ExportDataSource(payrollDataTable)))
+                {
+                    dataSource[i++] = item;
+                    total += decimal.Parse(item[4]);
+                }
+                
                 string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
                 dataSource[i] = finalItem;
             }
@@ -764,8 +836,8 @@ namespace Linkup_Finance.Forms
 
                 int i = 1;
                 decimal total = 0m;
-                string[] header = { "Date", "Description", "Bank", "Payer", "Amount" };
-                dataSource = new string[expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 2][];
+                string[] header = { "Date", "Description", "Bank", "Expense", "Amount" };
+                dataSource = new string[expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 3][];
 
                 dataSource[0] = header;
                 foreach (string[] item in SortData(ExportDataSource(expenseDataTable, employeeLogsDataTable)))
@@ -774,7 +846,9 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
+                string[] vatItem = { " ", " ", " ", "VAT", projectForm.GetTotalVat(expenseDataTable).ToString() };
                 string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
+                dataSource[i++] = vatItem;
                 dataSource[i] = finalItem;
             }
             
@@ -793,7 +867,7 @@ namespace Linkup_Finance.Forms
 
         private void exportXLSButton_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         #endregion
@@ -935,18 +1009,31 @@ namespace Linkup_Finance.Forms
             }
             else
             {
+                
                 dataSource = new string[dataTables[0].Rows.Count][];
 
                 for (int i = 0; i < dataTables[0].Rows.Count; i++)
                 {
-                    string[] item = { dataTables[0].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
-                                  dataTables[0].Rows[i].ItemArray[2].ToString(),
-                                  dataTables[0].Rows[i].ItemArray[3].ToString(),
-                                  dataTables[0].Rows[i].ItemArray[1].ToString(),
-                                  dataTables[0].Rows[i].ItemArray[5].ToString() };
-                    
-                    dataSource[i] = item;
-                    index++;
+                    if(dataTables[0] is LinkupDatabaseDataSet.IncomeDataTable)
+                    {
+                        string[] item = {  dataTables[0].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
+                                            dataTables[0].Rows[i].ItemArray[2].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[3].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[1].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[5].ToString() };
+                        dataSource[i] = item;
+                        index++;
+                    }
+                    else
+                    {
+                        string[] item = { dataTables[0].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
+                                            "Employee Salary Payment",
+                                            " ",
+                                            dataTables[0].Rows[i].ItemArray[1].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[5].ToString() };
+                        dataSource[i] = item;
+                        index++;
+                    }
                 }
             }
 
@@ -958,10 +1045,7 @@ namespace Linkup_Finance.Forms
             string[][] sortArray = new string[dataSource.Length][];
             
             for (int i = 0; i < dataSource.Length; i++)
-            {
                 sortArray[i] = dataSource[i];
-                MessageBox.Show(dataSource[i][0]);
-            }
                
             int inner, numElements = sortArray.Length;
             string[] temp;

@@ -141,7 +141,6 @@ namespace Linkup_Finance.Forms
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.locationLabel = new System.Windows.Forms.Label();
-            this.guna2CheckBox3 = new Guna.UI2.WinForms.Guna2CheckBox();
             this.guna2CheckBox2 = new Guna.UI2.WinForms.Guna2CheckBox();
             this.guna2CheckBox1 = new Guna.UI2.WinForms.Guna2CheckBox();
             this.exportXLSButton = new Guna.UI2.WinForms.Guna2Button();
@@ -152,6 +151,10 @@ namespace Linkup_Finance.Forms
             this.employeesTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeesTableAdapter();
             this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
             this.clearButton = new Guna.UI2.WinForms.Guna2Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.fromDateTimeSelection = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.toDateTimeSelection = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.guna2TabControl1.SuspendLayout();
             this.userPage.SuspendLayout();
             this.newUserPanel.SuspendLayout();
@@ -1921,10 +1924,10 @@ namespace Linkup_Finance.Forms
             this.guna2Panel3.Controls.Add(this.recoverButton);
             this.guna2Panel3.Controls.Add(this.backupButton);
             this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(17, 281);
+            this.guna2Panel3.Location = new System.Drawing.Point(17, 337);
             this.guna2Panel3.Name = "guna2Panel3";
             this.guna2Panel3.ShadowDecoration.Parent = this.guna2Panel3;
-            this.guna2Panel3.Size = new System.Drawing.Size(556, 219);
+            this.guna2Panel3.Size = new System.Drawing.Size(556, 163);
             this.guna2Panel3.TabIndex = 5;
             // 
             // updateButton
@@ -1939,7 +1942,7 @@ namespace Linkup_Finance.Forms
             this.updateButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.updateButton.ForeColor = System.Drawing.Color.White;
             this.updateButton.HoverState.Parent = this.updateButton;
-            this.updateButton.Location = new System.Drawing.Point(355, 51);
+            this.updateButton.Location = new System.Drawing.Point(355, 20);
             this.updateButton.Name = "updateButton";
             this.updateButton.ShadowDecoration.Parent = this.updateButton;
             this.updateButton.Size = new System.Drawing.Size(163, 38);
@@ -1958,7 +1961,7 @@ namespace Linkup_Finance.Forms
             this.recoverButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.recoverButton.ForeColor = System.Drawing.Color.White;
             this.recoverButton.HoverState.Parent = this.recoverButton;
-            this.recoverButton.Location = new System.Drawing.Point(21, 51);
+            this.recoverButton.Location = new System.Drawing.Point(21, 20);
             this.recoverButton.Name = "recoverButton";
             this.recoverButton.ShadowDecoration.Parent = this.recoverButton;
             this.recoverButton.Size = new System.Drawing.Size(163, 38);
@@ -1977,7 +1980,7 @@ namespace Linkup_Finance.Forms
             this.backupButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.backupButton.ForeColor = System.Drawing.Color.White;
             this.backupButton.HoverState.Parent = this.backupButton;
-            this.backupButton.Location = new System.Drawing.Point(22, 124);
+            this.backupButton.Location = new System.Drawing.Point(22, 106);
             this.backupButton.Name = "backupButton";
             this.backupButton.ShadowDecoration.Parent = this.backupButton;
             this.backupButton.Size = new System.Drawing.Size(163, 38);
@@ -1988,9 +1991,12 @@ namespace Linkup_Finance.Forms
             // 
             this.guna2Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.guna2Panel1.BorderRadius = 10;
+            this.guna2Panel1.Controls.Add(this.toDateTimeSelection);
+            this.guna2Panel1.Controls.Add(this.fromDateTimeSelection);
+            this.guna2Panel1.Controls.Add(this.label6);
+            this.guna2Panel1.Controls.Add(this.label4);
             this.guna2Panel1.Controls.Add(this.label3);
             this.guna2Panel1.Controls.Add(this.locationLabel);
-            this.guna2Panel1.Controls.Add(this.guna2CheckBox3);
             this.guna2Panel1.Controls.Add(this.guna2CheckBox2);
             this.guna2Panel1.Controls.Add(this.guna2CheckBox1);
             this.guna2Panel1.Controls.Add(this.exportXLSButton);
@@ -2000,7 +2006,7 @@ namespace Linkup_Finance.Forms
             this.guna2Panel1.Location = new System.Drawing.Point(17, 8);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.ShadowDecoration.Parent = this.guna2Panel1;
-            this.guna2Panel1.Size = new System.Drawing.Size(556, 258);
+            this.guna2Panel1.Size = new System.Drawing.Size(556, 323);
             this.guna2Panel1.TabIndex = 4;
             // 
             // label3
@@ -2027,26 +2033,6 @@ namespace Linkup_Finance.Forms
             this.locationLabel.TabIndex = 5;
             this.locationLabel.Text = "Location: ";
             // 
-            // guna2CheckBox3
-            // 
-            this.guna2CheckBox3.AutoSize = true;
-            this.guna2CheckBox3.BackColor = System.Drawing.Color.White;
-            this.guna2CheckBox3.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2CheckBox3.CheckedState.BorderRadius = 2;
-            this.guna2CheckBox3.CheckedState.BorderThickness = 1;
-            this.guna2CheckBox3.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2CheckBox3.ForeColor = System.Drawing.Color.Black;
-            this.guna2CheckBox3.Location = new System.Drawing.Point(21, 211);
-            this.guna2CheckBox3.Name = "guna2CheckBox3";
-            this.guna2CheckBox3.Size = new System.Drawing.Size(57, 17);
-            this.guna2CheckBox3.TabIndex = 4;
-            this.guna2CheckBox3.Text = "Payroll";
-            this.guna2CheckBox3.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2CheckBox3.UncheckedState.BorderRadius = 2;
-            this.guna2CheckBox3.UncheckedState.BorderThickness = 1;
-            this.guna2CheckBox3.UncheckedState.FillColor = System.Drawing.Color.Gainsboro;
-            this.guna2CheckBox3.UseVisualStyleBackColor = false;
-            // 
             // guna2CheckBox2
             // 
             this.guna2CheckBox2.AutoSize = true;
@@ -2058,7 +2044,7 @@ namespace Linkup_Finance.Forms
             this.guna2CheckBox2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.guna2CheckBox2.ForeColor = System.Drawing.Color.Black;
-            this.guna2CheckBox2.Location = new System.Drawing.Point(21, 165);
+            this.guna2CheckBox2.Location = new System.Drawing.Point(21, 140);
             this.guna2CheckBox2.Name = "guna2CheckBox2";
             this.guna2CheckBox2.Size = new System.Drawing.Size(72, 17);
             this.guna2CheckBox2.TabIndex = 3;
@@ -2079,7 +2065,7 @@ namespace Linkup_Finance.Forms
             this.guna2CheckBox1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2CheckBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.guna2CheckBox1.ForeColor = System.Drawing.Color.Black;
-            this.guna2CheckBox1.Location = new System.Drawing.Point(21, 188);
+            this.guna2CheckBox1.Location = new System.Drawing.Point(21, 163);
             this.guna2CheckBox1.Name = "guna2CheckBox1";
             this.guna2CheckBox1.Size = new System.Drawing.Size(87, 17);
             this.guna2CheckBox1.TabIndex = 2;
@@ -2125,7 +2111,8 @@ namespace Linkup_Finance.Forms
             this.dataComboBox.Items.AddRange(new object[] {
             "Balance Sheet",
             "Income Sheet",
-            "Expense Sheet"});
+            "Expense Sheet",
+            "Payroll Sheet"});
             this.dataComboBox.ItemsAppearance.Parent = this.dataComboBox;
             this.dataComboBox.Location = new System.Drawing.Point(21, 57);
             this.dataComboBox.Name = "dataComboBox";
@@ -2181,12 +2168,66 @@ namespace Linkup_Finance.Forms
             this.clearButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.clearButton.ForeColor = System.Drawing.Color.White;
             this.clearButton.HoverState.Parent = this.clearButton;
-            this.clearButton.Location = new System.Drawing.Point(355, 124);
+            this.clearButton.Location = new System.Drawing.Point(355, 106);
             this.clearButton.Name = "clearButton";
             this.clearButton.ShadowDecoration.Parent = this.clearButton;
             this.clearButton.Size = new System.Drawing.Size(163, 38);
             this.clearButton.TabIndex = 2;
             this.clearButton.Text = "Clear Data";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Gray;
+            this.label4.Location = new System.Drawing.Point(19, 190);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "From: ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Gray;
+            this.label6.Location = new System.Drawing.Point(20, 255);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(22, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "To:";
+            // 
+            // fromDateTimeSelection
+            // 
+            this.fromDateTimeSelection.CheckedState.Parent = this.fromDateTimeSelection;
+            this.fromDateTimeSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.fromDateTimeSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.fromDateTimeSelection.HoverState.Parent = this.fromDateTimeSelection;
+            this.fromDateTimeSelection.Location = new System.Drawing.Point(22, 206);
+            this.fromDateTimeSelection.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.fromDateTimeSelection.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.fromDateTimeSelection.Name = "fromDateTimeSelection";
+            this.fromDateTimeSelection.ShadowDecoration.Parent = this.fromDateTimeSelection;
+            this.fromDateTimeSelection.Size = new System.Drawing.Size(269, 29);
+            this.fromDateTimeSelection.TabIndex = 9;
+            this.fromDateTimeSelection.Value = new System.DateTime(2021, 10, 4, 20, 25, 47, 864);
+            // 
+            // toDateTimeSelection
+            // 
+            this.toDateTimeSelection.CheckedState.Parent = this.toDateTimeSelection;
+            this.toDateTimeSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toDateTimeSelection.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.toDateTimeSelection.HoverState.Parent = this.toDateTimeSelection;
+            this.toDateTimeSelection.Location = new System.Drawing.Point(21, 271);
+            this.toDateTimeSelection.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.toDateTimeSelection.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.toDateTimeSelection.Name = "toDateTimeSelection";
+            this.toDateTimeSelection.ShadowDecoration.Parent = this.toDateTimeSelection;
+            this.toDateTimeSelection.Size = new System.Drawing.Size(269, 29);
+            this.toDateTimeSelection.TabIndex = 10;
+            this.toDateTimeSelection.Value = new System.DateTime(2021, 10, 4, 20, 25, 47, 864);
             // 
             // SettingsForm
             // 
@@ -2338,12 +2379,15 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.Label label2;
         public LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter employeeLogsTableAdapter;
         private Guna.UI2.WinForms.Guna2ComboBox dataComboBox;
-        private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox3;
         private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox2;
         private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox1;
         private System.Windows.Forms.Label locationLabel;
         private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2Button clearButton;
+        private Guna.UI2.WinForms.Guna2DateTimePicker toDateTimeSelection;
+        private Guna.UI2.WinForms.Guna2DateTimePicker fromDateTimeSelection;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
     }
 }
