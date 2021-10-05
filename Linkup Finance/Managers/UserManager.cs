@@ -563,12 +563,15 @@ namespace Linkup_Finance.Managers
             return this.SalaryDue;
         }
 
-        public decimal GetNetTotal(decimal bonus)
+        public decimal GetGrossTotal(decimal bonus)
         {
             decimal incomeRate;
             decimal deductible;
             decimal salary = this.Salary + bonus;
-            decimal net;
+            decimal pension7 = this.Salary * 0.07m;
+            decimal pension11 = this.Salary * 0.11m;
+            decimal gross;
+            decimal tax;
 
             if (this.Salary >= 0.00m && this.Salary <= 600.00m)
             {
@@ -606,9 +609,10 @@ namespace Linkup_Finance.Managers
                 deductible = 1500.00m;
             }
 
-            net = salary - (salary * incomeRate) + deductible;
+            tax = (salary * incomeRate) - deductible;
+            gross = salary + tax + pension7 + pension11;
 
-            return net;
+            return gross;
         }
 
         public bool GetIsPaid()
@@ -658,7 +662,7 @@ namespace Linkup_Finance.Managers
             decimal salary = this.Salary + bonus;
             decimal pension7 = this.Salary * 0.07m;
             decimal pension11 = this.Salary * 0.11m;
-            decimal tax, net;
+            decimal tax, gross;
             DateTime oldDate = this.SalaryDue;
 
             if (this.Salary >= 0.00m && this.Salary <= 600.00m)
@@ -697,8 +701,9 @@ namespace Linkup_Finance.Managers
                 deductible = 1500.00m;
             }
 
-            net = salary - (salary * incomeRate) + deductible;
-            tax = salary * incomeRate;
+            tax = (salary * incomeRate) - deductible;
+            gross = salary + tax + pension11 + pension7;
+            
             this.IsPaid = true;
             this.SalaryDue = oldDate.AddDays(30);
 
@@ -721,7 +726,7 @@ namespace Linkup_Finance.Managers
                     command.Parameters.AddWithValue("@Pension7", pension7);
                     command.Parameters.AddWithValue("@Pension11", pension11);
                     command.Parameters.AddWithValue("@Tax", tax);
-                    command.Parameters.AddWithValue("@Net", net);
+                    command.Parameters.AddWithValue("@Net", gross);
                     command.Parameters.AddWithValue("@Date", DateTime.Now);
 
                     command.ExecuteNonQuery();

@@ -15,6 +15,7 @@ using Linkup_Finance.Managers;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using Spire.Pdf.Tables;
+using Spire.Xls;
 
 namespace Linkup_Finance.Forms
 {
@@ -125,8 +126,8 @@ namespace Linkup_Finance.Forms
                     
                 salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-                string total = employee.GetNetTotal(0.00m).ToString();
-                netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+                string total = employee.GetGrossTotal(0.00m).ToString();
+                grossSalaryTotalLabel.Text = $"Gross Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
 
                 RemoveItems(employeePayrollDataGridView, employeesComboBox.Text);
             }
@@ -415,8 +416,8 @@ namespace Linkup_Finance.Forms
                                 
                             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-                            string total = employee.GetNetTotal(0.00m).ToString();
-                            netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+                            string total = employee.GetGrossTotal(0.00m).ToString();
+                            grossSalaryTotalLabel.Text = $"Gross Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
 
                             RemoveItems(employeePayrollDataGridView, employee.GetName());
 
@@ -556,8 +557,8 @@ namespace Linkup_Finance.Forms
 
             salaryDueDateSelection.Value = employee.GetSalaryDueDate();
 
-            string total = employee.GetNetTotal(0.00m).ToString();
-            netSalaryTotalLabel.Text = $"Net Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+            string total = employee.GetGrossTotal(0.00m).ToString();
+            grossSalaryTotalLabel.Text = $"Gross Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
 
             employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             RemoveItems(employeePayrollDataGridView, employee.GetName());
@@ -582,7 +583,7 @@ namespace Linkup_Finance.Forms
                 phoneLabel.Text = "Phone: ";
                 inactiveEmployeeRadioButton.Checked = true;
                 salaryDueDateSelection.Value = DateTime.Now.AddDays(30);
-                netSalaryTotalLabel.Text = "Net Total: ";
+                grossSalaryTotalLabel.Text = "Gross Total: ";
             }
         }
 
@@ -649,13 +650,13 @@ namespace Linkup_Finance.Forms
             bool isValid = decimal.TryParse(bonusText, out bonus);
 
             if (isValid)
-                netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal(bonus)}";
+                grossSalaryTotalLabel.Text = $"Gross Total: {employee.GetGrossTotal(bonus)}";
             else
             {
                 if (bonusText != "")
-                    netSalaryTotalLabel.Text = "Invalid Bonus Value";
+                    grossSalaryTotalLabel.Text = "Invalid Bonus Value";
                 else
-                    netSalaryTotalLabel.Text = $"Net Total: {employee.GetNetTotal(0m)}";
+                    grossSalaryTotalLabel.Text = $"Gross Total: {employee.GetGrossTotal(0m)}";
             }
         }
 
@@ -703,8 +704,8 @@ namespace Linkup_Finance.Forms
                 y += font.MeasureString("Balance Sheet", format).Height + 5;
 
                 int i = 1;
-                decimal total = 0m, tax;
-                string percent;
+                decimal total = 0m, tax, deductible = 18000m;
+                string percent = "(35%)";
                 string[] header = { "Date", "Description", "Bank", "Type" ,"Name", "Amount" };
                 dataSource = new string[incomeDataTable.Rows.Count + expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 5][];
 
@@ -718,41 +719,7 @@ namespace Linkup_Finance.Forms
                         total -= decimal.Parse(item[5]);
                 }
 
-                if (total >= 0m && total <= 7200m)
-                {
-                    percent = "0%";
-                    tax = 0m;
-                }
-                else if (total >= 7201m && total <= 19800m)
-                {
-                    percent = "10%";
-                    tax = (total * 0.1m) - 720m;
-                }
-                else if (total >= 19801m && total <= 38400m)
-                {
-                    percent = "15%";
-                    tax = (total * 0.15m) - 1710m;
-                }
-                else if (total >= 38401m && total <= 63000m)
-                {
-                    percent = "20%";
-                    tax = (total * 0.2m) - 3630m;
-                }
-                else if (total >= 63001m && total <= 93600m)
-                {
-                    percent = "25%";
-                    tax = (total * 0.25m) - 6780m;
-                }
-                else if (total >= 93601m && total <= 130800)
-                {
-                    percent = "30%";
-                    tax = (total * 0.3m) - 11460m;
-                }
-                else
-                {
-                    percent = "35%";
-                    tax = (total * 0.35m) - 18000m;
-                }
+                tax = (total * 0.35m) - deductible;
                     
                 string[] inputVatItem = { " ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(incomeDataTable).ToString() };
                 string[] outputVatItem = { " ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(expenseDataTable).ToString() };
@@ -867,7 +834,144 @@ namespace Linkup_Finance.Forms
 
         private void exportXLSButton_Click(object sender, EventArgs e)
         {
+            Workbook book = new Workbook();
+            Worksheet sheet;
+            CellStyle style;
+            DataTable dataTable;
+            string styleName, sheetName, name, xlsLocation;
+
+            if(dataComboBox.Text == "Balance Sheet")
+            {
+                styleName = "balanceStyle";
+                sheetName = "Balance Sheet";
+                name = "Name";
+                xlsLocation = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Export Data", "Balance Sheet.xls");
+            }
+            else if(dataComboBox.Text == "Income Sheet")
+            {
+                styleName = "incomeStyle";
+                sheetName = "Income Sheet";
+                name = "Payer";
+                xlsLocation = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Export Data", "Income Sheet.xls");
+            }
+            else if(dataComboBox.Text == "Expense Sheet")
+            {
+                styleName = "expenseStyle";
+                sheetName = "Expense Sheet";
+                name = "Expense";
+                xlsLocation = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Export Data", "Expense Sheet.xls");
+            }
+            else
+            {
+                styleName = "payrollStyle";
+                sheetName = "Payroll Sheet";
+                name = "Employee";
+                xlsLocation = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Export Data", "Payroll Sheet.xls");
+            }
+
+            sheet = book.CreateEmptySheet(sheetName);
+            style = book.Styles.Add(styleName);
+            dataTable = new DataTable(sheetName);
+
+            if(dataComboBox.Text == "Balance Sheet")
+            {
+                decimal total = 0m, tax = 0m;
+
+                projectForm.incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+                projectForm.expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+                employeeLogsTableAdapter.Fill(linkupDatabaseDataSet.EmployeeLogs);
+
+                dataTable.Columns.Add("Date");
+                dataTable.Columns.Add("Description");
+                dataTable.Columns.Add("Bank");
+                dataTable.Columns.Add("Type");
+                dataTable.Columns.Add(name);
+                dataTable.Columns.Add("Amount");
+
+                foreach (string[] item in SortData(ExportDataSource(projectForm.incomeTableAdapter.GetData(), projectForm.expenseTableAdapter.GetData(), employeeLogsTableAdapter.GetData())))
+                {
+                    if (item[3] == "Income")
+                        total += decimal.Parse(item[5]);
+                    else
+                        total -= decimal.Parse(item[5]);
+
+                    dataTable.Rows.Add(item[0], item[1], item[2], item[3], item[4], item[5]);
+                }
+
+                tax = (total * 0.35m) - 18000m;
+
+                dataTable.Rows.Add(" ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", " ", "Income Tax(35%)", tax);
+                dataTable.Rows.Add(" ", " ", " ", " ", "Total", total);
+            }
+            else if(dataComboBox.Text == "Income Sheet")
+            {
+                decimal total = 0m;
+                projectForm.incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+
+                dataTable.Columns.Add("Date");
+                dataTable.Columns.Add("Description");
+                dataTable.Columns.Add("Bank");
+                dataTable.Columns.Add(name);
+                dataTable.Columns.Add("Amount");
+
+                foreach(string[] item in SortData(ExportDataSource(projectForm.incomeTableAdapter.GetData())))
+                {
+                    dataTable.Rows.Add(item[0], item[1], item[2], item[3], item[4]);
+                    total += decimal.Parse(item[4]);
+                }
+
+                dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", "Total", total);
+            }
+            else if(dataComboBox.Text == "Expense Sheet")
+            {
+                decimal total = 0m;
+                projectForm.expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+                employeeLogsTableAdapter.Fill(linkupDatabaseDataSet.EmployeeLogs);
+
+                dataTable.Columns.Add("Date");
+                dataTable.Columns.Add("Description");
+                dataTable.Columns.Add("Bank");
+                dataTable.Columns.Add(name);
+                dataTable.Columns.Add("Amount");
+
+                foreach (string[] item in SortData(ExportDataSource(projectForm.expenseTableAdapter.GetData(), employeeLogsTableAdapter.GetData())))
+                {
+                    dataTable.Rows.Add(item[0], item[1], item[2], item[3], item[4]);
+                    total += decimal.Parse(item[4]);
+                }
+
+                dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", "Total", total);
+            }
+            else
+            {
+                decimal total = 0m;
+                employeeLogsTableAdapter.Fill(linkupDatabaseDataSet.EmployeeLogs);
+
+                dataTable.Columns.Add("Date");
+                dataTable.Columns.Add("Description");
+                dataTable.Columns.Add("Bank");
+                dataTable.Columns.Add(name);
+                dataTable.Columns.Add("Amount");
+
+                foreach (string[] item in SortData(ExportDataSource(employeeLogsTableAdapter.GetData())))
+                {
+                    dataTable.Rows.Add(item[0], item[1], item[2], item[3], item[4]);
+                    total += decimal.Parse(item[4]);
+                }
+
+                dataTable.Rows.Add(" ", " ", " ", "Total", total);
+            }
             
+            style.Font.IsBold = true;
+            sheet.InsertDataTable(dataTable, true, 1, 1);
+            sheet.SetDefaultRowStyle(sheet.FirstRow, style);
+            book.Worksheets.Add(sheet);
+            book.SaveToFile(xlsLocation, ExcelVersion.Version2010);
+            System.Diagnostics.Process.Start(xlsLocation);
         }
 
         #endregion
@@ -1074,7 +1178,8 @@ namespace Linkup_Finance.Forms
             return sortArray;
         }
 
-
         #endregion
+
+
     }
 }
