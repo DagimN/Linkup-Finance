@@ -12,7 +12,6 @@ namespace Linkup_Finance.Managers
 {
     public class BankManager
     {
-        //List<Bank> banksList = new List<Bank>();
         public List<PettyVault> pettyVaultsList;
         public List<Bank> banksList;
 
@@ -181,6 +180,36 @@ namespace Linkup_Finance.Managers
                     con.Open();
                     command.ExecuteNonQuery();
 
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        public bool ResetData()
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string deleteBankQuery = "DELETE FROM Banks";
+                    string deleteBankLogsQuery = "DELETE FROM BankLogs";
+                    SqlCommand bankCommand = new SqlCommand(deleteBankQuery, con);
+                    SqlCommand bankLogsCommand = new SqlCommand(deleteBankLogsQuery, con);
+
+                    con.Open();
+
+                    bankCommand.ExecuteNonQuery();
+                    bankLogsCommand.ExecuteNonQuery();
+
+                    banksList.Clear();
                     return true;
                 }
                 catch (Exception)

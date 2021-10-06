@@ -304,6 +304,16 @@ namespace Linkup_Finance.Forms
         {
             loggedInAccountType = type;
         }
+
+        public void ResetData()
+        {
+            employeeAmountLabel.Text = "0";
+            paidEmployeesCountLabel.Text = "0";
+            payrollChart.Series.Clear();
+            incomeSeries.Values.Clear();
+            expenseSeries.Values.Clear();
+            bankPieChart.Series.Clear();
+        }
         #endregion
     }
 }

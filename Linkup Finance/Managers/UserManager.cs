@@ -436,6 +436,40 @@ namespace Linkup_Finance.Managers
 
             return total;
         }
+
+        public bool ResetData()
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string deleteEmployeeQuery = "DELETE FROM Employees";
+                    string deleteEmployeeLogsQuery = "DELETE FROM EmployeeLogs";
+                    string deleteUserLogs = "DELETE FROM UserLog";
+                    SqlCommand delEmployeeCommand = new SqlCommand(deleteEmployeeQuery, con);
+                    SqlCommand delEmployeeLogsCommand = new SqlCommand(deleteEmployeeLogsQuery, con);
+                    SqlCommand delUserLogs = new SqlCommand(deleteUserLogs, con);
+
+                    con.Open();
+
+                    delEmployeeCommand.ExecuteNonQuery();
+                    delEmployeeLogsCommand.ExecuteNonQuery();
+                    delUserLogs.ExecuteNonQuery();
+
+                    employeesList.Clear();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 
     public class User

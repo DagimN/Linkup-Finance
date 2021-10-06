@@ -363,15 +363,21 @@ namespace Linkup_Finance.Forms
                     removeProjectButton.Visible = true;
 
             Thread.Sleep(500);
-            Project project = projectManager.Exists(projectOption.Text, true);
-            projectOption.Tag = project;
+            string name = projectOption.Text;
+            if (name != "")
+            {
+                Project project = projectManager.Exists(name, true);
+                projectOption.Tag = project;
 
-            incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
-            expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
-            LoadChart(projectOption.Text, incomeTableAdapter.GetData());
-            LoadChart(projectOption.Text, expenseTableAdapter.GetData());
-            RemoveItems(incomeDataGridView, projectOption.Text);
-            RemoveItems(expenseDataGridView, projectOption.Text);
+                incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
+                expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
+                LoadChart(projectOption.Text, incomeTableAdapter.GetData());
+                LoadChart(projectOption.Text, expenseTableAdapter.GetData());
+                RemoveItems(incomeDataGridView, projectOption.Text);
+                RemoveItems(expenseDataGridView, projectOption.Text);
+            }
+            else
+                projectOption.Tag = null;
         }
 
         #endregion
@@ -659,21 +665,32 @@ namespace Linkup_Finance.Forms
 
         private void bankOptionBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Bank bank = bankManager.GetBank(bankOptionBox.Text);
-            bankOptionBox.Tag = bank;
-            balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
-            bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
-            LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
-            RemoveItems(bankLogDataGridView, bank.GetBankName());
-            deleteBankButton.Visible = true;
-            foreach (PieSeries series in bankPieChart.Series)
+            string name = bankOptionBox.Text;
+            if(name != "")
             {
-                series.PushOut = 0;
-                if (series.Title == bank.GetBankName())
-                    series.PushOut = 10;
+                Bank bank = bankManager.GetBank(bankOptionBox.Text);
+                bankOptionBox.Tag = bank;
+                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
+                bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
+                LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
+                RemoveItems(bankLogDataGridView, bank.GetBankName());
+                deleteBankButton.Visible = true;
+                foreach (PieSeries series in bankPieChart.Series)
+                {
+                    series.PushOut = 0;
+                    if (series.Title == bank.GetBankName())
+                        series.PushOut = 10;
 
-                bankPieChart.Refresh();
+                    bankPieChart.Refresh();
+                }
             }
+            else
+            {
+                bankOptionBox.Tag = null;
+                balanceAmountLabel.Text = "Balance(ETB): ";
+                deleteBankButton.Visible = false;
+            }
+            
         }
 
         private void deleteBankButton_Click(object sender, EventArgs e)
@@ -1932,6 +1949,25 @@ namespace Linkup_Finance.Forms
             }
             
             return total;
+        }
+
+        public void ResetData()
+        {
+            projectOption.Items.Clear();
+            removeProjectButton.Visible = false;
+            ClearChart();
+            bankOptionBox.Items.Clear();
+            deleteBankButton.Visible = false;
+        }
+
+        public void ClearChart()
+        {
+            balanceSeries.Values.Clear();
+            bankPieChart.Series.Clear();
+            amountSeries.Values.Clear();
+            totalSeries.Values.Clear();
+            grossSeries.Values.Clear();
+            netSeries.Values.Clear();
         }
         #endregion
     }

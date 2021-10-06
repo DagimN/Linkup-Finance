@@ -144,6 +144,39 @@ namespace Linkup_Finance.Managers
                 }
             }
         }
+
+        public bool ResetData()
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string deleteIncomeQuery = "DELETE FROM Income";
+                    string deleteExpenseQuery = "DELETE FROM Expense";
+                    string deleteProjectQuery = "DELETE FROM Projects";
+                    SqlCommand delIncomeCommand = new SqlCommand(deleteIncomeQuery, con);
+                    SqlCommand delExpenseCommand = new SqlCommand(deleteExpenseQuery, con);
+                    SqlCommand delProjectCommand = new SqlCommand(deleteProjectQuery, con);
+
+                    con.Open();
+                    delIncomeCommand.ExecuteNonQuery();
+                    delExpenseCommand.ExecuteNonQuery();
+                    delProjectCommand.ExecuteNonQuery();
+
+                    projects.Clear();
+                    
+                    return true;
+                }
+                catch(Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 
     public class Project

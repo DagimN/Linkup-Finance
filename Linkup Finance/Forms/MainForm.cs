@@ -19,6 +19,8 @@ namespace Linkup_Finance
         private static string expenseDirectory = Combine(attachementDirectory, "Expense");
         private static string incomeDirectory = Combine(attachementDirectory, "Income");
         private static string exportDirectory = Combine(attachementDirectory, "Export Data");
+        private static string backupDirectory = Combine(attachementDirectory, "Backup");
+
         private Form activeForm;
         private DashboardForm dashboardForm;
         public ProjectForm projectForm;
@@ -42,6 +44,8 @@ namespace Linkup_Finance
                 CreateDirectory(expenseDirectory);
             if (!Exists(exportDirectory))
                 CreateDirectory(exportDirectory);
+            if (!Exists(backupDirectory))
+                CreateDirectory(backupDirectory);
 
             settingsForm = new SettingsForm();
             projectForm = new ProjectForm();

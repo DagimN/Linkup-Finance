@@ -33,6 +33,9 @@ namespace Linkup_Finance.Forms
 
             salaryDueDateSelection.Value = DateTime.Now.AddDays(30);
             locationLabel.Text = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Export Data");
+
+            fromDateTimeSelection.Value = DateTime.Now.Subtract(TimeSpan.FromDays(183));
+            toDateTimeSelection.Value = DateTime.Now.AddDays(183);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
@@ -327,20 +330,30 @@ namespace Linkup_Finance.Forms
         private void usersComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             string name = usersComboBox.Text;
-            User user = userManager.GetUser(name);
-            string type;
+            if (name != "") 
+            {
+                User user = userManager.GetUser(name);
+                string type;
 
-            if (user.GetAccountType() == AccountType.Admin)
-                type = "Administrator";
-            else if (user.GetAccountType() == AccountType.Accountant)
-                type = "Accountant";
+                if (user.GetAccountType() == AccountType.Admin)
+                    type = "Administrator";
+                else if (user.GetAccountType() == AccountType.Accountant)
+                    type = "Accountant";
+                else
+                    type = "Other";
+
+                usersComboBox.Tag = user;
+                otherUserNameLabel.Text = $"Name: {user.GetName()}";
+                otherUserJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
+                otherUserTypeLabel.Text = $"Type: {type}";
+            }
             else
-                type = "Other";
-
-            usersComboBox.Tag = user;
-            otherUserNameLabel.Text = $"Name: {user.GetName()}";
-            otherUserJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
-            otherUserTypeLabel.Text = $"Type: {type}";
+            {
+                usersComboBox.Tag = null;
+                otherUserNameLabel.Text = "Name: ";
+                otherUserJobTitleLabel.Text = "Job Title: ";
+                otherUserTypeLabel.Text = "Type: ";
+            }
         }
 
         #endregion 
@@ -541,27 +554,40 @@ namespace Linkup_Finance.Forms
         private void employeesComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             string name = employeesComboBox.Text;
-            Employee employee = userManager.GetEmployee(name);
+            if(name != "")
+            {
+                Employee employee = userManager.GetEmployee(name);
 
-            employeesComboBox.Tag = employee;
-            nameLabel.Text = employee.GetName();
-            employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
-            salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
-            emailLabel.Text = $"Email: {employee.GetEmail()}";
-            phoneLabel.Text = $"Phone: {employee.GetPhone()}";
+                employeesComboBox.Tag = employee;
+                nameLabel.Text = employee.GetName();
+                employeeProfileJobLabel.Text = $"Job Title: {employee.GetJob()}";
+                salaryLabel.Text = $"Salary: {employee.GetSalary()} ETB";
+                emailLabel.Text = $"Email: {employee.GetEmail()}";
+                phoneLabel.Text = $"Phone: {employee.GetPhone()}";
 
-            if (employee.GetStatus() == EmployeeStatus.Active)
-                activeEmployeeRadioButton.Checked = true;
+                if (employee.GetStatus() == EmployeeStatus.Active)
+                    activeEmployeeRadioButton.Checked = true;
+                else
+                    inactiveEmployeeRadioButton.Checked = true;
+
+                salaryDueDateSelection.Value = employee.GetSalaryDueDate();
+
+                string total = employee.GetGrossTotal(0.00m).ToString();
+                grossSalaryTotalLabel.Text = $"Gross Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
+
+                employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
+                RemoveItems(employeePayrollDataGridView, employee.GetName());
+            }
             else
-                inactiveEmployeeRadioButton.Checked = true;
-
-            salaryDueDateSelection.Value = employee.GetSalaryDueDate();
-
-            string total = employee.GetGrossTotal(0.00m).ToString();
-            grossSalaryTotalLabel.Text = $"Gross Total: {total.Substring(0, total.IndexOf('.') + 3)} ETB";
-
-            employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
-            RemoveItems(employeePayrollDataGridView, employee.GetName());
+            {
+                nameLabel.ResetText();
+                employeesComboBox.Tag = null;
+                employeeProfileJobLabel.Text = "Job Title: ";
+                salaryLabel.Text = "Salary: ";
+                emailLabel.Text = "Phone: ";
+                grossSalaryTotalLabel.Text = "Gross Total: ";
+            }
+            
         }
 
         private void removeEmployeeButton_Click(object sender, EventArgs e)
@@ -678,6 +704,7 @@ namespace Linkup_Finance.Forms
             string[][] dataSource;
             string pdfLocation;
             float y = 20;
+            bool includeVat = vatRadioButton.Checked;
 
             margin.Top = unitCvtr.ConvertUnits(2.54f, PdfGraphicsUnit.Centimeter, PdfGraphicsUnit.Point);
             margin.Bottom = margin.Top;
@@ -689,7 +716,8 @@ namespace Linkup_Finance.Forms
             if (dataComboBox.Text == "Balance Sheet")
             {
                 DataTable incomeDataTable, expenseDataTable, employeeLogsDataTable;
-                
+                string[][] data;
+
                 projectForm.incomeTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Income);
                 projectForm.expenseTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Expense);
                 employeeLogsTableAdapter.Fill(linkupDatabaseDataSet.EmployeeLogs);
@@ -703,14 +731,16 @@ namespace Linkup_Finance.Forms
                 page.Canvas.DrawString("Balance Sheet", font, brush, page.Canvas.ClientSize.Width / 2, y, format);
                 y += font.MeasureString("Balance Sheet", format).Height + 5;
 
+                data = SortData(ExportDataSource(incomeDataTable, expenseDataTable, employeeLogsDataTable));
+
                 int i = 1;
                 decimal total = 0m, tax, deductible = 18000m;
                 string percent = "(35%)";
                 string[] header = { "Date", "Description", "Bank", "Type" ,"Name", "Amount" };
-                dataSource = new string[incomeDataTable.Rows.Count + expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 5][];
+                dataSource = new string[data.Length + ((includeVat) ? 7 : 5)][];
 
                 dataSource[0] = header;
-                foreach (string[] item in SortData(ExportDataSource(incomeDataTable, expenseDataTable, employeeLogsDataTable)))
+                foreach (string[] item in data)
                 {
                     dataSource[i++] = item;
                     if(item[3] == "Income")
@@ -720,19 +750,27 @@ namespace Linkup_Finance.Forms
                 }
 
                 tax = (total * 0.35m) - deductible;
-                    
+
+                string[] inputWithholdingItem = { " ", " ", " ", " ", "Input Withholding", GetTotalWithholding(incomeDataTable).ToString() };
+                string[] outputWithholdingItem = { " ", " ", " ", " ", "Output Withholding", GetTotalWithholding(expenseDataTable).ToString() };
                 string[] inputVatItem = { " ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(incomeDataTable).ToString() };
                 string[] outputVatItem = { " ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(expenseDataTable).ToString() };
                 string[] taxItem = { " ", " ", " ", " ", $"Income Tax{percent}", tax.ToString() };
                 string[] finalItem = { " ", " ", " ", " ","Total", total.ToString() };
-                dataSource[i++] = inputVatItem;
-                dataSource[i++] = outputVatItem;
+                if (includeVat)
+                {
+                    dataSource[i++] = inputVatItem;
+                    dataSource[i++] = outputVatItem;
+                }
+                dataSource[i++] = inputWithholdingItem;
+                dataSource[i++] = outputWithholdingItem;
                 dataSource[i++] = taxItem;
                 dataSource[i] = finalItem;
             }
             else if (dataComboBox.Text == "Income Sheet")
             {
                 DataTable incomeDataTable;
+                string[][] data;
                 projectForm.incomeTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Income);
 
                 incomeDataTable = projectForm.incomeTableAdapter.GetData();
@@ -742,21 +780,26 @@ namespace Linkup_Finance.Forms
                 page.Canvas.DrawString("Income Sheet", font, brush, page.Canvas.ClientSize.Width / 2, y, format);
                 y += font.MeasureString("Income Sheet", format).Height + 5;
 
+                data = SortData(ExportDataSource(incomeDataTable));
                 int i = 1;
                 decimal total = 0m;
                 string[] header = { "Date", "Description", "Bank", "Payer", "Amount" };
-                dataSource = new string[incomeDataTable.Rows.Count + 3][];
+                dataSource = new string[data.Length + ((includeVat) ? 4 : 3)][];
 
                 dataSource[0] = header;
-                foreach (string[] item in SortData(ExportDataSource(incomeDataTable)))
+                foreach (string[] item in data)
                 {
                     dataSource[i++] = item;
                     total += decimal.Parse(item[4]);
                 }
 
+                string[] withholdingItem = { " ", " ", " ", " ", "Withholding", GetTotalWithholding(incomeDataTable).ToString() };
                 string[] vatItem = { " ", " ", " ", "VAT", projectForm.GetTotalVat(incomeDataTable).ToString() };
                 string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
-                dataSource[i++] = vatItem;
+                
+                if(includeVat)
+                    dataSource[i++] = vatItem;
+                dataSource[i++] = withholdingItem;
                 dataSource[i] = finalItem;
             }
             else if(dataComboBox.Text == "Payroll Sheet")
@@ -789,6 +832,7 @@ namespace Linkup_Finance.Forms
             else
             {
                 DataTable expenseDataTable, employeeLogsDataTable;
+                string[][] data;
 
                 projectForm.expenseTableAdapter.Fill(projectForm.linkupDatabaseDataSet.Expense);
                 employeeLogsTableAdapter.Fill(linkupDatabaseDataSet.EmployeeLogs);
@@ -801,21 +845,27 @@ namespace Linkup_Finance.Forms
                 page.Canvas.DrawString("Expense Sheet", font, brush, page.Canvas.ClientSize.Width / 2, y, format);
                 y += font.MeasureString("Expense Sheet", format).Height + 5;
 
+                data = SortData(ExportDataSource(expenseDataTable, employeeLogsDataTable));
+
                 int i = 1;
                 decimal total = 0m;
                 string[] header = { "Date", "Description", "Bank", "Expense", "Amount" };
-                dataSource = new string[expenseDataTable.Rows.Count + employeeLogsDataTable.Rows.Count + 3][];
+                dataSource = new string[data.Length + ((includeVat) ? 4 : 3)][];
 
                 dataSource[0] = header;
-                foreach (string[] item in SortData(ExportDataSource(expenseDataTable, employeeLogsDataTable)))
+                foreach (string[] item in data)
                 {
                     dataSource[i++] = item;
                     total += decimal.Parse(item[4]);
                 }
 
+                string[] withholdingItem = { " ", " ", " ", " ", "Withholding", GetTotalWithholding(expenseDataTable).ToString() };
                 string[] vatItem = { " ", " ", " ", "VAT", projectForm.GetTotalVat(expenseDataTable).ToString() };
                 string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
-                dataSource[i++] = vatItem;
+                
+                if(includeVat)
+                    dataSource[i++] = vatItem;
+                dataSource[i++] = withholdingItem;
                 dataSource[i] = finalItem;
             }
             
@@ -840,7 +890,7 @@ namespace Linkup_Finance.Forms
             DataTable dataTable;
             string styleName, sheetName, name, xlsLocation;
 
-            if(dataComboBox.Text == "Balance Sheet")
+            if (dataComboBox.Text == "Balance Sheet")
             {
                 styleName = "balanceStyle";
                 sheetName = "Balance Sheet";
@@ -899,7 +949,9 @@ namespace Linkup_Finance.Forms
                 }
 
                 tax = (total * 0.35m) - 18000m;
-
+                
+                dataTable.Rows.Add(" ", " ", " ", " ", "Input Withholding", GetTotalWithholding(projectForm.incomeTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", " ", "Output Withholding", GetTotalWithholding(projectForm.expenseTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", " ", "Income Tax(35%)", tax);
@@ -922,6 +974,7 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
+                dataTable.Rows.Add(" ", " ", " ", " ", "Withholding", GetTotalWithholding(projectForm.incomeTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", "Total", total);
             }
@@ -943,6 +996,7 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
+                dataTable.Rows.Add(" ", " ", " ", " ", "Withholding", GetTotalWithholding(projectForm.expenseTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", "Total", total);
             }
@@ -972,6 +1026,46 @@ namespace Linkup_Finance.Forms
             book.Worksheets.Add(sheet);
             book.SaveToFile(xlsLocation, ExcelVersion.Version2010);
             System.Diagnostics.Process.Start(xlsLocation);
+        }
+
+        private void backupButton_Click(object sender, EventArgs e)
+        {
+            string backupDirectory = Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Backup");
+            string databaseSource = Combine(GetCurrentDirectory(), "LinkupDatabase.mdf");
+            string logSource = Combine(GetCurrentDirectory(), "LinkupDatabase_log.ldf");
+
+            try
+            {
+                File.Copy(databaseSource, Combine(backupDirectory, "LinkupDatabase.mdf"));
+                File.Copy(logSource, Combine(backupDirectory, "LinkupDatabase_log.ldf"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            projectForm.projectManager.ResetData();
+            projectForm.bankManager.ResetData();
+            userManager.ResetData();
+
+            projectForm.incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            projectForm.expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+            projectForm.bankLogsTableAdapter.Fill(linkupDatabaseDataSet.BankLogs);
+            userLogTableAdapter.Fill(linkupDatabaseDataSet.UserLog);
+            employeeLogsTableAdapter.Fill(linkupDatabaseDataSet.EmployeeLogs);
+
+            projectForm.ResetData();
+            dashboardForm.ResetData();
+
+            employeesComboBox.Items.Clear();
+        }
+
+        private void aboutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("Made By Dagmawi Nebiat \n Contact Info: \n \t dagmnebiat@gmail.com \n \t 0941969924", "Developer Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion
@@ -1011,132 +1105,237 @@ namespace Linkup_Finance.Forms
             }
         }
 
-        private string[][] ExportDataSource(params DataTable[] dataTables)
+        private List<string[]> ExportDataSource(params DataTable[] dataTables)
         {
-            string[][] dataSource;
-            int index = 0;
+            List<string[]> dataSource = new List<string[]>();
+            bool includeVat = vatRadioButton.Checked;
 
             if (dataTables.Length == 3)
             {
-                dataSource = new string[dataTables[0].Rows.Count + dataTables[1].Rows.Count + dataTables[2].Rows.Count][];
-
                 for(int j = 0; j < dataTables.Length; j++)
                 {
                     if(j == 0)
                     {
                         for (int i = 0; i < dataTables[j].Rows.Count; i++)
                         {
-                            string[] item = { dataTables[j].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
+                            DateTime fromDate = fromDateTimeSelection.Value;
+                            DateTime toDate = toDateTimeSelection.Value;
+                            DateTime itemDate = DateTime.Parse(dataTables[j].Rows[i].ItemArray[9].ToString());
+
+                            if(DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                            {
+                                if (includeVat)
+                                {
+                                    string[] item = { dataTables[j].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
                                   dataTables[j].Rows[i].ItemArray[2].ToString(),
                                   dataTables[j].Rows[i].ItemArray[3].ToString(),
                                   "Income",
                                   dataTables[j].Rows[i].ItemArray[1].ToString(),
                                   dataTables[j].Rows[i].ItemArray[5].ToString() };
-                           
-                            dataSource[i] = item;
-                            index++;
+
+                                    dataSource.Add(item);
+                                }
+                                else
+                                {
+                                    decimal vat = decimal.Parse(dataTables[j].Rows[i].ItemArray[6].ToString());
+
+                                    if (vat == 0m)
+                                    {
+                                        string[] item = { dataTables[j].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
+                                                      dataTables[j].Rows[i].ItemArray[2].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[3].ToString(),
+                                                      "Income",
+                                                      dataTables[j].Rows[i].ItemArray[1].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[5].ToString() };
+
+                                        dataSource.Add(item);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     if(j == 1)
                     {
-                        int secIndex = index;
                         for (int i = 0; i < dataTables[j].Rows.Count; i++)
                         {
-                            string[] item = { dataTables[j].Rows[i].ItemArray[8].ToString().Substring(0, 9).Trim(),
-                                  dataTables[j].Rows[i].ItemArray[7].ToString(),
-                                  dataTables[j].Rows[i].ItemArray[6].ToString(),
-                                  "Expense",
-                                  dataTables[j].Rows[i].ItemArray[13].ToString(),
-                                  dataTables[j].Rows[i].ItemArray[2].ToString() };
-                          
-                            dataSource[secIndex + i] = item;
-                            index++;
+                            DateTime fromDate = fromDateTimeSelection.Value;
+                            DateTime toDate = toDateTimeSelection.Value;
+                            DateTime itemDate = DateTime.Parse(dataTables[j].Rows[i].ItemArray[8].ToString());
+
+                            if (DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                            {
+                                if (includeVat)
+                                {
+                                    string[] item = { dataTables[j].Rows[i].ItemArray[8].ToString().Substring(0, 9).Trim(),
+                                                  dataTables[j].Rows[i].ItemArray[7].ToString(),
+                                                  dataTables[j].Rows[i].ItemArray[6].ToString(),
+                                                 "Expense",
+                                                 dataTables[j].Rows[i].ItemArray[13].ToString(),
+                                                 dataTables[j].Rows[i].ItemArray[2].ToString() };
+
+                                    dataSource.Add(item);
+                                }
+                                else
+                                {
+                                    decimal vat = decimal.Parse(dataTables[j].Rows[i].ItemArray[4].ToString());
+
+                                    if (vat == 0m)
+                                    {
+                                        string[] item = { dataTables[j].Rows[i].ItemArray[8].ToString().Substring(0, 9).Trim(),
+                                                      dataTables[j].Rows[i].ItemArray[7].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[6].ToString(),
+                                                      "Expense",
+                                                      dataTables[j].Rows[i].ItemArray[13].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[2].ToString() };
+
+                                        dataSource.Add(item);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     if(j == 2)
-                    {
-                        int thrIndex = index;
+                    {   
                         for (int i = 0; i < dataTables[j].Rows.Count; i++)
                         {
-                            string[] item = { dataTables[j].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
+                            DateTime fromDate = fromDateTimeSelection.Value;
+                            DateTime toDate = toDateTimeSelection.Value;
+                            DateTime itemDate = DateTime.Parse(dataTables[j].Rows[i].ItemArray[6].ToString());
+
+                            if (DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                            {
+                                string[] item = { dataTables[j].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
                                   "Employee Salary Payment",
                                   " ",
                                   "Expense",
                                   dataTables[j].Rows[i].ItemArray[1].ToString(),
                                   dataTables[j].Rows[i].ItemArray[5].ToString() };
 
-                            dataSource[thrIndex + i] = item;
-                            index++;
+                                dataSource.Add(item);
+                            }
                         }
                     }
                 }
             }
             else if(dataTables.Length == 2)
             {
-                dataSource = new string[dataTables[0].Rows.Count + dataTables[1].Rows.Count][];
-
                 for (int j = 0; j < dataTables.Length; j++)
                 {
                     if (j == 0)
                     {
                         for (int i = 0; i < dataTables[j].Rows.Count; i++)
                         {
-                            string[] item = { dataTables[j].Rows[i].ItemArray[8].ToString().Substring(0, 9).Trim(),
-                                  dataTables[j].Rows[i].ItemArray[7].ToString(),
-                                  dataTables[j].Rows[i].ItemArray[6].ToString(),
-                                  dataTables[j].Rows[i].ItemArray[13].ToString(),
-                                  dataTables[j].Rows[i].ItemArray[2].ToString() };
-                            
-                            dataSource[i] = item;
-                            index++;
+                            DateTime fromDate = fromDateTimeSelection.Value;
+                            DateTime toDate = toDateTimeSelection.Value;
+                            DateTime itemDate = DateTime.Parse(dataTables[j].Rows[i].ItemArray[8].ToString());
+
+                            if (DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                            {
+                                if (includeVat)
+                                {
+                                    string[] item = { dataTables[j].Rows[i].ItemArray[8].ToString().Substring(0, 9).Trim(),
+                                                  dataTables[j].Rows[i].ItemArray[7].ToString(),
+                                                  dataTables[j].Rows[i].ItemArray[6].ToString(),
+                                                  dataTables[j].Rows[i].ItemArray[13].ToString(),
+                                                  dataTables[j].Rows[i].ItemArray[2].ToString() };
+
+                                    dataSource.Add(item);
+                                }
+                                else
+                                {
+                                    decimal vat = decimal.Parse(dataTables[j].Rows[i].ItemArray[4].ToString());
+
+                                    if (vat == 0m)
+                                    {
+                                        string[] item = { dataTables[j].Rows[i].ItemArray[8].ToString().Substring(0, 9).Trim(),
+                                                      dataTables[j].Rows[i].ItemArray[7].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[6].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[13].ToString(),
+                                                      dataTables[j].Rows[i].ItemArray[2].ToString() };
+
+                                        dataSource.Add(item);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     if (j == 1)
                     {
-                        int secIndex = index;
                         for (int i = 0; i < dataTables[j].Rows.Count; i++)
                         {
-                            string[] item = { dataTables[j].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
+                            DateTime fromDate = fromDateTimeSelection.Value;
+                            DateTime toDate = toDateTimeSelection.Value;
+                            DateTime itemDate = DateTime.Parse(dataTables[j].Rows[i].ItemArray[6].ToString());
+
+                            if (DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                            {
+                                string[] item = { dataTables[j].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
                                   "Employee Salary Payment",
                                   " ",
                                   dataTables[j].Rows[i].ItemArray[1].ToString(),
                                   dataTables[j].Rows[i].ItemArray[5].ToString() };
-                            
-                            dataSource[i + secIndex] = item;
-                            index++;
+
+                                dataSource.Add(item);
+                            }
                         }
                     }
                 }
             }
             else
             {
-                
-                dataSource = new string[dataTables[0].Rows.Count][];
-
                 for (int i = 0; i < dataTables[0].Rows.Count; i++)
                 {
                     if(dataTables[0] is LinkupDatabaseDataSet.IncomeDataTable)
                     {
-                        string[] item = {  dataTables[0].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
+                        DateTime fromDate = fromDateTimeSelection.Value;
+                        DateTime toDate = toDateTimeSelection.Value;
+                        DateTime itemDate = DateTime.Parse(dataTables[0].Rows[i].ItemArray[9].ToString());
+
+                        if (DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                        {
+                            if (includeVat)
+                            {
+                                string[] item = {  dataTables[0].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
                                             dataTables[0].Rows[i].ItemArray[2].ToString(),
                                             dataTables[0].Rows[i].ItemArray[3].ToString(),
                                             dataTables[0].Rows[i].ItemArray[1].ToString(),
                                             dataTables[0].Rows[i].ItemArray[5].ToString() };
-                        dataSource[i] = item;
-                        index++;
+                                dataSource.Add(item);
+                            }
+                            else
+                            {
+                                decimal vat = decimal.Parse(dataTables[0].Rows[i].ItemArray[6].ToString());
+
+                                if (vat == 0m)
+                                {
+                                    string[] item = {  dataTables[0].Rows[i].ItemArray[9].ToString().Substring(0, 9).Trim(),
+                                            dataTables[0].Rows[i].ItemArray[2].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[3].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[1].ToString(),
+                                            dataTables[0].Rows[i].ItemArray[5].ToString() };
+                                    dataSource.Add(item);
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        string[] item = { dataTables[0].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
+                        DateTime fromDate = fromDateTimeSelection.Value;
+                        DateTime toDate = toDateTimeSelection.Value;
+                        DateTime itemDate = DateTime.Parse(dataTables[0].Rows[i].ItemArray[6].ToString());
+
+                        if (DateTime.Compare(fromDate, itemDate) <= 0 && DateTime.Compare(toDate, itemDate) >= 0)
+                        {
+                            string[] item = { dataTables[0].Rows[i].ItemArray[6].ToString().Substring(0, 9).Trim(),
                                             "Employee Salary Payment",
                                             " ",
                                             dataTables[0].Rows[i].ItemArray[1].ToString(),
                                             dataTables[0].Rows[i].ItemArray[5].ToString() };
-                        dataSource[i] = item;
-                        index++;
+                            dataSource.Add(item);
+                        }
                     }
                 }
             }
@@ -1144,11 +1343,11 @@ namespace Linkup_Finance.Forms
             return dataSource;
         }
 
-        private string[][] SortData(string[][] dataSource)
+        private string[][] SortData(List<string[]> dataSource)
         {
-            string[][] sortArray = new string[dataSource.Length][];
+            string[][] sortArray = new string[dataSource.Count][];
             
-            for (int i = 0; i < dataSource.Length; i++)
+            for (int i = 0; i < dataSource.Count; i++)
                 sortArray[i] = dataSource[i];
                
             int inner, numElements = sortArray.Length;
@@ -1178,8 +1377,23 @@ namespace Linkup_Finance.Forms
             return sortArray;
         }
 
+        private decimal GetTotalWithholding(DataTable dataTable)
+        {
+            decimal total = 0m;
+
+            if (dataTable is LinkupDatabaseDataSet.IncomeDataTable)
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                    total += decimal.Parse(dataTable.Rows[i].ItemArray[7].ToString());
+
+            if (dataTable is LinkupDatabaseDataSet.ExpenseDataTable)
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                    total += decimal.Parse(dataTable.Rows[i].ItemArray[5].ToString());
+
+            return total;
+        }
+
         #endregion
 
-
+      
     }
 }
