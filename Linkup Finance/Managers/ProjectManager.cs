@@ -318,7 +318,7 @@ namespace Linkup_Finance.Managers
             return true;
         }
 
-        public bool RemoveIncome(int id)
+        public object[] RemoveIncome(int id)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
@@ -326,16 +326,63 @@ namespace Linkup_Finance.Managers
                 {
                     string removeQuery = "DELETE FROM Income " +
                                          "WHERE Id=@Id";
+                    string getIncomeQuery = "SELECT Payer, Bank, Net, Date, Project FROM Income WHERE Id = @Id";
+                    string getBankQuery = "SELECT Balance FROM Banks WHERE Name=@Name";
+                    string updateBankQuery = "UPDATE Banks " +
+                                             "SET Balance=@Balance " +
+                                             "WHERE Name=@Name";
+
+                    string name = "";
+                    string bank = "";
+                    decimal net = 0m;
+                    decimal balance = 0m;
+                    DateTime date = new DateTime();
+                    string project = "";
+                    SqlCommand getCommand = new SqlCommand(getIncomeQuery, con);
                     SqlCommand command = new SqlCommand(removeQuery, con);
+                    SqlCommand getBankCommand = new SqlCommand(getBankQuery, con);
+                    SqlCommand updateBankCommand = new SqlCommand(updateBankQuery, con);
                     con.Open();
+
+                    getCommand.Parameters.AddWithValue("@Id", id);
+
+                    using (SqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            name = reader["Payer"].ToString();
+                            bank = reader["Bank"].ToString();
+                            net = decimal.Parse(reader["Net"].ToString());
+                            date = DateTime.Parse(reader["Date"].ToString());
+                            project = reader["Project"].ToString();
+                        }
+                    }
+
+                    getBankCommand.Parameters.AddWithValue("@Name", bank);
+
+                    using (SqlDataReader reader = getBankCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            balance = decimal.Parse(reader["Balance"].ToString());
+                        }
+                    }
+
+                    balance -= net;
+
+                    updateBankCommand.Parameters.AddWithValue("@Balance", balance);
+                    updateBankCommand.Parameters.AddWithValue("@Name", bank);
+
+                    updateBankCommand.ExecuteNonQuery();
+
                     command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();
 
-                    return true;
+                    return new object[] { bank, net };
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return new object[] { "", 0m};
                 }
                 finally
                 {
@@ -344,7 +391,7 @@ namespace Linkup_Finance.Managers
             }
         }
 
-        public bool RemoveExpense(int id)
+        public object[] RemoveExpense(int id)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
             {
@@ -352,16 +399,62 @@ namespace Linkup_Finance.Managers
                 {
                     string removeQuery = "DELETE FROM Expense " +
                                          "WHERE Id=@Id";
+                    string getExpenseQuery = "SELECT ExpName, Bank, Total, Date, Project FROM Expense WHERE Id = @Id";
+                    string getBankQuery = "SELECT Balance FROM Banks WHERE Name=@Name";
+                    string updateBankQuery = "UPDATE Banks " +
+                                             "SET Balance=@Balance " +
+                                             "WHERE Name=@Name";
+                    string name = "";
+                    string bank = "";
+                    decimal net = 0m;
+                    decimal balance = 0m;
+                    DateTime date = new DateTime();
+                    string project = "";
+                    SqlCommand getCommand = new SqlCommand(getExpenseQuery, con);
                     SqlCommand command = new SqlCommand(removeQuery, con);
+                    SqlCommand getBankCommand = new SqlCommand(getBankQuery, con);
+                    SqlCommand updateBankCommand = new SqlCommand(updateBankQuery, con);
                     con.Open();
+
+                    getCommand.Parameters.AddWithValue("@Id", id);
+
+                    using (SqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            name = reader["ExpName"].ToString();
+                            bank = reader["Bank"].ToString();
+                            net = decimal.Parse(reader["Total"].ToString());
+                            date = DateTime.Parse(reader["Date"].ToString());
+                            project = reader["Project"].ToString();
+                        }
+                    }
+
+                    getBankCommand.Parameters.AddWithValue("@Name", bank);
+
+                    using (SqlDataReader reader = getBankCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            balance = decimal.Parse(reader["Balance"].ToString());
+                        }
+                    }
+
+                    balance += net;
+
+                    updateBankCommand.Parameters.AddWithValue("@Balance", balance);
+                    updateBankCommand.Parameters.AddWithValue("@Name", bank);
+
+                    updateBankCommand.ExecuteNonQuery();
+
                     command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();
 
-                    return true;
+                    return new object[] { bank, net };
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return new object[] { "", 0m };
                 }
                 finally
                 {

@@ -19,7 +19,6 @@ namespace Linkup_Finance.Forms
 {
     public partial class ProjectForm : Form
     {
-        //TODO: Handle Resizing of controls when maximized
         public ProjectManager projectManager;
         private DashboardForm dashboardForm;
         public BankManager bankManager;
@@ -143,6 +142,7 @@ namespace Linkup_Finance.Forms
             expenseChart.AxisY.Add(yExpenseAxis);
             bankChart.AxisX.Add(xBankAxis);
             bankChart.AxisY.Add(yBankAxis);
+            bankPieChart.LegendLocation = LegendLocation.Right;
 
             pettyVaultChart.InnerRadius = 15;
             pettyVaultChart.DisableAnimations = false;
@@ -218,7 +218,6 @@ namespace Linkup_Finance.Forms
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'linkupDatabaseDataSet.EmployeeLogs' table. You can move, or remove it, as needed.
             this.employeeLogsTableAdapter.Fill(this.linkupDatabaseDataSet.EmployeeLogs);
             this.expenseTableAdapter.Fill(this.linkupDatabaseDataSet.Expense);
             this.incomeTableAdapter.Fill(this.linkupDatabaseDataSet.Income);
@@ -266,7 +265,6 @@ namespace Linkup_Finance.Forms
             incomeVatLabel.Text = $"Total Vat: {GetTotalVat(incomeTableAdapter.GetData())}";
             expenseVatLabel.Text = $"Total Vat: {GetTotalVat(expenseTableAdapter.GetData())}";
 
-            //TODO: Add data series with the rest of the charts i.e expense, bank 
             incomeChart.Series.Add(grossSeries);
             incomeChart.Series.Add(netSeries);
             expenseChart.Series.Add(amountSeries);
@@ -386,7 +384,6 @@ namespace Linkup_Finance.Forms
 
         private void pettyVaultComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            //TODO: Enlargen respective pie chart
             string vaultName = pettyVaultComboBox.Text;
             PettyVault vault = bankManager.GetPettyVault(vaultName);
 
@@ -602,9 +599,6 @@ namespace Linkup_Finance.Forms
                             bankOptionBox.Text = name;
                             balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
 
-                            //TODO: Add new Bank in chart
-
-                            //TODO: Load data to chart
                             this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                             LoadChart(name, bankLogsTableAdapter.GetData());
                             dashboardForm.LoadChart(banksTableAdapter.GetData());
@@ -875,6 +869,8 @@ namespace Linkup_Finance.Forms
                                 expenseVatLabel.Text = $"Total Vat: {GetTotalVat(expenseTableAdapter.GetData())}";
                                 LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
                                 dashboardForm.LoadChart(expenseTableAdapter.GetData());
+                                dashboardForm.LoadChart(banksTableAdapter.GetData());
+                                dashboardForm.RefreshDashboard();
                                 RemoveItems(expenseDataGridView, projectOption.Text);
                             }
                             else
@@ -1088,8 +1084,28 @@ namespace Linkup_Finance.Forms
 
         private void expenseDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            deleteExpenseEntryButton.Enabled = true;
-            deleteExpenseEntryButton.Tag = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString());
+            if(e.RowIndex >= 0)
+            {
+                deleteExpenseEntryButton.Enabled = true;
+                deleteExpenseEntryButton.Tag = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString());
+
+                for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
+                {
+                    string name = bankLogDataGridView.Rows[i].Cells[0].Value.ToString();
+                    string bank = bankLogDataGridView.Rows[i].Cells[2].Value.ToString();
+                    DateTime date = (DateTime)bankLogDataGridView.Rows[i].Cells[5].Value;
+                    string project = bankLogDataGridView.Rows[i].Cells[1].Value.ToString();
+
+                    if (name == expenseDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString() &&
+                        bank == expenseDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString() &&
+                        date == (DateTime)expenseDataGridView.Rows[e.RowIndex].Cells[10].Value &&
+                        project == expenseDataGridView.Rows[e.RowIndex].Cells[12].Value.ToString())
+                    {
+                        bankChart.Tag = int.Parse(bankLogDataGridView.Rows[i].Cells[7].Value.ToString());
+                        break;
+                    }
+                }
+            }
         }
 
         private void expenseDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
@@ -1141,14 +1157,41 @@ namespace Linkup_Finance.Forms
         private void deleteExpenseEntryButton_Click(object sender, EventArgs e)
         {
             Project project = (Project)projectOption.Tag;
+            Bank bank;
+            PettyVault pettyVault;
+            int blid = (int)bankChart.Tag;
             int id = (int)deleteExpenseEntryButton.Tag;
+            object[] data = project.RemoveExpense(id);
+            string bankName;
+            decimal net;
 
-            project.RemoveExpense(id);
+            bankName = (string)data[0];
+            net = (decimal)data[1];
+            if (bankName != "Petty")
+            {
+                bank = bankManager.GetBank(bankName);
+                bank.Deposit(net, false);
+                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
+            }
+            else
+            {
+                pettyVault = bankManager.GetFirstIndex();
+                pettyVault.Replenish(net, null, false);
+                vaultAmountLabel.Text = $"Amount(ETB): {pettyVault.GetAmount()}";
+            }
+                
+            bankManager.RemoveLog(blid);
             expenseTableAdapter.Fill(linkupDatabaseDataSet.Expense);
+            bankLogsTableAdapter.Fill(linkupDatabaseDataSet.BankLogs);
+            banksTableAdapter.Fill(linkupDatabaseDataSet.Banks);
             RemoveItems(expenseDataGridView, project.GetProjectName());
+            RemoveItems(bankLogDataGridView, bankOptionBox.Text);
             LoadChart(project.GetProjectName(), expenseTableAdapter.GetData());
+            LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
             dashboardForm.LoadChart(expenseTableAdapter.GetData());
-            GetTotalVat(expenseTableAdapter.GetData());
+            dashboardForm.LoadChart(banksTableAdapter.GetData());
+            dashboardForm.RefreshDashboard();
+            expenseVatLabel.Text = $"Total Vat: {GetTotalVat(expenseTableAdapter.GetData())}";
         }
 
         #endregion
@@ -1243,7 +1286,27 @@ namespace Linkup_Finance.Forms
                                 }
 
                                 Bank bankLog = bankManager.GetBank(bank);
-                                decimal net = gross + (gross * 0.15m) - (gross * 0.02m);
+                                decimal vat = (hasReceipt) ? gross * 0.15m : 0m;
+                                decimal withholding = 0m;
+                                decimal net;
+
+                                if (type == "Goods")
+                                {
+                                    if (gross >= 10000.00m)
+                                        withholding = gross * 0.02m;
+                                }
+                                else if (type == "Service")
+                                {
+                                    if (gross >= 3000.00m)
+                                        withholding = gross * 0.02m;
+                                }
+                                else
+                                {
+                                    type = "Normal";
+                                }
+
+                                net = gross + vat - withholding;
+                                
                                 bankLog.SubmitLog(net, "Income", reason, date, name, false, project.GetProjectName());
                                 this.bankLogsTableAdapter.Fill(this.linkupDatabaseDataSet.BankLogs);
                                 if (bankOptionBox.Text == bank)
@@ -1289,6 +1352,8 @@ namespace Linkup_Finance.Forms
                                 LoadChart(project.GetProjectName() ,incomeTableAdapter.GetData());
                                 GetTotalVat(incomeTableAdapter.GetData());
                                 dashboardForm.LoadChart(incomeTableAdapter.GetData());
+                                dashboardForm.LoadChart(banksTableAdapter.GetData());
+                                dashboardForm.RefreshDashboard();
                             }
                             else
                             {
@@ -1455,8 +1520,28 @@ namespace Linkup_Finance.Forms
 
         private void incomeDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            deleteIncomeEntryButton.Enabled = true;
-            deleteIncomeEntryButton.Tag = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+            if(e.RowIndex >= 0)
+            {
+                deleteIncomeEntryButton.Enabled = true;
+                deleteIncomeEntryButton.Tag = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+
+                for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
+                {
+                    string name = bankLogDataGridView.Rows[i].Cells[0].Value.ToString();
+                    string bank = bankLogDataGridView.Rows[i].Cells[2].Value.ToString();
+                    DateTime date = (DateTime)bankLogDataGridView.Rows[i].Cells[5].Value;
+                    string project = bankLogDataGridView.Rows[i].Cells[1].Value.ToString();
+
+                    if (name == incomeDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString() &&
+                        bank == incomeDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString() &&
+                        date == (DateTime)incomeDataGridView.Rows[e.RowIndex].Cells[8].Value &&
+                        project == incomeDataGridView.Rows[e.RowIndex].Cells[10].Value.ToString())
+                    {
+                        bankChart.Tag = int.Parse(bankLogDataGridView.Rows[i].Cells[7].Value.ToString());
+                        break;
+                    }
+                }
+            }
         }
 
         private void incomeDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
@@ -1471,14 +1556,41 @@ namespace Linkup_Finance.Forms
         private void deleteIncomeEntryButton_Click(object sender, EventArgs e)
         {
             Project project = (Project)projectOption.Tag;
+            Bank bank;
+            PettyVault pettyVault;
+            int blid = (int)bankChart.Tag;
             int id = (int)deleteIncomeEntryButton.Tag;
+            object[] data = project.RemoveIncome(id);
+            string bankName;
+            decimal net;
 
-            project.RemoveIncome(id);
+            bankName = (string)data[0];
+            net = (decimal)data[1];
+            if (bankName != "Petty")
+            {
+                bank = bankManager.GetBank(bankName);
+                bank.Withdraw(net);
+                balanceAmountLabel.Text = $"Balance(ETB):{bank.GetBalance()}";
+            }
+            else
+            {
+                pettyVault = bankManager.GetFirstIndex();
+                pettyVault.DecreaseValue(net);
+                vaultAmountLabel.Text = $"Amount(ETB): {pettyVault.GetAmount()}";
+            }
+            
+            bankManager.RemoveLog(blid);
             incomeTableAdapter.Fill(linkupDatabaseDataSet.Income);
+            bankLogsTableAdapter.Fill(linkupDatabaseDataSet.BankLogs);
+            banksTableAdapter.Fill(linkupDatabaseDataSet.Banks);
             RemoveItems(incomeDataGridView, project.GetProjectName());
+            RemoveItems(bankLogDataGridView, bankOptionBox.Text);
             LoadChart(project.GetProjectName(), incomeTableAdapter.GetData());
+            LoadChart(bankOptionBox.Text, bankLogsTableAdapter.GetData());
             dashboardForm.LoadChart(incomeTableAdapter.GetData());
-            GetTotalVat(incomeTableAdapter.GetData());
+            dashboardForm.LoadChart(banksTableAdapter.GetData());
+            dashboardForm.RefreshDashboard();
+            incomeVatLabel.Text = $"Total Vat: {GetTotalVat(incomeTableAdapter.GetData())}";
         }
 
         private void incomeTabPage_Click(object sender, EventArgs e)
@@ -1687,7 +1799,6 @@ namespace Linkup_Finance.Forms
 
         private void SearchDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string searchEntry, int cellIndex, bool hasReceipt = false)
         {
-            //TODO: Change the receipt values from int to string
             List<int> tobeRemovedList = new List<int>();
             int removed = 0;
 
@@ -1968,6 +2079,102 @@ namespace Linkup_Finance.Forms
             totalSeries.Values.Clear();
             grossSeries.Values.Clear();
             netSeries.Values.Clear();
+        }
+
+        public void ResizeControls(FormWindowState state)
+        {
+            if (state == FormWindowState.Maximized)
+            {
+                ledgerTabControl.Size = new Size(1200, 590);
+                
+                //Panels
+                newIncomePanel.Location = new Point((this.Width / 2) - (newIncomePanel.Width / 2),
+                                                                (ledgerTabControl.Height - newIncomePanel.Height - 25));
+                newExpensePanel.Location = new Point((this.Width / 2) - (newExpensePanel.Width / 2),
+                                                                (ledgerTabControl.Height - newIncomePanel.Height - 25));
+                newBankPanel.Location = new Point((this.Width / 2) - (newBankPanel.Width / 2),
+                                                                (ledgerTabControl.Height - newBankPanel.Height - 25));
+
+                //Income Tab
+                incomeDataGridView.Size = new Size(ledgerTabControl.Width, ledgerTabControl.Height / 2);
+                incomeChart.Location = new Point(incomeChart.Location.X, incomeDataGridView.Height + 20);
+                incomeChart.Size = new Size(incomeChart.Width + 130, incomeChart.Height + 60);
+                incomeChartDateTimePicker.Location = new Point(ledgerTabControl.Width - incomeChartDateTimePicker.Width - 20, 342);
+                
+                zoomLabel.Location = new Point(incomeChartDateTimePicker.Location.X, incomeChartDateTimePicker.Location.Y + incomeChartDateTimePicker.Height + 20);
+                zoomIncomeTrackBar.Location = new Point(zoomLabel.Location.X, zoomLabel.Location.Y + zoomLabel.Height + 20);
+                zoomIncomeNumericUpDown.Location = new Point(zoomIncomeTrackBar.Location.X + zoomIncomeTrackBar.Width + 20, zoomIncomeTrackBar.Location.Y);
+                label7.Location = new Point(zoomIncomeNumericUpDown.Location.X + 40, zoomIncomeNumericUpDown.Location.Y + 10);
+                deleteIncomeEntryButton.Location = new Point(ledgerTabControl.Width - deleteIncomeEntryButton.Width - 10, 
+                                                            ledgerTabControl.Height - deleteIncomeEntryButton.Height - 50);
+                incomeVatLabel.Location = new Point(zoomIncomeTrackBar.Location.X, zoomIncomeTrackBar.Location.Y + zoomIncomeTrackBar.Height + 20);
+
+                //Expense Tab
+                expenseDataGridView.Size = new Size(ledgerTabControl.Width, ledgerTabControl.Height / 2);
+                expenseChart.Location = new Point(expenseChart.Location.X, expenseDataGridView.Height + 20);
+                expenseChart.Size = new Size(expenseChart.Width + 130, expenseChart.Height + 60);
+                expenseChartDateTimePicker.Location = new Point(ledgerTabControl.Width - expenseChartDateTimePicker.Width - 20, 342);
+
+                zoomExpenseLabel.Location = new Point(expenseChartDateTimePicker.Location.X, expenseChartDateTimePicker.Location.Y + expenseChartDateTimePicker.Height + 20);
+                zoomExpenseTrackBar.Location = new Point(zoomExpenseLabel.Location.X, zoomExpenseLabel.Location.Y + zoomExpenseLabel.Height + 20);
+                zoomExpenseNumericUpDown.Location = new Point(zoomExpenseTrackBar.Location.X + zoomExpenseTrackBar.Width + 20, zoomExpenseTrackBar.Location.Y);
+                label8.Location = new Point(zoomExpenseNumericUpDown.Location.X + 40, zoomExpenseNumericUpDown.Location.Y + 10);
+                deleteExpenseEntryButton.Location = new Point(ledgerTabControl.Width - deleteExpenseEntryButton.Width - 10,
+                                                            ledgerTabControl.Height - deleteExpenseEntryButton.Height - 50);
+                expenseVatLabel.Location = new Point(zoomExpenseTrackBar.Location.X, zoomExpenseTrackBar.Location.Y + zoomExpenseTrackBar.Height + 20);
+
+
+                //Bank Tab
+                bankChart.Location = new Point(ledgerTabControl.Width/2, bankChart.Location.Y);
+                bankChart.Size = new Size(bankChart.Width - 130, 330);
+                pettyVaultPanel.Location = new Point(ledgerTabControl.Width/2, 15);
+                bankPieChart.Location = new Point(pettyVaultPanel.Location.X + pettyVaultPanel.Width + 50, 54);
+                bankOptionBox.Size = new Size(bankOptionBox.Width + 120, bankOptionBox.Height);
+                bankLogDataGridView.Size = new Size(bankLogDataGridView.Width + 120, bankLogDataGridView.Height);
+                balanceAmountLabel.Location = new Point(balanceAmountLabel.Location.X + 120, balanceAmountLabel.Location.Y);
+            }
+            else
+            {
+                //Panels
+                ledgerTabControl.Size = new Size(1200, 530);
+                newIncomePanel.Location = new Point(214, 107);
+                newExpensePanel.Location = new Point(214, 114);
+                newBankPanel.Location = new Point(214, 180);
+
+                //Income Tab
+                incomeDataGridView.Size = new Size(1181, 188);
+                incomeChart.Location = new Point(8, 242);
+                incomeChart.Size = new Size(834, 164);
+                incomeChartDateTimePicker.Location = new Point(843, 242);
+                zoomIncomeTrackBar.Location = new Point(843, 312);
+                zoomIncomeNumericUpDown.Location = new Point(1091, 312);
+                label7.Location = new Point(1128, 322);
+                deleteIncomeEntryButton.Location = new Point(1097, 378);
+                incomeVatLabel.Location = new Point(848, 365);
+                zoomLabel.Location = new Point(848, 297);
+
+                //Expense Tab
+                expenseDataGridView.Size = new Size(1181, 188);
+                expenseChart.Location = new Point(8, 242);
+                expenseChart.Size = new Size(834, 164);
+                expenseChartDateTimePicker.Location = new Point(843, 242);
+                zoomExpenseTrackBar.Location = new Point(843, 312);
+                zoomExpenseNumericUpDown.Location = new Point(1091, 312);
+                label8.Location = new Point(1128, 322);
+                deleteExpenseEntryButton.Location = new Point(1097, 378);
+                expenseVatLabel.Location = new Point(848, 365);
+                zoomExpenseLabel.Location = new Point(848, 297);
+
+                //Bank Tab
+                bankChart.Location = new Point(548, 212);
+                bankChart.Size = new Size(636, 190);
+                pettyVaultPanel.Location = new Point(548, 15);
+                bankPieChart.Location = new Point(939, 54);
+                bankOptionBox.Size = new Size(417, 36);
+                bankLogDataGridView.Size = new Size(534, 309);
+                balanceAmountLabel.Location = new Point(335, 61);
+
+            }
         }
         #endregion
     }

@@ -29,6 +29,7 @@ namespace Linkup_Finance
 
         private Point startPoint = new Point(0, 0);
         private bool drag = false;
+        private bool isLoggedIn = false;
 
         private FormWindowState state = FormWindowState.Normal;
 
@@ -168,9 +169,8 @@ namespace Linkup_Finance
                         }
                     }
 
-                ResizeControls();
-
                 state = FormWindowState.Maximized;
+                ResizeControls();
             }
                 
             else
@@ -183,9 +183,8 @@ namespace Linkup_Finance
                         maximizeButton.Image = Linkup_Finance.Properties.Resources.Maximize_Icon;
                     }
 
-                ResizeControls();
-
                 state = FormWindowState.Normal;
+                ResizeControls();
             }
         }
 
@@ -217,11 +216,13 @@ namespace Linkup_Finance
             string password = passwordTextBox.Text.Trim();
             DataTable userDataTable = settingsForm.usersTableAdapter.GetData();
             bool exists = false;
-            //TODO: Create a back door
+            
             if (otherCheckBox.Checked)
             {
                 if(name != "")
                 {
+                    isLoggedIn = true;
+
                     logoPictureBox.Visible = false;
                     loginPanel.Visible = false;
                     dashboardButton.Visible = true;
@@ -273,6 +274,8 @@ namespace Linkup_Finance
                 {
                     if (Linkup_Finance.Properties.Settings.Default.InitialUse)
                     {
+                        isLoggedIn = true;
+
                         logoPictureBox.Visible = false;
                         loginPanel.Visible = false;
                         dashboardButton.Visible = true;
@@ -325,6 +328,8 @@ namespace Linkup_Finance
 
                         if (password == userDataTable.Rows[i].ItemArray[3].ToString())
                         {
+                            isLoggedIn = true;
+
                             logoPictureBox.Visible = false;
                             loginPanel.Visible = false;
                             dashboardButton.Visible = true;
@@ -464,26 +469,49 @@ namespace Linkup_Finance
 
         private void ResizeControls()
         {
-            Size resizeValue = new Size(this.Width, this.Height - titleBarPanel.Height);
-            workPanel.Size = resizeValue;
-            projectForm.Size = resizeValue;
-            dashboardForm.Size = resizeValue;
-            settingsForm.Size = resizeValue;
+            Size resizeValue = new Size(this.Width, this.Height - 70);
 
-            if(state == FormWindowState.Maximized)
+            if (state == FormWindowState.Maximized)
             {
-                projectForm.ledgerTabControl.Size = new Size(1200, 530);
-                projectForm.newIncomePanel.Location = new Point(214, 114);
+                if (!isLoggedIn)
+                    titleBarPanel.Size = new Size(titleBarPanel.Width, this.Height - 15);
+                    
+                workPanel.Size = resizeValue;
+                projectForm.Size = resizeValue;
+                dashboardForm.Size = resizeValue;
+                settingsForm.Size = resizeValue;
+
+                
+                logoPictureBox.Location = new Point(logoPictureBox.Location.X + 80, logoPictureBox.Location.Y + 80);
+                bigFinanceLabel.Location = new Point(logoPictureBox.Location.X + logoPictureBox.Width - bigFinanceLabel.Width - 30, logoPictureBox.Location.Y + logoPictureBox.Height / 2 + 30);
+                loginPanel.Location = new Point(logoPictureBox.Location.X - 25, logoPictureBox.Location.Y + logoPictureBox.Height + 20);
             }
             else
             {
-                projectForm.ledgerTabControl.Size = new Size(1200, 590);
-                projectForm.newIncomePanel.Location = new Point(290, 280);
+                if(!isLoggedIn)
+                    titleBarPanel.Size = new Size(1200, 574);
+                else
+                    titleBarPanel.Size = new Size(1200, 76);
+
+                workPanel.Size = resizeValue;
+                projectForm.Size = resizeValue;
+                dashboardForm.Size = resizeValue;
+                settingsForm.Size = resizeValue;
+
+                logoPictureBox.Location = new Point(422, 139);
+                bigFinanceLabel.Location = new Point(633, 261);
+                loginPanel.Location = new Point(368, 316);
             }
+
+            projectForm.ResizeControls(state);
+            dashboardForm.ResizeControls(state);
+            settingsForm.ResizeControls(state);
         }
 
         public void Logout()
         {
+            isLoggedIn = false;
+
             logoPictureBox.Visible = true;
             loginPanel.Visible = true;
             dashboardButton.Visible = false;
@@ -494,7 +522,11 @@ namespace Linkup_Finance
             userNameTextBox.ResetText();
             passwordTextBox.ResetText();
 
-            titleBarPanel.Size = new Size(1200, 574);
+            if (state == FormWindowState.Normal)
+                titleBarPanel.Size = new Size(1200, 574);
+            else
+                titleBarPanel.Size = new Size(titleBarPanel.Width, this.Height - 15);
+
             dashboardForm.welcomeNameLabel.Text = null;
         }
         #endregion

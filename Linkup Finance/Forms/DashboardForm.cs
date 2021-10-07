@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using LiveCharts.Wpf;
 using LiveCharts;
@@ -313,6 +314,35 @@ namespace Linkup_Finance.Forms
             incomeSeries.Values.Clear();
             expenseSeries.Values.Clear();
             bankPieChart.Series.Clear();
+        }
+
+        public void ResizeControls(FormWindowState state)
+        {
+            if(state == FormWindowState.Maximized)
+            {
+                ledgerDashboardPanel.Size = new Size(ledgerDashboardPanel.Width, this.Height / 2);
+                bankGradientPanel.Size = new Size(bankGradientPanel.Width, this.Height / 2);
+
+                employeeDashboardPanel.Location = new Point(employeeDashboardPanel.Location.X, ledgerDashboardPanel.Height + 20);
+                employeeDashboardPanel.Size = new Size(this.Width / 2, employeeDashboardPanel.Height + 60);
+
+                loginDashboardPanel.Location = new Point(this.Width / 2 + 20, employeeDashboardPanel.Location.Y);
+                loginDashboardPanel.Size = new Size(this.Width / 2 - 40, loginDashboardPanel.Height + 60);
+
+
+            }
+            else
+            {
+                ledgerDashboardPanel.Size = new Size(1176, 241);
+                bankGradientPanel.Size = new Size(618, 235);
+
+                employeeDashboardPanel.Location = new Point(12, 259);
+                employeeDashboardPanel.Size = new Size(623, 241);
+
+                loginDashboardPanel.Location = new Point(641, 259);
+                loginDashboardPanel.Size = new Size(547, 241);
+
+            }
         }
         #endregion
     }

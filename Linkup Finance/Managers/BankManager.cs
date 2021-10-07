@@ -193,6 +193,35 @@ namespace Linkup_Finance.Managers
             }
         }
 
+        public bool RemoveLog(int id)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            {
+                try
+                {
+                    string deleteBankLogQuery = "DELETE FROM BankLogs " +
+                                                "WHERE Id=@Id";
+
+                    SqlCommand deleteBankLogCommand = new SqlCommand(deleteBankLogQuery, con);
+                    con.Open();
+
+                    deleteBankLogCommand.Parameters.AddWithValue("@Id", id);
+                    deleteBankLogCommand.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                    //return false;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
         public bool ResetData()
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
@@ -252,36 +281,39 @@ namespace Linkup_Finance.Managers
             return this.AccountID;
         }
 
-        public void Deposit(decimal value)
+        public void Deposit(decimal value, bool changeDB = true)
         {
             decimal prevBalance = this.Balance;
             this.Balance += value;
 
-            using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            if (changeDB)
             {
-                try
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
                 {
-                    con.Open();
-                    string updateQuery = "UPDATE Banks " +
-                                         "SET Balance=@Balance " +
-                                         "WHERE Name=@Name";
-                    SqlCommand command = new SqlCommand(updateQuery, con);
-                    command.Parameters.AddWithValue("@Balance", this.Balance);
-                    command.Parameters.AddWithValue("@Name", this.Name);
+                    try
+                    {
+                        con.Open();
+                        string updateQuery = "UPDATE Banks " +
+                                             "SET Balance=@Balance " +
+                                             "WHERE Name=@Name";
+                        SqlCommand command = new SqlCommand(updateQuery, con);
+                        command.Parameters.AddWithValue("@Balance", this.Balance);
+                        command.Parameters.AddWithValue("@Name", this.Name);
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    con.Close();
-                }
+
+                SubmitLog(prevBalance, "Income", "Deposit", DateTime.Now, "Deposit");
             }
-
-            SubmitLog(prevBalance, "Income", "Deposit", DateTime.Now, "Deposit");
         }
 
         public bool SubmitLog(decimal amount, string type, string reason, DateTime date, string tpName, bool isSummed = true, string project = null)
@@ -393,68 +425,72 @@ namespace Linkup_Finance.Managers
             Linkup_Finance.Properties.Settings.Default.Save();
         }
 
-        public void Replenish(decimal amount, Bank bank)
+        public void Replenish(decimal amount, Bank bank, bool changeDB = true)
         {
-            DateTime date = DateTime.Now;
-            bank.Withdraw(amount);
-
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
+            if (changeDB)
             {
-                try
+                DateTime date = DateTime.Now;
+                bank.Withdraw(amount);
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Linkup_Finance.Properties.Settings.LinkupDBConfig"].ConnectionString))
                 {
-                    string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt, Tin)" +
-                                         $" VALUES(@ExpName, @Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{null}\',@Total,@Project,@Receipt,\'{null}\')";
-                    string insertBankQuery = "INSERT INTO BankLogs(Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName)" +
-                                         $" VALUES(@Bank, @Balance, @PrevBalance, @Type, @Reason, @Date, \'{null}\', @tpName)";
-                    string updateBankQuery = "UPDATE Banks " +
-                                         "SET Balance=@Balance " +
-                                         "WHERE Name=@Name";
-                    SqlCommand command = new SqlCommand(insertQuery, con);
-                    con.Open();
+                    try
+                    {
+                        string insertQuery = "INSERT INTO Expense(ExpName, Product, Amount, Type, VAT, Withholding, Bank, Reason, Date, Attachement, Total, Project, Receipt, Tin)" +
+                                             $" VALUES(@ExpName, @Product,@Amount,@Type,@VAT,@Withholding,@Bank,@Reason,@Date,\'{null}\',@Total,@Project,@Receipt,\'{null}\')";
+                        string insertBankQuery = "INSERT INTO BankLogs(Bank, Balance, PrevBalance, Type, Reason, Date, ProjectName, tpName)" +
+                                             $" VALUES(@Bank, @Balance, @PrevBalance, @Type, @Reason, @Date, \'{null}\', @tpName)";
+                        string updateBankQuery = "UPDATE Banks " +
+                                             "SET Balance=@Balance " +
+                                             "WHERE Name=@Name";
+                        SqlCommand command = new SqlCommand(insertQuery, con);
+                        con.Open();
 
-                    command.Parameters.AddWithValue("@Amount", amount);
-                    command.Parameters.AddWithValue("@Total", amount);
-                    command.Parameters.AddWithValue("@Date", date);
-                    command.Parameters.AddWithValue("@Type", "Petty Deposit");
-                    command.Parameters.AddWithValue("@Bank", bank.GetBankName());
-                    command.Parameters.AddWithValue("@Reason", "Petty Cash Replenish");
-                    command.Parameters.AddWithValue("@Project", "");
-                    command.Parameters.AddWithValue("@Receipt", 0);
-                    command.Parameters.AddWithValue("@ExpName", "Petty Deposit");
-                    command.Parameters.AddWithValue("@Product", "");
-                    command.Parameters.AddWithValue("@VAT", 0m);
-                    command.Parameters.AddWithValue("@Withholding", 0m);
+                        command.Parameters.AddWithValue("@Amount", amount);
+                        command.Parameters.AddWithValue("@Total", amount);
+                        command.Parameters.AddWithValue("@Date", date);
+                        command.Parameters.AddWithValue("@Type", "Petty Deposit");
+                        command.Parameters.AddWithValue("@Bank", bank.GetBankName());
+                        command.Parameters.AddWithValue("@Reason", "Petty Cash Replenish");
+                        command.Parameters.AddWithValue("@Project", "");
+                        command.Parameters.AddWithValue("@Receipt", 0);
+                        command.Parameters.AddWithValue("@ExpName", "Petty Deposit");
+                        command.Parameters.AddWithValue("@Product", "");
+                        command.Parameters.AddWithValue("@VAT", 0m);
+                        command.Parameters.AddWithValue("@Withholding", 0m);
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
 
-                    command = new SqlCommand(insertBankQuery, con);
+                        command = new SqlCommand(insertBankQuery, con);
 
-                    command.Parameters.AddWithValue("@Bank", bank.GetBankName());
-                    command.Parameters.AddWithValue("@Balance", bank.GetBalance());
-                    command.Parameters.AddWithValue("@PrevBalance", bank.GetBalance() + amount);
-                    command.Parameters.AddWithValue("@Type", "Petty Deposit");
-                    command.Parameters.AddWithValue("@Reason", "Petty Cash Replenish");
-                    command.Parameters.AddWithValue("@Date", date);
-                    command.Parameters.AddWithValue("@tpName", "Petty Deposit");
+                        command.Parameters.AddWithValue("@Bank", bank.GetBankName());
+                        command.Parameters.AddWithValue("@Balance", bank.GetBalance());
+                        command.Parameters.AddWithValue("@PrevBalance", bank.GetBalance() + amount);
+                        command.Parameters.AddWithValue("@Type", "Petty Deposit");
+                        command.Parameters.AddWithValue("@Reason", "Petty Cash Replenish");
+                        command.Parameters.AddWithValue("@Date", date);
+                        command.Parameters.AddWithValue("@tpName", "Petty Deposit");
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
 
-                    command = new SqlCommand(updateBankQuery, con);
+                        command = new SqlCommand(updateBankQuery, con);
 
-                    command.Parameters.AddWithValue("@Balance", bank.GetBalance());
-                    command.Parameters.AddWithValue("@Name", bank.GetBankName());
+                        command.Parameters.AddWithValue("@Balance", bank.GetBalance());
+                        command.Parameters.AddWithValue("@Name", bank.GetBankName());
 
-                    command.ExecuteNonQuery();
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show($"Error occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    con.Close();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
             }
+            
             this.Amount += amount;
             Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary[Linkup_Finance.Properties.Settings.Default.PettyVaultDictionary.IndexOf(this.Name) + 2] = this.Amount.ToString();
             Linkup_Finance.Properties.Settings.Default.Save();

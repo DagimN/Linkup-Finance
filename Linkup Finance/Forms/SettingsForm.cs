@@ -524,7 +524,11 @@ namespace Linkup_Finance.Forms
 
                         editEmployeeButton.Text = "Edit";
                     }
+                    else
+                        MessageBox.Show("An error has occured when inserting to the database. Check the data you entered and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else
+                    MessageBox.Show("The salary value is in a wrong format. Correct it and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -536,6 +540,7 @@ namespace Linkup_Finance.Forms
             {
                 userManager.EditEmployee(employee, employee.GetName(), employee.GetSalary(), employee.GetJob(), employee.GetPhone(), employee.GetEmail(), employee.GetEntryDate(), employee.GetSalaryDueDate(), EmployeeStatus.Active);
                 statusPictureBox.Image = Linkup_Finance.Properties.Resources.Active_Image;
+                payEmployeeButton.Enabled = true;
             }       
         }
 
@@ -659,12 +664,12 @@ namespace Linkup_Finance.Forms
                 }
                 else
                 {
-                    //TODO: Report Database Error
+                    MessageBox.Show("An error has occured when inserting to the database. Check the data you entered and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                //TODO: Report decimal Error
+                MessageBox.Show("The bonus value is in a wrong format. Correct it and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }   
         }
 
@@ -1065,7 +1070,7 @@ namespace Linkup_Finance.Forms
 
         private void aboutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("Made By Dagmawi Nebiat \n Contact Info: \n \t dagmnebiat@gmail.com \n \t 0941969924", "Developer Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Made By Dagmawi Nebiat \n\nContact Info \nEmail: dagmnebiat@gmail.com \nPhone: 0941969924", "Developer Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion
@@ -1390,6 +1395,33 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(dataTable.Rows[i].ItemArray[5].ToString());
 
             return total;
+        }
+
+        public void ResizeControls(FormWindowState state)
+        {
+            if(state == FormWindowState.Maximized)
+            {
+                userLogDataGridView.Size = new Size(userLogDataGridView.Width, userLogDataGridView.Height + 135);
+                newUserPanel.Location = new Point((this.Width / 2) - (newUserPanel.Width / 2) - 30,
+                                                                (this.Height - newUserPanel.Height));
+                newEmployeePanel.Location = new Point((this.Width / 2) - (newEmployeePanel.Width / 2) - 60,
+                                                                (this.Height - newEmployeePanel.Height));
+
+                logoPictureBox.Location = new Point(789, 150);
+                appNameLabel.Location = new Point(864, 355);
+                aboutLinkLabel.Location = new Point(887, 378);
+
+            }
+            else
+            {
+                userLogDataGridView.Size = new Size(1036, 200);
+                newUserPanel.Location = new Point(153, 192);
+                newEmployeePanel.Location = new Point(153, 192);
+
+                logoPictureBox.Location = new Point(719, 96);
+                appNameLabel.Location = new Point(794, 299);
+                aboutLinkLabel.Location = new Point(817, 322);
+            }
         }
 
         #endregion

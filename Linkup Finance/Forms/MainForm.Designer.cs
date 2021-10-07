@@ -38,7 +38,7 @@ namespace Linkup_Finance
             this.passwordLabel = new System.Windows.Forms.Label();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.userNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.bigFinanceLabel = new System.Windows.Forms.Label();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.maximizeButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@ namespace Linkup_Finance
             this.titleBarPanel.BackColor = System.Drawing.SystemColors.Control;
             this.titleBarPanel.BorderRadius = 10;
             this.titleBarPanel.Controls.Add(this.loginPanel);
-            this.titleBarPanel.Controls.Add(this.label2);
+            this.titleBarPanel.Controls.Add(this.bigFinanceLabel);
             this.titleBarPanel.Controls.Add(this.logoPictureBox);
             this.titleBarPanel.Controls.Add(this.maximizeButton);
             this.titleBarPanel.Controls.Add(this.closeButton);
@@ -221,16 +221,16 @@ namespace Linkup_Finance
             this.userNameTextBox.TabIndex = 14;
             this.userNameTextBox.TextChanged += new System.EventHandler(this.userNameTextBox_TextChanged);
             // 
-            // label2
+            // bigFinanceLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(633, 261);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 20);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "FINANCE";
+            this.bigFinanceLabel.AutoSize = true;
+            this.bigFinanceLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.bigFinanceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bigFinanceLabel.Location = new System.Drawing.Point(633, 261);
+            this.bigFinanceLabel.Name = "bigFinanceLabel";
+            this.bigFinanceLabel.Size = new System.Drawing.Size(79, 20);
+            this.bigFinanceLabel.TabIndex = 13;
+            this.bigFinanceLabel.Text = "FINANCE";
             // 
             // logoPictureBox
             // 
@@ -440,7 +440,7 @@ namespace Linkup_Finance
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label userNameLabel;
         private Guna.UI2.WinForms.Guna2TextBox userNameTextBox;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label bigFinanceLabel;
         private System.Windows.Forms.PictureBox logoPictureBox;
     }
 }

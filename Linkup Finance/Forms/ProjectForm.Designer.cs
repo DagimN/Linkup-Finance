@@ -49,7 +49,6 @@ namespace Linkup_Finance.Forms
             this.projectNameTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.ledgerTabControl = new Guna.UI2.WinForms.Guna2TabControl();
             this.incomeTabPage = new System.Windows.Forms.TabPage();
-            this.deleteIncomeEntryButton = new Guna.UI2.WinForms.Guna2Button();
             this.newIncomePanel = new Guna.UI2.WinForms.Guna2Panel();
             this.incomeTypeComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.incomeTypeLabel = new System.Windows.Forms.Label();
@@ -71,6 +70,7 @@ namespace Linkup_Finance.Forms
             this.nameIncomeTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.deleteIncomeEntryButton = new Guna.UI2.WinForms.Guna2Button();
             this.incomeVatLabel = new System.Windows.Forms.Label();
             this.toIncomeDateTimePicker = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.fromIncomeDateTimePicker = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -105,7 +105,6 @@ namespace Linkup_Finance.Forms
             this.incomeChart = new LiveCharts.WinForms.CartesianChart();
             this.searchIncomeButton = new Guna.UI2.WinForms.Guna2Button();
             this.expenseTabPage = new System.Windows.Forms.TabPage();
-            this.deleteExpenseEntryButton = new Guna.UI2.WinForms.Guna2Button();
             this.newExpensePanel = new Guna.UI2.WinForms.Guna2Panel();
             this.expenseTypeComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.expenseTypeLabel = new System.Windows.Forms.Label();
@@ -129,6 +128,7 @@ namespace Linkup_Finance.Forms
             this.nameExpenseTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.nameExpenseLabel = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.deleteExpenseEntryButton = new Guna.UI2.WinForms.Guna2Button();
             this.expenseVatLabel = new System.Windows.Forms.Label();
             this.toExpenseDateTimePicker = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.fromExpenseDateTimePicker = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -161,6 +161,7 @@ namespace Linkup_Finance.Forms
             this.tinDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expenseIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.zoomExpenseLabel = new System.Windows.Forms.Label();
             this.balanceTabPage = new System.Windows.Forms.TabPage();
             this.deleteBankButton = new Guna.UI2.WinForms.Guna2CircleButton();
             this.newBankPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -222,6 +223,7 @@ namespace Linkup_Finance.Forms
             this.incomeTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.IncomeTableAdapter();
             this.expenseTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.ExpenseTableAdapter();
             this.employeeLogsTableAdapter = new Linkup_Finance.LinkupDatabaseDataSetTableAdapters.EmployeeLogsTableAdapter();
+            this.bankLogIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerTabControl.SuspendLayout();
             this.incomeTabPage.SuspendLayout();
             this.newIncomePanel.SuspendLayout();
@@ -390,8 +392,8 @@ namespace Linkup_Finance.Forms
             // 
             // incomeTabPage
             // 
-            this.incomeTabPage.Controls.Add(this.deleteIncomeEntryButton);
             this.incomeTabPage.Controls.Add(this.newIncomePanel);
+            this.incomeTabPage.Controls.Add(this.deleteIncomeEntryButton);
             this.incomeTabPage.Controls.Add(this.incomeVatLabel);
             this.incomeTabPage.Controls.Add(this.toIncomeDateTimePicker);
             this.incomeTabPage.Controls.Add(this.fromIncomeDateTimePicker);
@@ -418,32 +420,8 @@ namespace Linkup_Finance.Forms
             this.incomeTabPage.UseVisualStyleBackColor = true;
             this.incomeTabPage.Click += new System.EventHandler(this.incomeTabPage_Click);
             // 
-            // deleteIncomeEntryButton
-            // 
-            this.deleteIncomeEntryButton.BorderRadius = 10;
-            this.deleteIncomeEntryButton.CheckedState.Parent = this.deleteIncomeEntryButton;
-            this.deleteIncomeEntryButton.CustomImages.Parent = this.deleteIncomeEntryButton;
-            this.deleteIncomeEntryButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.deleteIncomeEntryButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.deleteIncomeEntryButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.deleteIncomeEntryButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.deleteIncomeEntryButton.DisabledState.Parent = this.deleteIncomeEntryButton;
-            this.deleteIncomeEntryButton.Enabled = false;
-            this.deleteIncomeEntryButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(75)))), ((int)(((byte)(70)))));
-            this.deleteIncomeEntryButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.deleteIncomeEntryButton.ForeColor = System.Drawing.Color.White;
-            this.deleteIncomeEntryButton.HoverState.Parent = this.deleteIncomeEntryButton;
-            this.deleteIncomeEntryButton.Location = new System.Drawing.Point(1097, 388);
-            this.deleteIncomeEntryButton.Name = "deleteIncomeEntryButton";
-            this.deleteIncomeEntryButton.ShadowDecoration.Parent = this.deleteIncomeEntryButton;
-            this.deleteIncomeEntryButton.Size = new System.Drawing.Size(95, 26);
-            this.deleteIncomeEntryButton.TabIndex = 32;
-            this.deleteIncomeEntryButton.Text = "Delete Entry";
-            this.deleteIncomeEntryButton.Click += new System.EventHandler(this.deleteIncomeEntryButton_Click);
-            // 
             // newIncomePanel
             // 
-            this.newIncomePanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.newIncomePanel.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.newIncomePanel.BorderRadius = 10;
             this.newIncomePanel.Controls.Add(this.incomeTypeComboBox);
@@ -466,8 +444,8 @@ namespace Linkup_Finance.Forms
             this.newIncomePanel.Controls.Add(this.nameIncomeTextBox);
             this.newIncomePanel.Controls.Add(this.label3);
             this.newIncomePanel.Controls.Add(this.label1);
-            this.newIncomePanel.CustomizableEdges.TopLeft = false;
-            this.newIncomePanel.CustomizableEdges.TopRight = false;
+            this.newIncomePanel.CustomizableEdges.BottomLeft = false;
+            this.newIncomePanel.CustomizableEdges.BottomRight = false;
             this.newIncomePanel.FillColor = System.Drawing.Color.Silver;
             this.newIncomePanel.Location = new System.Drawing.Point(214, 114);
             this.newIncomePanel.Name = "newIncomePanel";
@@ -833,6 +811,29 @@ namespace Linkup_Finance.Forms
             this.label1.Size = new System.Drawing.Size(221, 35);
             this.label1.TabIndex = 1;
             this.label1.Text = "Income Insertion";
+            // 
+            // deleteIncomeEntryButton
+            // 
+            this.deleteIncomeEntryButton.BorderRadius = 10;
+            this.deleteIncomeEntryButton.CheckedState.Parent = this.deleteIncomeEntryButton;
+            this.deleteIncomeEntryButton.CustomImages.Parent = this.deleteIncomeEntryButton;
+            this.deleteIncomeEntryButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.deleteIncomeEntryButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.deleteIncomeEntryButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.deleteIncomeEntryButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.deleteIncomeEntryButton.DisabledState.Parent = this.deleteIncomeEntryButton;
+            this.deleteIncomeEntryButton.Enabled = false;
+            this.deleteIncomeEntryButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(75)))), ((int)(((byte)(70)))));
+            this.deleteIncomeEntryButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.deleteIncomeEntryButton.ForeColor = System.Drawing.Color.White;
+            this.deleteIncomeEntryButton.HoverState.Parent = this.deleteIncomeEntryButton;
+            this.deleteIncomeEntryButton.Location = new System.Drawing.Point(1097, 388);
+            this.deleteIncomeEntryButton.Name = "deleteIncomeEntryButton";
+            this.deleteIncomeEntryButton.ShadowDecoration.Parent = this.deleteIncomeEntryButton;
+            this.deleteIncomeEntryButton.Size = new System.Drawing.Size(95, 26);
+            this.deleteIncomeEntryButton.TabIndex = 32;
+            this.deleteIncomeEntryButton.Text = "Delete Entry";
+            this.deleteIncomeEntryButton.Click += new System.EventHandler(this.deleteIncomeEntryButton_Click);
             // 
             // incomeVatLabel
             // 
@@ -1274,8 +1275,8 @@ namespace Linkup_Finance.Forms
             // 
             // expenseTabPage
             // 
-            this.expenseTabPage.Controls.Add(this.deleteExpenseEntryButton);
             this.expenseTabPage.Controls.Add(this.newExpensePanel);
+            this.expenseTabPage.Controls.Add(this.deleteExpenseEntryButton);
             this.expenseTabPage.Controls.Add(this.expenseVatLabel);
             this.expenseTabPage.Controls.Add(this.toExpenseDateTimePicker);
             this.expenseTabPage.Controls.Add(this.fromExpenseDateTimePicker);
@@ -1292,6 +1293,7 @@ namespace Linkup_Finance.Forms
             this.expenseTabPage.Controls.Add(this.newExpenseButton);
             this.expenseTabPage.Controls.Add(this.expenseChart);
             this.expenseTabPage.Controls.Add(this.expenseDataGridView);
+            this.expenseTabPage.Controls.Add(this.zoomExpenseLabel);
             this.expenseTabPage.Location = new System.Drawing.Point(4, 44);
             this.expenseTabPage.Name = "expenseTabPage";
             this.expenseTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -1301,31 +1303,8 @@ namespace Linkup_Finance.Forms
             this.expenseTabPage.UseVisualStyleBackColor = true;
             this.expenseTabPage.Click += new System.EventHandler(this.expenseTabPage_Click);
             // 
-            // deleteExpenseEntryButton
-            // 
-            this.deleteExpenseEntryButton.BorderRadius = 10;
-            this.deleteExpenseEntryButton.CheckedState.Parent = this.deleteExpenseEntryButton;
-            this.deleteExpenseEntryButton.CustomImages.Parent = this.deleteExpenseEntryButton;
-            this.deleteExpenseEntryButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.deleteExpenseEntryButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.deleteExpenseEntryButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.deleteExpenseEntryButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.deleteExpenseEntryButton.DisabledState.Parent = this.deleteExpenseEntryButton;
-            this.deleteExpenseEntryButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(75)))), ((int)(((byte)(70)))));
-            this.deleteExpenseEntryButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.deleteExpenseEntryButton.ForeColor = System.Drawing.Color.White;
-            this.deleteExpenseEntryButton.HoverState.Parent = this.deleteExpenseEntryButton;
-            this.deleteExpenseEntryButton.Location = new System.Drawing.Point(1096, 388);
-            this.deleteExpenseEntryButton.Name = "deleteExpenseEntryButton";
-            this.deleteExpenseEntryButton.ShadowDecoration.Parent = this.deleteExpenseEntryButton;
-            this.deleteExpenseEntryButton.Size = new System.Drawing.Size(95, 26);
-            this.deleteExpenseEntryButton.TabIndex = 33;
-            this.deleteExpenseEntryButton.Text = "Delete Entry";
-            this.deleteExpenseEntryButton.Click += new System.EventHandler(this.deleteExpenseEntryButton_Click);
-            // 
             // newExpensePanel
             // 
-            this.newExpensePanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.newExpensePanel.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.newExpensePanel.BorderRadius = 10;
             this.newExpensePanel.Controls.Add(this.expenseTypeComboBox);
@@ -1350,8 +1329,8 @@ namespace Linkup_Finance.Forms
             this.newExpensePanel.Controls.Add(this.nameExpenseTextBox);
             this.newExpensePanel.Controls.Add(this.nameExpenseLabel);
             this.newExpensePanel.Controls.Add(this.label13);
-            this.newExpensePanel.CustomizableEdges.TopLeft = false;
-            this.newExpensePanel.CustomizableEdges.TopRight = false;
+            this.newExpensePanel.CustomizableEdges.BottomLeft = false;
+            this.newExpensePanel.CustomizableEdges.BottomRight = false;
             this.newExpensePanel.FillColor = System.Drawing.Color.Silver;
             this.newExpensePanel.Location = new System.Drawing.Point(214, 114);
             this.newExpensePanel.Name = "newExpensePanel";
@@ -1753,6 +1732,28 @@ namespace Linkup_Finance.Forms
             this.label13.Size = new System.Drawing.Size(230, 35);
             this.label13.TabIndex = 1;
             this.label13.Text = "Expense Insertion";
+            // 
+            // deleteExpenseEntryButton
+            // 
+            this.deleteExpenseEntryButton.BorderRadius = 10;
+            this.deleteExpenseEntryButton.CheckedState.Parent = this.deleteExpenseEntryButton;
+            this.deleteExpenseEntryButton.CustomImages.Parent = this.deleteExpenseEntryButton;
+            this.deleteExpenseEntryButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.deleteExpenseEntryButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.deleteExpenseEntryButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.deleteExpenseEntryButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.deleteExpenseEntryButton.DisabledState.Parent = this.deleteExpenseEntryButton;
+            this.deleteExpenseEntryButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(75)))), ((int)(((byte)(70)))));
+            this.deleteExpenseEntryButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.deleteExpenseEntryButton.ForeColor = System.Drawing.Color.White;
+            this.deleteExpenseEntryButton.HoverState.Parent = this.deleteExpenseEntryButton;
+            this.deleteExpenseEntryButton.Location = new System.Drawing.Point(1096, 388);
+            this.deleteExpenseEntryButton.Name = "deleteExpenseEntryButton";
+            this.deleteExpenseEntryButton.ShadowDecoration.Parent = this.deleteExpenseEntryButton;
+            this.deleteExpenseEntryButton.Size = new System.Drawing.Size(95, 26);
+            this.deleteExpenseEntryButton.TabIndex = 33;
+            this.deleteExpenseEntryButton.Text = "Delete Entry";
+            this.deleteExpenseEntryButton.Click += new System.EventHandler(this.deleteExpenseEntryButton_Click);
             // 
             // expenseVatLabel
             // 
@@ -2183,6 +2184,18 @@ namespace Linkup_Finance.Forms
             this.expenseBindingSource.DataMember = "Expense";
             this.expenseBindingSource.DataSource = this.linkupDatabaseDataSet;
             // 
+            // zoomExpenseLabel
+            // 
+            this.zoomExpenseLabel.AutoSize = true;
+            this.zoomExpenseLabel.BackColor = System.Drawing.Color.Transparent;
+            this.zoomExpenseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zoomExpenseLabel.ForeColor = System.Drawing.Color.Black;
+            this.zoomExpenseLabel.Location = new System.Drawing.Point(848, 297);
+            this.zoomExpenseLabel.Name = "zoomExpenseLabel";
+            this.zoomExpenseLabel.Size = new System.Drawing.Size(44, 17);
+            this.zoomExpenseLabel.TabIndex = 34;
+            this.zoomExpenseLabel.Text = "Zoom";
+            // 
             // balanceTabPage
             // 
             this.balanceTabPage.Controls.Add(this.deleteBankButton);
@@ -2230,7 +2243,6 @@ namespace Linkup_Finance.Forms
             // 
             // newBankPanel
             // 
-            this.newBankPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.newBankPanel.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.newBankPanel.BorderRadius = 10;
             this.newBankPanel.Controls.Add(this.bankErrorChip);
@@ -2243,8 +2255,8 @@ namespace Linkup_Finance.Forms
             this.newBankPanel.Controls.Add(this.bankNameTextBox);
             this.newBankPanel.Controls.Add(this.bankNameLabel);
             this.newBankPanel.Controls.Add(this.newBankLabel);
-            this.newBankPanel.CustomizableEdges.TopLeft = false;
-            this.newBankPanel.CustomizableEdges.TopRight = false;
+            this.newBankPanel.CustomizableEdges.BottomLeft = false;
+            this.newBankPanel.CustomizableEdges.BottomRight = false;
             this.newBankPanel.FillColor = System.Drawing.Color.Silver;
             this.newBankPanel.Location = new System.Drawing.Point(214, 185);
             this.newBankPanel.Name = "newBankPanel";
@@ -2751,6 +2763,9 @@ namespace Linkup_Finance.Forms
             // 
             // bankChart
             // 
+            this.bankChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bankChart.Location = new System.Drawing.Point(548, 212);
             this.bankChart.Name = "bankChart";
             this.bankChart.Size = new System.Drawing.Size(636, 194);
@@ -2761,6 +2776,8 @@ namespace Linkup_Finance.Forms
             // 
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             this.bankLogDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.bankLogDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.bankLogDataGridView.AutoGenerateColumns = false;
             this.bankLogDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.bankLogDataGridView.BackgroundColor = System.Drawing.Color.White;
@@ -2783,7 +2800,8 @@ namespace Linkup_Finance.Forms
             this.Type,
             this.reasonDataGridViewTextBoxColumn2,
             this.dateDataGridViewTextBoxColumn2,
-            this.balanceDataGridViewTextBoxColumn});
+            this.balanceDataGridViewTextBoxColumn,
+            this.bankLogIdColumn});
             this.bankLogDataGridView.DataSource = this.bankLogsBindingSource;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
@@ -2911,6 +2929,9 @@ namespace Linkup_Finance.Forms
             // 
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.guna2DataGridView4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2DataGridView4.AutoGenerateColumns = false;
             this.guna2DataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.guna2DataGridView4.BackgroundColor = System.Drawing.Color.White;
@@ -3104,6 +3125,14 @@ namespace Linkup_Finance.Forms
             // 
             this.employeeLogsTableAdapter.ClearBeforeFill = true;
             // 
+            // bankLogIdColumn
+            // 
+            this.bankLogIdColumn.DataPropertyName = "Id";
+            this.bankLogIdColumn.HeaderText = "Id";
+            this.bankLogIdColumn.Name = "bankLogIdColumn";
+            this.bankLogIdColumn.ReadOnly = true;
+            this.bankLogIdColumn.Visible = false;
+            // 
             // ProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3172,7 +3201,6 @@ namespace Linkup_Finance.Forms
         private LiveCharts.WinForms.CartesianChart expenseChart;
         private Guna.UI2.WinForms.Guna2DataGridView expenseDataGridView;
         private Guna.UI2.WinForms.Guna2Button exitSubmissionButton;
-        public Guna.UI2.WinForms.Guna2TabControl ledgerTabControl;
         private Guna.UI2.WinForms.Guna2ComboBox filterIncomeComboBox;
         private System.Windows.Forms.Label filterLabel;
         private LiveCharts.WinForms.PieChart bankPieChart;
@@ -3301,7 +3329,6 @@ namespace Linkup_Finance.Forms
         private System.Windows.Forms.Label incomeTypeLabel;
         private Guna.UI2.WinForms.Guna2ComboBox expenseTypeComboBox;
         private System.Windows.Forms.Label expenseTypeLabel;
-        public Guna.UI2.WinForms.Guna2Panel newIncomePanel;
         public Guna.UI2.WinForms.Guna2CircleButton deleteBankButton;
         private System.Windows.Forms.Label incomeVatLabel;
         private System.Windows.Forms.Label expenseVatLabel;
@@ -3337,5 +3364,9 @@ namespace Linkup_Finance.Forms
         public Guna.UI2.WinForms.Guna2Button deleteIncomeEntryButton;
         public Guna.UI2.WinForms.Guna2Button deleteExpenseEntryButton;
         public LinkupDatabaseDataSetTableAdapters.BankLogsTableAdapter bankLogsTableAdapter;
+        private Guna.UI2.WinForms.Guna2TabControl ledgerTabControl;
+        private Guna.UI2.WinForms.Guna2Panel newIncomePanel;
+        private System.Windows.Forms.Label zoomExpenseLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bankLogIdColumn;
     }
 }

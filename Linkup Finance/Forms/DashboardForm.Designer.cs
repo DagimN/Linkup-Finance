@@ -30,18 +30,18 @@ namespace Linkup_Finance.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.ledgerDashboardPanel = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.bankGradientPanel = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.pettyCashSolidGauge = new LiveCharts.WinForms.SolidGauge();
             this.bankTotalLabel = new System.Windows.Forms.Label();
             this.pettyCashLabel = new System.Windows.Forms.Label();
             this.numBanksLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.balanceLabel = new System.Windows.Forms.Label();
             this.bankPieChart = new LiveCharts.WinForms.PieChart();
             this.zoomTrackBar = new Guna.UI2.WinForms.Guna2TrackBar();
             this.transactionDateSelection = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.transactionChart = new LiveCharts.WinForms.CartesianChart();
-            this.guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.employeeDashboardPanel = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2GradientPanel2 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.totalBonusLabel = new System.Windows.Forms.Label();
             this.totalPensionLabel = new System.Windows.Forms.Label();
@@ -53,57 +53,62 @@ namespace Linkup_Finance.Forms
             this.employeeAmountLabel = new System.Windows.Forms.Label();
             this.profilePictureBox = new System.Windows.Forms.PictureBox();
             this.payrollChart = new LiveCharts.WinForms.CartesianChart();
-            this.guna2ShadowPanel3 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.loginDashboardPanel = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.welcomeNameLabel = new System.Windows.Forms.Label();
             this.logoutButton = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.employeeToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.guna2ShadowPanel1.SuspendLayout();
-            this.guna2GradientPanel1.SuspendLayout();
-            this.guna2ShadowPanel2.SuspendLayout();
+            this.ledgerDashboardPanel.SuspendLayout();
+            this.bankGradientPanel.SuspendLayout();
+            this.employeeDashboardPanel.SuspendLayout();
             this.guna2GradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
-            this.guna2ShadowPanel3.SuspendLayout();
+            this.loginDashboardPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // guna2ShadowPanel1
+            // ledgerDashboardPanel
             // 
-            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel1.Controls.Add(this.guna2GradientPanel1);
-            this.guna2ShadowPanel1.Controls.Add(this.zoomTrackBar);
-            this.guna2ShadowPanel1.Controls.Add(this.transactionDateSelection);
-            this.guna2ShadowPanel1.Controls.Add(this.transactionChart);
-            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel1.Location = new System.Drawing.Point(12, 12);
-            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
-            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.Black;
-            this.guna2ShadowPanel1.Size = new System.Drawing.Size(1176, 241);
-            this.guna2ShadowPanel1.TabIndex = 0;
+            this.ledgerDashboardPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ledgerDashboardPanel.BackColor = System.Drawing.Color.Transparent;
+            this.ledgerDashboardPanel.Controls.Add(this.bankGradientPanel);
+            this.ledgerDashboardPanel.Controls.Add(this.zoomTrackBar);
+            this.ledgerDashboardPanel.Controls.Add(this.transactionDateSelection);
+            this.ledgerDashboardPanel.Controls.Add(this.transactionChart);
+            this.ledgerDashboardPanel.FillColor = System.Drawing.Color.White;
+            this.ledgerDashboardPanel.Location = new System.Drawing.Point(12, 12);
+            this.ledgerDashboardPanel.Name = "ledgerDashboardPanel";
+            this.ledgerDashboardPanel.ShadowColor = System.Drawing.Color.Black;
+            this.ledgerDashboardPanel.Size = new System.Drawing.Size(1176, 241);
+            this.ledgerDashboardPanel.TabIndex = 0;
             // 
-            // guna2GradientPanel1
+            // bankGradientPanel
             // 
-            this.guna2GradientPanel1.BorderRadius = 10;
-            this.guna2GradientPanel1.Controls.Add(this.pettyCashSolidGauge);
-            this.guna2GradientPanel1.Controls.Add(this.bankTotalLabel);
-            this.guna2GradientPanel1.Controls.Add(this.pettyCashLabel);
-            this.guna2GradientPanel1.Controls.Add(this.numBanksLabel);
-            this.guna2GradientPanel1.Controls.Add(this.label1);
-            this.guna2GradientPanel1.Controls.Add(this.bankPieChart);
-            this.guna2GradientPanel1.CustomizableEdges.BottomLeft = false;
-            this.guna2GradientPanel1.CustomizableEdges.TopLeft = false;
-            this.guna2GradientPanel1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.guna2GradientPanel1.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientPanel1.Location = new System.Drawing.Point(558, 3);
-            this.guna2GradientPanel1.Name = "guna2GradientPanel1";
-            this.guna2GradientPanel1.ShadowDecoration.Parent = this.guna2GradientPanel1;
-            this.guna2GradientPanel1.Size = new System.Drawing.Size(618, 235);
-            this.guna2GradientPanel1.TabIndex = 0;
+            this.bankGradientPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bankGradientPanel.BorderRadius = 10;
+            this.bankGradientPanel.Controls.Add(this.pettyCashSolidGauge);
+            this.bankGradientPanel.Controls.Add(this.bankTotalLabel);
+            this.bankGradientPanel.Controls.Add(this.pettyCashLabel);
+            this.bankGradientPanel.Controls.Add(this.numBanksLabel);
+            this.bankGradientPanel.Controls.Add(this.balanceLabel);
+            this.bankGradientPanel.Controls.Add(this.bankPieChart);
+            this.bankGradientPanel.CustomizableEdges.BottomLeft = false;
+            this.bankGradientPanel.CustomizableEdges.TopLeft = false;
+            this.bankGradientPanel.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.bankGradientPanel.ForeColor = System.Drawing.Color.White;
+            this.bankGradientPanel.Location = new System.Drawing.Point(558, 3);
+            this.bankGradientPanel.Name = "bankGradientPanel";
+            this.bankGradientPanel.ShadowDecoration.Parent = this.bankGradientPanel;
+            this.bankGradientPanel.Size = new System.Drawing.Size(618, 235);
+            this.bankGradientPanel.TabIndex = 0;
             // 
             // pettyCashSolidGauge
             // 
+            this.pettyCashSolidGauge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pettyCashSolidGauge.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pettyCashSolidGauge.Location = new System.Drawing.Point(431, 91);
             this.pettyCashSolidGauge.Name = "pettyCashSolidGauge";
@@ -113,6 +118,7 @@ namespace Linkup_Finance.Forms
             // 
             // bankTotalLabel
             // 
+            this.bankTotalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bankTotalLabel.AutoSize = true;
             this.bankTotalLabel.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bankTotalLabel.ForeColor = System.Drawing.Color.White;
@@ -125,6 +131,7 @@ namespace Linkup_Finance.Forms
             // 
             // pettyCashLabel
             // 
+            this.pettyCashLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pettyCashLabel.AutoSize = true;
             this.pettyCashLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pettyCashLabel.ForeColor = System.Drawing.Color.White;
@@ -137,6 +144,7 @@ namespace Linkup_Finance.Forms
             // 
             // numBanksLabel
             // 
+            this.numBanksLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numBanksLabel.AutoSize = true;
             this.numBanksLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numBanksLabel.ForeColor = System.Drawing.Color.White;
@@ -147,19 +155,22 @@ namespace Linkup_Finance.Forms
             this.numBanksLabel.TabIndex = 2;
             this.numBanksLabel.Text = "Bank Accounts Owned   11";
             // 
-            // label1
+            // balanceLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(370, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Balance";
+            this.balanceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.balanceLabel.AutoSize = true;
+            this.balanceLabel.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.balanceLabel.ForeColor = System.Drawing.Color.White;
+            this.balanceLabel.Location = new System.Drawing.Point(370, 15);
+            this.balanceLabel.Name = "balanceLabel";
+            this.balanceLabel.Size = new System.Drawing.Size(65, 18);
+            this.balanceLabel.TabIndex = 1;
+            this.balanceLabel.Text = "Balance";
             // 
             // bankPieChart
             // 
+            this.bankPieChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bankPieChart.BackColorTransparent = true;
             this.bankPieChart.Location = new System.Drawing.Point(3, 15);
             this.bankPieChart.Name = "bankPieChart";
@@ -199,31 +210,35 @@ namespace Linkup_Finance.Forms
             // 
             // transactionChart
             // 
+            this.transactionChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.transactionChart.Location = new System.Drawing.Point(19, 60);
             this.transactionChart.Name = "transactionChart";
             this.transactionChart.Size = new System.Drawing.Size(533, 167);
             this.transactionChart.TabIndex = 0;
             this.transactionChart.Text = "cartesianChart1";
             // 
-            // guna2ShadowPanel2
+            // employeeDashboardPanel
             // 
-            this.guna2ShadowPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel2.Controls.Add(this.guna2GradientPanel2);
-            this.guna2ShadowPanel2.Controls.Add(this.payrollDateSelection);
-            this.guna2ShadowPanel2.Controls.Add(this.paidEmployeesCountLabel);
-            this.guna2ShadowPanel2.Controls.Add(this.pictureBox1);
-            this.guna2ShadowPanel2.Controls.Add(this.employeeAmountLabel);
-            this.guna2ShadowPanel2.Controls.Add(this.profilePictureBox);
-            this.guna2ShadowPanel2.Controls.Add(this.payrollChart);
-            this.guna2ShadowPanel2.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel2.Location = new System.Drawing.Point(12, 259);
-            this.guna2ShadowPanel2.Name = "guna2ShadowPanel2";
-            this.guna2ShadowPanel2.ShadowColor = System.Drawing.Color.Black;
-            this.guna2ShadowPanel2.Size = new System.Drawing.Size(623, 241);
-            this.guna2ShadowPanel2.TabIndex = 1;
+            this.employeeDashboardPanel.BackColor = System.Drawing.Color.Transparent;
+            this.employeeDashboardPanel.Controls.Add(this.guna2GradientPanel2);
+            this.employeeDashboardPanel.Controls.Add(this.payrollDateSelection);
+            this.employeeDashboardPanel.Controls.Add(this.paidEmployeesCountLabel);
+            this.employeeDashboardPanel.Controls.Add(this.pictureBox1);
+            this.employeeDashboardPanel.Controls.Add(this.employeeAmountLabel);
+            this.employeeDashboardPanel.Controls.Add(this.profilePictureBox);
+            this.employeeDashboardPanel.Controls.Add(this.payrollChart);
+            this.employeeDashboardPanel.FillColor = System.Drawing.Color.White;
+            this.employeeDashboardPanel.Location = new System.Drawing.Point(12, 259);
+            this.employeeDashboardPanel.Name = "employeeDashboardPanel";
+            this.employeeDashboardPanel.ShadowColor = System.Drawing.Color.Black;
+            this.employeeDashboardPanel.Size = new System.Drawing.Size(623, 241);
+            this.employeeDashboardPanel.TabIndex = 1;
             // 
             // guna2GradientPanel2
             // 
+            this.guna2GradientPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2GradientPanel2.BorderRadius = 5;
             this.guna2GradientPanel2.Controls.Add(this.totalBonusLabel);
             this.guna2GradientPanel2.Controls.Add(this.totalPensionLabel);
@@ -251,6 +266,7 @@ namespace Linkup_Finance.Forms
             // 
             // totalPensionLabel
             // 
+            this.totalPensionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.totalPensionLabel.AutoSize = true;
             this.totalPensionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalPensionLabel.ForeColor = System.Drawing.Color.White;
@@ -273,6 +289,7 @@ namespace Linkup_Finance.Forms
             // 
             // totalNetLabel
             // 
+            this.totalNetLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.totalNetLabel.AutoSize = true;
             this.totalNetLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalNetLabel.ForeColor = System.Drawing.Color.White;
@@ -284,6 +301,8 @@ namespace Linkup_Finance.Forms
             // 
             // payrollDateSelection
             // 
+            this.payrollDateSelection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.payrollDateSelection.BorderRadius = 5;
             this.payrollDateSelection.CheckedState.Parent = this.payrollDateSelection;
             this.payrollDateSelection.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(220)))), ((int)(((byte)(230)))));
@@ -303,6 +322,7 @@ namespace Linkup_Finance.Forms
             // 
             // paidEmployeesCountLabel
             // 
+            this.paidEmployeesCountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.paidEmployeesCountLabel.AutoSize = true;
             this.paidEmployeesCountLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.paidEmployeesCountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(70)))), ((int)(((byte)(115)))));
@@ -314,6 +334,7 @@ namespace Linkup_Finance.Forms
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::Linkup_Finance.Properties.Resources.Salary_Icon;
             this.pictureBox1.Location = new System.Drawing.Point(428, 13);
             this.pictureBox1.Name = "pictureBox1";
@@ -347,26 +368,29 @@ namespace Linkup_Finance.Forms
             // 
             // payrollChart
             // 
+            this.payrollChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.payrollChart.Location = new System.Drawing.Point(19, 131);
             this.payrollChart.Name = "payrollChart";
             this.payrollChart.Size = new System.Drawing.Size(589, 98);
             this.payrollChart.TabIndex = 0;
             this.payrollChart.Text = "cartesianChart1";
             // 
-            // guna2ShadowPanel3
+            // loginDashboardPanel
             // 
-            this.guna2ShadowPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel3.Controls.Add(this.welcomeNameLabel);
-            this.guna2ShadowPanel3.Controls.Add(this.logoutButton);
-            this.guna2ShadowPanel3.Controls.Add(this.guna2Button2);
-            this.guna2ShadowPanel3.Controls.Add(this.guna2Button1);
-            this.guna2ShadowPanel3.Controls.Add(this.welcomeLabel);
-            this.guna2ShadowPanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
-            this.guna2ShadowPanel3.Location = new System.Drawing.Point(641, 259);
-            this.guna2ShadowPanel3.Name = "guna2ShadowPanel3";
-            this.guna2ShadowPanel3.ShadowColor = System.Drawing.Color.Black;
-            this.guna2ShadowPanel3.Size = new System.Drawing.Size(547, 241);
-            this.guna2ShadowPanel3.TabIndex = 2;
+            this.loginDashboardPanel.BackColor = System.Drawing.Color.Transparent;
+            this.loginDashboardPanel.Controls.Add(this.welcomeNameLabel);
+            this.loginDashboardPanel.Controls.Add(this.logoutButton);
+            this.loginDashboardPanel.Controls.Add(this.guna2Button2);
+            this.loginDashboardPanel.Controls.Add(this.guna2Button1);
+            this.loginDashboardPanel.Controls.Add(this.welcomeLabel);
+            this.loginDashboardPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(115)))));
+            this.loginDashboardPanel.Location = new System.Drawing.Point(641, 259);
+            this.loginDashboardPanel.Name = "loginDashboardPanel";
+            this.loginDashboardPanel.ShadowColor = System.Drawing.Color.Black;
+            this.loginDashboardPanel.Size = new System.Drawing.Size(547, 241);
+            this.loginDashboardPanel.TabIndex = 2;
             // 
             // welcomeNameLabel
             // 
@@ -380,6 +404,7 @@ namespace Linkup_Finance.Forms
             // 
             // logoutButton
             // 
+            this.logoutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.logoutButton.BorderRadius = 10;
             this.logoutButton.CheckedState.Parent = this.logoutButton;
             this.logoutButton.CustomImages.Parent = this.logoutButton;
@@ -404,6 +429,7 @@ namespace Linkup_Finance.Forms
             // 
             // guna2Button2
             // 
+            this.guna2Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button2.BorderRadius = 10;
             this.guna2Button2.CheckedState.Parent = this.guna2Button2;
             this.guna2Button2.CustomImages.Parent = this.guna2Button2;
@@ -427,6 +453,7 @@ namespace Linkup_Finance.Forms
             // 
             // guna2Button1
             // 
+            this.guna2Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button1.BorderRadius = 10;
             this.guna2Button1.CheckedState.Parent = this.guna2Button1;
             this.guna2Button1.CustomImages.Parent = this.guna2Button1;
@@ -464,39 +491,39 @@ namespace Linkup_Finance.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 516);
-            this.Controls.Add(this.guna2ShadowPanel3);
-            this.Controls.Add(this.guna2ShadowPanel2);
-            this.Controls.Add(this.guna2ShadowPanel1);
+            this.Controls.Add(this.loginDashboardPanel);
+            this.Controls.Add(this.employeeDashboardPanel);
+            this.Controls.Add(this.ledgerDashboardPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "DashboardForm";
             this.Text = "DashboardForm";
             this.Load += new System.EventHandler(this.DashboardForm_Load);
-            this.guna2ShadowPanel1.ResumeLayout(false);
-            this.guna2GradientPanel1.ResumeLayout(false);
-            this.guna2GradientPanel1.PerformLayout();
-            this.guna2ShadowPanel2.ResumeLayout(false);
-            this.guna2ShadowPanel2.PerformLayout();
+            this.ledgerDashboardPanel.ResumeLayout(false);
+            this.bankGradientPanel.ResumeLayout(false);
+            this.bankGradientPanel.PerformLayout();
+            this.employeeDashboardPanel.ResumeLayout(false);
+            this.employeeDashboardPanel.PerformLayout();
             this.guna2GradientPanel2.ResumeLayout(false);
             this.guna2GradientPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
-            this.guna2ShadowPanel3.ResumeLayout(false);
-            this.guna2ShadowPanel3.PerformLayout();
+            this.loginDashboardPanel.ResumeLayout(false);
+            this.loginDashboardPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
-        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel2;
-        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel3;
+        private Guna.UI2.WinForms.Guna2ShadowPanel ledgerDashboardPanel;
+        private Guna.UI2.WinForms.Guna2ShadowPanel employeeDashboardPanel;
+        private Guna.UI2.WinForms.Guna2ShadowPanel loginDashboardPanel;
         private LiveCharts.WinForms.CartesianChart transactionChart;
         private Guna.UI2.WinForms.Guna2DateTimePicker transactionDateSelection;
         private Guna.UI2.WinForms.Guna2TrackBar zoomTrackBar;
-        private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
+        private Guna.UI2.WinForms.Guna2GradientPanel bankGradientPanel;
         private LiveCharts.WinForms.PieChart bankPieChart;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label balanceLabel;
         private LiveCharts.WinForms.SolidGauge pettyCashSolidGauge;
         private System.Windows.Forms.Label bankTotalLabel;
         private System.Windows.Forms.Label pettyCashLabel;
