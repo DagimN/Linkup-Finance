@@ -198,16 +198,19 @@ namespace Linkup_Finance
         private void dashboardButton_Click(object sender, EventArgs e)
         {
             openChildForm(dashboardForm);
+            titleBarPanel.BorderRadius = 10;
         }
 
         private void projectButton_Click(object sender, EventArgs e)
         {
             openChildForm(projectForm);
+            titleBarPanel.BorderRadius = 10;
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
             openChildForm(settingsForm);
+            titleBarPanel.BorderRadius = 0;
         }
 
         private void loginButton_Click(object sender, EventArgs e)

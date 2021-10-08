@@ -30,13 +30,13 @@ namespace Linkup_Finance.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
             this.settingsTabControl = new Guna.UI2.WinForms.Guna2TabControl();
             this.userPage = new System.Windows.Forms.TabPage();
             this.newUserPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -287,6 +287,7 @@ namespace Linkup_Finance.Forms
             this.otherRadioButton.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.otherRadioButton.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             this.otherRadioButton.UseVisualStyleBackColor = false;
+            this.otherRadioButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitUser_KeyDown);
             // 
             // accountTypeLabel
             // 
@@ -382,6 +383,7 @@ namespace Linkup_Finance.Forms
             this.accountantRadioButton.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.accountantRadioButton.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             this.accountantRadioButton.UseVisualStyleBackColor = false;
+            this.accountantRadioButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitUser_KeyDown);
             // 
             // adminRadioButton
             // 
@@ -397,7 +399,7 @@ namespace Linkup_Finance.Forms
             this.adminRadioButton.Location = new System.Drawing.Point(241, 228);
             this.adminRadioButton.Name = "adminRadioButton";
             this.adminRadioButton.Size = new System.Drawing.Size(60, 18);
-            this.adminRadioButton.TabIndex = 13;
+            this.adminRadioButton.TabIndex = 6;
             this.adminRadioButton.TabStop = true;
             this.adminRadioButton.Text = "Admin";
             this.adminRadioButton.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -405,6 +407,7 @@ namespace Linkup_Finance.Forms
             this.adminRadioButton.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.adminRadioButton.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             this.adminRadioButton.UseVisualStyleBackColor = false;
+            this.adminRadioButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitUser_KeyDown);
             // 
             // passwordTextBox
             // 
@@ -428,7 +431,8 @@ namespace Linkup_Finance.Forms
             this.passwordTextBox.SelectedText = "";
             this.passwordTextBox.ShadowDecoration.Parent = this.passwordTextBox;
             this.passwordTextBox.Size = new System.Drawing.Size(395, 30);
-            this.passwordTextBox.TabIndex = 10;
+            this.passwordTextBox.TabIndex = 5;
+            this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitUser_KeyDown);
             // 
             // passwordLabel
             // 
@@ -465,7 +469,8 @@ namespace Linkup_Finance.Forms
             this.jobTitleTextBox.SelectedText = "";
             this.jobTitleTextBox.ShadowDecoration.Parent = this.jobTitleTextBox;
             this.jobTitleTextBox.Size = new System.Drawing.Size(395, 35);
-            this.jobTitleTextBox.TabIndex = 6;
+            this.jobTitleTextBox.TabIndex = 4;
+            this.jobTitleTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitUser_KeyDown);
             // 
             // jobTitleLabel
             // 
@@ -502,6 +507,7 @@ namespace Linkup_Finance.Forms
             this.userNameTextBox.ShadowDecoration.Parent = this.userNameTextBox;
             this.userNameTextBox.Size = new System.Drawing.Size(395, 30);
             this.userNameTextBox.TabIndex = 3;
+            this.userNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitUser_KeyDown);
             // 
             // userNameLabel
             // 
@@ -549,7 +555,7 @@ namespace Linkup_Finance.Forms
             this.profilePasswordTextBox.SelectedText = "";
             this.profilePasswordTextBox.ShadowDecoration.Parent = this.profilePasswordTextBox;
             this.profilePasswordTextBox.Size = new System.Drawing.Size(395, 30);
-            this.profilePasswordTextBox.TabIndex = 32;
+            this.profilePasswordTextBox.TabIndex = 28;
             this.profilePasswordTextBox.Visible = false;
             // 
             // profilePasswordLabel
@@ -625,7 +631,7 @@ namespace Linkup_Finance.Forms
             this.profileAdminRadioButton.Location = new System.Drawing.Point(358, 153);
             this.profileAdminRadioButton.Name = "profileAdminRadioButton";
             this.profileAdminRadioButton.Size = new System.Drawing.Size(60, 18);
-            this.profileAdminRadioButton.TabIndex = 28;
+            this.profileAdminRadioButton.TabIndex = 27;
             this.profileAdminRadioButton.TabStop = true;
             this.profileAdminRadioButton.Text = "Admin";
             this.profileAdminRadioButton.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -657,7 +663,7 @@ namespace Linkup_Finance.Forms
             this.profileJobTitleTextBox.SelectedText = "";
             this.profileJobTitleTextBox.ShadowDecoration.Parent = this.profileJobTitleTextBox;
             this.profileJobTitleTextBox.Size = new System.Drawing.Size(395, 30);
-            this.profileJobTitleTextBox.TabIndex = 27;
+            this.profileJobTitleTextBox.TabIndex = 26;
             this.profileJobTitleTextBox.Visible = false;
             // 
             // profileNameTextBox
@@ -816,35 +822,35 @@ namespace Linkup_Finance.Forms
             // 
             // userLogDataGridView
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.userLogDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
+            this.userLogDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle28;
             this.userLogDataGridView.AutoGenerateColumns = false;
             this.userLogDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.userLogDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.userLogDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.userLogDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.userLogDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.userLogDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle29.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle29.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.userLogDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
             this.userLogDataGridView.ColumnHeadersHeight = 30;
             this.userLogDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
             this.dateTimeDataGridViewTextBoxColumn});
             this.userLogDataGridView.DataSource = this.userLogBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.userLogDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle30.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.userLogDataGridView.DefaultCellStyle = dataGridViewCellStyle30;
             this.userLogDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.userLogDataGridView.EnableHeadersVisualStyles = false;
             this.userLogDataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
@@ -1041,7 +1047,8 @@ namespace Linkup_Finance.Forms
             this.employeeEmailTextBox.SelectedText = "";
             this.employeeEmailTextBox.ShadowDecoration.Parent = this.employeeEmailTextBox;
             this.employeeEmailTextBox.Size = new System.Drawing.Size(221, 30);
-            this.employeeEmailTextBox.TabIndex = 26;
+            this.employeeEmailTextBox.TabIndex = 7;
+            this.employeeEmailTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitEmployee_KeyDown);
             // 
             // employeeEmailLabel
             // 
@@ -1077,7 +1084,8 @@ namespace Linkup_Finance.Forms
             this.employeePhoneTextBox.SelectedText = "";
             this.employeePhoneTextBox.ShadowDecoration.Parent = this.employeePhoneTextBox;
             this.employeePhoneTextBox.Size = new System.Drawing.Size(221, 30);
-            this.employeePhoneTextBox.TabIndex = 24;
+            this.employeePhoneTextBox.TabIndex = 6;
+            this.employeePhoneTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitEmployee_KeyDown);
             // 
             // employeePhoneLabel
             // 
@@ -1175,7 +1183,8 @@ namespace Linkup_Finance.Forms
             this.employeeSalaryTextBox.SelectedText = "";
             this.employeeSalaryTextBox.ShadowDecoration.Parent = this.employeeSalaryTextBox;
             this.employeeSalaryTextBox.Size = new System.Drawing.Size(221, 42);
-            this.employeeSalaryTextBox.TabIndex = 10;
+            this.employeeSalaryTextBox.TabIndex = 5;
+            this.employeeSalaryTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitEmployee_KeyDown);
             // 
             // employeeSalaryLabel
             // 
@@ -1211,7 +1220,8 @@ namespace Linkup_Finance.Forms
             this.employeeJobTitleTextBox.SelectedText = "";
             this.employeeJobTitleTextBox.ShadowDecoration.Parent = this.employeeJobTitleTextBox;
             this.employeeJobTitleTextBox.Size = new System.Drawing.Size(221, 37);
-            this.employeeJobTitleTextBox.TabIndex = 6;
+            this.employeeJobTitleTextBox.TabIndex = 4;
+            this.employeeJobTitleTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitEmployee_KeyDown);
             // 
             // employeeJobTitleLabel
             // 
@@ -1248,6 +1258,7 @@ namespace Linkup_Finance.Forms
             this.employeeNameTextBox.ShadowDecoration.Parent = this.employeeNameTextBox;
             this.employeeNameTextBox.Size = new System.Drawing.Size(221, 35);
             this.employeeNameTextBox.TabIndex = 3;
+            this.employeeNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.submitEmployee_KeyDown);
             // 
             // employeeNameLabel
             // 
@@ -1316,8 +1327,8 @@ namespace Linkup_Finance.Forms
             // 
             // employeePayrollDataGridView
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.employeePayrollDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
+            this.employeePayrollDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.employeePayrollDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1327,14 +1338,14 @@ namespace Linkup_Finance.Forms
             this.employeePayrollDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.employeePayrollDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.employeePayrollDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.employeePayrollDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.employeePayrollDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.employeePayrollDataGridView.ColumnHeadersHeight = 30;
             this.employeePayrollDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn1,
@@ -1346,14 +1357,14 @@ namespace Linkup_Finance.Forms
             this.taxDataGridViewTextBoxColumn,
             this.netDataGridViewTextBoxColumn});
             this.employeePayrollDataGridView.DataSource = this.employeeLogsBindingSource;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.employeePayrollDataGridView.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.employeePayrollDataGridView.DefaultCellStyle = dataGridViewCellStyle27;
             this.employeePayrollDataGridView.EnableHeadersVisualStyles = false;
             this.employeePayrollDataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.employeePayrollDataGridView.Location = new System.Drawing.Point(6, 50);
@@ -1630,7 +1641,7 @@ namespace Linkup_Finance.Forms
             this.salaryDueDateSelection.Name = "salaryDueDateSelection";
             this.salaryDueDateSelection.ShadowDecoration.Parent = this.salaryDueDateSelection;
             this.salaryDueDateSelection.Size = new System.Drawing.Size(200, 26);
-            this.salaryDueDateSelection.TabIndex = 15;
+            this.salaryDueDateSelection.TabIndex = 24;
             this.salaryDueDateSelection.Value = new System.DateTime(2021, 9, 26, 14, 39, 52, 944);
             this.salaryDueDateSelection.ValueChanged += new System.EventHandler(this.salaryDueDateSelection_ValueChanged);
             // 
@@ -1669,7 +1680,7 @@ namespace Linkup_Finance.Forms
             this.employeeProfileJobTextBox.SelectedText = "";
             this.employeeProfileJobTextBox.ShadowDecoration.Parent = this.employeeProfileJobTextBox;
             this.employeeProfileJobTextBox.Size = new System.Drawing.Size(200, 26);
-            this.employeeProfileJobTextBox.TabIndex = 12;
+            this.employeeProfileJobTextBox.TabIndex = 19;
             this.employeeProfileJobTextBox.Visible = false;
             // 
             // bonusLabel
@@ -1767,7 +1778,7 @@ namespace Linkup_Finance.Forms
             this.salaryTextBox.SelectedText = "";
             this.salaryTextBox.ShadowDecoration.Parent = this.salaryTextBox;
             this.salaryTextBox.Size = new System.Drawing.Size(200, 26);
-            this.salaryTextBox.TabIndex = 5;
+            this.salaryTextBox.TabIndex = 20;
             this.salaryTextBox.Visible = false;
             // 
             // salaryLabel
@@ -1804,7 +1815,7 @@ namespace Linkup_Finance.Forms
             this.bonusTextBox.SelectedText = "";
             this.bonusTextBox.ShadowDecoration.Parent = this.bonusTextBox;
             this.bonusTextBox.Size = new System.Drawing.Size(200, 26);
-            this.bonusTextBox.TabIndex = 3;
+            this.bonusTextBox.TabIndex = 23;
             this.bonusTextBox.TextChanged += new System.EventHandler(this.bonusTextBox_TextChanged);
             // 
             // employeeProfileJobLabel

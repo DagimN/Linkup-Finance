@@ -464,7 +464,7 @@ namespace Linkup_Finance.Forms
         private void editValueButton_Click(object sender, EventArgs e)
         {
             decimal value;
-            bool isValid = decimal.TryParse(pettyValueTextBox.Text, out value);
+            bool isValid = decimal.TryParse(pettyValueTextBox.Text.Trim(), out value);
             PettyVault vault = (PettyVault)pettyVaultTextBox.Tag;
 
             if (isValid)
@@ -477,7 +477,7 @@ namespace Linkup_Finance.Forms
             Project project = (Project)projectOption.Tag;
             Bank bank = (Bank)bankOptionBox.Tag;
             decimal amount;
-            bool isValid = decimal.TryParse(pettyValueTextBox.Text, out amount);
+            bool isValid = decimal.TryParse(pettyValueTextBox.Text.Trim(), out amount);
 
             if (isValid)
             {
@@ -563,10 +563,10 @@ namespace Linkup_Finance.Forms
 
         private void submitBankButton_Click(object sender, EventArgs e)
         { 
-            string name = bankNameTextBox.Text;
-            string accountID =accountIDTextBox.Text;
+            string name = bankNameTextBox.Text.Trim();
+            string accountID =accountIDTextBox.Text.Trim();
             decimal balance;
-            bool isValid = decimal.TryParse(bankBalanceTextBox.Text, out balance);
+            bool isValid = decimal.TryParse(bankBalanceTextBox.Text.Trim(), out balance);
             
             newBankPanel.Controls.Remove(bankErrorChip);
             bankErrorChip = new Guna.UI2.WinForms.Guna2Chip
@@ -641,7 +641,7 @@ namespace Linkup_Finance.Forms
         {
             Bank bank = (Bank)bankOptionBox.Tag;
             decimal value;
-            bool isValid = decimal.TryParse(depositTextBox.Text, out value);
+            bool isValid = decimal.TryParse(depositTextBox.Text.Trim(), out value);
 
             if (isValid)
             {
@@ -709,6 +709,12 @@ namespace Linkup_Finance.Forms
             }
         }
 
+        private void submitBank_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                submitBankButton.PerformClick();
+        }
+
         #endregion
 
         #region ExpenseTab
@@ -740,10 +746,10 @@ namespace Linkup_Finance.Forms
         {
             Project project = (Project)projectOption.Tag;
            
-            string name = nameExpenseTextBox.Text;
-            string reason = reasonExpenseTextBox.Text;
-            string bank = expenseBankComboBox.Text;
-            string product = productExpenseTextBox.Text;
+            string name = nameExpenseTextBox.Text.Trim();
+            string reason = reasonExpenseTextBox.Text.Trim();
+            string bank = expenseBankComboBox.Text.Trim();
+            string product = productExpenseTextBox.Text.Trim();
             int tin = -1;
             bool hasReceipt = receiptExpenseRadioButton.Checked;
             decimal amount;
@@ -1003,8 +1009,8 @@ namespace Linkup_Finance.Forms
 
         private void searchExpenseButton_Click(object sender, EventArgs e)
         {
-            string filter = filterExpenseComboBox.Text;
-            string entry = expenseSearchTextBox.Text;
+            string filter = filterExpenseComboBox.Text.Trim();
+            string entry = expenseSearchTextBox.Text.Trim();
 
             switch (filter)
             {
@@ -1087,7 +1093,7 @@ namespace Linkup_Finance.Forms
             if(e.RowIndex >= 0)
             {
                 deleteExpenseEntryButton.Enabled = true;
-                deleteExpenseEntryButton.Tag = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString());
+                deleteExpenseEntryButton.Tag = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString().Trim());
 
                 for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
                 {
@@ -1131,17 +1137,17 @@ namespace Linkup_Finance.Forms
         private void expenseDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             Project project = (Project)projectOption.Tag;
-            string name = expenseDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-            string product = expenseDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
-            string bank = expenseDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+            string name = expenseDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString().Trim();
+            string product = expenseDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString().Trim();
+            string bank = expenseDataGridView.Rows[e.RowIndex].Cells[3].Value.ToString().Trim();
             decimal amount = (decimal)expenseDataGridView.Rows[e.RowIndex].Cells[4].Value;
-            bool hasReceipt = (int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[8].Value.ToString()) == 1) ? true : false;
-            string reason = expenseDataGridView.Rows[e.RowIndex].Cells[9].Value.ToString();
+            bool hasReceipt = (int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[8].Value.ToString().Trim()) == 1) ? true : false;
+            string reason = expenseDataGridView.Rows[e.RowIndex].Cells[9].Value.ToString().Trim();
             DateTime date = (DateTime)expenseDataGridView.Rows[e.RowIndex].Cells[10].Value;
-            string attachement = expenseDataGridView.Rows[e.RowIndex].Cells[11].Value.ToString();
-            int tin = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
-            string type = expenseDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
-            int id = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString());
+            string attachement = expenseDataGridView.Rows[e.RowIndex].Cells[11].Value.ToString().Trim();
+            int tin = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString().Trim());
+            string type = expenseDataGridView.Rows[e.RowIndex].Cells[2].Value.ToString().Trim();
+            int id = int.Parse(expenseDataGridView.Rows[e.RowIndex].Cells[14].Value.ToString().Trim());
 
             if (e.ColumnIndex != 5 && e.ColumnIndex != 6 && e.ColumnIndex != 7)
             {
@@ -1194,6 +1200,12 @@ namespace Linkup_Finance.Forms
             expenseVatLabel.Text = $"Total Vat: {GetTotalVat(expenseTableAdapter.GetData())}";
         }
 
+        private void submitExpense_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                submitExpenseButton.PerformClick();
+        }
+
         #endregion
 
         #region IncomeTab
@@ -1227,20 +1239,20 @@ namespace Linkup_Finance.Forms
         private void submitIncomeButton_Click(object sender, EventArgs e)
         {
             Project project = (Project)projectOption.Tag;
-            string name = nameIncomeTextBox.Text;
-            string reason = reasonIncomeTextBox.Text;
-            string bank = incomeBankComboBox.Text;
+            string name = nameIncomeTextBox.Text.Trim();
+            string reason = reasonIncomeTextBox.Text.Trim();
+            string bank = incomeBankComboBox.Text.Trim();
             int tin = -1;
             bool hasReceipt = receiptIncomeRadioButton.Checked;
             decimal gross;
             DateTime date = incomeDateSelection.Value;
-            bool isValid = decimal.TryParse(grossIncomeTextBox.Text, out gross);
-            bool isTinValid = (incomeTinTextBox.Text != "") ? int.TryParse(incomeTinTextBox.Text, out tin) : true;
+            bool isValid = decimal.TryParse(grossIncomeTextBox.Text.Trim(), out gross);
+            bool isTinValid = (incomeTinTextBox.Text != "") ? int.TryParse(incomeTinTextBox.Text.Trim(), out tin) : true;
             string[] attachements = (string[])submitIncomeButton.Tag;
             Random rand = new Random();
             string folderName = DateTime.Now.ToString("MMMMddyyyy") + rand.Next(999999999) + name;
             string attachmentDirectory = (attachements != null) ? Combine(GetFolderPath(SpecialFolder.MyDocuments), "Linkup Finance Attachements", "Income",folderName) : null;
-            string type = incomeTypeComboBox.Text;
+            string type = incomeTypeComboBox.Text.Trim();
 
             newIncomePanel.Controls.Remove(incomeErrorChip);
             incomeErrorChip = new Guna.UI2.WinForms.Guna2Chip
@@ -1423,8 +1435,8 @@ namespace Linkup_Finance.Forms
 
         private void searchIncomeButton_Click(object sender, EventArgs e)
         {
-            string filter = filterIncomeComboBox.Text;
-            string entry = incomeSearchTextBox.Text;
+            string filter = filterIncomeComboBox.Text.Trim();
+            string entry = incomeSearchTextBox.Text.Trim();
 
             switch (filter)
             {
@@ -1523,21 +1535,21 @@ namespace Linkup_Finance.Forms
             if(e.RowIndex >= 0)
             {
                 deleteIncomeEntryButton.Enabled = true;
-                deleteIncomeEntryButton.Tag = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+                deleteIncomeEntryButton.Tag = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString().Trim());
 
                 for (int i = 0; i < bankLogDataGridView.Rows.Count; i++)
                 {
-                    string name = bankLogDataGridView.Rows[i].Cells[0].Value.ToString();
-                    string bank = bankLogDataGridView.Rows[i].Cells[2].Value.ToString();
+                    string name = bankLogDataGridView.Rows[i].Cells[0].Value.ToString().Trim();
+                    string bank = bankLogDataGridView.Rows[i].Cells[2].Value.ToString().Trim();
                     DateTime date = (DateTime)bankLogDataGridView.Rows[i].Cells[5].Value;
-                    string project = bankLogDataGridView.Rows[i].Cells[1].Value.ToString();
+                    string project = bankLogDataGridView.Rows[i].Cells[1].Value.ToString().Trim();
 
-                    if (name == incomeDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString() &&
-                        bank == incomeDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString() &&
+                    if (name == incomeDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString().Trim() &&
+                        bank == incomeDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString().Trim() &&
                         date == (DateTime)incomeDataGridView.Rows[e.RowIndex].Cells[8].Value &&
-                        project == incomeDataGridView.Rows[e.RowIndex].Cells[10].Value.ToString())
+                        project == incomeDataGridView.Rows[e.RowIndex].Cells[10].Value.ToString().Trim())
                     {
-                        bankChart.Tag = int.Parse(bankLogDataGridView.Rows[i].Cells[7].Value.ToString());
+                        bankChart.Tag = int.Parse(bankLogDataGridView.Rows[i].Cells[7].Value.ToString().Trim());
                         break;
                     }
                 }
@@ -1632,16 +1644,16 @@ namespace Linkup_Finance.Forms
         private void incomeDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             Project project = (Project)projectOption.Tag;
-            string name = incomeDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
-            string bank = incomeDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string name = incomeDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString().Trim();
+            string bank = incomeDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString().Trim();
             decimal gross = (decimal)incomeDataGridView.Rows[e.RowIndex].Cells[2].Value;
-            bool hasReceipt = (int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString()) == 1) ? true : false;
-            string reason = incomeDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString();
+            bool hasReceipt = (int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[6].Value.ToString().Trim()) == 1) ? true : false;
+            string reason = incomeDataGridView.Rows[e.RowIndex].Cells[7].Value.ToString().Trim();
             DateTime date = (DateTime)incomeDataGridView.Rows[e.RowIndex].Cells[8].Value;
-            string attachement = incomeDataGridView.Rows[e.RowIndex].Cells[9].Value.ToString();
-            int tin = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[11].Value.ToString());
-            string type = incomeDataGridView.Rows[e.RowIndex].Cells[12].Value.ToString();
-            int id = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString());
+            string attachement = incomeDataGridView.Rows[e.RowIndex].Cells[9].Value.ToString().Trim();
+            int tin = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[11].Value.ToString().Trim());
+            string type = incomeDataGridView.Rows[e.RowIndex].Cells[12].Value.ToString().Trim();
+            int id = int.Parse(incomeDataGridView.Rows[e.RowIndex].Cells[13].Value.ToString().Trim());
 
             if (e.ColumnIndex != 3 && e.ColumnIndex != 4 && e.ColumnIndex != 5)
             {
@@ -1652,6 +1664,12 @@ namespace Linkup_Finance.Forms
                 dashboardForm.LoadChart(incomeTableAdapter.GetData());
                 GetTotalVat(incomeTableAdapter.GetData());
             }
+        }
+
+        private void submitIncome_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                submitIncomeButton.PerformClick();
         }
 
         #endregion

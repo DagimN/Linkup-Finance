@@ -155,9 +155,9 @@ namespace Linkup_Finance.Forms
 
         private void submitUserButton_Click(object sender, EventArgs e)
         {
-            string name = userNameTextBox.Text;
-            string job = jobTitleTextBox.Text;
-            string password = passwordTextBox.Text;
+            string name = userNameTextBox.Text.Trim();
+            string job = jobTitleTextBox.Text.Trim();
+            string password = passwordTextBox.Text.Trim();
             string strType;
             AccountType type;
             
@@ -204,11 +204,6 @@ namespace Linkup_Finance.Forms
                         userErrorChip.Visible = false;
 
                         User user = userManager.GetUser(name);
-                        profileNameLabel.Text = $"Name: {user.GetName()}";
-                        profileTypeLabel.Text = $"Type: {strType}";
-                        profileJobTitleLabel.Text = $"Job Title: {user.GetJob()}";
-                        userPictureBox.Tag = user;
-
                         usersComboBox.Items.Add(user.GetName());
                         usersComboBox.Text = user.GetName();
                     }
@@ -266,9 +261,9 @@ namespace Linkup_Finance.Forms
             else
             {
                 string oldName = user.GetName();
-                string newName = profileNameTextBox.Text;
-                string newJob = profileJobTitleTextBox.Text;
-                string newPassword = profilePasswordTextBox.Text;
+                string newName = profileNameTextBox.Text.Trim();
+                string newJob = profileJobTitleTextBox.Text.Trim();
+                string newPassword = profilePasswordTextBox.Text.Trim();
                 AccountType newType;
 
                 if (profileAdminRadioButton.Checked)
@@ -356,6 +351,12 @@ namespace Linkup_Finance.Forms
             }
         }
 
+        private void submitUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+                submitUserButton.PerformClick();
+        }
+
         #endregion 
 
         #region EmployeeTab
@@ -372,11 +373,11 @@ namespace Linkup_Finance.Forms
 
         private void submitEmployeeButton_Click(object sender, EventArgs e)
         {
-            string name = employeeNameTextBox.Text;
-            string job = employeeJobTitleTextBox.Text;
-            string phone = employeePhoneTextBox.Text;
-            string email = employeeEmailTextBox.Text;
-            string strSalary = employeeSalaryTextBox.Text;
+            string name = employeeNameTextBox.Text.Trim();
+            string job = employeeJobTitleTextBox.Text.Trim();
+            string phone = employeePhoneTextBox.Text.Trim();
+            string email = employeeEmailTextBox.Text.Trim();
+            string strSalary = employeeSalaryTextBox.Text.Trim();
             EmployeeStatus status = EmployeeStatus.Inactive;
             decimal salary;
             DateTime salaryDueDate = DateTime.Now.AddDays(30), entryDateTime = DateTime.Now;
@@ -490,13 +491,13 @@ namespace Linkup_Finance.Forms
             else
             {
                 string oldName = employee.GetName();
-                string newJob = employeeProfileJobTextBox.Text;
-                string newName = nameTextBox.Text;
-                string newEmail = emailTextBox.Text;
-                string newPhone = phoneTextBox.Text;
+                string newJob = employeeProfileJobTextBox.Text.Trim();
+                string newName = nameTextBox.Text.Trim();
+                string newEmail = emailTextBox.Text.Trim();
+                string newPhone = phoneTextBox.Text.Trim();
                 DateTime newDate = salaryDueDateSelection.Value;
                 decimal newSalary;
-                bool isValid = decimal.TryParse(salaryTextBox.Text, out newSalary);
+                bool isValid = decimal.TryParse(salaryTextBox.Text.Trim(), out newSalary);
                 EmployeeStatus newStatus = (activeEmployeeRadioButton.Checked) ? EmployeeStatus.Active : EmployeeStatus.Inactive;
 
                 if (isValid)
@@ -689,6 +690,12 @@ namespace Linkup_Finance.Forms
                 else
                     grossSalaryTotalLabel.Text = $"Gross Total: {employee.GetGrossTotal(0m)}";
             }
+        }
+
+        private void submitEmployee_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                submitEmployeeButton.PerformClick();
         }
 
         #endregion

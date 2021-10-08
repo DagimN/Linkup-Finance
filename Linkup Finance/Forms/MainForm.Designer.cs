@@ -57,7 +57,7 @@ namespace Linkup_Finance
             // 
             // titleBarPanel
             // 
-            this.titleBarPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.titleBarPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.titleBarPanel.BorderRadius = 10;
             this.titleBarPanel.Controls.Add(this.loginPanel);
             this.titleBarPanel.Controls.Add(this.bigFinanceLabel);
@@ -401,6 +401,7 @@ namespace Linkup_Finance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1200, 586);
             this.Controls.Add(this.titleBarPanel);
             this.Controls.Add(this.workPanel);
