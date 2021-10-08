@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using static System.IO.Path;
 using static System.IO.Directory;
@@ -158,7 +154,6 @@ namespace Linkup_Finance.Forms
             string name = userNameTextBox.Text.Trim();
             string job = jobTitleTextBox.Text.Trim();
             string password = passwordTextBox.Text.Trim();
-            string strType;
             AccountType type;
             
             newUserPanel.Controls.Remove(userErrorChip);
@@ -175,20 +170,12 @@ namespace Linkup_Finance.Forms
             userErrorChip.BringToFront();
 
             if (adminRadioButton.Checked)
-            {
                 type = AccountType.Admin;
-                strType = "Administrator";
-            }
             else if (accountantRadioButton.Checked)
-            {
                 type = AccountType.Accountant;
-                strType = "Accountant";
-            }
             else
-            {
                 type = AccountType.Other;
-                strType = "Other";
-            }
+
                 
 
             if (name != "" && password != "" && job != "")
@@ -805,9 +792,9 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
-                string[] withholdingItem = { " ", " ", " ", " ", "Withholding", GetTotalWithholding(incomeDataTable).ToString() };
-                string[] vatItem = { " ", " ", " ", "VAT", projectForm.GetTotalVat(incomeDataTable).ToString() };
-                string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
+                string[] withholdingItem = { " ", " ", " ", "Withholding", GetTotalWithholding(incomeDataTable).ToString() };
+                string[] vatItem = { " ", " ", " ","VAT", projectForm.GetTotalVat(incomeDataTable).ToString() };
+                string[] finalItem = { " ", " ", " ","Total", total.ToString() };
                 
                 if(includeVat)
                     dataSource[i++] = vatItem;
@@ -871,7 +858,7 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
-                string[] withholdingItem = { " ", " ", " ", " ", "Withholding", GetTotalWithholding(expenseDataTable).ToString() };
+                string[] withholdingItem = { " ", " ", " ", "Withholding", GetTotalWithholding(expenseDataTable).ToString() };
                 string[] vatItem = { " ", " ", " ", "VAT", projectForm.GetTotalVat(expenseDataTable).ToString() };
                 string[] finalItem = { " ", " ", " ", "Total", total.ToString() };
                 
@@ -901,6 +888,7 @@ namespace Linkup_Finance.Forms
             CellStyle style;
             DataTable dataTable;
             string styleName, sheetName, name, xlsLocation;
+            bool includeVat = vatRadioButton.Checked;
 
             if (dataComboBox.Text == "Balance Sheet")
             {
@@ -964,8 +952,11 @@ namespace Linkup_Finance.Forms
                 
                 dataTable.Rows.Add(" ", " ", " ", " ", "Input Withholding", GetTotalWithholding(projectForm.incomeTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", " ", "Output Withholding", GetTotalWithholding(projectForm.expenseTableAdapter.GetData()));
-                dataTable.Rows.Add(" ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
-                dataTable.Rows.Add(" ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
+                if (includeVat)
+                {
+                    dataTable.Rows.Add(" ", " ", " ", " ", "Input Vat", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
+                    dataTable.Rows.Add(" ", " ", " ", " ", "Output Vat", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
+                }
                 dataTable.Rows.Add(" ", " ", " ", " ", "Income Tax(35%)", tax);
                 dataTable.Rows.Add(" ", " ", " ", " ", "Total", total);
             }
@@ -986,8 +977,9 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
-                dataTable.Rows.Add(" ", " ", " ", " ", "Withholding", GetTotalWithholding(projectForm.incomeTableAdapter.GetData()));
-                dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", "Withholding", GetTotalWithholding(projectForm.incomeTableAdapter.GetData()));
+                if(includeVat)
+                    dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.incomeTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", "Total", total);
             }
             else if(dataComboBox.Text == "Expense Sheet")
@@ -1008,8 +1000,10 @@ namespace Linkup_Finance.Forms
                     total += decimal.Parse(item[4]);
                 }
 
-                dataTable.Rows.Add(" ", " ", " ", " ", "Withholding", GetTotalWithholding(projectForm.expenseTableAdapter.GetData()));
-                dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
+                dataTable.Rows.Add(" ", " ", " ", "Withholding", GetTotalWithholding(projectForm.expenseTableAdapter.GetData()));
+
+                if(includeVat)
+                    dataTable.Rows.Add(" ", " ", " ", "VAT", projectForm.GetTotalVat(projectForm.expenseTableAdapter.GetData()));
                 dataTable.Rows.Add(" ", " ", " ", "Total", total);
             }
             else
@@ -1251,7 +1245,7 @@ namespace Linkup_Finance.Forms
                                                   dataTables[j].Rows[i].ItemArray[7].ToString(),
                                                   dataTables[j].Rows[i].ItemArray[6].ToString(),
                                                   dataTables[j].Rows[i].ItemArray[13].ToString(),
-                                                  dataTables[j].Rows[i].ItemArray[2].ToString() };
+                                                  dataTables[j].Rows[i].ItemArray[10].ToString() };
 
                                     dataSource.Add(item);
                                 }
@@ -1265,7 +1259,7 @@ namespace Linkup_Finance.Forms
                                                       dataTables[j].Rows[i].ItemArray[7].ToString(),
                                                       dataTables[j].Rows[i].ItemArray[6].ToString(),
                                                       dataTables[j].Rows[i].ItemArray[13].ToString(),
-                                                      dataTables[j].Rows[i].ItemArray[2].ToString() };
+                                                      dataTables[j].Rows[i].ItemArray[10].ToString() };
 
                                         dataSource.Add(item);
                                     }

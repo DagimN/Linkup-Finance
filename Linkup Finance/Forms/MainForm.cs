@@ -8,7 +8,6 @@ using static System.IO.Directory;
 using static System.IO.Path;
 using static System.Environment;
 using Linkup_Finance.Managers;
-using System.Diagnostics;
 
 namespace Linkup_Finance
 {

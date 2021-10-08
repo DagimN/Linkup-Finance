@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Linkup_Finance.Managers
@@ -226,10 +220,10 @@ namespace Linkup_Finance.Managers
                     command.Parameters.AddWithValue("@Payer", name);
                     command.Parameters.AddWithValue("@Reason", reason);
                     command.Parameters.AddWithValue("@Bank", bank);
-                    command.Parameters.AddWithValue("@Gross", gross);
+                    command.Parameters.AddWithValue("@Gross", net);
                     command.Parameters.AddWithValue("@VAT", vat);
                     command.Parameters.AddWithValue("@Withholding", withholding);
-                    command.Parameters.AddWithValue("@Net", net);
+                    command.Parameters.AddWithValue("@Net", gross);
                     command.Parameters.AddWithValue("@Receipt", hasReceipt);
                     command.Parameters.AddWithValue("@Date", date);
                     command.Parameters.AddWithValue("@Project", project);
@@ -292,14 +286,14 @@ namespace Linkup_Finance.Managers
                     SqlCommand command = new SqlCommand(insertQuery, con);
                     command.Parameters.AddWithValue("@ExpName", name);
                     command.Parameters.AddWithValue("@Product", product);
-                    command.Parameters.AddWithValue("@Amount", amount);
+                    command.Parameters.AddWithValue("@Amount", total);
                     command.Parameters.AddWithValue("@Type", type);
                     command.Parameters.AddWithValue("@VAT", vat);
                     command.Parameters.AddWithValue("@Withholding", withholding);
                     command.Parameters.AddWithValue("@Bank", bank);
                     command.Parameters.AddWithValue("@Reason", reason);
                     command.Parameters.AddWithValue("@Date", date);
-                    command.Parameters.AddWithValue("@Total", total);
+                    command.Parameters.AddWithValue("@Total", amount);
                     command.Parameters.AddWithValue("@Project", project);
                     command.Parameters.AddWithValue("@Receipt", hasReceipt);
                     command.Parameters.AddWithValue("@Tin", tin);
@@ -506,10 +500,10 @@ namespace Linkup_Finance.Managers
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Reason", reason);
                     command.Parameters.AddWithValue("@Bank", bank);
-                    command.Parameters.AddWithValue("@Gross", gross);
+                    command.Parameters.AddWithValue("@Gross", net);
                     command.Parameters.AddWithValue("@Vat", vat);
                     command.Parameters.AddWithValue("@Withholding", withholding);
-                    command.Parameters.AddWithValue("@Net", net);
+                    command.Parameters.AddWithValue("@Net", gross);
                     command.Parameters.AddWithValue("@Receipt", hasReceipt);
                     command.Parameters.AddWithValue("@Date", date);
                     command.Parameters.AddWithValue("@Project", this.projectName);
